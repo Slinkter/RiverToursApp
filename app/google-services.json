@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "570775698371",
+    "firebase_url": "https://mydbfirebase-f883c.firebaseio.com",
+    "project_id": "mydbfirebase-f883c",
+    "storage_bucket": "mydbfirebase-f883c.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:570775698371:android:dfdf35b3752a263d",
+        "android_client_info": {
+          "package_name": "com.cudpast.rivertourapp"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "570775698371-00f9is3sqilechk679ooobc14kq82qsu.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.cudpast.rivertourapp",
+            "certificate_hash": "23f8707e8e338799b47b5dba1e9b4cba4054cb68"
+          }
+        },
+        {
+          "client_id": "570775698371-auckj8q2llrq7v44liem81ibu4p4sdkm.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBJ7QD21045MC_fCw47YM4lKA27ykWaFgA"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "570775698371-auckj8q2llrq7v44liem81ibu4p4sdkm.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
