@@ -1,5 +1,6 @@
 package com.cudpast.rivertourapp;
 
+import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Vibrator;
@@ -29,13 +30,14 @@ import retrofit2.Response;
 public class RegisterActivity extends AppCompatActivity {
 
     FirebaseAuth mAuth;
-    EditText newName, newLast, newPhone, newEmail, newPassword;
+    EditText newName, newLast, newDNI, newPhone, newEmail, newPassword;
     Button btnNewUser, btnNewReturn;
 
     private Vibrator vibrator;
     private Animation animation;
 
     private ApiInterface apiInterface;
+    ProgressDialog progressDialog;
 
 
     @Override
@@ -51,6 +53,7 @@ public class RegisterActivity extends AppCompatActivity {
         //
         newName = findViewById(R.id.newName);
         newLast = findViewById(R.id.newLast);
+        newDNI = findViewById(R.id.newDNI);
         newPhone = findViewById(R.id.newPhone);
         newEmail = findViewById(R.id.newEmail);
         newPassword = findViewById(R.id.newPassword);
@@ -60,7 +63,7 @@ public class RegisterActivity extends AppCompatActivity {
         btnNewUser.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
+                progressDialog.show();
                 if (newform()) {
                     Log.e("newForn()", "validacion ok ");
                     createNewUser();
@@ -74,6 +77,9 @@ public class RegisterActivity extends AppCompatActivity {
                 goToLogin();
             }
         });
+
+        progressDialog = new ProgressDialog(this);
+        progressDialog.setMessage("Please wait...");
     }
 
     private void createNewUser() {
@@ -84,6 +90,7 @@ public class RegisterActivity extends AppCompatActivity {
                 .addOnSuccessListener(new OnSuccessListener<AuthResult>() {
                     @Override
                     public void onSuccess(AuthResult authResult) {
+
                         Log.e("mAuth", " registro ok ");
                         String UID = authResult.getUser().getUid();
                         insertServerRegister(UID);
@@ -93,6 +100,7 @@ public class RegisterActivity extends AppCompatActivity {
                 .addOnFailureListener(new OnFailureListener() {
                     @Override
                     public void onFailure(@NonNull Exception e) {
+                        progressDialog.dismiss();
                         Log.e("mAuth", " registro error ");
                         Toast.makeText(RegisterActivity.this, "Error crear usuario", Toast.LENGTH_SHORT).show();
                     }
@@ -105,7 +113,7 @@ public class RegisterActivity extends AppCompatActivity {
 
         String firstname = newName.getText().toString();
         String lastname = newLast.getText().toString();
-        String dni = newPhone.getText().toString();
+        String dni = newDNI.getText().toString();
         String correo = newEmail.getText().toString();
         String numphone = newPhone.getText().toString();
 
@@ -115,19 +123,19 @@ public class RegisterActivity extends AppCompatActivity {
             @Override
             public void onResponse(Call<User> call, Response<User> response) {
 
-                Log.e(" response" , " " + response .message());
-                Log.e(" response" , " " + response.toString());
-                Log.e(" response" , " " + response.code());
+                Log.e(" response", " " + response.message());
+                Log.e(" response", " " + response.toString());
+                Log.e(" response", " " + response.code());
                 if (response.isSuccessful() && response.body() != null) {
                     Boolean success = response.body().getSuccess();
-
-
                     if (success) {
+                        progressDialog.dismiss();
+                        goToLogin();
                         Log.e("remoteBD", " onResponse : Success");
                         Toast.makeText(RegisterActivity.this, response.body().getMessage(), Toast.LENGTH_SHORT).show();
-                        finish();
                         Log.e("TAG", " response =  " + response.body().getMessage());
                     } else {
+                        progressDialog.dismiss();
                         Log.e("remoteBD", " onResponse : fail");
                         Toast.makeText(RegisterActivity.this, response.body().getMessage(), Toast.LENGTH_SHORT).show();
                         Log.e("TAG", " response =  " + response.body().getMessage());
@@ -137,8 +145,9 @@ public class RegisterActivity extends AppCompatActivity {
 
             @Override
             public void onFailure(Call<User> call, Throwable t) {
+                progressDialog.dismiss();
                 Toast.makeText(RegisterActivity.this, t.getLocalizedMessage(), Toast.LENGTH_SHORT).show();
-                Log.e("remoteBD", " onResponse : fail" + t.toString()  +"\n " + t.getCause() ) ;
+                Log.e("remoteBD", " onResponse : fail" + t.toString() + "\n " + t.getCause());
                 Log.e("remoteBD", " onResponse : fail");
                 Log.e("onFailure", " response =  " + t.getMessage());
 
