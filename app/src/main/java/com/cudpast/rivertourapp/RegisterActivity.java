@@ -6,6 +6,7 @@ import android.os.Vibrator;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
@@ -13,10 +14,17 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import com.cudpast.rivertourapp.Helper.ApiInterface;
+import com.cudpast.rivertourapp.Helper.ApiRetrofit;
+import com.cudpast.rivertourapp.Model.User;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
+
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 public class RegisterActivity extends AppCompatActivity {
 
@@ -26,6 +34,8 @@ public class RegisterActivity extends AppCompatActivity {
 
     private Vibrator vibrator;
     private Animation animation;
+
+    private ApiInterface apiInterface;
 
 
     @Override
@@ -52,6 +62,7 @@ public class RegisterActivity extends AppCompatActivity {
             public void onClick(View v) {
 
                 if (newform()) {
+                    Log.e("newForn()", "validacion ok ");
                     createNewUser();
                 }
 
@@ -73,18 +84,66 @@ public class RegisterActivity extends AppCompatActivity {
                 .addOnSuccessListener(new OnSuccessListener<AuthResult>() {
                     @Override
                     public void onSuccess(AuthResult authResult) {
+                        Log.e("mAuth", " registro ok ");
                         String UID = authResult.getUser().getUid();
+                        insertServerRegister(UID);
                         Toast.makeText(RegisterActivity.this, "Usuario creado", Toast.LENGTH_SHORT).show();
                     }
                 })
                 .addOnFailureListener(new OnFailureListener() {
                     @Override
                     public void onFailure(@NonNull Exception e) {
+                        Log.e("mAuth", " registro error ");
                         Toast.makeText(RegisterActivity.this, "Error crear usuario", Toast.LENGTH_SHORT).show();
                     }
                 })
         ;
 
+    }
+
+    private void insertServerRegister(String uid) {
+
+        String firstname = newName.getText().toString();
+        String lastname = newLast.getText().toString();
+        String dni = newPhone.getText().toString();
+        String correo = newEmail.getText().toString();
+        String numphone = newPhone.getText().toString();
+
+        apiInterface = ApiRetrofit.getApiRetrofitConexion().create(ApiInterface.class);
+        Call<User> userInsert = apiInterface.insertUser(firstname, lastname, dni, correo, numphone, uid);
+        userInsert.enqueue(new Callback<User>() {
+            @Override
+            public void onResponse(Call<User> call, Response<User> response) {
+
+                Log.e(" response" , " " + response .message());
+                Log.e(" response" , " " + response.toString());
+                Log.e(" response" , " " + response.code());
+                if (response.isSuccessful() && response.body() != null) {
+                    Boolean success = response.body().getSuccess();
+
+
+                    if (success) {
+                        Log.e("remoteBD", " onResponse : Success");
+                        Toast.makeText(RegisterActivity.this, response.body().getMessage(), Toast.LENGTH_SHORT).show();
+                        finish();
+                        Log.e("TAG", " response =  " + response.body().getMessage());
+                    } else {
+                        Log.e("remoteBD", " onResponse : fail");
+                        Toast.makeText(RegisterActivity.this, response.body().getMessage(), Toast.LENGTH_SHORT).show();
+                        Log.e("TAG", " response =  " + response.body().getMessage());
+                    }
+                }
+            }
+
+            @Override
+            public void onFailure(Call<User> call, Throwable t) {
+                Toast.makeText(RegisterActivity.this, t.getLocalizedMessage(), Toast.LENGTH_SHORT).show();
+                Log.e("remoteBD", " onResponse : fail" + t.toString()  +"\n " + t.getCause() ) ;
+                Log.e("remoteBD", " onResponse : fail");
+                Log.e("onFailure", " response =  " + t.getMessage());
+
+            }
+        });
     }
 
     private boolean newform() {
