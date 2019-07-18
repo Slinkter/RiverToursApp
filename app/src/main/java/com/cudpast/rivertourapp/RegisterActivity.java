@@ -128,6 +128,7 @@ public class RegisterActivity extends AppCompatActivity {
                 Log.e(" response", " " + response.code());
                 if (response.isSuccessful() && response.body() != null) {
                     Boolean success = response.body().getSuccess();
+
                     if (success) {
                         progressDialog.dismiss();
                         goToLogin();

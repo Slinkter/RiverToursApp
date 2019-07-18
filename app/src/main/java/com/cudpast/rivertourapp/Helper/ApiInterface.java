@@ -18,4 +18,9 @@ public interface ApiInterface {
             @Query("correo") String correo,
             @Query("numphone") String numphone,
             @Query("uid") String uid);
+
+
+    @Headers("Content-Type: application/json")
+    @GET("loadUserRiver.php")
+    Call<User> getUser(@Query("uid") String uid);
 }
