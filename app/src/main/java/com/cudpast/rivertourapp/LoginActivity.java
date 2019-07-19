@@ -13,6 +13,7 @@ import android.widget.Toast;
 
 import com.cudpast.rivertourapp.Helper.ApiInterface;
 import com.cudpast.rivertourapp.Helper.ApiRetrofit;
+import com.cudpast.rivertourapp.Helper.Common;
 import com.cudpast.rivertourapp.Model.User;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
@@ -90,7 +91,7 @@ public class LoginActivity extends AppCompatActivity {
 
     }
 
-    private void obtenerUsuario(String uid) {
+    private void obtenerUsuario(final String uid) {
         Log.e("3"," uid = " + uid);
         apiInterface = ApiRetrofit.getApiRetrofitConexion().create(ApiInterface.class);
         Call<User> getUser = apiInterface.getUser(uid);
@@ -113,6 +114,18 @@ public class LoginActivity extends AppCompatActivity {
                         Log.e("obtenerUsuario", " response.body().getMessage() = " + response.body().getLastname());
                         Log.e("obtenerUsuario", " response.body().getMessage() = " + response.body().getDni());
                         Log.e("obtenerUsuario", " response.body().getMessage() = " + response.body().getCorreo());
+                        Log.e("obtenerUsuario", " response.body().getMessage() = " + response.body().getNumphone());
+                        User user = new User();
+                        user.setFirstname(response.body().getFirstname());
+                        user.setLastname(response.body().getLastname());
+                        user.setDni(response.body().getDni());
+                        user.setCorreo(response.body().getCorreo());
+                        user.setNumphone(response.body().getNumphone());
+                        user.setUid(uid);
+                        Common.user = user;
+                        Intent intent = new Intent(LoginActivity.this,MainActivity.class);
+                        startActivity(intent);
+                        finish();
                         Toast.makeText(LoginActivity.this, response.body().getMessage(), Toast.LENGTH_SHORT).show();
 
                     } else {

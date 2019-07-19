@@ -1,16 +1,50 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:layout_marginLeft="25dp"
+    android:layout_marginRight="25dp"
     android:gravity="center"
     android:orientation="vertical"
     tools:context=".MainActivity">
 
-    <TextView
-        android:layout_width="wrap_content"
+
+    <Button
+        android:layout_width="250dp"
         android:layout_height="wrap_content"
-        android:text="Main Activity" />
+        android:layout_marginTop="15dp"
+        android:onClick="newManifiesto"
+        android:text="Crear Manifiesto" />
+
+    <Button
+        android:layout_width="250dp"
+        android:layout_height="wrap_content"
+        android:onClick="newChofer"
+        android:text="Registar Chofer" />
+
+    <Button
+        android:layout_width="250dp"
+        android:layout_height="wrap_content"
+        android:onClick="newVehiculo"
+        android:text="Registar vehiculo" />
+
+    <Button
+        android:layout_width="250dp"
+        android:layout_height="wrap_content"
+        android:onClick="reviewManifiesto"
+        android:text="Consultar Manifiesto " />
+
+    <Button
+        android:layout_width="250dp"
+        android:layout_height="wrap_content"
+        android:onClick="reviewChofer"
+        android:text="Consultar lista de Chofer" />
+
+    <Button
+        android:layout_width="250dp"
+        android:layout_height="wrap_content"
+        android:onClick="reviewVehiculo"
+        android:text="Consultar lista de Vehiculos" />
 
 </LinearLayout>
