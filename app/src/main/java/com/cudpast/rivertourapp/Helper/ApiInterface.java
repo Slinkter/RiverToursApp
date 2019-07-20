@@ -11,6 +11,10 @@ import retrofit2.http.Query;
 public interface ApiInterface {
 
     @Headers("Content-Type: application/json")
+
+
+    //Metodos  de 9009Webhost
+
     @GET("saveUserRiver.php")
     Call<User> insertUser(
             @Query("firstname") String firstname,
@@ -21,20 +25,16 @@ public interface ApiInterface {
             @Query("uid") String uid);
 
 
-    @Headers("Content-Type: application/json")
     @GET("loadUserRiver.php")
     Call<User> getUser(@Query("uid") String uid);
 
     @GET("saveChoferRiver.php")
     Call<Chofer> insertChofer(
-            @Query("firstname") String firstname,
-            @Query("lastname") String lastname,
-            @Query("dni") String dni,
+            @Query("nameChofer") String nameChofer,
+            @Query("lastChofer") String lastChofer,
+            @Query("dniChofer") String dniChofer,
             @Query("brevete") String brevete,
             @Query("numphone") String numphone);
-
-
-
 
 
 }

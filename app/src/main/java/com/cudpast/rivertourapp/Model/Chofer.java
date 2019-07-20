@@ -20,6 +20,9 @@ public class Chofer {
     @Expose
     @SerializedName("brevete")
     private String brevete;
+    @Expose
+    @SerializedName("numphone")
+    private String numphone;
 
     @Expose
     @SerializedName("success")
@@ -31,6 +34,7 @@ public class Chofer {
     public Chofer() {
 
     }
+
 
     public String getId() {
         return id;
@@ -70,6 +74,14 @@ public class Chofer {
 
     public void setBrevete(String brevete) {
         this.brevete = brevete;
+    }
+
+    public String getNumphone() {
+        return numphone;
+    }
+
+    public void setNumphone(String numphone) {
+        this.numphone = numphone;
     }
 
     public Boolean getSuccess() {
