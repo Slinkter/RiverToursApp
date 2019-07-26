@@ -9,6 +9,8 @@
     tools:context=".Business.NewChoferActivity">
 
     <LinearLayout
+        android:layout_marginTop="@dimen/distform"
+        android:layout_marginBottom="@dimen/distform"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:gravity="center"

@@ -11,12 +11,10 @@ import android.widget.EditText;
 import android.widget.Toast;
 
 import com.cudpast.rivertourapp.Helper.ApiInterface;
-import com.cudpast.rivertourapp.Helper.ApiRetrofit;
+import com.cudpast.rivertourapp.Helper.ApiService;
 import com.cudpast.rivertourapp.MainActivity;
 import com.cudpast.rivertourapp.Model.Chofer;
-import com.cudpast.rivertourapp.Model.User;
 import com.cudpast.rivertourapp.R;
-import com.cudpast.rivertourapp.RegisterActivity;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -49,16 +47,15 @@ public class NewChoferActivity extends AppCompatActivity {
         btnNewChofer.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+
                 insertServerChofer();
-                Toast.makeText(NewChoferActivity.this, "HOla", Toast.LENGTH_SHORT).show();
+
             }
         });
         btnSalirDoctor.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(NewChoferActivity.this, MainActivity.class);
-                startActivity(intent);
-                finish();
+               gotoMain();
             }
         });
 
@@ -70,14 +67,14 @@ public class NewChoferActivity extends AppCompatActivity {
 
 
     private void insertServerChofer() {
-
+        progressDialog.show();
         String firstname = newNameChofer.getText().toString();
         String lastname = newLastChofer.getText().toString();
         String dni = newDNIChofer.getText().toString();
         String brevete = newBreveChofer.getText().toString();
         String numphone = newPhoneChofer.getText().toString();
 
-        apiInterface = ApiRetrofit.getApiRetrofitConexion().create(ApiInterface.class);
+        apiInterface = ApiService.getApiRetrofitConexion().create(ApiInterface.class);
         Call<Chofer> userInsert = apiInterface.insertChofer(firstname, lastname, dni, brevete, numphone);
         userInsert.enqueue(new Callback<Chofer>() {
             @Override
@@ -90,9 +87,11 @@ public class NewChoferActivity extends AppCompatActivity {
                     Boolean success = response.body().getSuccess();
 
                     if (success) {
+                        gotoMain();
                         progressDialog.dismiss();
                         Log.e("remoteBD", " onResponse : Success");
-                        Toast.makeText(NewChoferActivity.this, response.body().getMessage(), Toast.LENGTH_SHORT).show();
+                        Toast.makeText(NewChoferActivity.this, "Chofer registrado", Toast.LENGTH_SHORT).show();
+
                         Log.e("TAG", " response =  " + response.body().getMessage());
                     } else {
                         progressDialog.dismiss();
@@ -114,4 +113,11 @@ public class NewChoferActivity extends AppCompatActivity {
             }
         });
     }
+
+    private void gotoMain(){
+        Intent intent = new Intent(NewChoferActivity.this, MainActivity.class);
+        startActivity(intent);
+        finish();
+    }
+
 }

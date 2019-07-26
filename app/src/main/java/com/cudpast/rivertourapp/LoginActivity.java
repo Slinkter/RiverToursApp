@@ -12,7 +12,7 @@ import android.widget.EditText;
 import android.widget.Toast;
 
 import com.cudpast.rivertourapp.Helper.ApiInterface;
-import com.cudpast.rivertourapp.Helper.ApiRetrofit;
+import com.cudpast.rivertourapp.Helper.ApiService;
 import com.cudpast.rivertourapp.Helper.Common;
 import com.cudpast.rivertourapp.Model.User;
 import com.google.android.gms.tasks.OnFailureListener;
@@ -93,7 +93,7 @@ public class LoginActivity extends AppCompatActivity {
 
     private void obtenerUsuario(final String uid) {
         Log.e("3"," uid = " + uid);
-        apiInterface = ApiRetrofit.getApiRetrofitConexion().create(ApiInterface.class);
+        apiInterface = ApiService.getApiRetrofitConexion().create(ApiInterface.class);
         Call<User> getUser = apiInterface.getUser(uid);
         getUser.enqueue(new Callback<User>() {
             @Override

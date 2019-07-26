@@ -1,7 +1,10 @@
 package com.cudpast.rivertourapp.Helper;
 
 import com.cudpast.rivertourapp.Model.Chofer;
+import com.cudpast.rivertourapp.Model.ChoferList;
 import com.cudpast.rivertourapp.Model.User;
+
+import java.util.List;
 
 import retrofit2.Call;
 import retrofit2.http.GET;
@@ -11,9 +14,6 @@ import retrofit2.http.Query;
 public interface ApiInterface {
 
     @Headers("Content-Type: application/json")
-
-
-    //Metodos  de 9009Webhost
 
     @GET("saveUserRiver.php")
     Call<User> insertUser(
@@ -35,6 +35,9 @@ public interface ApiInterface {
             @Query("dniChofer") String dniChofer,
             @Query("brevete") String brevete,
             @Query("numphone") String numphone);
+
+    @GET("loadChoferRiver.php")
+    Call<List<Chofer>> getListChofer();
 
 
 }

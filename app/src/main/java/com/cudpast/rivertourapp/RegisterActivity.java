@@ -16,7 +16,7 @@ import android.widget.EditText;
 import android.widget.Toast;
 
 import com.cudpast.rivertourapp.Helper.ApiInterface;
-import com.cudpast.rivertourapp.Helper.ApiRetrofit;
+import com.cudpast.rivertourapp.Helper.ApiService;
 import com.cudpast.rivertourapp.Model.User;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
@@ -117,7 +117,7 @@ public class RegisterActivity extends AppCompatActivity {
         String correo = newEmail.getText().toString();
         String numphone = newPhone.getText().toString();
 
-        apiInterface = ApiRetrofit.getApiRetrofitConexion().create(ApiInterface.class);
+        apiInterface = ApiService.getApiRetrofitConexion().create(ApiInterface.class);
         Call<User> userInsert = apiInterface.insertUser(firstname, lastname, dni, correo, numphone, uid);
         userInsert.enqueue(new Callback<User>() {
             @Override

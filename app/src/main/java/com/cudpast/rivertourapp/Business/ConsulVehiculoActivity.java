@@ -10,6 +10,8 @@ public class ConsulVehiculoActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        getSupportActionBar().hide();
         setContentView(R.layout.activity_consul_vehiculo);
+
     }
 }
