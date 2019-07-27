@@ -5,8 +5,16 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    android:padding="20sp"
+    android:gravity="center"
+    android:padding="5sp"
     tools:context=".Business.ConsulChoferActivity">
+
+    <TextView
+        android:textStyle="bold"
+        android:textSize="25dp"
+        android:text="Lista de Choferes"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
 
     <android.support.v7.widget.RecyclerView
         android:id="@+id/recycler_view"

@@ -30,11 +30,11 @@ public class ChoferAdapter extends RecyclerView.Adapter<ChoferAdapter.CustomView
     @Override
     public void onBindViewHolder(@NonNull CustomViewHolder holder, int position) {
         Chofer chofer = chofers.get(position);
-        holder.nameChofer.setText(chofer.getNameChofer());
-        holder.lastChofer.setText(chofer.getLastChofer());
-        holder.dniChofer.setText(chofer.getDniChofer());
-        holder.brevete.setText(chofer.getBrevete());
-        holder.numphone.setText(chofer.getNumphone());
+        holder.nameChofer.setText(chofer.getNameChofer() + " " + chofer.getLastChofer());
+        holder.lastChofer.setText("2019");
+        holder.dniChofer.setText("DNI : " + chofer.getDniChofer());
+        holder.brevete.setText("Brevete : " + chofer.getBrevete());
+        holder.numphone.setText("Celular  : " + chofer.getNumphone());
     }
 
     @Override

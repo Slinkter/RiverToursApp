@@ -3,6 +3,8 @@ package com.cudpast.rivertourapp.Business;
 import android.app.ProgressDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.widget.DefaultItemAnimator;
+import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.widget.ListView;
@@ -53,27 +55,41 @@ public class ConsulChoferActivity extends AppCompatActivity {
 
     }
 
+    // Obtener la lista de choferes desde remote DB
     private void obtenerListaChofer() {
-        Log.e("3", " uid = ");
+
         apiInterface = ApiService.getApiRetrofitConexion().create(ApiInterface.class);
         Call<List<Chofer>> getListaChofer = apiInterface.getListChofer();
         getListaChofer.enqueue(new Callback<List<Chofer>>() {
             @Override
             public void onResponse(Call<List<Chofer>> call, Response<List<Chofer>> response) {
-                List<Chofer> students = response.body();
-                Log.e(TAG, "students List  " + students);
-                for (int i = 0; i < students.size(); i++) {
-                    String name = students.get(i).getNameChofer();
-                    String last = students.get(i).getLastChofer();
-                    String dni = students.get(i).getDniChofer();
-                    String brevete = students.get(i).getBrevete();
-                    String num = students.get(i).getNumphone();
-                    String cadena =" " +"\n" + " name " + name + "\n" + " last " + last + "\n" + " dni " + dni + "\n" + " brevete " + brevete + "\n" + " num " + num + "\n";
+                if (response.isSuccessful()) {
 
-
-                    Log.e(TAG, "==== Chofer Nº" + i + " ======");
-                    Log.e(TAG, cadena);
+                    List<Chofer> students = response.body();
+                    recyclerView = findViewById(R.id.recycler_view);
+                    cAdapter = new ChoferAdapter(students);
+                    RecyclerView.LayoutManager eLayoutManager = new LinearLayoutManager(getApplicationContext());
+                    recyclerView.setLayoutManager(eLayoutManager);
+                    recyclerView.setItemAnimator(new DefaultItemAnimator());
+                    recyclerView.setAdapter(cAdapter);
+                    for (int i = 0; i < students.size(); i++) {
+                        String name = students.get(i).getNameChofer();
+                        String last = students.get(i).getLastChofer();
+                        String dni = students.get(i).getDniChofer();
+                        String brevete = students.get(i).getBrevete();
+                        String num = students.get(i).getNumphone();
+                        String cadena = " " + "\n"
+                                + " name : " + name + "\n"
+                                + " last : " + last + "\n"
+                                + " dni : " + dni + "\n"
+                                + " brevete : " + brevete + "\n"
+                                + " num : " + num + "\n";
+                        Log.e(TAG, "==== Chofer Nº" + i + " ======");
+                        Log.e(TAG, cadena);
+                    }
                 }
+
+
             }
 
             @Override
@@ -81,9 +97,6 @@ public class ConsulChoferActivity extends AppCompatActivity {
                 Log.e(TAG, " error onFailure " + t.getMessage());
             }
         });
-
-
     }
-
 
 }
