@@ -44,13 +44,13 @@ public class ConsulChoferActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         getSupportActionBar().hide();
         setContentView(R.layout.activity_consul_chofer);
-        /*
+
         pDialog = new ProgressDialog(ConsulChoferActivity.this);
         pDialog.setMessage("Loading Data.. Please wait...");
         pDialog.setIndeterminate(false);
         pDialog.setCancelable(false);
         pDialog.show();
-        */
+
         obtenerListaChofer();
 
     }
@@ -64,7 +64,7 @@ public class ConsulChoferActivity extends AppCompatActivity {
             @Override
             public void onResponse(Call<List<Chofer>> call, Response<List<Chofer>> response) {
                 if (response.isSuccessful()) {
-
+                    pDialog.dismiss();
                     List<Chofer> students = response.body();
                     recyclerView = findViewById(R.id.recycler_view);
                     cAdapter = new ChoferAdapter(students);
@@ -94,6 +94,7 @@ public class ConsulChoferActivity extends AppCompatActivity {
 
             @Override
             public void onFailure(Call<List<Chofer>> call, Throwable t) {
+                pDialog.dismiss();
                 Log.e(TAG, " error onFailure " + t.getMessage());
             }
         });
