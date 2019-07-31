@@ -3,6 +3,7 @@ package com.cudpast.rivertourapp.Helper;
 import com.cudpast.rivertourapp.Model.Chofer;
 import com.cudpast.rivertourapp.Model.ChoferList;
 import com.cudpast.rivertourapp.Model.User;
+import com.cudpast.rivertourapp.Model.Vehiculo;
 
 import java.util.List;
 
@@ -27,7 +28,7 @@ public interface ApiInterface {
 
     @GET("loadUserRiver.php")
     Call<User> getUser(@Query("uid") String uid);
-
+    ////////////////////////////
     @GET("saveChoferRiver.php")
     Call<Chofer> insertChofer(
             @Query("nameChofer") String nameChofer,
@@ -38,6 +39,18 @@ public interface ApiInterface {
 
     @GET("loadChoferRiver.php")
     Call<List<Chofer>> getListChofer();
+
+    ///////////////////////////
+
+    @GET("saveVehiculoRiver.php")
+    Call<Vehiculo> insertVehiculo(
+            @Query("nombreVehiculo") String nombreVehiculo,
+            @Query("marcaVehiculo") String marcaVehiculo,
+            @Query("matriculaVehiculo") String matriculaVehiculo,
+            @Query("placaVehiculo") String placaVehiculo);
+
+    @GET("loadVehiculoRiver.php")
+    Call<List<Chofer>> getListVehiculo();
 
 
 }

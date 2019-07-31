@@ -1,13 +1,22 @@
 package com.cudpast.rivertourapp.Model;
 
+import com.google.gson.annotations.Expose;
+import com.google.gson.annotations.SerializedName;
+
 public class Vehiculo {
 
     private String id;
-    private String vehiculo;
-    private String placa;
-    private String matricula;
-    private String marca;
-    private String year;
+    private String nombrevehiculo;
+    private String marcaVehiculo;
+    private String matriculoVehiculo;
+    private String placaVehiculo;
+
+    @Expose
+    @SerializedName("success")
+    private Boolean success;
+    @Expose
+    @SerializedName("message")
+    private String message;
 
     public Vehiculo() {
     }
@@ -20,43 +29,51 @@ public class Vehiculo {
         this.id = id;
     }
 
-    public String getVehiculo() {
-        return vehiculo;
+    public String getNombrevehiculo() {
+        return nombrevehiculo;
     }
 
-    public void setVehiculo(String vehiculo) {
-        this.vehiculo = vehiculo;
+    public void setNombrevehiculo(String nombrevehiculo) {
+        this.nombrevehiculo = nombrevehiculo;
     }
 
-    public String getPlaca() {
-        return placa;
+    public String getMarcaVehiculo() {
+        return marcaVehiculo;
     }
 
-    public void setPlaca(String placa) {
-        this.placa = placa;
+    public void setMarcaVehiculo(String marcaVehiculo) {
+        this.marcaVehiculo = marcaVehiculo;
     }
 
-    public String getMatricula() {
-        return matricula;
+    public String getMatriculoVehiculo() {
+        return matriculoVehiculo;
     }
 
-    public void setMatricula(String matricula) {
-        this.matricula = matricula;
+    public void setMatriculoVehiculo(String matriculoVehiculo) {
+        this.matriculoVehiculo = matriculoVehiculo;
     }
 
-    public String getMarca() {
-        return marca;
+    public String getPlacaVehiculo() {
+        return placaVehiculo;
     }
 
-    public void setMarca(String marca) {
-        this.marca = marca;
+    public void setPlacaVehiculo(String placaVehiculo) {
+        this.placaVehiculo = placaVehiculo;
     }
 
-    public String getYear() {
-        return year;
+    public Boolean getSuccess() {
+        return success;
     }
 
-    public void setYear(String year) {
-        this.year = year;
+    public void setSuccess(Boolean success) {
+        this.success = success;
+    }
+
+    public String getMessage() {
+        return message;
+    }
+
+    public void setMessage(String message) {
+        this.message = message;
     }
 }

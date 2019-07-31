@@ -14,7 +14,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="15dp"
         android:onClick="newManifiesto"
-        android:text="Crear Manifiesto" />
+        android:text="Registar Manifiesto" />
 
     <Button
         android:layout_width="250dp"
@@ -32,7 +32,7 @@
         android:layout_width="250dp"
         android:layout_height="wrap_content"
         android:onClick="reviewManifiesto"
-        android:text="Consultar Manifiesto " />
+        android:text="Consultar Lista de Manifiesto " />
 
     <Button
         android:layout_width="250dp"
