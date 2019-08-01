@@ -28,7 +28,7 @@ public class ConsulVehiculoActivity extends AppCompatActivity {
     private RecyclerView recyclerView;
     private vehiculoAdapter vAdapter;
 
-    public static final String TAG = "CONSULTACHOFER";
+    public static final String TAG = "CONSULTA_VEHICULO";
 
     private ApiInterface apiInterface;
     ProgressDialog progressDialog;
