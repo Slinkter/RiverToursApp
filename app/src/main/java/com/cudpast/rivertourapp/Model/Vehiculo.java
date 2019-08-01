@@ -5,10 +5,20 @@ import com.google.gson.annotations.SerializedName;
 
 public class Vehiculo {
 
+    @Expose
+    @SerializedName("id")
     private String id;
+    @Expose
+    @SerializedName("nombrevehiculo")
     private String nombrevehiculo;
+    @Expose
+    @SerializedName("marcaVehiculo")
     private String marcaVehiculo;
+    @Expose
+    @SerializedName("matriculoVehiculo")
     private String matriculoVehiculo;
+    @Expose
+    @SerializedName("placaVehiculo")
     private String placaVehiculo;
 
     @Expose

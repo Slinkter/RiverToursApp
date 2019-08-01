@@ -8,13 +8,11 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.widget.ListView;
-import android.widget.Toast;
 
 import com.cudpast.rivertourapp.Helper.ApiInterface;
 import com.cudpast.rivertourapp.Helper.ApiService;
 import com.cudpast.rivertourapp.Model.Chofer;
-import com.cudpast.rivertourapp.Model.ChoferAdapter;
-import com.cudpast.rivertourapp.Model.ChoferList;
+import com.cudpast.rivertourapp.Adapter.ChoferAdapter;
 import com.cudpast.rivertourapp.R;
 
 import java.util.ArrayList;
@@ -66,7 +64,7 @@ public class ConsulChoferActivity extends AppCompatActivity {
                 if (response.isSuccessful()) {
                     pDialog.dismiss();
                     List<Chofer> students = response.body();
-                    recyclerView = findViewById(R.id.recycler_view);
+                    recyclerView = findViewById(R.id.recycler_view_chofer);
                     cAdapter = new ChoferAdapter(students);
                     RecyclerView.LayoutManager eLayoutManager = new LinearLayoutManager(getApplicationContext());
                     recyclerView.setLayoutManager(eLayoutManager);

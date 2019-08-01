@@ -1,4 +1,4 @@
-package com.cudpast.rivertourapp.Model;
+package com.cudpast.rivertourapp.Adapter;
 
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
@@ -7,6 +7,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
+import com.cudpast.rivertourapp.Model.Chofer;
 import com.cudpast.rivertourapp.R;
 
 import java.util.List;
@@ -49,11 +50,11 @@ public class ChoferAdapter extends RecyclerView.Adapter<ChoferAdapter.CustomView
 
         public CustomViewHolder(@NonNull View view) {
             super(view);
-            nameChofer = (TextView) view.findViewById(R.id.nameChofer);
-            lastChofer = (TextView) view.findViewById(R.id.lastChofer);
-            dniChofer = (TextView) view.findViewById(R.id.dniChofer);
+            nameChofer = (TextView) view.findViewById(R.id.nombreVehiculo);
+            lastChofer = (TextView) view.findViewById(R.id.placaVehiculo);
+            dniChofer = (TextView) view.findViewById(R.id.marcaVehiculo);
             brevete = (TextView) view.findViewById(R.id.brevete);
-            numphone = (TextView) view.findViewById(R.id.numphone);
+            numphone = (TextView) view.findViewById(R.id.matriculaVehiculo);
 
         }
     }

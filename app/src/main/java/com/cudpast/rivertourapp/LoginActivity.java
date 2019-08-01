@@ -68,14 +68,17 @@ public class LoginActivity extends AppCompatActivity {
     }
 
     private void goToMain() {
-        String email = userMail.getText().toString().trim();
-        String pwd = userPassword.getText().toString().trim();
+
+        String email = "luis.j.cueva@gmail.com";
+        String pwd = "MUNDOarsi20";
+        //   String email = userMail.getText().toString().trim();
+        //   String pwd = userPassword.getText().toString().trim();
         mAuth
                 .signInWithEmailAndPassword(email, pwd)
                 .addOnSuccessListener(new OnSuccessListener<AuthResult>() {
                     @Override
                     public void onSuccess(AuthResult authResult) {
-                        Log.e("1","1");
+                        Log.e("1", "1");
                         String uid = authResult.getUser().getUid();
                         obtenerUsuario(uid);
                     }
@@ -83,7 +86,7 @@ public class LoginActivity extends AppCompatActivity {
                 .addOnFailureListener(new OnFailureListener() {
                     @Override
                     public void onFailure(@NonNull Exception e) {
-                        Log.e("2","2");
+                        Log.e("2", "2");
                         Toast.makeText(LoginActivity.this, "Usuario no existe \n o \n  password incorrecto", Toast.LENGTH_SHORT).show();
                         progressDialog.dismiss();
                     }
@@ -92,22 +95,22 @@ public class LoginActivity extends AppCompatActivity {
     }
 
     private void obtenerUsuario(final String uid) {
-        Log.e("3"," uid = " + uid);
+        Log.e("3", " uid = " + uid);
         apiInterface = ApiService.getApiRetrofitConexion().create(ApiInterface.class);
         Call<User> getUser = apiInterface.getUser(uid);
         getUser.enqueue(new Callback<User>() {
             @Override
             public void onResponse(Call<User> call, Response<User> response) {
-                Log.e("4","1");
+                Log.e("4", "1");
                 if (response.isSuccessful() && response.body() != null) {
                     Log.e(" response", " " + response.message());
                     Log.e(" response", " " + response.toString());
                     Log.e(" response", " " + response.code());
                     Boolean success = response.body().getSuccess();
-                    Log.e("5","1");
+                    Log.e("5", "1");
                     if (success) {
                         progressDialog.dismiss();
-                        Log.e("1","1");
+                        Log.e("1", "1");
                         Log.e("obtenerUsuario", " response : Success");
                         Log.e("obtenerUsuario", " response.body().getMessage() = " + response.body().getMessage());
                         Log.e("obtenerUsuario", " response.body().getMessage() = " + response.body().getFirstname());
@@ -123,13 +126,13 @@ public class LoginActivity extends AppCompatActivity {
                         user.setNumphone(response.body().getNumphone());
                         user.setUid(uid);
                         Common.user = user;
-                        Intent intent = new Intent(LoginActivity.this,MainActivity.class);
+                        Intent intent = new Intent(LoginActivity.this, MainActivity.class);
                         startActivity(intent);
                         finish();
                         Toast.makeText(LoginActivity.this, response.body().getMessage(), Toast.LENGTH_SHORT).show();
 
                     } else {
-                        Log.e("6","1");
+                        Log.e("6", "1");
                         progressDialog.dismiss();
                         Log.e("remoteBD", " onResponse : fail");
                         Toast.makeText(LoginActivity.this, response.body().getMessage(), Toast.LENGTH_SHORT).show();
@@ -140,8 +143,8 @@ public class LoginActivity extends AppCompatActivity {
 
             @Override
             public void onFailure(Call<User> call, Throwable t) {
-                Log.e("7","1");
-                Log.e("8","8   " + t.getMessage());
+                Log.e("7", "1");
+                Log.e("8", "8   " + t.getMessage());
                 progressDialog.dismiss();
             }
         });

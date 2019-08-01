@@ -50,7 +50,7 @@ public interface ApiInterface {
             @Query("placaVehiculo") String placaVehiculo);
 
     @GET("loadVehiculoRiver.php")
-    Call<List<Chofer>> getListVehiculo();
+    Call<List<Vehiculo>> getListVehiculo();
 
 
 }
