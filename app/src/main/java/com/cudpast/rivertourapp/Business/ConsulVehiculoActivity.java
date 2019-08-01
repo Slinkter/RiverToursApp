@@ -31,7 +31,7 @@ public class ConsulVehiculoActivity extends AppCompatActivity {
     public static final String TAG = "CONSULTA_VEHICULO";
 
     private ApiInterface apiInterface;
-    ProgressDialog progressDialog;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
