@@ -2,6 +2,7 @@ package com.cudpast.rivertourapp.Business;
 
 import android.app.ProgressDialog;
 import android.content.Intent;
+import android.database.sqlite.SQLiteDatabase;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -16,20 +17,24 @@ import com.cudpast.rivertourapp.MainActivity;
 import com.cudpast.rivertourapp.Model.Chofer;
 import com.cudpast.rivertourapp.Model.Vehiculo;
 import com.cudpast.rivertourapp.R;
+import com.cudpast.rivertourapp.SQLite.ConexionSQLiteHelper;
+import com.cudpast.rivertourapp.SQLite.Utils;
 
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
+
+import static com.cudpast.rivertourapp.SQLite.Utils.db_version;
 
 public class newVehiculoActivity extends AppCompatActivity {
 
     EditText newNombreVehiculo, newMarcaVehiculo, newMatriculaVehiculo, newPlacaVehiculo;
     Button btnNewVehiculo, btnSalirVehiculo;
 
-
-    private ApiInterface apiInterface;
+    ApiInterface apiInterface;
     ProgressDialog progressDialog;
 
+    public static final String TAG = "newVehiculoActivity";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -63,6 +68,31 @@ public class newVehiculoActivity extends AppCompatActivity {
         progressDialog.setMessage("Please wait...");
     }
 
+    private void insertVehiculoSQLite() {
+        String nomV = newNombreVehiculo.getText().toString();
+        String marV = newMarcaVehiculo.getText().toString();
+        String matV = newMatriculaVehiculo.getText().toString();
+        String plaV = newPlacaVehiculo.getText().toString();
+
+
+        //1.Conexion
+        ConexionSQLiteHelper conn = new ConexionSQLiteHelper(this, "bd_usuarios", null, db_version);
+        SQLiteDatabase db = conn.getWritableDatabase();
+        String insert = "INSERT INTO " + Utils.TABLA_VEHICULO + "(" +
+                Utils.CAMPO_ID_VEHICULO + "," +
+                Utils.CAMPO_NOMBRE_VEHICULO + "," +
+                Utils.CAMPO_MARCA_VEHICULO + "," +
+                Utils.CAMPO_MATRICULA_VEHICULO + "," +
+                Utils.CAMPO_PLACA_VEHICULO + ")" +
+                "VALUES (" + nomV + "," + marV + "," + matV + "," + plaV + ")";
+
+        Log.e(TAG,"insert Usuario :" + insert);
+        db.execSQL(insert);
+        db.close();
+
+
+
+    }
 
     private void insertVehiculo() {
         progressDialog.show();

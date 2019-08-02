@@ -17,6 +17,8 @@
         android:layout_height="wrap_content" />
 
     <android.support.v7.widget.RecyclerView
+        android:layout_marginLeft="80dp"
+        android:layout_marginRight="80dp"
         android:id="@+id/recycler_view_chofer"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"

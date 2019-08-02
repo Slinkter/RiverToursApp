@@ -9,21 +9,16 @@
     tools:context=".SplashActivity">
 
 
-    <ImageView
+    <de.hdodenhof.circleimageview.CircleImageView
         android:id="@+id/icon"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="280dp"
+        android:layout_height="280dp"
         android:layout_margin="5dp"
         android:layout_marginTop="30dp"
         android:contentDescription="logo"
-        android:src="@drawable/ic_flattr" />
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="River Tours E.I.R.I"
-        android:textColor="@color/login_form_details"
-        android:textSize="20dp"
-        android:textStyle="bold" />
+        android:src="@drawable/rivertourlogo" />
+
+
 
 </LinearLayout>

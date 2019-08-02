@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <color name="colorPrimary">#F5F5F5</color>
-    <color name="colorPrimaryDark">#BF2716AF</color>
-    <color name="colorAccent">#FF4081</color>
+    <color name="colorPrimaryDark">#22AAF2</color>
+    <color name="colorAccent">#EE1E1B</color>
 
 
 
@@ -40,8 +40,8 @@
     <color name="slide_2">#FFA000</color>
     <color name="slide_3">#C4D30808</color>
 
-    <color name="dark_blue">#3023AE</color>
-    <color name="purple">#c86dd7</color>
+    <color name="dark_blue">#EE1E1B</color>
+    <color name="purple">#22AAF2</color>
 
     <color name="login_form_details">#ccffffff</color>
     <color name="login_form_details_light">#1affffff</color>

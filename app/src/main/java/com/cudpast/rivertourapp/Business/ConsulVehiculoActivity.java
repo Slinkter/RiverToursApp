@@ -23,15 +23,11 @@ import retrofit2.Response;
 
 public class ConsulVehiculoActivity extends AppCompatActivity {
 
-
+    public static final String TAG = "CONSULTA_VEHICULO";
     private ProgressDialog pDialog;
     private RecyclerView recyclerView;
     private vehiculoAdapter vAdapter;
-
-    public static final String TAG = "CONSULTA_VEHICULO";
-
     private ApiInterface apiInterface;
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -39,15 +35,12 @@ public class ConsulVehiculoActivity extends AppCompatActivity {
         getSupportActionBar().hide();
         setContentView(R.layout.activity_consul_vehiculo);
 
-
         pDialog = new ProgressDialog(ConsulVehiculoActivity.this);
         pDialog.setMessage("Loading Data.. Please wait...");
         pDialog.setIndeterminate(false);
         pDialog.setCancelable(false);
         pDialog.show();
-
         obtenerListaChofer();
-
     }
 
     // Obtener la lista de choferes desde remote DB
@@ -82,8 +75,6 @@ public class ConsulVehiculoActivity extends AppCompatActivity {
                         Log.e(TAG, cadena);
                     }
                 }
-
-
             }
 
             @Override

@@ -4,6 +4,30 @@ public class Utils {
 
     public static final int db_version = 1;
 
+    //Constates campos  usuario
+    public static final String TABLA_USUARIO = "usuario";
+
+    public static final String CAMPO_ID_USUARIO = "idUsuario";
+    public static final String CAMPO_NOMBRE_USUARIO = "nombreUsuario";
+    public static final String CAMPO_APELLIDO_USUARIO = "apellidoUsuario";
+    public static final String CAMPO_DNI_USUARIO = "dniUsuario";
+    public static final String CAMPO_CORREO_USUARIO = "correoUsuario";
+    public static final String CAMPO_TELEFONO_USUARIO = "telefonoUsuario";
+
+    public static final String CREATE_TABLA_USUARIO =
+            "CREATE TABLE " + TABLA_USUARIO + "(" +
+                    CAMPO_ID_USUARIO + " " + "PRIMARY KEY AUTOINCREMENT," +
+                    CAMPO_NOMBRE_USUARIO + " " + " TEXT," +
+                    CAMPO_APELLIDO_USUARIO + " " + "TEXT," +
+                    CAMPO_DNI_USUARIO + " " + "TEXT," +
+                    CAMPO_CORREO_USUARIO + " " + "TEXT," +
+                    CAMPO_NOMBRE_USUARIO + " " + "TEXT," +
+                    CAMPO_TELEFONO_USUARIO + "TEXT)";
+
+
+
+
+
     //Constates campos vehiculos
     public static final String TABLA_VEHICULO = "vehiculo";
 
@@ -41,25 +65,7 @@ public class Utils {
                     CAMPO_TELEFONO_CHOFER + "TEXT)";
 
 
-    //Constates campos  usuario
-    public static final String TABLA_USUARIO = "usuario";
 
-    public static final String CAMPO_ID_USUARIO = "idUsuario";
-    public static final String CAMPO_NOMBRE_USUARIO = "nombreUsuario";
-    public static final String CAMPO_APELLIDO_USUARIO = "apellidoUsuario";
-    public static final String CAMPO_DNI_USUARIO = "dniUsuario";
-    public static final String CAMPO_CORREO_USUARIO = "correoUsuario";
-    public static final String CAMPO_TELEFONO_USUARIO = "telefonoUsuario";
-
-    public static final String CREATE_TABLA_USUARIO =
-            "CREATE TABLE " + TABLA_USUARIO + "(" +
-                    CAMPO_ID_USUARIO + " " + "PRIMARY KEY AUTOINCREMENT," +
-                    CAMPO_NOMBRE_USUARIO + " " + " TEXT," +
-                    CAMPO_APELLIDO_USUARIO + " " + "TEXT," +
-                    CAMPO_DNI_USUARIO + " " + "TEXT," +
-                    CAMPO_CORREO_USUARIO + " " + "TEXT," +
-                    CAMPO_NOMBRE_USUARIO + " " + "TEXT," +
-                    CAMPO_TELEFONO_USUARIO + "TEXT)";
 
     // Constates campos de Pasajero
     public static final String TABLA_PASAJERO = "mascota";
