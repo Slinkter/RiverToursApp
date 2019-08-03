@@ -20,12 +20,13 @@
 
         <LinearLayout
 
-            android:layout_margin="120dp"
+            android:layout_margin="0dp"
             android:orientation="vertical"
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
 
             <LinearLayout
+                android:layout_margin="50sp"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="45dp"
