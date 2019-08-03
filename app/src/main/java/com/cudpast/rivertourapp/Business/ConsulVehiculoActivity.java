@@ -87,6 +87,7 @@ public class ConsulVehiculoActivity extends AppCompatActivity {
                                         + "  " + "" + "\n";
 
                                 Log.e(TAG, cadena);
+                                //
                             }
                             // mostrar lista de vehiculos remotament
                             recyclerView = findViewById(R.id.recycler_view_vehiculo);
