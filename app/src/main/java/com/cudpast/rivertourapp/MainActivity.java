@@ -9,9 +9,9 @@ import android.view.View;
 import com.cudpast.rivertourapp.Business.ConsulChoferActivity;
 import com.cudpast.rivertourapp.Business.ConsulVehiculoActivity;
 import com.cudpast.rivertourapp.Business.ConsultManiActivity;
-import com.cudpast.rivertourapp.Business.NewChoferActivity;
+import com.cudpast.rivertourapp.Business.UpdateChoferActivity;
 import com.cudpast.rivertourapp.Business.NewManifActivity;
-import com.cudpast.rivertourapp.Business.newVehiculoActivity;
+import com.cudpast.rivertourapp.Business.UpdateVehiculoActivity;
 import com.cudpast.rivertourapp.Helper.Common;
 import com.cudpast.rivertourapp.Model.User;
 
@@ -61,13 +61,13 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void newChofer(View view) {
-        Intent intent = new Intent(MainActivity.this, NewChoferActivity.class);
+        Intent intent = new Intent(MainActivity.this, UpdateChoferActivity.class);
         startActivity(intent);
 
     }
 
     public void newVehiculo(View view) {
-        Intent intent = new Intent(MainActivity.this, newVehiculoActivity.class);
+        Intent intent = new Intent(MainActivity.this, UpdateVehiculoActivity.class);
         startActivity(intent);
 
     }

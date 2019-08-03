@@ -14,7 +14,6 @@ import android.widget.Toast;
 import com.cudpast.rivertourapp.Helper.ApiInterface;
 import com.cudpast.rivertourapp.Helper.ApiService;
 import com.cudpast.rivertourapp.MainActivity;
-import com.cudpast.rivertourapp.Model.Chofer;
 import com.cudpast.rivertourapp.Model.Vehiculo;
 import com.cudpast.rivertourapp.R;
 import com.cudpast.rivertourapp.SQLite.ConexionSQLiteHelper;
@@ -26,7 +25,7 @@ import retrofit2.Response;
 
 import static com.cudpast.rivertourapp.SQLite.Utils.db_version;
 
-public class newVehiculoActivity extends AppCompatActivity {
+public class UpdateVehiculoActivity extends AppCompatActivity {
 
     EditText newNombreVehiculo, newMarcaVehiculo, newMatriculaVehiculo, newPlacaVehiculo;
     Button btnNewVehiculo, btnSalirVehiculo;
@@ -34,7 +33,7 @@ public class newVehiculoActivity extends AppCompatActivity {
     ApiInterface apiInterface;
     ProgressDialog progressDialog;
 
-    public static final String TAG = "newVehiculoActivity";
+    public static final String TAG = "UpdateVehiculoActivity";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -60,7 +59,14 @@ public class newVehiculoActivity extends AppCompatActivity {
         btnNewVehiculo.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                insertVehiculo();
+                //   insertVehiculo();
+                if (insertVehiculoSQLite()) {
+                    Log.e(TAG, "INSERTO EL Vehiculo");
+                } else {
+                    Log.e(TAG, "No INSERTO EL vehiculo");
+                }
+
+
             }
         });
 
@@ -68,28 +74,36 @@ public class newVehiculoActivity extends AppCompatActivity {
         progressDialog.setMessage("Please wait...");
     }
 
-    private void insertVehiculoSQLite() {
-        String nomV = newNombreVehiculo.getText().toString();
-        String marV = newMarcaVehiculo.getText().toString();
-        String matV = newMatriculaVehiculo.getText().toString();
-        String plaV = newPlacaVehiculo.getText().toString();
+    private Boolean insertVehiculoSQLite() {
+        progressDialog.show();
+        try {
+            String nomV = newNombreVehiculo.getText().toString();
+            String marV = newMarcaVehiculo.getText().toString();
+            String matV = newMatriculaVehiculo.getText().toString();
+            String plaV = newPlacaVehiculo.getText().toString();
 
+            //1.Conexion
+            ConexionSQLiteHelper conn = new ConexionSQLiteHelper(this, "bd_usuarios", null, db_version);
+            SQLiteDatabase db = conn.getWritableDatabase();
+            String insert = "INSERT INTO " + Utils.TABLA_VEHICULO + "(" +
+                    Utils.CAMPO_NOMBRE_VEHICULO + "," +
+                    Utils.CAMPO_MARCA_VEHICULO + "," +
+                    Utils.CAMPO_MATRICULA_VEHICULO + "," +
+                    Utils.CAMPO_PLACA_VEHICULO + ")" +
+                    " VALUES ('" + nomV + "','" + marV + "','" + matV + "','" + plaV + "')";
 
-        //1.Conexion
-        ConexionSQLiteHelper conn = new ConexionSQLiteHelper(this, "bd_usuarios", null, db_version);
-        SQLiteDatabase db = conn.getWritableDatabase();
-        String insert = "INSERT INTO " + Utils.TABLA_VEHICULO + "(" +
-                Utils.CAMPO_ID_VEHICULO + "," +
-                Utils.CAMPO_NOMBRE_VEHICULO + "," +
-                Utils.CAMPO_MARCA_VEHICULO + "," +
-                Utils.CAMPO_MATRICULA_VEHICULO + "," +
-                Utils.CAMPO_PLACA_VEHICULO + ")" +
-                "VALUES (" + nomV + "," + marV + "," + matV + "," + plaV + ")";
-
-        Log.e(TAG,"insert Usuario :" + insert);
-        db.execSQL(insert);
-        db.close();
-
+            Log.e(TAG, "insert Usuario :" + insert);
+            db.execSQL(insert);
+            db.close();
+            Toast.makeText(this, "Si se inserto ", Toast.LENGTH_SHORT).show();
+            progressDialog.dismiss();
+            gotoMain();
+            return true;
+        } catch (Exception e) {
+            progressDialog.dismiss();
+            Toast.makeText(this, " error : No se inserto ", Toast.LENGTH_SHORT).show();
+            return false;
+        }
 
 
     }
@@ -118,14 +132,14 @@ public class newVehiculoActivity extends AppCompatActivity {
                         gotoMain();
                         progressDialog.dismiss();
                         Log.e("remoteBD", " onResponse : Success");
-                        Toast.makeText(newVehiculoActivity.this, "Vehiculo registrado", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(UpdateVehiculoActivity.this, "Vehiculo registrado", Toast.LENGTH_SHORT).show();
 
                         gotoMain();
                         Log.e("TAG", " response =  " + response.body().getMessage());
                     } else {
                         progressDialog.dismiss();
                         Log.e("remoteBD", " onResponse : fail");
-                        Toast.makeText(newVehiculoActivity.this, response.body().getMessage(), Toast.LENGTH_SHORT).show();
+                        Toast.makeText(UpdateVehiculoActivity.this, response.body().getMessage(), Toast.LENGTH_SHORT).show();
                         Log.e("TAG", " response =  " + response.body().getMessage());
                     }
                 }
@@ -134,7 +148,7 @@ public class newVehiculoActivity extends AppCompatActivity {
             @Override
             public void onFailure(Call<Vehiculo> call, Throwable t) {
                 progressDialog.dismiss();
-                Toast.makeText(newVehiculoActivity.this, t.getLocalizedMessage(), Toast.LENGTH_SHORT).show();
+                Toast.makeText(UpdateVehiculoActivity.this, t.getLocalizedMessage(), Toast.LENGTH_SHORT).show();
                 Log.e("remoteBD", " onResponse : fail" + t.toString() + "\n " + t.getCause());
                 Log.e("remoteBD", " onResponse : fail");
                 Log.e("onFailure", " response =  " + t.getMessage());
@@ -144,7 +158,7 @@ public class newVehiculoActivity extends AppCompatActivity {
     }
 
     private void gotoMain() {
-        Intent intent = new Intent(newVehiculoActivity.this, MainActivity.class);
+        Intent intent = new Intent(UpdateVehiculoActivity.this, MainActivity.class);
         startActivity(intent);
         finish();
     }

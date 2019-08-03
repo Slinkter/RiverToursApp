@@ -38,12 +38,12 @@ public class Utils {
     public static final String CAMPO_PLACA_VEHICULO = "placaVehiculo";
 
     public static final String CREATE_TABLA_VEHICULO =
-            "CREATE TABLE " + TABLA_VEHICULO + "(" +
-                    CAMPO_ID_VEHICULO + " " + "INTEGER PRIMARY KEY AUTOINCREMENT," +
+            "CREATE TABLE " + TABLA_VEHICULO + "( " +
+                    CAMPO_ID_VEHICULO + " " + " INTEGER PRIMARY KEY AUTOINCREMENT," +
                     CAMPO_NOMBRE_VEHICULO + " " + "TEXT," +
                     CAMPO_MARCA_VEHICULO + " " + "TEXT," +
                     CAMPO_MATRICULA_VEHICULO + " " + "TEXT," +
-                    CAMPO_PLACA_VEHICULO + " " + "TEXT)";
+                    CAMPO_PLACA_VEHICULO + " " + "TEXT )";
 
     // Constates campos de Chofer
     public static final String TABLA_CHOFER = "chofer";
