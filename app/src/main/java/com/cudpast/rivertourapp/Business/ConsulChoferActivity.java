@@ -1,7 +1,6 @@
 package com.cudpast.rivertourapp.Business;
 
 import android.app.ProgressDialog;
-import android.database.sqlite.SQLiteDatabase;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.DefaultItemAnimator;
@@ -9,15 +8,12 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.widget.ListView;
-import android.widget.Toast;
 
 import com.cudpast.rivertourapp.Helper.ApiInterface;
 import com.cudpast.rivertourapp.Helper.ApiService;
 import com.cudpast.rivertourapp.Model.Chofer;
 import com.cudpast.rivertourapp.Adapter.ChoferAdapter;
 import com.cudpast.rivertourapp.R;
-import com.cudpast.rivertourapp.SQLite.ConexionSQLiteHelper;
-import com.cudpast.rivertourapp.SQLite.Utils;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -25,8 +21,6 @@ import java.util.List;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
-
-import static com.cudpast.rivertourapp.SQLite.Utils.db_version;
 
 public class ConsulChoferActivity extends AppCompatActivity {
 

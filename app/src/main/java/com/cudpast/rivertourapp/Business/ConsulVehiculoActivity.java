@@ -1,6 +1,7 @@
 package com.cudpast.rivertourapp.Business;
 
 import android.app.ProgressDialog;
+import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -13,18 +14,22 @@ import android.widget.Toast;
 import com.cudpast.rivertourapp.Adapter.vehiculoAdapter;
 import com.cudpast.rivertourapp.Helper.ApiInterface;
 import com.cudpast.rivertourapp.Helper.ApiService;
-import com.cudpast.rivertourapp.Adapter.ChoferAdapter;
 import com.cudpast.rivertourapp.Model.Vehiculo;
 import com.cudpast.rivertourapp.R;
-import com.cudpast.rivertourapp.SQLite.ConexionSQLiteHelper;
+import com.cudpast.rivertourapp.SQLite.DbHelper;
 import com.cudpast.rivertourapp.SQLite.Utils;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
+import static com.cudpast.rivertourapp.SQLite.Utils.CAMPO_MARCA_VEHICULO;
+import static com.cudpast.rivertourapp.SQLite.Utils.CAMPO_MATRICULA_VEHICULO;
+import static com.cudpast.rivertourapp.SQLite.Utils.CAMPO_NOMBRE_VEHICULO;
+import static com.cudpast.rivertourapp.SQLite.Utils.CAMPO_PLACA_VEHICULO;
 import static com.cudpast.rivertourapp.SQLite.Utils.db_version;
 
 public class ConsulVehiculoActivity extends AppCompatActivity {
@@ -34,6 +39,7 @@ public class ConsulVehiculoActivity extends AppCompatActivity {
     private RecyclerView recyclerView;
     private vehiculoAdapter vAdapter;
     private ApiInterface apiInterface;
+    List<Vehiculo> mListOff ;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -46,7 +52,9 @@ public class ConsulVehiculoActivity extends AppCompatActivity {
         pDialog.setIndeterminate(false);
         pDialog.setCancelable(false);
         pDialog.show();
+
         obtenerListaChofer();
+        mListOff = new ArrayList<Vehiculo>();
     }
 
     // Obtener la lista de choferes desde remote DB
@@ -61,6 +69,7 @@ public class ConsulVehiculoActivity extends AppCompatActivity {
                         if (response.isSuccessful() && response.body() != null) {
                             // se obtiene la lista de vehiculo remotamente
                             List<Vehiculo> mList = response.body();
+                            destroyDBVehiculo();
                             // update la lista de vehiculo en sqlite
                             for (int i = 0; i < mList.size(); i++) {
                                 String nombrevehiculo = mList.get(i).getNombrevehiculo();
@@ -68,7 +77,7 @@ public class ConsulVehiculoActivity extends AppCompatActivity {
                                 String matriculaVehiculo = mList.get(i).getMatriculoVehiculo();
                                 String placaVehiculo = mList.get(i).getPlacaVehiculo();
 
-                                updateListVehiculoFromMysql(nombrevehiculo, marcaVehiculo, marcaVehiculo, placaVehiculo);
+                                updateListVehiculoFromMysql(nombrevehiculo, marcaVehiculo, matriculaVehiculo, placaVehiculo);
 
                                 String cadena = "==== Chofer Nº " + i + " ====== " + "\n"
                                         + " nombrevehiculo : " + nombrevehiculo + "\n"
@@ -102,7 +111,57 @@ public class ConsulVehiculoActivity extends AppCompatActivity {
                 });
     }
 
+    private void destroyDBVehiculo() {
+        Log.e(TAG, " eliminar  drop table vehiculo ");
+        DbHelper dbHelper = new DbHelper(this);
+        dbHelper.deleteTable();
+    }
+
     private void loadListVehiculoSQLite() {
+        mListOff.clear();
+
+        DbHelper dbHelper = new DbHelper(this);
+        SQLiteDatabase db = dbHelper.getReadableDatabase();
+        Cursor cursor = dbHelper.readFromLocalDatabase(db);
+
+
+        while (cursor.moveToNext()) {
+            Vehiculo vehiculo = new Vehiculo();
+
+            String nombreV = cursor.getString(cursor.getColumnIndex(CAMPO_NOMBRE_VEHICULO));
+            String marcaV = cursor.getString(cursor.getColumnIndex(CAMPO_MARCA_VEHICULO));
+            String matriV = cursor.getString(cursor.getColumnIndex(CAMPO_MATRICULA_VEHICULO));
+            String placaV = cursor.getString(cursor.getColumnIndex(CAMPO_PLACA_VEHICULO));
+
+            vehiculo.setNombrevehiculo(nombreV);
+            vehiculo.setMarcaVehiculo(marcaV);
+            vehiculo.setMatriculoVehiculo(matriV);
+            vehiculo.setPlacaVehiculo(placaV);
+
+            Log.e(TAG, "vehiculo 1 --> " + nombreV);
+            Log.e(TAG, "vehiculo 2 --> " + marcaV);
+            Log.e(TAG, "vehiculo 3 --> " + matriV);
+            Log.e(TAG, "vehiculo 3 --> " + placaV);
+
+            vehiculo.setNombrevehiculo(cursor.getString(0));
+            vehiculo.setMarcaVehiculo(cursor.getString(1));
+            vehiculo.setMatriculoVehiculo(cursor.getString(2));
+            vehiculo.setPlacaVehiculo(cursor.getString(3));
+
+            mListOff.add(vehiculo);
+
+        }
+
+        //
+        recyclerView = findViewById(R.id.recycler_view_vehiculo);
+        vAdapter = new vehiculoAdapter(mListOff);
+        vAdapter.notifyDataSetChanged();
+        RecyclerView.LayoutManager eLayoutManager = new LinearLayoutManager(getApplicationContext());
+        recyclerView.setLayoutManager(eLayoutManager);
+        recyclerView.setItemAnimator(new DefaultItemAnimator());
+        recyclerView.setAdapter(vAdapter);
+        cursor.close();
+        dbHelper.close();
         Toast.makeText(this, "hola , esta oflline", Toast.LENGTH_SHORT).show();
     }
 
@@ -111,16 +170,17 @@ public class ConsulVehiculoActivity extends AppCompatActivity {
 
         try {
             //1.Conexion
-            ConexionSQLiteHelper conn = new ConexionSQLiteHelper(this, "bd_usuarios", null, db_version);
+            DbHelper conn = new DbHelper(this);
             SQLiteDatabase db = conn.getWritableDatabase();
-            String insert = "INSERT INTO " + Utils.TABLA_VEHICULO + "(" +
-                    Utils.CAMPO_NOMBRE_VEHICULO + "," +
+            String insert = "INSERT INTO " + Utils.TABLA_VEHICULO + "( " +
+                    CAMPO_NOMBRE_VEHICULO + "," +
                     Utils.CAMPO_MARCA_VEHICULO + "," +
                     Utils.CAMPO_MATRICULA_VEHICULO + "," +
                     Utils.CAMPO_PLACA_VEHICULO + ")" +
                     " VALUES ('" + nomV + "','" + marV + "','" + matV + "','" + plaV + "')";
 
-            Log.e(TAG, "insert Usuario :" + insert);
+            Log.e(TAG, "el vehiculo se inserto  :" + insert);
+
             db.execSQL(insert);
             db.close();
         } catch (Exception e) {

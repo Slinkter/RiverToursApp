@@ -38,7 +38,7 @@ public class Utils {
     public static final String CAMPO_PLACA_VEHICULO = "placaVehiculo";
 
     public static final String CREATE_TABLA_VEHICULO =
-            "CREATE TABLE " + TABLA_VEHICULO + "( " +
+            " CREATE TABLE " + TABLA_VEHICULO + "( " +
                     CAMPO_ID_VEHICULO + " " + " INTEGER PRIMARY KEY AUTOINCREMENT," +
                     CAMPO_NOMBRE_VEHICULO + " " + "TEXT," +
                     CAMPO_MARCA_VEHICULO + " " + "TEXT," +

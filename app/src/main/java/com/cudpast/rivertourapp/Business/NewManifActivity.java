@@ -17,6 +17,7 @@ import java.util.ArrayList;
 
 public class NewManifActivity extends AppCompatActivity {
 
+    /*
     private TextView guiaVehiculo, guiaN, guiaMatricula, guiaMarca, guiaGuia, guiaFecha, guiaChofer1, guiaChofer2, guiaBrevete1, guiaBrevete2, guiaDestino;
     private TextView pasajeroNombre, pasajeroEdad, pasajeroOcupacion, pasajeroNacionalidad, pasajeroN, pasajeroDNI, pasajeroDestino;
     private Button btnGuia;
@@ -26,7 +27,7 @@ public class NewManifActivity extends AppCompatActivity {
     ArrayList<String> listaPersonas;
     ArrayList<Chofer> personasList;
 
-
+*/
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -34,7 +35,7 @@ public class NewManifActivity extends AppCompatActivity {
         getSupportActionBar().hide();
         setContentView(R.layout.activity_new_manif);
         //
-
+/*
 
         //Bloque 1
         guiaVehiculo = findViewById(R.id.guiaPlacaVehiculo);
@@ -65,13 +66,13 @@ public class NewManifActivity extends AppCompatActivity {
 
         ArrayAdapter<CharSequence> adapter;
         adapter = new ArrayAdapter(this, android.R.layout.simple_spinner_dropdown_item, listaPersonas);
-
+*/
     }
 
-
+/*
     private void consultarListaChofer(){
 
-        obtenerLista();
+        //obtenerLista();
 
     }
 
@@ -82,6 +83,6 @@ public class NewManifActivity extends AppCompatActivity {
             listaPersonas.add(personasList.get(i).getId() + "-" + personasList.get(i).getBrevete());
         }
     }
-
+*/
 
 }
