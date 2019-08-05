@@ -30,7 +30,6 @@ import static com.cudpast.rivertourapp.SQLite.Utils.CAMPO_MARCA_VEHICULO;
 import static com.cudpast.rivertourapp.SQLite.Utils.CAMPO_MATRICULA_VEHICULO;
 import static com.cudpast.rivertourapp.SQLite.Utils.CAMPO_NOMBRE_VEHICULO;
 import static com.cudpast.rivertourapp.SQLite.Utils.CAMPO_PLACA_VEHICULO;
-import static com.cudpast.rivertourapp.SQLite.Utils.db_version;
 
 public class ConsulVehiculoActivity extends AppCompatActivity {
 
@@ -74,7 +73,7 @@ public class ConsulVehiculoActivity extends AppCompatActivity {
                             for (int i = 0; i < mList.size(); i++) {
                                 String nombrevehiculo = mList.get(i).getNombrevehiculo();
                                 String marcaVehiculo = mList.get(i).getMarcaVehiculo();
-                                String matriculaVehiculo = mList.get(i).getMatriculoVehiculo();
+                                String matriculaVehiculo = mList.get(i).getMatriculoVehicula();
                                 String placaVehiculo = mList.get(i).getPlacaVehiculo();
 
                                 updateListVehiculoFromMysql(nombrevehiculo, marcaVehiculo, matriculaVehiculo, placaVehiculo);
@@ -136,7 +135,7 @@ public class ConsulVehiculoActivity extends AppCompatActivity {
 
             vehiculo.setNombrevehiculo(nombreV);
             vehiculo.setMarcaVehiculo(marcaV);
-            vehiculo.setMatriculoVehiculo(matriV);
+            vehiculo.setMatriculoVehicula(matriV);
             vehiculo.setPlacaVehiculo(placaV);
 
             Log.e(TAG, "vehiculo 1 --> " + nombreV);
@@ -146,7 +145,7 @@ public class ConsulVehiculoActivity extends AppCompatActivity {
 
             vehiculo.setNombrevehiculo(cursor.getString(0));
             vehiculo.setMarcaVehiculo(cursor.getString(1));
-            vehiculo.setMatriculoVehiculo(cursor.getString(2));
+            vehiculo.setMatriculoVehicula(cursor.getString(2));
             vehiculo.setPlacaVehiculo(cursor.getString(3));
 
             mListOff.add(vehiculo);

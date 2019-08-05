@@ -15,8 +15,8 @@ public class Vehiculo {
     @SerializedName("marcaVehiculo")
     private String marcaVehiculo;
     @Expose
-    @SerializedName("matriculoVehiculo")
-    private String matriculoVehiculo;
+    @SerializedName("matriculoVehicula")
+    private String matriculoVehicula;
     @Expose
     @SerializedName("placaVehiculo")
     private String placaVehiculo;
@@ -55,12 +55,12 @@ public class Vehiculo {
         this.marcaVehiculo = marcaVehiculo;
     }
 
-    public String getMatriculoVehiculo() {
-        return matriculoVehiculo;
+    public String getMatriculoVehicula() {
+        return matriculoVehicula;
     }
 
-    public void setMatriculoVehiculo(String matriculoVehiculo) {
-        this.matriculoVehiculo = matriculoVehiculo;
+    public void setMatriculoVehicula(String matriculoVehicula) {
+        this.matriculoVehicula = matriculoVehicula;
     }
 
     public String getPlacaVehiculo() {
