@@ -20,7 +20,7 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-public class UpdateChoferActivity extends AppCompatActivity {
+public class NewChoferActivity extends AppCompatActivity {
 
     EditText newNameChofer, newLastChofer, newDNIChofer, newBreveChofer, newPhoneChofer;
     Button btnNewChofer, btnSalirDoctor;
@@ -90,13 +90,13 @@ public class UpdateChoferActivity extends AppCompatActivity {
                         gotoMain();
                         progressDialog.dismiss();
                         Log.e("remoteBD", " onResponse : Success");
-                        Toast.makeText(UpdateChoferActivity.this, "Chofer registrado", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(NewChoferActivity.this, "Chofer registrado", Toast.LENGTH_SHORT).show();
 
                         Log.e("TAG", " response =  " + response.body().getMessage());
                     } else {
                         progressDialog.dismiss();
                         Log.e("remoteBD", " onResponse : fail");
-                        Toast.makeText(UpdateChoferActivity.this, response.body().getMessage(), Toast.LENGTH_SHORT).show();
+                        Toast.makeText(NewChoferActivity.this, response.body().getMessage(), Toast.LENGTH_SHORT).show();
                         Log.e("TAG", " response =  " + response.body().getMessage());
                     }
                 }
@@ -105,7 +105,7 @@ public class UpdateChoferActivity extends AppCompatActivity {
             @Override
             public void onFailure(Call<Chofer> call, Throwable t) {
                 progressDialog.dismiss();
-                Toast.makeText(UpdateChoferActivity.this, t.getLocalizedMessage(), Toast.LENGTH_SHORT).show();
+                Toast.makeText(NewChoferActivity.this, t.getLocalizedMessage(), Toast.LENGTH_SHORT).show();
                 Log.e("remoteBD", " onResponse : fail" + t.toString() + "\n " + t.getCause());
                 Log.e("remoteBD", " onResponse : fail");
                 Log.e("onFailure", " response =  " + t.getMessage());
@@ -115,7 +115,7 @@ public class UpdateChoferActivity extends AppCompatActivity {
     }
 
     private void gotoMain(){
-        Intent intent = new Intent(UpdateChoferActivity.this, MainActivity.class);
+        Intent intent = new Intent(NewChoferActivity.this, MainActivity.class);
         startActivity(intent);
         finish();
     }

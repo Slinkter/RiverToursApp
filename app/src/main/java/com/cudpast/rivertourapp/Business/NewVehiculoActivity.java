@@ -23,9 +23,7 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-import static com.cudpast.rivertourapp.SQLite.Utils.db_version;
-
-public class UpdateVehiculoActivity extends AppCompatActivity {
+public class NewVehiculoActivity extends AppCompatActivity {
 
     EditText newNombreVehiculo, newMarcaVehiculo, newMatriculaVehiculo, newPlacaVehiculo;
     Button btnNewVehiculo, btnSalirVehiculo;
@@ -33,7 +31,7 @@ public class UpdateVehiculoActivity extends AppCompatActivity {
     ApiInterface apiInterface;
     ProgressDialog progressDialog;
 
-    public static final String TAG = "UpdateVehiculoActivity";
+    public static final String TAG = "NewVehiculoActivity";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -132,14 +130,14 @@ public class UpdateVehiculoActivity extends AppCompatActivity {
                         gotoMain();
                         progressDialog.dismiss();
                         Log.e("remoteBD", " onResponse : Success");
-                        Toast.makeText(UpdateVehiculoActivity.this, "Vehiculo registrado", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(NewVehiculoActivity.this, "Vehiculo registrado", Toast.LENGTH_SHORT).show();
 
                         gotoMain();
                         Log.e("TAG", " response =  " + response.body().getMessage());
                     } else {
                         progressDialog.dismiss();
                         Log.e("remoteBD", " onResponse : fail");
-                        Toast.makeText(UpdateVehiculoActivity.this, response.body().getMessage(), Toast.LENGTH_SHORT).show();
+                        Toast.makeText(NewVehiculoActivity.this, response.body().getMessage(), Toast.LENGTH_SHORT).show();
                         Log.e("TAG", " response =  " + response.body().getMessage());
                     }
                 }
@@ -148,7 +146,7 @@ public class UpdateVehiculoActivity extends AppCompatActivity {
             @Override
             public void onFailure(Call<Vehiculo> call, Throwable t) {
                 progressDialog.dismiss();
-                Toast.makeText(UpdateVehiculoActivity.this, t.getLocalizedMessage(), Toast.LENGTH_SHORT).show();
+                Toast.makeText(NewVehiculoActivity.this, t.getLocalizedMessage(), Toast.LENGTH_SHORT).show();
                 Log.e("remoteBD", " onResponse : fail" + t.toString() + "\n " + t.getCause());
                 Log.e("remoteBD", " onResponse : fail");
                 Log.e("onFailure", " response =  " + t.getMessage());
@@ -158,7 +156,7 @@ public class UpdateVehiculoActivity extends AppCompatActivity {
     }
 
     private void gotoMain() {
-        Intent intent = new Intent(UpdateVehiculoActivity.this, MainActivity.class);
+        Intent intent = new Intent(NewVehiculoActivity.this, MainActivity.class);
         startActivity(intent);
         finish();
     }

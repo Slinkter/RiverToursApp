@@ -21,40 +21,58 @@
             android:layout_width="250dp"
             android:layout_height="wrap_content"
             android:layout_marginTop="15dp"
+            android:layout_marginBottom="10dp"
+            android:background="@drawable/bg_btn_white"
             android:onClick="newManifiesto"
-            android:text="Registar Manifiesto" />
+            android:text="Registar Manifiesto"
+            android:textColor="@color/baseReleaseColor" />
 
         <Button
             android:layout_width="250dp"
             android:layout_height="wrap_content"
+            android:layout_marginBottom="10dp"
+            android:background="@drawable/bg_btn_white"
             android:onClick="newChofer"
             android:text="Registar Chofer"
+            android:textColor="@color/white"
             android:visibility="gone" />
 
         <Button
             android:layout_width="250dp"
             android:layout_height="wrap_content"
+            android:layout_marginBottom="10dp"
+            android:background="@drawable/bg_btn_white"
             android:onClick="newVehiculo"
             android:text="Registar vehiculo"
+            android:textColor="@color/white"
             android:visibility="gone" />
 
         <Button
             android:layout_width="250dp"
             android:layout_height="wrap_content"
+            android:layout_marginBottom="10dp"
+            android:background="@drawable/bg_btn_white"
             android:onClick="reviewManifiesto"
-            android:text="Lista de Manifiesto " />
+            android:text="Lista de Manifiesto "
+            android:textColor="@color/baseReleaseColor" />
 
         <Button
             android:layout_width="250dp"
             android:layout_height="wrap_content"
+            android:layout_marginBottom="10dp"
+            android:background="@drawable/bg_btn_white"
             android:onClick="reviewChofer"
-            android:text="Lista de Chofer" />
+            android:text="Lista de Chofer"
+            android:textColor="@color/baseReleaseColor" />
 
         <Button
             android:layout_width="250dp"
             android:layout_height="wrap_content"
+            android:layout_marginBottom="10dp"
+            android:background="@drawable/bg_btn_white"
             android:onClick="reviewVehiculo"
-            android:text="Lista de Vehiculos" />
+            android:text="Lista de Vehiculos"
+            android:textColor="@color/baseReleaseColor" />
     </LinearLayout>
 
 

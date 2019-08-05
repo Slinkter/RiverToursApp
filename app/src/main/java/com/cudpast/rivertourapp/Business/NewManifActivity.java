@@ -5,10 +5,12 @@ import android.database.sqlite.SQLiteDatabase;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.Spinner;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.cudpast.rivertourapp.Model.Chofer;
 import com.cudpast.rivertourapp.R;
@@ -17,7 +19,7 @@ import java.util.ArrayList;
 
 public class NewManifActivity extends AppCompatActivity {
 
-    /*
+
     private TextView guiaVehiculo, guiaN, guiaMatricula, guiaMarca, guiaGuia, guiaFecha, guiaChofer1, guiaChofer2, guiaBrevete1, guiaBrevete2, guiaDestino;
     private TextView pasajeroNombre, pasajeroEdad, pasajeroOcupacion, pasajeroNacionalidad, pasajeroN, pasajeroDNI, pasajeroDestino;
     private Button btnGuia;
@@ -27,7 +29,7 @@ public class NewManifActivity extends AppCompatActivity {
     ArrayList<String> listaPersonas;
     ArrayList<Chofer> personasList;
 
-*/
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -35,7 +37,7 @@ public class NewManifActivity extends AppCompatActivity {
         getSupportActionBar().hide();
         setContentView(R.layout.activity_new_manif);
         //
-/*
+
 
         //Bloque 1
         guiaVehiculo = findViewById(R.id.guiaPlacaVehiculo);
@@ -61,7 +63,21 @@ public class NewManifActivity extends AppCompatActivity {
         guiaDestino = findViewById(R.id.guiaDestino);
 
         btnPasajero = findViewById(R.id.btnPasajero);
-
+        
+        btnGuia.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Toast.makeText(NewManifActivity.this, "Guia button", Toast.LENGTH_SHORT).show();
+            }
+        });
+        
+        btnPasajero.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Toast.makeText(NewManifActivity.this, "Pasajero button", Toast.LENGTH_SHORT).show();
+            }
+        });
+/*
 
 
         ArrayAdapter<CharSequence> adapter;
