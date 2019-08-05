@@ -32,7 +32,7 @@ public class vehiculoAdapter extends RecyclerView.Adapter<vehiculoAdapter.Custom
         Vehiculo vehiculo = mListVehiculo.get(position);
         holder.nombreVehiculo.setText("Nombre : " + vehiculo.getNombrevehiculo());
         holder.marcaVehiculo.setText("Marca : " + vehiculo.getMarcaVehiculo());
-        holder.matriculaVehiculo.setText("Matricula : " + vehiculo.getMatriculoVehicula());
+        holder.matriculaVehiculo.setText("Matricula : " + vehiculo.getMatriculaVehiculo());
         holder.placaVehiculo.setText("Placa : " + vehiculo.getPlacaVehiculo());
     }
 

@@ -15,12 +15,12 @@ public class Vehiculo {
     @SerializedName("marcaVehiculo")
     private String marcaVehiculo;
     @Expose
-    @SerializedName("matriculoVehicula")
-    private String matriculoVehicula;
+    @SerializedName("matriculaVehiculo")
+    private String matriculaVehiculo;
     @Expose
     @SerializedName("placaVehiculo")
     private String placaVehiculo;
-
+    //Response from Server : fail Retrofit
     @Expose
     @SerializedName("success")
     private Boolean success;
@@ -29,6 +29,7 @@ public class Vehiculo {
     private String message;
 
     public Vehiculo() {
+
     }
 
     public String getId() {
@@ -55,12 +56,12 @@ public class Vehiculo {
         this.marcaVehiculo = marcaVehiculo;
     }
 
-    public String getMatriculoVehicula() {
-        return matriculoVehicula;
+    public String getMatriculaVehiculo() {
+        return matriculaVehiculo;
     }
 
-    public void setMatriculoVehicula(String matriculoVehicula) {
-        this.matriculoVehicula = matriculoVehicula;
+    public void setMatriculaVehiculo(String matriculaVehiculo) {
+        this.matriculaVehiculo = matriculaVehiculo;
     }
 
     public String getPlacaVehiculo() {

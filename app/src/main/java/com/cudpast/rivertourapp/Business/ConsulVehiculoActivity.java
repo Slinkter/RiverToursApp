@@ -73,7 +73,7 @@ public class ConsulVehiculoActivity extends AppCompatActivity {
                             for (int i = 0; i < mList.size(); i++) {
                                 String nombrevehiculo = mList.get(i).getNombrevehiculo();
                                 String marcaVehiculo = mList.get(i).getMarcaVehiculo();
-                                String matriculaVehiculo = mList.get(i).getMatriculoVehicula();
+                                String matriculaVehiculo = mList.get(i).getMatriculaVehiculo();
                                 String placaVehiculo = mList.get(i).getPlacaVehiculo();
 
                                 updateListVehiculoFromMysql(nombrevehiculo, marcaVehiculo, matriculaVehiculo, placaVehiculo);
@@ -135,7 +135,7 @@ public class ConsulVehiculoActivity extends AppCompatActivity {
 
             vehiculo.setNombrevehiculo(nombreV);
             vehiculo.setMarcaVehiculo(marcaV);
-            vehiculo.setMatriculoVehicula(matriV);
+            vehiculo.setMatriculaVehiculo(matriV);
             vehiculo.setPlacaVehiculo(placaV);
 
             Log.e(TAG, "vehiculo 1 --> " + nombreV);
@@ -145,7 +145,7 @@ public class ConsulVehiculoActivity extends AppCompatActivity {
 
             vehiculo.setNombrevehiculo(cursor.getString(0));
             vehiculo.setMarcaVehiculo(cursor.getString(1));
-            vehiculo.setMatriculoVehicula(cursor.getString(2));
+            vehiculo.setMatriculaVehiculo(cursor.getString(2));
             vehiculo.setPlacaVehiculo(cursor.getString(3));
 
             mListOff.add(vehiculo);
