@@ -20,9 +20,8 @@
         android:layout_marginRight="8dp"
         android:layout_marginBottom="8dp">
 
-
         <TextView
-            android:id="@+id/nombreVehiculo"
+            android:id="@+id/nombreChofer"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentStart="true"
@@ -31,50 +30,49 @@
             android:layout_marginStart="17dp"
             android:layout_marginLeft="17dp"
             android:layout_marginTop="13dp"
-            android:text="Employee Name"
+            android:text="Nombre Chofer"
             android:textColor="@color/colorPrimaryDark"
             android:textSize="18dp" />
 
         <TextView
-            android:id="@+id/marcaVehiculo"
+            android:id="@+id/apellidoChofer"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_below="@+id/nombreVehiculo"
-            android:layout_alignStart="@+id/nombreVehiculo"
-            android:layout_alignLeft="@+id/nombreVehiculo"
-            android:text="dni" />
+            android:layout_below="@+id/nombreChofer"
+            android:layout_alignStart="@+id/nombreChofer"
+            android:layout_alignLeft="@+id/nombreChofer"
+            android:text="Apellido Chofer" />
 
         <TextView
-            android:id="@+id/placaVehiculo"
+            android:id="@+id/dniChofer"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_alignTop="@+id/nombreVehiculo"
-            android:layout_alignEnd="@+id/brevete"
-            android:layout_alignRight="@+id/brevete"
-            android:text="lastNameChofer"
+            android:layout_alignTop="@+id/nombreChofer"
+            android:layout_alignEnd="@+id/breveteChofer"
+            android:layout_alignRight="@+id/breveteChofer"
+            android:text="DNI Chofer"
             android:textColor="@color/colorAccent" />
 
         <TextView
-            android:id="@+id/brevete"
+            android:id="@+id/breveteChofer"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_below="@+id/placaVehiculo"
+            android:layout_below="@+id/dniChofer"
             android:layout_alignParentEnd="true"
             android:layout_alignParentRight="true"
             android:layout_marginEnd="27dp"
             android:layout_marginRight="27dp"
-            android:text="brevete" />
+            android:text="brevete Chofer" />
 
         <TextView
-            android:id="@+id/matriculaVehiculo"
+            android:id="@+id/telefonoChofer"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_below="@+id/marcaVehiculo"
-            android:layout_alignStart="@+id/marcaVehiculo"
-            android:layout_alignLeft="@+id/marcaVehiculo"
+            android:layout_below="@+id/apellidoChofer"
+            android:layout_alignStart="@+id/apellidoChofer"
+            android:layout_alignLeft="@+id/apellidoChofer"
             android:layout_marginBottom="13dp"
-            android:text="numphone" />
-
+            android:text="telefono Chofer" />
 
     </RelativeLayout>
 </android.support.v7.widget.CardView>

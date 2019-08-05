@@ -14,12 +14,11 @@ import java.util.List;
 
 public class ChoferAdapter extends RecyclerView.Adapter<ChoferAdapter.CustomViewHolder> {
 
-    private List<Chofer> chofers;
+    private List<Chofer> mListChofers;
 
     public ChoferAdapter(List<Chofer> chofers) {
-        this.chofers = chofers;
+        this.mListChofers = chofers;
     }
-
     //
     @NonNull
     @Override
@@ -30,8 +29,8 @@ public class ChoferAdapter extends RecyclerView.Adapter<ChoferAdapter.CustomView
 
     @Override
     public void onBindViewHolder(@NonNull CustomViewHolder holder, int position) {
-        Chofer chofer = chofers.get(position);
-        holder.nameChofer.setText(chofer.getNameChofer() + " " + chofer.getLastChofer());
+        Chofer chofer = mListChofers.get(position);
+        holder.nameChofer.setText("Nombre : "+chofer.getNameChofer() + " " + chofer.getLastChofer());
         holder.lastChofer.setText("2019");
         holder.dniChofer.setText("DNI : " + chofer.getDniChofer());
         holder.brevete.setText("Brevete : " + chofer.getBrevete());
@@ -40,7 +39,7 @@ public class ChoferAdapter extends RecyclerView.Adapter<ChoferAdapter.CustomView
 
     @Override
     public int getItemCount() {
-        return chofers.size();
+        return mListChofers.size();
     }
 
     //

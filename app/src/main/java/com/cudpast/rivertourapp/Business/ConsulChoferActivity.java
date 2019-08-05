@@ -7,7 +7,6 @@ import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
-import android.widget.ListView;
 
 import com.cudpast.rivertourapp.Helper.ApiInterface;
 import com.cudpast.rivertourapp.Helper.ApiService;
@@ -24,37 +23,35 @@ import retrofit2.Response;
 
 public class ConsulChoferActivity extends AppCompatActivity {
 
+    public static final String TAG = "CONSULTACHOFER";
 
-    ListView listViewChofer;
-    ArrayList<String> listaInformacion;
-    ArrayList<Chofer> choferList;
+
     private ProgressDialog pDialog;
     private RecyclerView recyclerView;
     private ChoferAdapter cAdapter;
-
-    public static final String TAG = "CONSULTACHOFER";
-
     private ApiInterface apiInterface;
-    ProgressDialog progressDialog;
+
+    List<Chofer> mListOff ;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         getSupportActionBar().hide();
         setContentView(R.layout.activity_consul_chofer);
-
+        //.
         pDialog = new ProgressDialog(ConsulChoferActivity.this);
         pDialog.setMessage("Loading Data.. Please wait...");
         pDialog.setIndeterminate(false);
         pDialog.setCancelable(false);
         pDialog.show();
-
-        obtenerListaChofer();
+        //.
+        mListOff = new ArrayList<Chofer>();
+        obtenerListaVehiculo();
 
     }
 
     // Obtener la lista de choferes desde remote DB
-    private void obtenerListaChofer() {
+    private void obtenerListaVehiculo() {
 
         apiInterface = ApiService.getApiRetrofitConexion().create(ApiInterface.class);
         Call<List<Chofer>> getListaChofer = apiInterface.getListChofer();

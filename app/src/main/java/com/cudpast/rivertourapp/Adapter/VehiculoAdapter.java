@@ -12,11 +12,11 @@ import com.cudpast.rivertourapp.R;
 
 import java.util.List;
 
-public class vehiculoAdapter extends RecyclerView.Adapter<vehiculoAdapter.CustomViewHolderVehiculo> {
+public class VehiculoAdapter extends RecyclerView.Adapter<VehiculoAdapter.CustomViewHolderVehiculo> {
 
     private List<Vehiculo> mListVehiculo;
 
-    public vehiculoAdapter(List<Vehiculo> mListVehiculo) {
+    public VehiculoAdapter(List<Vehiculo> mListVehiculo) {
         this.mListVehiculo = mListVehiculo;
     }
 

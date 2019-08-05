@@ -11,7 +11,7 @@ import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.widget.Toast;
 
-import com.cudpast.rivertourapp.Adapter.vehiculoAdapter;
+import com.cudpast.rivertourapp.Adapter.VehiculoAdapter;
 import com.cudpast.rivertourapp.Helper.ApiInterface;
 import com.cudpast.rivertourapp.Helper.ApiService;
 import com.cudpast.rivertourapp.Model.Vehiculo;
@@ -33,27 +33,29 @@ import static com.cudpast.rivertourapp.SQLite.Utils.CAMPO_PLACA_VEHICULO;
 
 public class ConsulVehiculoActivity extends AppCompatActivity {
 
-    public static final String TAG = "CONSULTA_VEHICULO";
+    public static final String TAG = ConsulVehiculoActivity.class.getSimpleName();
+
     private ProgressDialog pDialog;
     private RecyclerView recyclerView;
-    private vehiculoAdapter vAdapter;
+    private VehiculoAdapter vAdapter;
     private ApiInterface apiInterface;
-    List<Vehiculo> mListOff ;
+    List<Vehiculo> mListOff;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         getSupportActionBar().hide();
         setContentView(R.layout.activity_consul_vehiculo);
-
+        //
         pDialog = new ProgressDialog(ConsulVehiculoActivity.this);
         pDialog.setMessage("Loading Data.. Please wait...");
         pDialog.setIndeterminate(false);
         pDialog.setCancelable(false);
         pDialog.show();
-
-        obtenerListaChofer();
+        //
         mListOff = new ArrayList<Vehiculo>();
+        obtenerListaChofer();
+
     }
 
     // Obtener la lista de choferes desde remote DB
@@ -90,7 +92,7 @@ public class ConsulVehiculoActivity extends AppCompatActivity {
                             }
                             // mostrar lista de vehiculos remotament
                             recyclerView = findViewById(R.id.recycler_view_vehiculo);
-                            vAdapter = new vehiculoAdapter(mList);
+                            vAdapter = new VehiculoAdapter(mList);
                             RecyclerView.LayoutManager eLayoutManager = new LinearLayoutManager(getApplicationContext());
                             recyclerView.setLayoutManager(eLayoutManager);
                             recyclerView.setItemAnimator(new DefaultItemAnimator());
@@ -154,7 +156,7 @@ public class ConsulVehiculoActivity extends AppCompatActivity {
 
         //
         recyclerView = findViewById(R.id.recycler_view_vehiculo);
-        vAdapter = new vehiculoAdapter(mListOff);
+        vAdapter = new VehiculoAdapter(mListOff);
         vAdapter.notifyDataSetChanged();
         RecyclerView.LayoutManager eLayoutManager = new LinearLayoutManager(getApplicationContext());
         recyclerView.setLayoutManager(eLayoutManager);
