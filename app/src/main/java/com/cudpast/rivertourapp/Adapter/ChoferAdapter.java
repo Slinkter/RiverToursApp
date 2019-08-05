@@ -19,6 +19,7 @@ public class ChoferAdapter extends RecyclerView.Adapter<ChoferAdapter.CustomView
     public ChoferAdapter(List<Chofer> chofers) {
         this.mListChofers = chofers;
     }
+
     //
     @NonNull
     @Override
@@ -30,7 +31,7 @@ public class ChoferAdapter extends RecyclerView.Adapter<ChoferAdapter.CustomView
     @Override
     public void onBindViewHolder(@NonNull CustomViewHolder holder, int position) {
         Chofer chofer = mListChofers.get(position);
-        holder.nameChofer.setText("Nombre : "+chofer.getNameChofer() + " " + chofer.getLastChofer());
+        holder.nameChofer.setText("Nombre : " + chofer.getNameChofer() + " " + chofer.getLastChofer());
         holder.lastChofer.setText("2019");
         holder.dniChofer.setText("DNI : " + chofer.getDniChofer());
         holder.brevete.setText("Brevete : " + chofer.getBrevete());
@@ -49,12 +50,11 @@ public class ChoferAdapter extends RecyclerView.Adapter<ChoferAdapter.CustomView
 
         public CustomViewHolder(@NonNull View view) {
             super(view);
-            nameChofer = (TextView) view.findViewById(R.id.nombreVehiculo);
-            lastChofer = (TextView) view.findViewById(R.id.placaVehiculo);
-            dniChofer = (TextView) view.findViewById(R.id.marcaVehiculo);
-            brevete = (TextView) view.findViewById(R.id.brevete);
-            numphone = (TextView) view.findViewById(R.id.matriculaVehiculo);
-
+            nameChofer = (TextView) view.findViewById(R.id.nombreChofer);
+            lastChofer = (TextView) view.findViewById(R.id.apellidoChofer);
+            dniChofer = (TextView) view.findViewById(R.id.dniChofer);
+            brevete = (TextView) view.findViewById(R.id.breveteChofer);
+            numphone = (TextView) view.findViewById(R.id.telefonoChofer);
         }
     }
 

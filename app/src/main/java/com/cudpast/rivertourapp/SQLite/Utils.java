@@ -62,7 +62,7 @@ public class Utils {
                     CAMPO_APELLIDO_CHOFER + " " + "TEXT," +
                     CAMPO_DNI_CHOFER + " " + "TEXT," +
                     CAMPO_BREVETE_CHOFER + " " + "TEXT," +
-                    CAMPO_TELEFONO_CHOFER + "TEXT)";
+                    CAMPO_TELEFONO_CHOFER + " " +"TEXT)";
 
 
 

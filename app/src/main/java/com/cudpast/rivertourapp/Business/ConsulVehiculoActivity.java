@@ -54,12 +54,12 @@ public class ConsulVehiculoActivity extends AppCompatActivity {
         pDialog.show();
         //
         mListOff = new ArrayList<Vehiculo>();
-        obtenerListaChofer();
+        loadListVehiculoOnline();
 
     }
 
     // Obtener la lista de choferes desde remote DB
-    private void obtenerListaChofer() {
+    private void loadListVehiculoOnline() {
 
         apiInterface = ApiService.getApiRetrofitConexion().create(ApiInterface.class);
         Call<List<Vehiculo>> getListaChofer = apiInterface.getListVehiculo();
@@ -80,7 +80,7 @@ public class ConsulVehiculoActivity extends AppCompatActivity {
 
                                 updateListVehiculoFromMysql(nombrevehiculo, marcaVehiculo, matriculaVehiculo, placaVehiculo);
 
-                                String cadena = "==== Chofer Nº " + i + " ====== " + "\n"
+                                String cadena = "==== Vehiculo Nº " + i + " ====== " + "\n"
                                         + " nombrevehiculo : " + nombrevehiculo + "\n"
                                         + " marcaVehiculo : " + marcaVehiculo + "\n"
                                         + " matriculaVehiculo : " + matriculaVehiculo + "\n"
@@ -99,14 +99,14 @@ public class ConsulVehiculoActivity extends AppCompatActivity {
                             recyclerView.setAdapter(vAdapter);
                             pDialog.dismiss();
                         } else {
-                            loadListVehiculoSQLite();
+                            loadListVehiculoOffline();
                             pDialog.dismiss();
                         }
                     }
 
                     @Override
                     public void onFailure(Call<List<Vehiculo>> call, Throwable t) {
-                        loadListVehiculoSQLite();
+                        loadListVehiculoOffline();
                         pDialog.dismiss();
                         Log.e(TAG, " error onFailure " + t.getMessage());
                     }
@@ -119,12 +119,12 @@ public class ConsulVehiculoActivity extends AppCompatActivity {
         dbHelper.deleteTable();
     }
 
-    private void loadListVehiculoSQLite() {
+    private void loadListVehiculoOffline() {
         mListOff.clear();
 
         DbHelper dbHelper = new DbHelper(this);
         SQLiteDatabase db = dbHelper.getReadableDatabase();
-        Cursor cursor = dbHelper.readFromLocalDatabase(db);
+        Cursor cursor = dbHelper.readFromLocalDatabaseVehiculo(db);
 
 
         while (cursor.moveToNext()) {
@@ -167,7 +167,6 @@ public class ConsulVehiculoActivity extends AppCompatActivity {
         Toast.makeText(this, "hola , esta oflline", Toast.LENGTH_SHORT).show();
     }
 
-
     private void updateListVehiculoFromMysql(String nomV, String marV, String matV, String plaV) {
 
         try {
@@ -179,7 +178,11 @@ public class ConsulVehiculoActivity extends AppCompatActivity {
                     Utils.CAMPO_MARCA_VEHICULO + "," +
                     Utils.CAMPO_MATRICULA_VEHICULO + "," +
                     Utils.CAMPO_PLACA_VEHICULO + ")" +
-                    " VALUES ('" + nomV + "','" + marV + "','" + matV + "','" + plaV + "')";
+                    " VALUES ('" +
+                    nomV + "','" +
+                    marV + "','" +
+                    matV + "','" +
+                    plaV + "')";
 
             Log.e(TAG, "el vehiculo se inserto  :" + insert);
 

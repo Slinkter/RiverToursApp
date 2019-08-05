@@ -30,7 +30,7 @@ public class MainActivity extends AppCompatActivity {
     protected void onStart() {
         super.onStart();
         //Verificar si esta logeado o no
-
+        /*
         User userLogined = Common.user;
         if (userLogined == null) {
             Log.e(TAG, "onStart  :  user = null ");
@@ -40,7 +40,7 @@ public class MainActivity extends AppCompatActivity {
             Log.e(TAG, "onStart  :  user = " + userLogined.getFirstname() + " " + userLogined.getLastname());
             loadInfoUser();// user is logined
         }
-
+        */
     }
 
     private void returnLoginActivity() {

@@ -1,18 +1,23 @@
 package com.cudpast.rivertourapp.Business;
 
 import android.app.ProgressDialog;
+import android.database.Cursor;
+import android.database.sqlite.SQLiteDatabase;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
+import android.widget.Toast;
 
 import com.cudpast.rivertourapp.Helper.ApiInterface;
 import com.cudpast.rivertourapp.Helper.ApiService;
 import com.cudpast.rivertourapp.Model.Chofer;
 import com.cudpast.rivertourapp.Adapter.ChoferAdapter;
 import com.cudpast.rivertourapp.R;
+import com.cudpast.rivertourapp.SQLite.DbHelper;
+import com.cudpast.rivertourapp.SQLite.Utils;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -31,7 +36,7 @@ public class ConsulChoferActivity extends AppCompatActivity {
     private ChoferAdapter cAdapter;
     private ApiInterface apiInterface;
 
-    List<Chofer> mListOff ;
+    List<Chofer> mListOff;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -46,58 +51,141 @@ public class ConsulChoferActivity extends AppCompatActivity {
         pDialog.show();
         //.
         mListOff = new ArrayList<Chofer>();
-        obtenerListaVehiculo();
+        obtenerListaChoferOnline();
 
     }
 
     // Obtener la lista de choferes desde remote DB
-    private void obtenerListaVehiculo() {
+    private void obtenerListaChoferOnline() {
 
         apiInterface = ApiService.getApiRetrofitConexion().create(ApiInterface.class);
         Call<List<Chofer>> getListaChofer = apiInterface.getListChofer();
-        getListaChofer.enqueue(new Callback<List<Chofer>>() {
-            @Override
-            public void onResponse(Call<List<Chofer>> call, Response<List<Chofer>> response) {
-                if (response.isSuccessful()) {
-                    pDialog.dismiss();
-                    List<Chofer> students = response.body();
-                    recyclerView = findViewById(R.id.recycler_view_chofer);
-                    cAdapter = new ChoferAdapter(students);
-                    RecyclerView.LayoutManager eLayoutManager = new LinearLayoutManager(getApplicationContext());
-                    recyclerView.setLayoutManager(eLayoutManager);
-                    recyclerView.setItemAnimator(new DefaultItemAnimator());
-                    recyclerView.setAdapter(cAdapter);
-                    for (int i = 0; i < students.size(); i++) {
-                        String name = students.get(i).getNameChofer();
-                        String last = students.get(i).getLastChofer();
-                        String dni = students.get(i).getDniChofer();
-                        String brevete = students.get(i).getBrevete();
-                        String num = students.get(i).getNumphone();
+        getListaChofer
+                .enqueue(new Callback<List<Chofer>>() {
+                    @Override
+                    public void onResponse(Call<List<Chofer>> call, Response<List<Chofer>> response) {
+                        // se recive un array desde el html
+                        if (response.isSuccessful() && response.body() != null) {
+                            List<Chofer> mListChofer = response.body();
+                            destroyDBChofer();
+                            //
+                            for (int i = 0; i < mListChofer.size(); i++) {
+                                String nombreChofer = mListChofer.get(i).getNameChofer();
+                                String lastChofer = mListChofer.get(i).getLastChofer();
+                                String dniChofer = mListChofer.get(i).getDniChofer();
+                                String breveteChofer = mListChofer.get(i).getBrevete();
+                                String telefonochofer = mListChofer.get(i).getNumphone();
+                                //
+                                updateListChofer(nombreChofer, lastChofer, dniChofer, breveteChofer, telefonochofer);
+                                String cadena = "==== Chofer Nº " + i + " ====== " + "\n"
+                                        + " nombrevehiculo : " + nombreChofer + "\n"
+                                        + " marcaVehiculo : " + lastChofer + "\n"
+                                        + " matriculaVehiculo : " + dniChofer + "\n"
+                                        + " matriculaVehiculo : " + breveteChofer + "\n"
+                                        + " placaVehiculo : " + telefonochofer + "\n"
+                                        + "  " + "" + "\n";
+                                Log.e(TAG, cadena);
+                            }
 
+                            recyclerView = findViewById(R.id.recycler_view_chofer);
+                            cAdapter = new ChoferAdapter(mListChofer);
+                            cAdapter.notifyDataSetChanged();
 
-                        String cadena = " " + "\n"
-                                + " name : " + name + "\n"
-                                + " last : " + last + "\n"
-                                + " dni : " + dni + "\n"
-                                + " brevete : " + brevete + "\n"
-                                + " num : " + num + "\n";
-                        Log.e(TAG, "==== Chofer Nº" + i + " ======");
-                        Log.e(TAG, cadena);
+                            RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(getApplicationContext());
+                            recyclerView.setLayoutManager(layoutManager);
+                            recyclerView.setItemAnimator(new DefaultItemAnimator());
+                            recyclerView.setAdapter(cAdapter);
+                            pDialog.dismiss();
+                            //
+                        } else {
+                            loadListChoferOffline();
+                            pDialog.dismiss();
+                        }
+
                     }
-                }
 
-
-            }
-
-            @Override
-            public void onFailure(Call<List<Chofer>> call, Throwable t) {
-                pDialog.dismiss();
-                Log.e(TAG, " error onFailure " + t.getMessage());
-            }
-        });
+                    @Override
+                    public void onFailure(Call<List<Chofer>> call, Throwable t) {
+                        loadListChoferOffline();
+                        pDialog.dismiss();
+                        Log.e(TAG, " error onFailure " + t.getMessage());
+                    }
+                });
     }
 
+    private void destroyDBChofer() {
+        Log.e(TAG, " eliminar  drop table chofer ");
+        DbHelper dbHelper = new DbHelper(this);
+        dbHelper.deleteTableChofer();
+    }
+
+    private void loadListChoferOffline() {
+        mListOff.clear();
+
+        DbHelper dbHelper = new DbHelper(this);
+        SQLiteDatabase db = dbHelper.getReadableDatabase();
+        Cursor cursor = dbHelper.readFromLocalDatabaseChofer(db);
+
+        while (cursor.moveToNext()) {
+            Chofer chofer = new Chofer();
+            //
+            String nombreChofer = cursor.getString(cursor.getColumnIndex(Utils.CAMPO_NOMBRE_CHOFER));
+            String apellidoChofer = cursor.getString(cursor.getColumnIndex(Utils.CAMPO_APELLIDO_CHOFER));
+            String dniChofer = cursor.getString(cursor.getColumnIndex(Utils.CAMPO_DNI_CHOFER));
+            String breveteChofer = cursor.getString(cursor.getColumnIndex(Utils.CAMPO_BREVETE_CHOFER));
+            String telefonoChofer = cursor.getString(cursor.getColumnIndex(Utils.CAMPO_TELEFONO_CHOFER));
+            //
+            chofer.setNameChofer(nombreChofer);
+            chofer.setLastChofer(apellidoChofer);
+            chofer.setDniChofer(dniChofer);
+            chofer.setBrevete(breveteChofer);
+            chofer.setNumphone(telefonoChofer);
+            //
+            mListOff.add(chofer);
+
+        }
+
+        recyclerView = findViewById(R.id.recycler_view_chofer);
+        cAdapter = new ChoferAdapter(mListOff);
+        cAdapter.notifyDataSetChanged();
+
+        RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(getApplicationContext());
+        recyclerView.setLayoutManager(layoutManager);
+        recyclerView.setItemAnimator(new DefaultItemAnimator());
+        recyclerView.setAdapter(cAdapter);
+        cursor.close();
+        dbHelper.close();
+        Toast.makeText(this, "Esta offline", Toast.LENGTH_SHORT).show();
 
 
+    }
 
+    private void updateListChofer(String nombreChofer, String apellidoChofer, String dniChofer, String breveteChofer, String telefonoChofer) {
+
+        try {
+            DbHelper conn = new DbHelper(this);
+            SQLiteDatabase db = conn.getWritableDatabase();
+            String insert = "INSERT INTO " + Utils.TABLA_CHOFER + "( " +
+                    Utils.CAMPO_NOMBRE_CHOFER + "," +
+                    Utils.CAMPO_APELLIDO_CHOFER + "," +
+                    Utils.CAMPO_DNI_CHOFER + "," +
+                    Utils.CAMPO_BREVETE_CHOFER + "," +
+                    Utils.CAMPO_TELEFONO_CHOFER + ")" +
+                    " VALUES ('" +
+                    nombreChofer + "','" +
+                    apellidoChofer + "','" +
+                    dniChofer + "','" +
+                    breveteChofer + "','" +
+                    telefonoChofer + "')";
+
+            db.execSQL(insert);
+            db.close();
+            Log.e(TAG, " si inserto el chofer : " + insert);
+
+        } catch (Exception e) {
+            e.printStackTrace();
+            Log.e(TAG, " NO inserto el chofer : ");
+        }
+
+    }
 }
