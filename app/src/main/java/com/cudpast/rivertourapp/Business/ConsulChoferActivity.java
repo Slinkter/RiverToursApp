@@ -28,15 +28,12 @@ import retrofit2.Response;
 
 public class ConsulChoferActivity extends AppCompatActivity {
 
-    public static final String TAG = "CONSULTACHOFER";
-
-
+    public static final String TAG = ConsulChoferActivity.class.getSimpleName();
     private ProgressDialog pDialog;
     private RecyclerView recyclerView;
     private ChoferAdapter cAdapter;
     private ApiInterface apiInterface;
-
-    List<Chofer> mListOff;
+    private List<Chofer> mListOff;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
