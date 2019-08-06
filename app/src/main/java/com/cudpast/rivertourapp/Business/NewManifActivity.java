@@ -188,6 +188,8 @@ public class NewManifActivity extends AppCompatActivity {
         }
     }
 
+
+
     private void printListChoferSpinner() {
         listChoferSpinner = new ArrayList<String>();
         listChoferSpinner.add("Seleccione Chofer");
