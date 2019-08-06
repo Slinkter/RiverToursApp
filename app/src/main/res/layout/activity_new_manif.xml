@@ -248,26 +248,13 @@
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="@dimen/distform"
-                    android:layout_weight="3"
+                    android:layout_weight="2"
                     android:background="@drawable/et_bg"
                     android:hint="Destino"
                     android:inputType="text"
                     android:padding="16dp"
                     android:textColor="@color/white"
                     android:textColorHint="@color/login_form_details" />
-
-                <Button
-                    android:id="@+id/btnGuia"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_marginLeft="10dp"
-                    android:layout_marginTop="@dimen/distform"
-                    android:layout_marginRight="10dp"
-                    android:layout_weight="1"
-                    android:background="@drawable/btn_add"
-                    android:padding="6dp"
-                    android:text="Crear"
-                    android:textColor="@color/login_form_details" />
 
 
             </LinearLayout>
@@ -414,7 +401,7 @@
                     android:textColorHint="@color/login_form_details" />
 
                 <Button
-                    android:id="@+id/btnPasajero"
+                    android:id="@+id/btnAddPasajero"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="10dp"
@@ -424,6 +411,27 @@
                     android:background="@drawable/btn_add"
                     android:padding="6dp"
                     android:text="Agregar"
+                    android:textColor="@color/login_form_details" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:orientation="horizontal"
+                android:padding="25dp"
+                android:weightSum="4">
+
+                <Button
+                    android:id="@+id/btnSaveGuia"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_weight="1"
+                    android:background="@drawable/btn_add"
+                    android:padding="6dp"
+                    android:text="Finalizar"
                     android:textColor="@color/login_form_details" />
 
             </LinearLayout>

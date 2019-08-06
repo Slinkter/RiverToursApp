@@ -1,14 +1,17 @@
 package com.cudpast.rivertourapp.Business;
 
+import android.app.DatePickerDialog;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
+import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.DatePicker;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -20,14 +23,15 @@ import com.cudpast.rivertourapp.SQLite.DbHelper;
 import com.cudpast.rivertourapp.SQLite.Utils;
 
 import java.util.ArrayList;
+import java.util.Calendar;
 
 public class NewManifActivity extends AppCompatActivity {
 
 
     private TextView guiaNombreVehiculo, guiaMatricula, guiaMarca, guiaGuia, guiaFecha, guiaChofer1, guiaChofer2, guiaBrevete1, guiaBrevete2, guiaDestino;
     private TextView pasajeroNombre, pasajeroEdad, pasajeroOcupacion, pasajeroNacionalidad, pasajeroN, pasajeroDNI, pasajeroDestino;
-    private Button btnGuia;
-    private Button btnPasajero;
+    private Button btnSaveGuia;
+    private Button btnAddPasajero;
 
     private Spinner spinnerPlacaVehiculo, spinnerChofer1, spinnerChofer2;
 
@@ -38,6 +42,8 @@ public class NewManifActivity extends AppCompatActivity {
     ArrayList<Vehiculo> listVehiculoFromSqlite;
     ArrayList<String> listVehiculoSpinner;
     DbHelper conn;
+    private DatePickerDialog.OnDateSetListener mDateSetListener;
+    public int year_n, month_n, day_n;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -46,6 +52,7 @@ public class NewManifActivity extends AppCompatActivity {
         setContentView(R.layout.activity_new_manif);
         //
         conn = new DbHelper(this);
+
         //Bloque 1
         spinnerPlacaVehiculo = findViewById(R.id.guiaPlacaVehiculo);
         guiaNombreVehiculo = findViewById(R.id.guiaNombreVehiculo);
@@ -60,7 +67,7 @@ public class NewManifActivity extends AppCompatActivity {
         guiaBrevete2 = findViewById(R.id.guiaBrevete2);
         guiaDestino = findViewById(R.id.guiaDestino);
 
-        btnGuia = findViewById(R.id.btnGuia);
+        btnSaveGuia = findViewById(R.id.btnSaveGuia);
         //Bloque 2
         pasajeroNombre = findViewById(R.id.pasajeroNombre);
         pasajeroEdad = findViewById(R.id.pasajeroEdad);
@@ -70,16 +77,16 @@ public class NewManifActivity extends AppCompatActivity {
         pasajeroDNI = findViewById(R.id.pasajeroDNI);
         guiaDestino = findViewById(R.id.guiaDestino);
 
-        btnPasajero = findViewById(R.id.btnPasajero);
+        btnAddPasajero = findViewById(R.id.btnAddPasajero);
 
-        btnGuia.setOnClickListener(new View.OnClickListener() {
+        btnSaveGuia.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Toast.makeText(NewManifActivity.this, "Guia button", Toast.LENGTH_SHORT).show();
             }
         });
 
-        btnPasajero.setOnClickListener(new View.OnClickListener() {
+        btnAddPasajero.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Toast.makeText(NewManifActivity.this, "Pasajero button ", Toast.LENGTH_SHORT).show();
@@ -87,7 +94,38 @@ public class NewManifActivity extends AppCompatActivity {
         });
 
 
+        //******************************************************
+        guiaFecha.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                Calendar cal = Calendar.getInstance();
+                int year = cal.get(Calendar.YEAR);
+                int month = cal.get(Calendar.MONTH);
+                int day = cal.get(Calendar.DAY_OF_MONTH);
+
+                DatePickerDialog dialog = new DatePickerDialog(
+                        NewManifActivity.this,
+                        android.R.style.Theme_Holo_Light_Dialog_MinWidth,
+                        mDateSetListener, year, month, day);
+                dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+                dialog.show();
+            }
+        });
+
+        mDateSetListener = new DatePickerDialog.OnDateSetListener() {
+            @Override
+            public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
+                String fechauser = year + "/" + month + "/" + dayOfMonth;
+                year_n = year;
+                month_n = month;
+                day_n = dayOfMonth;
+                guiaFecha.setText(fechauser);
+            }
+        };
         //
+        //
+        //******************************************************
         getListVehiculoFromSqlite();
         getListChoferFromSqlite();
         //Spinner Vehiculo
@@ -133,6 +171,8 @@ public class NewManifActivity extends AppCompatActivity {
 
             }
         });
+        //******************************************************
+        //
 
 
     }
@@ -156,7 +196,6 @@ public class NewManifActivity extends AppCompatActivity {
         }
         printListVehiculoSpinner();
     }
-
 
     private void getListChoferFromSqlite() {
 
@@ -187,8 +226,6 @@ public class NewManifActivity extends AppCompatActivity {
             listVehiculoSpinner.add(listVehiculoFromSqlite.get(i).getPlacaVehiculo());
         }
     }
-
-
 
     private void printListChoferSpinner() {
         listChoferSpinner = new ArrayList<String>();
