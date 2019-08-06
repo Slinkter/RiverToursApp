@@ -21,7 +21,7 @@
             android:layout_width="250dp"
             android:layout_height="wrap_content"
             android:layout_marginTop="15dp"
-            android:layout_marginBottom="10dp"
+            android:layout_marginBottom="30dp"
             android:background="@drawable/bg_btn_white"
             android:onClick="newManifiesto"
             android:text="Registar Manifiesto"
@@ -30,7 +30,7 @@
         <Button
             android:layout_width="250dp"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="10dp"
+            android:layout_marginBottom="30dp"
             android:background="@drawable/bg_btn_white"
             android:onClick="newChofer"
             android:text="Registar Chofer"
@@ -40,7 +40,7 @@
         <Button
             android:layout_width="250dp"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="10dp"
+            android:layout_marginBottom="30dp"
             android:background="@drawable/bg_btn_white"
             android:onClick="newVehiculo"
             android:text="Registar vehiculo"
@@ -50,7 +50,7 @@
         <Button
             android:layout_width="250dp"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="10dp"
+            android:layout_marginBottom="30dp"
             android:background="@drawable/bg_btn_white"
             android:onClick="reviewManifiesto"
             android:text="Lista de Manifiesto "
@@ -59,7 +59,7 @@
         <Button
             android:layout_width="250dp"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="10dp"
+            android:layout_marginBottom="30dp"
             android:background="@drawable/bg_btn_white"
             android:onClick="reviewChofer"
             android:text="Lista de Chofer"
@@ -68,7 +68,7 @@
         <Button
             android:layout_width="250dp"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="10dp"
+            android:layout_marginBottom="30dp"
             android:background="@drawable/bg_btn_white"
             android:onClick="reviewVehiculo"
             android:text="Lista de Vehiculos"

@@ -9,9 +9,9 @@
 
     <application
         android:allowBackup="true"
-        android:icon="@drawable/ic_flattr"
+        android:icon="@drawable/rivertourlogo"
         android:label="@string/app_name"
-        android:roundIcon="@drawable/ic_flattr"
+        android:roundIcon="@drawable/rivertourlogo"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity

@@ -33,7 +33,7 @@ public class NewManifActivity extends AppCompatActivity {
 
 
     ArrayList<Chofer> listChoferFromSqlite;
-    ArrayList<String> listaChoferSpinner;
+    ArrayList<String> listChoferSpinner;
 
     ArrayList<Vehiculo> listVehiculoFromSqlite;
     ArrayList<String> listVehiculoSpinner;
@@ -87,38 +87,25 @@ public class NewManifActivity extends AppCompatActivity {
         });
 
 
-        //Lista Spinner Chofer
-      //  getListChoferFromSqlite();
-        getListVehiculoFromSqlite();
-
         //
-        ArrayAdapter<CharSequence> adapterChofer;
-        adapterChofer = new ArrayAdapter(this, android.R.layout.simple_spinner_dropdown_item, listVehiculoSpinner);
-        spinnerPlacaVehiculo.setAdapter(adapterChofer);
+        getListVehiculoFromSqlite();
+        getListChoferFromSqlite();
+        //Spinner Vehiculo
+        ArrayAdapter<CharSequence> adapterVehiculo;
+        adapterVehiculo = new ArrayAdapter(this, R.layout.spinner_vehiculo_item, listVehiculoSpinner);
+        spinnerPlacaVehiculo.setAdapter(adapterVehiculo);
         spinnerPlacaVehiculo.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-
                 if (position != 0) {
-                    try {
-                        String nombre = listVehiculoFromSqlite.get(position - 1).getNombrevehiculo();
-
-                        guiaNombreVehiculo.setText(nombre);
-                        guiaMatricula.setText(listVehiculoFromSqlite.get(position - 1).getMatriculaVehiculo());
-                        guiaMarca.setText(listVehiculoFromSqlite.get(position - 1).getMarcaVehiculo());
-                    } catch (Exception e) {
-                        e.printStackTrace();
-                    }
-
-
+                    guiaNombreVehiculo.setText(listVehiculoFromSqlite.get(position - 1).getNombrevehiculo());
+                    guiaMatricula.setText(listVehiculoFromSqlite.get(position - 1).getMatriculaVehiculo());
+                    guiaMarca.setText(listVehiculoFromSqlite.get(position - 1).getMarcaVehiculo());
                 } else {
                     guiaNombreVehiculo.setText(" ");
                     guiaMatricula.setText(" ");
                     guiaMarca.setText(" ");
-
                 }
-
-
             }
 
             @Override
@@ -126,6 +113,27 @@ public class NewManifActivity extends AppCompatActivity {
 
             }
         });
+        //Spinner Chofer
+        ArrayAdapter<CharSequence> adapterChofer;
+        adapterChofer = new ArrayAdapter(this, R.layout.spinner_vehiculo_item, listChoferSpinner);
+        spinnerChofer1.setAdapter(adapterChofer);
+        spinnerChofer1.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                if (position != 0) {
+                    guiaBrevete1.setText(listChoferFromSqlite.get(position - 1).getBrevete());
+                } else {
+                    guiaBrevete1.setText(" ");
+
+                }
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+
+            }
+        });
+
 
     }
 
@@ -181,7 +189,11 @@ public class NewManifActivity extends AppCompatActivity {
     }
 
     private void printListChoferSpinner() {
-
+        listChoferSpinner = new ArrayList<String>();
+        listChoferSpinner.add("Seleccione Chofer");
+        for (int i = 0; i < listChoferFromSqlite.size(); i++) {
+            listChoferSpinner.add(listChoferFromSqlite.get(i).getNameChofer() + " - " + listChoferFromSqlite.get(i).getLastChofer());
+        }
 
     }
 
