@@ -1,7 +1,10 @@
 package com.cudpast.rivertourapp.Business;
 
+import android.database.Cursor;
+import android.database.sqlite.SQLiteDatabase;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -14,6 +17,7 @@ import com.cudpast.rivertourapp.Model.Chofer;
 import com.cudpast.rivertourapp.Model.Vehiculo;
 import com.cudpast.rivertourapp.R;
 import com.cudpast.rivertourapp.SQLite.DbHelper;
+import com.cudpast.rivertourapp.SQLite.Utils;
 
 import java.util.ArrayList;
 
@@ -25,11 +29,14 @@ public class NewManifActivity extends AppCompatActivity {
     private Button btnGuia;
     private Button btnPasajero;
 
-    private Spinner guiaPlacaVehiculo, chofer1, chofer2;
-    ArrayList<String> listaPersonas;
-    ArrayList<Chofer> choferList;
-    ArrayList<Vehiculo> vehiculoList;
+    private Spinner spinnerPlacaVehiculo, spinnerChofer1, spinnerChofer2;
 
+
+    ArrayList<Chofer> listChoferFromSqlite;
+    ArrayList<String> listaChoferSpinner;
+
+    ArrayList<Vehiculo> listVehiculoFromSqlite;
+    ArrayList<String> listVehiculoSpinner;
     DbHelper conn;
 
     @Override
@@ -39,46 +46,16 @@ public class NewManifActivity extends AppCompatActivity {
         setContentView(R.layout.activity_new_manif);
         //
         conn = new DbHelper(this);
-        //
-        ArrayAdapter<CharSequence> adapter;
-        adapter = new ArrayAdapter(this, android.R.layout.simple_spinner_dropdown_item, listaPersonas);
-        guiaPlacaVehiculo.setAdapter(adapter);
-        guiaPlacaVehiculo
-                .setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-                    @Override
-                    public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-
-                        if (position != 0) {
-                            guiaNombreVehiculo.setText(vehiculoList.get(position - 1).getNombrevehiculo());
-                            guiaMatricula.setText(vehiculoList.get(position - 1).getMatriculaVehiculo());
-                            guiaMarca.setText(vehiculoList.get(position - 1).getMarcaVehiculo());
-
-                        } else {
-                            guiaNombreVehiculo.setText(" ");
-                            guiaMatricula.setText(" ");
-                            guiaMarca.setText(" ");
-
-                        }
-
-
-                    }
-
-                    @Override
-                    public void onNothingSelected(AdapterView<?> parent) {
-
-                    }
-                });
-
-
         //Bloque 1
-        guiaPlacaVehiculo = findViewById(R.id.guiaPlacaVehiculo);
+        spinnerPlacaVehiculo = findViewById(R.id.guiaPlacaVehiculo);
         guiaNombreVehiculo = findViewById(R.id.guiaNombreVehiculo);
         guiaMatricula = findViewById(R.id.guiaMatricula);
         guiaMarca = findViewById(R.id.guiaMarca);
+        //
         guiaGuia = findViewById(R.id.guiaGuia);
         guiaFecha = findViewById(R.id.guiaFecha);
-        chofer1 = findViewById(R.id.guiaChofer1);
-        chofer2 = findViewById(R.id.guiaChofer2);
+        spinnerChofer1 = findViewById(R.id.guiaChofer1);
+        spinnerChofer2 = findViewById(R.id.guiaChofer2);
         guiaBrevete1 = findViewById(R.id.guiaBrevete1);
         guiaBrevete2 = findViewById(R.id.guiaBrevete2);
         guiaDestino = findViewById(R.id.guiaDestino);
@@ -108,28 +85,104 @@ public class NewManifActivity extends AppCompatActivity {
                 Toast.makeText(NewManifActivity.this, "Pasajero button ", Toast.LENGTH_SHORT).show();
             }
         });
-/*
 
 
-        ArrayAdapter<CharSequence> adapter;
-        adapter = new ArrayAdapter(this, android.R.layout.simple_spinner_dropdown_item, listaPersonas);
-*/
+        //Lista Spinner Chofer
+      //  getListChoferFromSqlite();
+        getListVehiculoFromSqlite();
+
+        //
+        ArrayAdapter<CharSequence> adapterChofer;
+        adapterChofer = new ArrayAdapter(this, android.R.layout.simple_spinner_dropdown_item, listVehiculoSpinner);
+        spinnerPlacaVehiculo.setAdapter(adapterChofer);
+        spinnerPlacaVehiculo.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+
+                if (position != 0) {
+                    try {
+                        String nombre = listVehiculoFromSqlite.get(position - 1).getNombrevehiculo();
+
+                        guiaNombreVehiculo.setText(nombre);
+                        guiaMatricula.setText(listVehiculoFromSqlite.get(position - 1).getMatriculaVehiculo());
+                        guiaMarca.setText(listVehiculoFromSqlite.get(position - 1).getMarcaVehiculo());
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
+
+
+                } else {
+                    guiaNombreVehiculo.setText(" ");
+                    guiaMatricula.setText(" ");
+                    guiaMarca.setText(" ");
+
+                }
+
+
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+
+            }
+        });
+
     }
 
-/*
-    private void consultarListaChofer(){
+    private void getListVehiculoFromSqlite() {
+        SQLiteDatabase db;
+        Vehiculo vehiculo;
+        Cursor cursor;
 
-        //obtenerLista();
+        db = conn.getReadableDatabase();
+        cursor = db.rawQuery("SELECT * FROM  " + Utils.TABLA_VEHICULO, null);
+        listVehiculoFromSqlite = new ArrayList<Vehiculo>();
+        while (cursor.moveToNext()) {
+            vehiculo = new Vehiculo();
+            vehiculo.setNombrevehiculo(cursor.getString(1));
+            vehiculo.setMarcaVehiculo(cursor.getString(2));
+            vehiculo.setMatriculaVehiculo(cursor.getString(3));
+            vehiculo.setPlacaVehiculo(cursor.getString(4));
+            listVehiculoFromSqlite.add(vehiculo);
+
+        }
+        printListVehiculoSpinner();
+    }
+
+
+    private void getListChoferFromSqlite() {
+
+        SQLiteDatabase db;
+        Chofer chofer;
+        Cursor cursor;
+
+        db = conn.getReadableDatabase();
+        cursor = db.rawQuery("SELECT * FROM  " + Utils.TABLA_CHOFER, null);
+        listChoferFromSqlite = new ArrayList<Chofer>();
+        while (cursor.moveToNext()) {
+            chofer = new Chofer();
+            chofer.setNameChofer(cursor.getString(1));
+            chofer.setLastChofer(cursor.getString(2));
+            chofer.setDniChofer(cursor.getString(3));
+            chofer.setBrevete(cursor.getString(4));
+            chofer.setNumphone(cursor.getString(5));
+            listChoferFromSqlite.add(chofer);
+        }
+        printListChoferSpinner();
 
     }
 
-    private void obtenerLista(){
-        listaPersonas = new ArrayList<String>();
-        listaPersonas.add("Seleccione");
-        for (int i = 0; i < personasList.size(); i++) {
-            listaPersonas.add(personasList.get(i).getId() + "-" + personasList.get(i).getBrevete());
+    private void printListVehiculoSpinner() {
+        listVehiculoSpinner = new ArrayList<String>();
+        listVehiculoSpinner.add("Seleccione Vehiculo");
+        for (int i = 0; i < listVehiculoFromSqlite.size(); i++) {
+            listVehiculoSpinner.add(listVehiculoFromSqlite.get(i).getPlacaVehiculo());
         }
     }
-*/
+
+    private void printListChoferSpinner() {
+
+
+    }
 
 }
