@@ -1,17 +1,21 @@
 package com.cudpast.rivertourapp.SQLite;
 
+import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.database.sqlite.SQLiteDatabase.CursorFactory;
 
+import com.cudpast.rivertourapp.Model.Pasajero;
+
 import static com.cudpast.rivertourapp.SQLite.Utils.CAMPO_PLACA_VEHICULO;
 import static com.cudpast.rivertourapp.SQLite.Utils.CREATE_TABLA_CHOFER;
+import static com.cudpast.rivertourapp.SQLite.Utils.CREATE_TABLA_PASAJERO;
 import static com.cudpast.rivertourapp.SQLite.Utils.CREATE_TABLA_USUARIO;
 import static com.cudpast.rivertourapp.SQLite.Utils.CREATE_TABLA_VEHICULO;
 
-public class DbHelper extends SQLiteOpenHelper {
+public class MySqliteDB extends SQLiteOpenHelper {
 
     public static final String DATABASE_NAME = "dbRiverTour";
     public static final int DATABASE_VERSION = 1;
@@ -20,9 +24,10 @@ public class DbHelper extends SQLiteOpenHelper {
 
     public static final String drop_vehiculo = "DROP TABLE IF EXISTS " + Utils.TABLA_VEHICULO;
     public static final String drop_chofer = "DROP TABLE IF EXISTS " + Utils.TABLA_CHOFER;
+    public static final String drop_pasajero = "DROP TABLE IF EXISTS " + Utils.TABLA_CHOFER;
 
 
-    public DbHelper(Context context) {
+    public MySqliteDB(Context context) {
         super(context, DATABASE_NAME, null, DATABASE_VERSION);
     }
 
@@ -30,12 +35,14 @@ public class DbHelper extends SQLiteOpenHelper {
     public void onCreate(SQLiteDatabase db) {
         db.execSQL(CREATE_TABLA_VEHICULO);
         db.execSQL(CREATE_TABLA_CHOFER);
+        db.execSQL(CREATE_TABLA_PASAJERO);
     }
 
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
         db.execSQL(drop_vehiculo);
         db.execSQL(drop_chofer);
+        db.execSQL(drop_pasajero);
 
         onCreate(db);
     }
@@ -46,8 +53,26 @@ public class DbHelper extends SQLiteOpenHelper {
     }
 
     public Cursor readFromLocalDatabaseChofer(SQLiteDatabase database) {
-        String[] projection = {Utils.CAMPO_NOMBRE_CHOFER, Utils.CAMPO_APELLIDO_CHOFER, Utils.CAMPO_DNI_CHOFER,Utils.CAMPO_BREVETE_CHOFER, Utils.CAMPO_TELEFONO_CHOFER};
+        String[] projection = {Utils.CAMPO_NOMBRE_CHOFER, Utils.CAMPO_APELLIDO_CHOFER, Utils.CAMPO_DNI_CHOFER, Utils.CAMPO_BREVETE_CHOFER, Utils.CAMPO_TELEFONO_CHOFER};
         return (database.query(Utils.TABLA_CHOFER, projection, null, null, null, null, null));
+    }
+
+    //String nombre, String edad, String ocupacion, String nacionalidad, String numBoleta, String dni, String destino
+    public Cursor readFromLocalDatabasePasajero(SQLiteDatabase database) {
+        String[] projection = {Utils.CAMPO_NOMBRE_PASAJERO, Utils.CAMPO_EDAD_PASAJERO, Utils.CAMPO_OCUPACION_PASAJERO, Utils.CAMPO_NACIONALIDAD_PASAJERO, Utils.CAMPO_NUMBOLETA_PASAJERO, Utils.CAMPO_DNI_PASAJERO, Utils.CAMPO_DESTINO_PASAJERO};
+        return (database.query(Utils.TABLA_PASAJERO, projection, null, null, null, null, null));
+    }
+
+    public void mySaveToLocalDBPasajero(Pasajero pasajero, SQLiteDatabase database) {
+        ContentValues contentValues = new ContentValues();
+        contentValues.put(Utils.CAMPO_NOMBRE_PASAJERO, pasajero.getNombre());
+        contentValues.put(Utils.CAMPO_EDAD_PASAJERO, pasajero.getEdad());
+        contentValues.put(Utils.CAMPO_OCUPACION_PASAJERO, pasajero.getOcupacion());
+        contentValues.put(Utils.CAMPO_NACIONALIDAD_PASAJERO, pasajero.getNombre());
+        contentValues.put(Utils.CAMPO_NUMBOLETA_PASAJERO, pasajero.getNombre());
+        contentValues.put(Utils.CAMPO_DNI_PASAJERO, pasajero.getNombre());
+        contentValues.put(Utils.CAMPO_DESTINO_PASAJERO, pasajero.getNombre());
+        database.insert(Utils.TABLA_PASAJERO, null, contentValues);
     }
 
 
@@ -57,7 +82,6 @@ public class DbHelper extends SQLiteOpenHelper {
         db.execSQL(drop_vehiculo);
         db.execSQL(CREATE_TABLA_VEHICULO);
     }
-
 
     public void deleteTableChofer() {
         if (db == null || !db.isOpen())

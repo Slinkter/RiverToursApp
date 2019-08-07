@@ -16,7 +16,7 @@ import com.cudpast.rivertourapp.Helper.ApiService;
 import com.cudpast.rivertourapp.Model.Chofer;
 import com.cudpast.rivertourapp.Adapter.ChoferAdapter;
 import com.cudpast.rivertourapp.R;
-import com.cudpast.rivertourapp.SQLite.DbHelper;
+import com.cudpast.rivertourapp.SQLite.MySqliteDB;
 import com.cudpast.rivertourapp.SQLite.Utils;
 
 import java.util.ArrayList;
@@ -112,16 +112,16 @@ public class ConsulChoferActivity extends AppCompatActivity {
 
     private void destroyDBChofer() {
         Log.e(TAG, " eliminar  drop table chofer ");
-        DbHelper dbHelper = new DbHelper(this);
-        dbHelper.deleteTableChofer();
+        MySqliteDB mySqliteDB = new MySqliteDB(this);
+        mySqliteDB.deleteTableChofer();
     }
 
     private void loadListChoferOffline() {
         mListOff.clear();
 
-        DbHelper dbHelper = new DbHelper(this);
-        SQLiteDatabase db = dbHelper.getReadableDatabase();
-        Cursor cursor = dbHelper.readFromLocalDatabaseChofer(db);
+        MySqliteDB mySqliteDB = new MySqliteDB(this);
+        SQLiteDatabase db = mySqliteDB.getReadableDatabase();
+        Cursor cursor = mySqliteDB.readFromLocalDatabaseChofer(db);
 
         while (cursor.moveToNext()) {
             Chofer chofer = new Chofer();
@@ -151,7 +151,7 @@ public class ConsulChoferActivity extends AppCompatActivity {
         recyclerView.setItemAnimator(new DefaultItemAnimator());
         recyclerView.setAdapter(cAdapter);
         cursor.close();
-        dbHelper.close();
+        mySqliteDB.close();
         Toast.makeText(this, "Esta offline", Toast.LENGTH_SHORT).show();
 
 
@@ -160,7 +160,7 @@ public class ConsulChoferActivity extends AppCompatActivity {
     private void updateListChofer(String nombreChofer, String apellidoChofer, String dniChofer, String breveteChofer, String telefonoChofer) {
 
         try {
-            DbHelper conn = new DbHelper(this);
+            MySqliteDB conn = new MySqliteDB(this);
             SQLiteDatabase db = conn.getWritableDatabase();
             String insert = "INSERT INTO " + Utils.TABLA_CHOFER + "( " +
                     Utils.CAMPO_NOMBRE_CHOFER + "," +

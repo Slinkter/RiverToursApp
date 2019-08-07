@@ -17,9 +17,10 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.cudpast.rivertourapp.Model.Chofer;
+import com.cudpast.rivertourapp.Model.Pasajero;
 import com.cudpast.rivertourapp.Model.Vehiculo;
 import com.cudpast.rivertourapp.R;
-import com.cudpast.rivertourapp.SQLite.DbHelper;
+import com.cudpast.rivertourapp.SQLite.MySqliteDB;
 import com.cudpast.rivertourapp.SQLite.Utils;
 
 import java.util.ArrayList;
@@ -29,7 +30,7 @@ public class NewManifActivity extends AppCompatActivity {
 
 
     private TextView guiaNombreVehiculo, guiaMatricula, guiaMarca, guiaGuia, guiaFecha, guiaChofer1, guiaChofer2, guiaBrevete1, guiaBrevete2, guiaDestino;
-    private TextView pasajeroNombre, pasajeroEdad, pasajeroOcupacion, pasajeroNacionalidad, pasajeroN, pasajeroDNI, pasajeroDestino;
+    private TextView pasajeroNombre, pasajeroEdad, pasajeroOcupacion, pasajeroNacionalidad, pasajeroNBoleta, pasajeroDNI, pasajeroDestino;
     private Button btnSaveGuia;
     private Button btnAddPasajero;
 
@@ -41,9 +42,11 @@ public class NewManifActivity extends AppCompatActivity {
 
     ArrayList<Vehiculo> listVehiculoFromSqlite;
     ArrayList<String> listVehiculoSpinner;
-    DbHelper conn;
+    MySqliteDB conn;
     private DatePickerDialog.OnDateSetListener mDateSetListener;
     public int year_n, month_n, day_n;
+
+    ArrayList<Pasajero> mListPasajero;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -51,7 +54,10 @@ public class NewManifActivity extends AppCompatActivity {
         getSupportActionBar().hide();
         setContentView(R.layout.activity_new_manif);
         //
-        conn = new DbHelper(this);
+        conn = new MySqliteDB(this);
+
+        //
+        mListPasajero =  new ArrayList<>();
 
         //Bloque 1
         spinnerPlacaVehiculo = findViewById(R.id.guiaPlacaVehiculo);
@@ -73,11 +79,9 @@ public class NewManifActivity extends AppCompatActivity {
         pasajeroEdad = findViewById(R.id.pasajeroEdad);
         pasajeroOcupacion = findViewById(R.id.pasajeroOcupacion);
         pasajeroNacionalidad = findViewById(R.id.pasajeroNacionalidad);
-        pasajeroN = findViewById(R.id.pasajeroN);
+        pasajeroNBoleta = findViewById(R.id.pasajeroN);
         pasajeroDNI = findViewById(R.id.pasajeroDNI);
         guiaDestino = findViewById(R.id.guiaDestino);
-
-        btnAddPasajero = findViewById(R.id.btnAddPasajero);
 
         btnSaveGuia.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -86,10 +90,29 @@ public class NewManifActivity extends AppCompatActivity {
             }
         });
 
+        btnAddPasajero = findViewById(R.id.btnAddPasajero);
+
         btnAddPasajero.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Toast.makeText(NewManifActivity.this, "Pasajero button ", Toast.LENGTH_SHORT).show();
+                //String nombre,  String edad, String ocupacion, String nacionalidad, String numBoleta, String dni, String destino
+                String nombre = pasajeroNombre.getText().toString();
+                String edad = pasajeroEdad.getText().toString();
+                String ocupacion = pasajeroOcupacion.getText().toString();
+                String nacionalidad = pasajeroNacionalidad.getText().toString();
+                String numBoleta = pasajeroNBoleta.getText().toString();
+                String dni = pasajeroDNI.getText().toString();
+                String destino = pasajeroDestino.getText().toString();
+                Pasajero pasajero = new Pasajero(nombre, edad, ocupacion, nacionalidad, numBoleta, dni, destino);
+                savePasajero(pasajero);
+                pasajeroNombre.setText(" ");
+                pasajeroEdad.setText(" ");
+                pasajeroOcupacion.setText(" ");
+                pasajeroNacionalidad.setText(" ");
+                pasajeroNBoleta.setText(" ");
+                pasajeroDNI.setText(" ");
+                pasajeroDestino.setText(" ");
+
             }
         });
 
@@ -175,6 +198,46 @@ public class NewManifActivity extends AppCompatActivity {
         //
 
 
+    }
+
+    private void savePasajero(Pasajero pasajero) {
+        /* todo :
+         Caso 1 : Online
+         se va a crear una lista local de pasajero , cuando se
+         finalice la lista de pasajeros  el boton debe cambiar a guardar
+         obtener la info de la guia y guardar la guia con la lista de pasajero
+
+         Caso 2 : Offline
+         se va a crear una lista local de pasajero ,cuando finalice la lista de pasajero,
+         se guardar en local con
+        */
+    }
+
+
+    private void saveToLocalStorage(Pasajero pasajero, int sync) {
+        MySqliteDB mySqliteDB = new MySqliteDB(this);
+        SQLiteDatabase db = mySqliteDB.getWritableDatabase();
+        mySqliteDB.mySaveToLocalDBPasajero(pasajero, db);
+        loadListPasajero();
+        mySqliteDB.close();
+    }
+
+    private void loadListPasajero() {
+        mListPasajero.clear();
+
+        /*
+        MySqliteDB mySqliteDB = new MySqliteDB(this);
+        SQLiteDatabase database = mySqliteDB.getReadableDatabase();
+        Cursor cursor = mySqliteDB.myReadFromLocalDatabase(database);
+        while (cursor.moveToNext()) {
+            String name = cursor.getString(cursor.getColumnIndex(DbContract.NAME));
+            int sync_status = cursor.getInt(cursor.getColumnIndex(DbContract.SYNC_STATUS));
+            mListPasajero.add(new Contact(name, sync_status));
+        }
+        adapter.notifyDataSetChanged();
+        cursor.close();
+        mySqliteDB.close();
+        */
     }
 
     private void getListVehiculoFromSqlite() {

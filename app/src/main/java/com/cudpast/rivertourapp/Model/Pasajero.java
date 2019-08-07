@@ -1,9 +1,9 @@
 package com.cudpast.rivertourapp.Model;
 
 public class Pasajero {
-    private String id ;
+    private String id;
     private String nombre;
-    private String apellido ;
+    private String apellido;
     private String edad;
     private String ocupacion;
     private String nacionalidad;
@@ -11,10 +11,20 @@ public class Pasajero {
     private String dni;
     private String destino;
 
-
     public Pasajero() {
+
     }
 
+    public Pasajero(String nombre, String edad, String ocupacion, String nacionalidad, String numBoleta, String dni, String destino) {
+        this.nombre = nombre;
+        this.apellido = apellido;
+        this.edad = edad;
+        this.ocupacion = ocupacion;
+        this.nacionalidad = nacionalidad;
+        this.numBoleta = numBoleta;
+        this.dni = dni;
+        this.destino = destino;
+    }
 
     public String getId() {
         return id;

@@ -25,9 +25,6 @@ public class Utils {
                     CAMPO_TELEFONO_USUARIO + "TEXT)";
 
 
-
-
-
     //Constates campos vehiculos
     public static final String TABLA_VEHICULO = "vehiculo";
 
@@ -62,24 +59,34 @@ public class Utils {
                     CAMPO_APELLIDO_CHOFER + " " + "TEXT," +
                     CAMPO_DNI_CHOFER + " " + "TEXT," +
                     CAMPO_BREVETE_CHOFER + " " + "TEXT," +
-                    CAMPO_TELEFONO_CHOFER + " " +"TEXT)";
-
-
+                    CAMPO_TELEFONO_CHOFER + " " + "TEXT)";
 
 
     // Constates campos de Pasajero
-    public static final String TABLA_PASAJERO = "mascota";
-    public static final String CAMPO_ID_MASCOTA = "id_mascota";
-    public static final String CAMPO_NOMBRE_MASCOTA = "nombre_mascota";
-    public static final String CAMPO_RAZA_MASCOTA = "raza_mascota";
-    public static final String CAMPO_ID_DUENO = "id_dueno";
 
-    public static final String CREATE_TABLA_MASCOTA =
+    public static final String TABLA_PASAJERO = "pasajero";
+
+    public static final String CAMPO_ID_PASAJERO = "idPasajero";
+    public static final String CAMPO_NOMBRE_PASAJERO = "nombrePasajero";
+    public static final String CAMPO_EDAD_PASAJERO = "edadPasajero";
+    public static final String CAMPO_OCUPACION_PASAJERO = "ocupacionPasajero";
+    public static final String CAMPO_NACIONALIDAD_PASAJERO = "nacionalidadPasajero";
+    public static final String CAMPO_NUMBOLETA_PASAJERO = "numBoletaPasajero";
+    public static final String CAMPO_DNI_PASAJERO = "dniPasajero";
+    public static final String CAMPO_DESTINO_PASAJERO = "destinoPasajero";
+
+    public static final String CREATE_TABLA_PASAJERO =
             "CREATE TABLE " + TABLA_PASAJERO + "(" +
-                    CAMPO_ID_MASCOTA + " INTEGER PRIMARY KEY AUTOINCREMENT , " +
-                    CAMPO_NOMBRE_MASCOTA + "  TEXT," +
-                    CAMPO_RAZA_MASCOTA + " TEXT ," +
-                    CAMPO_ID_DUENO + " INTEGER )";
+                    CAMPO_ID_PASAJERO + " INTEGER PRIMARY KEY AUTOINCREMENT ," +
+                    CAMPO_NOMBRE_PASAJERO + " " + "TEXT," +
+                    CAMPO_EDAD_PASAJERO + " " + " TEXT," +
+                    CAMPO_OCUPACION_PASAJERO + " " + " TEXT," +
+                    CAMPO_NACIONALIDAD_PASAJERO + " " + "TEXT," +
+                    CAMPO_NUMBOLETA_PASAJERO + " " + "TEXT ," +
+                    CAMPO_DNI_PASAJERO + " " + "TEXT," +
+                    CAMPO_DESTINO_PASAJERO + " " + "TEXT)";
+
+
     //Constates campos  Manifiesto
 
 

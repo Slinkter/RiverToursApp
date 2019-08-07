@@ -16,7 +16,7 @@ import com.cudpast.rivertourapp.Helper.ApiInterface;
 import com.cudpast.rivertourapp.Helper.ApiService;
 import com.cudpast.rivertourapp.Model.Vehiculo;
 import com.cudpast.rivertourapp.R;
-import com.cudpast.rivertourapp.SQLite.DbHelper;
+import com.cudpast.rivertourapp.SQLite.MySqliteDB;
 import com.cudpast.rivertourapp.SQLite.Utils;
 
 import java.util.ArrayList;
@@ -115,16 +115,16 @@ public class ConsulVehiculoActivity extends AppCompatActivity {
 
     private void destroyDBVehiculo() {
         Log.e(TAG, " eliminar  drop table vehiculo ");
-        DbHelper dbHelper = new DbHelper(this);
-        dbHelper.deleteTable();
+        MySqliteDB mySqliteDB = new MySqliteDB(this);
+        mySqliteDB.deleteTable();
     }
 
     private void loadListVehiculoOffline() {
         mListOff.clear();
 
-        DbHelper dbHelper = new DbHelper(this);
-        SQLiteDatabase db = dbHelper.getReadableDatabase();
-        Cursor cursor = dbHelper.readFromLocalDatabaseVehiculo(db);
+        MySqliteDB mySqliteDB = new MySqliteDB(this);
+        SQLiteDatabase db = mySqliteDB.getReadableDatabase();
+        Cursor cursor = mySqliteDB.readFromLocalDatabaseVehiculo(db);
 
 
         while (cursor.moveToNext()) {
@@ -163,7 +163,7 @@ public class ConsulVehiculoActivity extends AppCompatActivity {
         recyclerView.setItemAnimator(new DefaultItemAnimator());
         recyclerView.setAdapter(vAdapter);
         cursor.close();
-        dbHelper.close();
+        mySqliteDB.close();
         Toast.makeText(this, "hola , esta oflline", Toast.LENGTH_SHORT).show();
     }
 
@@ -171,7 +171,7 @@ public class ConsulVehiculoActivity extends AppCompatActivity {
 
         try {
             //1.Conexion
-            DbHelper conn = new DbHelper(this);
+            MySqliteDB conn = new MySqliteDB(this);
             SQLiteDatabase db = conn.getWritableDatabase();
             String insert = "INSERT INTO " + Utils.TABLA_VEHICULO + "( " +
                     CAMPO_NOMBRE_VEHICULO + "," +

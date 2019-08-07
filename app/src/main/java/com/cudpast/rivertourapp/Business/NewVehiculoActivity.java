@@ -16,7 +16,7 @@ import com.cudpast.rivertourapp.Helper.ApiService;
 import com.cudpast.rivertourapp.MainActivity;
 import com.cudpast.rivertourapp.Model.Vehiculo;
 import com.cudpast.rivertourapp.R;
-import com.cudpast.rivertourapp.SQLite.DbHelper;
+import com.cudpast.rivertourapp.SQLite.MySqliteDB;
 import com.cudpast.rivertourapp.SQLite.Utils;
 
 import retrofit2.Call;
@@ -81,7 +81,7 @@ public class NewVehiculoActivity extends AppCompatActivity {
             String plaV = newPlacaVehiculo.getText().toString();
 
             //1.Conexion
-            DbHelper conn = new DbHelper(this);
+            MySqliteDB conn = new MySqliteDB(this);
             SQLiteDatabase db = conn.getWritableDatabase();
             String insert = "INSERT INTO " + Utils.TABLA_VEHICULO + "(" +
                     Utils.CAMPO_NOMBRE_VEHICULO + "," +
