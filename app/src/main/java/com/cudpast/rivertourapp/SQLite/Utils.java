@@ -77,13 +77,13 @@ public class Utils {
 
     public static final String CREATE_TABLA_PASAJERO =
             "CREATE TABLE " + TABLA_PASAJERO + "(" +
-                    CAMPO_ID_PASAJERO + " INTEGER PRIMARY KEY AUTOINCREMENT ," +
-                    CAMPO_NOMBRE_PASAJERO + " " + "TEXT," +
-                    CAMPO_EDAD_PASAJERO + " " + " TEXT," +
-                    CAMPO_OCUPACION_PASAJERO + " " + " TEXT," +
-                    CAMPO_NACIONALIDAD_PASAJERO + " " + "TEXT," +
+                    CAMPO_ID_PASAJERO + " " +"INTEGER PRIMARY KEY AUTOINCREMENT ," +
+                    CAMPO_NOMBRE_PASAJERO + " " + "TEXT ," +
+                    CAMPO_EDAD_PASAJERO + " " + " TEXT ," +
+                    CAMPO_OCUPACION_PASAJERO + " " + " TEXT ," +
+                    CAMPO_NACIONALIDAD_PASAJERO + " " + "TEXT ," +
                     CAMPO_NUMBOLETA_PASAJERO + " " + "TEXT ," +
-                    CAMPO_DNI_PASAJERO + " " + "TEXT," +
+                    CAMPO_DNI_PASAJERO + " " + "TEXT ," +
                     CAMPO_DESTINO_PASAJERO + " " + "TEXT)";
 
 

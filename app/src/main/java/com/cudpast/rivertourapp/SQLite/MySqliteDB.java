@@ -6,8 +6,11 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.database.sqlite.SQLiteDatabase.CursorFactory;
+import android.util.Log;
 
 import com.cudpast.rivertourapp.Model.Pasajero;
+
+import java.security.acl.LastOwnerException;
 
 import static com.cudpast.rivertourapp.SQLite.Utils.CAMPO_PLACA_VEHICULO;
 import static com.cudpast.rivertourapp.SQLite.Utils.CREATE_TABLA_CHOFER;
@@ -18,13 +21,13 @@ import static com.cudpast.rivertourapp.SQLite.Utils.CREATE_TABLA_VEHICULO;
 public class MySqliteDB extends SQLiteOpenHelper {
 
     public static final String DATABASE_NAME = "dbRiverTour";
-    public static final int DATABASE_VERSION = 1;
+    public static final int DATABASE_VERSION = 2;
 
     private SQLiteDatabase db;
 
     public static final String drop_vehiculo = "DROP TABLE IF EXISTS " + Utils.TABLA_VEHICULO;
     public static final String drop_chofer = "DROP TABLE IF EXISTS " + Utils.TABLA_CHOFER;
-    public static final String drop_pasajero = "DROP TABLE IF EXISTS " + Utils.TABLA_CHOFER;
+    public static final String drop_pasajero = "DROP TABLE IF EXISTS " + Utils.TABLA_PASAJERO;
 
 
     public MySqliteDB(Context context) {
@@ -43,8 +46,40 @@ public class MySqliteDB extends SQLiteOpenHelper {
         db.execSQL(drop_vehiculo);
         db.execSQL(drop_chofer);
         db.execSQL(drop_pasajero);
-
         onCreate(db);
+    }
+
+
+    public void mySaveToLocalDBPasajero(Pasajero pasajero, SQLiteDatabase database) {
+
+        Log.e("mySaveToLocalDBPasajero", "2");
+        Log.e("mySaveToLocalDBPasajero", "pasajero : " + pasajero.getNombre());
+        Log.e("mySaveToLocalDBPasajero", "pasajero : " + pasajero.getEdad());
+        Log.e("mySaveToLocalDBPasajero", "pasajero : " + pasajero.getOcupacion());
+        Log.e("mySaveToLocalDBPasajero", "pasajero : " + pasajero.getNacionalidad());
+        ContentValues contentValues = new ContentValues();
+        contentValues.put(Utils.CAMPO_NOMBRE_PASAJERO, pasajero.getNombre());
+        contentValues.put(Utils.CAMPO_EDAD_PASAJERO, pasajero.getEdad());
+        contentValues.put(Utils.CAMPO_OCUPACION_PASAJERO, pasajero.getOcupacion());
+        contentValues.put(Utils.CAMPO_NACIONALIDAD_PASAJERO, pasajero.getNacionalidad());
+        contentValues.put(Utils.CAMPO_NUMBOLETA_PASAJERO, pasajero.getNumBoleta());
+        contentValues.put(Utils.CAMPO_DNI_PASAJERO, pasajero.getDni());
+        contentValues.put(Utils.CAMPO_DESTINO_PASAJERO, pasajero.getDestino());
+
+        long hola = database.insert(Utils.TABLA_PASAJERO, null, contentValues);
+
+        if (hola > 0) {
+            Log.e("mySaveToLocalDBPasajero", "hola  " + hola);
+        } else {
+            Log.e("mySaveToLocalDBPasajero", "hola " + hola);
+        }
+
+    }
+
+    public void mySaveToLocalDBPasajero2(Pasajero pasajero, SQLiteDatabase database) {
+
+
+
     }
 
     public Cursor readFromLocalDatabaseVehiculo(SQLiteDatabase database) {
@@ -57,23 +92,12 @@ public class MySqliteDB extends SQLiteOpenHelper {
         return (database.query(Utils.TABLA_CHOFER, projection, null, null, null, null, null));
     }
 
-    //String nombre, String edad, String ocupacion, String nacionalidad, String numBoleta, String dni, String destino
     public Cursor readFromLocalDatabasePasajero(SQLiteDatabase database) {
         String[] projection = {Utils.CAMPO_NOMBRE_PASAJERO, Utils.CAMPO_EDAD_PASAJERO, Utils.CAMPO_OCUPACION_PASAJERO, Utils.CAMPO_NACIONALIDAD_PASAJERO, Utils.CAMPO_NUMBOLETA_PASAJERO, Utils.CAMPO_DNI_PASAJERO, Utils.CAMPO_DESTINO_PASAJERO};
         return (database.query(Utils.TABLA_PASAJERO, projection, null, null, null, null, null));
     }
 
-    public void mySaveToLocalDBPasajero(Pasajero pasajero, SQLiteDatabase database) {
-        ContentValues contentValues = new ContentValues();
-        contentValues.put(Utils.CAMPO_NOMBRE_PASAJERO, pasajero.getNombre());
-        contentValues.put(Utils.CAMPO_EDAD_PASAJERO, pasajero.getEdad());
-        contentValues.put(Utils.CAMPO_OCUPACION_PASAJERO, pasajero.getOcupacion());
-        contentValues.put(Utils.CAMPO_NACIONALIDAD_PASAJERO, pasajero.getNombre());
-        contentValues.put(Utils.CAMPO_NUMBOLETA_PASAJERO, pasajero.getNombre());
-        contentValues.put(Utils.CAMPO_DNI_PASAJERO, pasajero.getNombre());
-        contentValues.put(Utils.CAMPO_DESTINO_PASAJERO, pasajero.getNombre());
-        database.insert(Utils.TABLA_PASAJERO, null, contentValues);
-    }
+
 
 
     public void deleteTable() {
@@ -88,5 +112,12 @@ public class MySqliteDB extends SQLiteOpenHelper {
             db = getWritableDatabase();
         db.execSQL(drop_chofer);
         db.execSQL(CREATE_TABLA_CHOFER);
+    }
+
+    public void deleteTablePasajero() {
+        if (db == null || !db.isOpen())
+            db = getWritableDatabase();
+        db.execSQL(drop_pasajero);
+        db.execSQL(CREATE_TABLA_PASAJERO);
     }
 }

@@ -7,6 +7,10 @@ import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.widget.DefaultItemAnimator;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -16,6 +20,10 @@ import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.cudpast.rivertourapp.Adapter.ChoferAdapter;
+import com.cudpast.rivertourapp.Adapter.PasajeroAdapter;
+import com.cudpast.rivertourapp.Helper.ApiInterface;
+import com.cudpast.rivertourapp.Helper.ApiService;
 import com.cudpast.rivertourapp.Model.Chofer;
 import com.cudpast.rivertourapp.Model.Pasajero;
 import com.cudpast.rivertourapp.Model.Vehiculo;
@@ -35,7 +43,9 @@ public class NewManifActivity extends AppCompatActivity {
     private Button btnAddPasajero;
 
     private Spinner spinnerPlacaVehiculo, spinnerChofer1, spinnerChofer2;
-
+    private RecyclerView recyclerViewPasajero;
+    RecyclerView.LayoutManager layoutManager;
+    private PasajeroAdapter pAdapter;
 
     ArrayList<Chofer> listChoferFromSqlite;
     ArrayList<String> listChoferSpinner;
@@ -46,7 +56,10 @@ public class NewManifActivity extends AppCompatActivity {
     private DatePickerDialog.OnDateSetListener mDateSetListener;
     public int year_n, month_n, day_n;
 
+
+    //lista Pasajero
     ArrayList<Pasajero> mListPasajero;
+    ApiInterface retrofitAPI;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -57,7 +70,15 @@ public class NewManifActivity extends AppCompatActivity {
         conn = new MySqliteDB(this);
 
         //
-        mListPasajero =  new ArrayList<>();
+        mListPasajero = new ArrayList<>();
+        recyclerViewPasajero = findViewById(R.id.recyclerViewPasajero);
+        layoutManager = new LinearLayoutManager(this);
+        recyclerViewPasajero.setLayoutManager(layoutManager);
+        recyclerViewPasajero.setHasFixedSize(true);
+        pAdapter = new PasajeroAdapter(mListPasajero);
+        recyclerViewPasajero.setAdapter(pAdapter);
+        recyclerViewPasajero.setItemAnimator(new DefaultItemAnimator());
+
 
         //Bloque 1
         spinnerPlacaVehiculo = findViewById(R.id.guiaPlacaVehiculo);
@@ -81,6 +102,7 @@ public class NewManifActivity extends AppCompatActivity {
         pasajeroNacionalidad = findViewById(R.id.pasajeroNacionalidad);
         pasajeroNBoleta = findViewById(R.id.pasajeroN);
         pasajeroDNI = findViewById(R.id.pasajeroDNI);
+        pasajeroDestino = findViewById(R.id.pasajeroDestino);
         guiaDestino = findViewById(R.id.guiaDestino);
 
         btnSaveGuia.setOnClickListener(new View.OnClickListener() {
@@ -89,9 +111,8 @@ public class NewManifActivity extends AppCompatActivity {
                 Toast.makeText(NewManifActivity.this, "Guia button", Toast.LENGTH_SHORT).show();
             }
         });
-
+        //******************************************************
         btnAddPasajero = findViewById(R.id.btnAddPasajero);
-
         btnAddPasajero.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -104,8 +125,11 @@ public class NewManifActivity extends AppCompatActivity {
                 String dni = pasajeroDNI.getText().toString();
                 String destino = pasajeroDestino.getText().toString();
                 Pasajero pasajero = new Pasajero(nombre, edad, ocupacion, nacionalidad, numBoleta, dni, destino);
-                savePasajero(pasajero);
+
+                registrarPasajero(pasajero);
+
                 pasajeroNombre.setText(" ");
+                pasajeroNombre.setHint("hola");
                 pasajeroEdad.setText(" ");
                 pasajeroOcupacion.setText(" ");
                 pasajeroNacionalidad.setText(" ");
@@ -211,12 +235,51 @@ public class NewManifActivity extends AppCompatActivity {
          se va a crear una lista local de pasajero ,cuando finalice la lista de pasajero,
          se guardar en local con
         */
+
+        // primero vamos a ver la lita de pasajero
+
+
+    }
+
+    private void registrarPasajero(Pasajero pasajero) {
+        //1.Conexion
+        MySqliteDB conn = new MySqliteDB(this);
+        //2.Escribir en la database
+        SQLiteDatabase db = conn.getWritableDatabase();
+        //3.Cogigo para insert into usuario (id,nombre,telefono) values (123 , 'dasd','543534')
+        String insert =
+                "INSERT INTO " + Utils.TABLA_PASAJERO + "(" +
+                        Utils.CAMPO_NOMBRE_PASAJERO + "," +
+                        Utils.CAMPO_EDAD_PASAJERO + "," +
+                        Utils.CAMPO_OCUPACION_PASAJERO + "," +
+                        Utils.CAMPO_NACIONALIDAD_PASAJERO + "," +
+                        Utils.CAMPO_NUMBOLETA_PASAJERO + "," +
+                        Utils.CAMPO_DNI_PASAJERO + "," +
+                        Utils.CAMPO_DESTINO_PASAJERO + ")" +
+                        " VALUES ('" +
+                        pasajero.getNombre() + "','" +
+                        pasajero.getEdad() + "','" +
+                        pasajero.getOcupacion() + "','" +
+                        pasajero.getNacionalidad() + "','" +
+                        pasajero.getNumBoleta() + "','" +
+                        pasajero.getDni() + "','" +
+                        pasajero.getDestino() + "');";
+        Log.e("1 ", "------> " + insert);
+        //4.Insertar
+        db.execSQL(insert);
+        loadListPasajero();
+        //5.Cerrar conexion
+        db.close();
+
+
     }
 
 
-    private void saveToLocalStorage(Pasajero pasajero, int sync) {
+    private void saveToLocalStorage(Pasajero pasajero) {
+        Log.e("saveToLocalStorag", "1");
         MySqliteDB mySqliteDB = new MySqliteDB(this);
         SQLiteDatabase db = mySqliteDB.getWritableDatabase();
+
         mySqliteDB.mySaveToLocalDBPasajero(pasajero, db);
         loadListPasajero();
         mySqliteDB.close();
@@ -224,20 +287,25 @@ public class NewManifActivity extends AppCompatActivity {
 
     private void loadListPasajero() {
         mListPasajero.clear();
-
-        /*
         MySqliteDB mySqliteDB = new MySqliteDB(this);
         SQLiteDatabase database = mySqliteDB.getReadableDatabase();
-        Cursor cursor = mySqliteDB.myReadFromLocalDatabase(database);
+        Cursor cursor = mySqliteDB.readFromLocalDatabasePasajero(database);
+
         while (cursor.moveToNext()) {
-            String name = cursor.getString(cursor.getColumnIndex(DbContract.NAME));
-            int sync_status = cursor.getInt(cursor.getColumnIndex(DbContract.SYNC_STATUS));
-            mListPasajero.add(new Contact(name, sync_status));
+
+            String nombre = cursor.getString(cursor.getColumnIndex(Utils.CAMPO_NOMBRE_PASAJERO));
+            String edad = cursor.getString(cursor.getColumnIndex(Utils.CAMPO_EDAD_PASAJERO));
+            String ocupacion = cursor.getString(cursor.getColumnIndex(Utils.CAMPO_OCUPACION_PASAJERO));
+            String nacionalidad = cursor.getString(cursor.getColumnIndex(Utils.CAMPO_NACIONALIDAD_PASAJERO));
+            String numBoleta = cursor.getString(cursor.getColumnIndex(Utils.CAMPO_NUMBOLETA_PASAJERO));
+            String dni = cursor.getString(cursor.getColumnIndex(Utils.CAMPO_DNI_PASAJERO));
+            String destino = cursor.getString(cursor.getColumnIndex(Utils.CAMPO_DESTINO_PASAJERO));
+
+            mListPasajero.add(new Pasajero(nombre, edad, ocupacion, nacionalidad, numBoleta, dni, destino));
         }
-        adapter.notifyDataSetChanged();
+        pAdapter.notifyDataSetChanged();
         cursor.close();
         mySqliteDB.close();
-        */
     }
 
     private void getListVehiculoFromSqlite() {

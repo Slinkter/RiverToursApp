@@ -3,15 +3,85 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:layout_marginLeft="8dp"
-    android:layout_marginTop="8dp"
-    android:layout_marginRight="8dp"
-    android:layout_marginBottom="8dp"
+    android:layout_margin="8dp"
+    android:background="@color/white"
     android:clickable="true"
     android:paddingBottom="13dp"
-    app:cardCornerRadius="15dp"
-    app:cardElevation="5dp">
+    app:cardCornerRadius="10dp"
+    app:cardElevation="5dp"
+    app:cardUseCompatPadding="true">
 
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:orientation="horizontal"
+        android:weightSum="2">
 
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="10dp"
+            android:layout_weight="1"
+            android:orientation="vertical">
 
+            <TextView
+                android:id="@+id/tv_nombrePasajero"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="nombrePasajero"
+                android:textColor="@color/colorAccent" />
+
+            <TextView
+                android:id="@+id/tv_edadPasajero"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="edadPasajero"
+                android:textColor="@color/colorAccent" />
+
+            <TextView
+                android:id="@+id/tv_ocupacionPasajero"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="ocupacionPasajero"
+                android:textColor="@color/colorAccent" />
+
+            <TextView
+                android:id="@+id/tv_nacionalidadPasajero"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="nacionalidadPasajero"
+                android:textColor="@color/colorAccent" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="10dp"
+            android:layout_weight="1"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/tv_numBoletaPasajero"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="numBoletaPasajero"
+                android:textColor="@color/colorAccent" />
+
+            <TextView
+                android:id="@+id/tv_dniPasajero"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="dniPasajero"
+                android:textColor="@color/colorAccent" />
+
+            <TextView
+                android:id="@+id/tv_destinoPasajero"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="destinoPasajero"
+                android:textColor="@color/colorAccent" />
+
+        </LinearLayout>
+    </LinearLayout>
 </android.support.v7.widget.CardView>
