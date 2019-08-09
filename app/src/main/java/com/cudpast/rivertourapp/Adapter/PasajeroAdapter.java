@@ -30,21 +30,19 @@ public class PasajeroAdapter extends RecyclerView.Adapter<PasajeroAdapter.Custom
 
     @Override
     public void onBindViewHolder(@NonNull CustomViewHolderPasajero item, int position) {
-        item.tv_nombrePasajero.setText(arrayListPasajero.get(position).getNombre());
-        item.tv_edadPasajero.setText(arrayListPasajero.get(position).getEdad());
-        item.tv_ocupacionPasajero.setText(arrayListPasajero.get(position).getOcupacion());
-        item.tv_nacionalidadPasajero.setText(arrayListPasajero.get(position).getNacionalidad());
-        item.tv_numBoletaPasajero.setText(arrayListPasajero.get(position).getNumBoleta());
-        item.tv_dniPasajero.setText(arrayListPasajero.get(position).getDni());
-        item.tv_destinoPasajero.setText(arrayListPasajero.get(position).getDestino());
+        item.tv_nombrePasajero.setText("Nombre  : " + arrayListPasajero.get(position).getNombre());
+        item.tv_edadPasajero.setText("Edad : " + arrayListPasajero.get(position).getEdad() +" " + "años");
+        item.tv_ocupacionPasajero.setText("Ocupación  : " + arrayListPasajero.get(position).getOcupacion());
+        item.tv_nacionalidadPasajero.setText("Nacionalidad  : " + arrayListPasajero.get(position).getNacionalidad());
+        item.tv_numBoletaPasajero.setText("Num Boleto  : " + arrayListPasajero.get(position).getNumBoleta());
+        item.tv_dniPasajero.setText("DNI  : " + arrayListPasajero.get(position).getDni());
+        item.tv_destinoPasajero.setText("Destino  : " + arrayListPasajero.get(position).getDestino());
     }
 
     @Override
     public int getItemCount() {
         return arrayListPasajero.size();
     }
-
-
 
 
     public class CustomViewHolderPasajero extends RecyclerView.ViewHolder {
