@@ -2,10 +2,13 @@ package com.cudpast.rivertourapp.Adapter;
 
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.cudpast.rivertourapp.Model.Pasajero;
 import com.cudpast.rivertourapp.R;
@@ -14,43 +17,44 @@ import java.util.ArrayList;
 
 public class PasajeroAdapter extends RecyclerView.Adapter<PasajeroAdapter.CustomViewHolderPasajero> {
 
-    private ArrayList<Pasajero> arrayListPasajero = new ArrayList<>();
+    private ArrayList<Pasajero> mListPasajero;
+    private OnItemClickListener mItemListener;
 
-    public PasajeroAdapter(ArrayList<Pasajero> arrayListPasajero) {
-        this.arrayListPasajero = arrayListPasajero;
+    public PasajeroAdapter(ArrayList<Pasajero> mListPasajero) {
+        this.mListPasajero = mListPasajero;
     }
 
     @NonNull
     @Override
     public CustomViewHolderPasajero onCreateViewHolder(@NonNull ViewGroup parent, int i) {
         View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.pasajero_list, parent, false);
-        CustomViewHolderPasajero myVH = new CustomViewHolderPasajero(view);
+        CustomViewHolderPasajero myVH = new CustomViewHolderPasajero(view,mItemListener);
         return myVH;
     }
 
     @Override
     public void onBindViewHolder(@NonNull CustomViewHolderPasajero item, int position) {
-        item.tv_nombrePasajero.setText("Nombre  : " + arrayListPasajero.get(position).getNombre());
-        item.tv_edadPasajero.setText("Edad : " + arrayListPasajero.get(position).getEdad() +" " + "años");
-        item.tv_ocupacionPasajero.setText("Ocupación  : " + arrayListPasajero.get(position).getOcupacion());
-        item.tv_nacionalidadPasajero.setText("Nacionalidad  : " + arrayListPasajero.get(position).getNacionalidad());
-        item.tv_numBoletaPasajero.setText("Num Boleto  : " + arrayListPasajero.get(position).getNumBoleta());
-        item.tv_dniPasajero.setText("DNI  : " + arrayListPasajero.get(position).getDni());
-        item.tv_destinoPasajero.setText("Destino  : " + arrayListPasajero.get(position).getDestino());
+        item.tv_nombrePasajero.setText("Nombre  : " + mListPasajero.get(position).getNombre());
+        item.tv_edadPasajero.setText("Edad : " + mListPasajero.get(position).getEdad() +" " + "años");
+        item.tv_ocupacionPasajero.setText("Ocupación  : " + mListPasajero.get(position).getOcupacion());
+        item.tv_nacionalidadPasajero.setText("Nacionalidad  : " + mListPasajero.get(position).getNacionalidad());
+        item.tv_numBoletaPasajero.setText("Num Boleto  : " + mListPasajero.get(position).getNumBoleta());
+        item.tv_dniPasajero.setText("DNI  : " + mListPasajero.get(position).getDni());
+        item.tv_destinoPasajero.setText("Destino  : " + mListPasajero.get(position).getDestino());
     }
 
     @Override
     public int getItemCount() {
-        return arrayListPasajero.size();
+        return mListPasajero.size();
     }
 
 
     public class CustomViewHolderPasajero extends RecyclerView.ViewHolder {
 
         TextView tv_nombrePasajero, tv_edadPasajero, tv_ocupacionPasajero, tv_nacionalidadPasajero, tv_numBoletaPasajero, tv_dniPasajero, tv_destinoPasajero;
+        ImageView mEdit,mDelete;
 
-
-        public CustomViewHolderPasajero(@NonNull View itemView) {
+        public CustomViewHolderPasajero(@NonNull final View itemView,final OnItemClickListener listener) {
             super(itemView);
             tv_nombrePasajero = itemView.findViewById(R.id.tv_nombrePasajero);
             tv_edadPasajero = itemView.findViewById(R.id.tv_edadPasajero);
@@ -60,8 +64,59 @@ public class PasajeroAdapter extends RecyclerView.Adapter<PasajeroAdapter.Custom
             tv_dniPasajero = itemView.findViewById(R.id.tv_dniPasajero);
             tv_destinoPasajero = itemView.findViewById(R.id.tv_destinoPasajero);
 
+            mEdit = itemView.findViewById(R.id.btn_edit);
+            mDelete = itemView.findViewById(R.id.btn_delete);
+
+            mEdit.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    if (listener != null) {
+                        int position = getAdapterPosition();
+                        if (position != RecyclerView.NO_POSITION) {
+                            listener.onEditClick(position);
+                        }
+                    }
+                }
+            });
+
+            mDelete.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    if (listener != null) {
+                        int position = getAdapterPosition();
+                        if (position != RecyclerView.NO_POSITION) {
+                            listener.onDeleteClick(position);
+                        }
+                    }
+                }
+            });
+
 
         }
+    }
+
+
+    private void editItem(int position) {
+
+    }
+
+
+    private void removeItem(int position) {
+        mListPasajero.remove(position);
+
+
+
+    }
+
+
+    public interface OnItemClickListener {
+        void onEditClick(int position);
+
+        void onDeleteClick(int position);
+    }
+
+    public void setOnItemClickListener(OnItemClickListener listener) {
+        mItemListener = listener;
     }
 
 }

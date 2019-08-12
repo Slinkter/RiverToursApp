@@ -39,19 +39,23 @@ public class NewManifActivity extends AppCompatActivity {
 
     private TextView guiaNombreVehiculo, guiaMatricula, guiaMarca, guiaGuia, guiaFecha, guiaChofer1, guiaChofer2, guiaBrevete1, guiaBrevete2, guiaDestino;
     private TextView pasajeroNombre, pasajeroEdad, pasajeroOcupacion, pasajeroNacionalidad, pasajeroNBoleta, pasajeroDNI, pasajeroDestino;
+
     private Button btnSaveGuia;
     private Button btnAddPasajero;
 
     private Spinner spinnerPlacaVehiculo, spinnerChofer1, spinnerChofer2;
     private RecyclerView recyclerViewPasajero;
-    RecyclerView.LayoutManager layoutManager;
+    private RecyclerView.LayoutManager layoutManager;
     private PasajeroAdapter pAdapter;
+
+
+    ArrayList<Vehiculo> listVehiculoFromSqlite;
+    ArrayList<String> listVehiculoSpinner;
 
     ArrayList<Chofer> listChoferFromSqlite;
     ArrayList<String> listChoferSpinner;
 
-    ArrayList<Vehiculo> listVehiculoFromSqlite;
-    ArrayList<String> listVehiculoSpinner;
+
     MySqliteDB conn;
     private DatePickerDialog.OnDateSetListener mDateSetListener;
     public int year_n, month_n, day_n;
@@ -69,15 +73,8 @@ public class NewManifActivity extends AppCompatActivity {
         //
         conn = new MySqliteDB(this);
 
-        //
-        mListPasajero = new ArrayList<>();
-        recyclerViewPasajero = findViewById(R.id.recyclerViewPasajero);
-        layoutManager = new LinearLayoutManager(this);
-        recyclerViewPasajero.setLayoutManager(layoutManager);
-        recyclerViewPasajero.setHasFixedSize(true);
-        pAdapter = new PasajeroAdapter(mListPasajero);
-        recyclerViewPasajero.setAdapter(pAdapter);
-        recyclerViewPasajero.setItemAnimator(new DefaultItemAnimator());
+        buildCreateRecyclerPasajero();
+
 
 
         //Bloque 1
@@ -94,7 +91,6 @@ public class NewManifActivity extends AppCompatActivity {
         guiaBrevete2 = findViewById(R.id.guiaBrevete2);
         guiaDestino = findViewById(R.id.guiaDestino);
 
-        btnSaveGuia = findViewById(R.id.btnSaveGuia);
         //Bloque 2
         pasajeroNombre = findViewById(R.id.pasajeroNombre);
         pasajeroEdad = findViewById(R.id.pasajeroEdad);
@@ -105,6 +101,8 @@ public class NewManifActivity extends AppCompatActivity {
         pasajeroDestino = findViewById(R.id.pasajeroDestino);
         guiaDestino = findViewById(R.id.guiaDestino);
 
+        //******************************************************
+        btnSaveGuia = findViewById(R.id.btnSaveGuia);
         btnSaveGuia.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -116,7 +114,7 @@ public class NewManifActivity extends AppCompatActivity {
         btnAddPasajero.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                //String nombre,  String edad, String ocupacion, String nacionalidad, String numBoleta, String dni, String destino
+
                 String nombre = pasajeroNombre.getText().toString();
                 String edad = pasajeroEdad.getText().toString();
                 String ocupacion = pasajeroOcupacion.getText().toString();
@@ -124,12 +122,11 @@ public class NewManifActivity extends AppCompatActivity {
                 String numBoleta = pasajeroNBoleta.getText().toString();
                 String dni = pasajeroDNI.getText().toString();
                 String destino = pasajeroDestino.getText().toString();
-                Pasajero pasajero = new Pasajero(nombre, edad, ocupacion, nacionalidad, numBoleta, dni, destino);
 
+                Pasajero pasajero = new Pasajero(nombre, edad, ocupacion, nacionalidad, numBoleta, dni, destino);
                 registrarPasajero(pasajero);
 
                 pasajeroNombre.setText(" ");
-                pasajeroNombre.setHint("hola");
                 pasajeroEdad.setText(" ");
                 pasajeroOcupacion.setText(" ");
                 pasajeroNacionalidad.setText(" ");
@@ -170,12 +167,11 @@ public class NewManifActivity extends AppCompatActivity {
                 guiaFecha.setText(fechauser);
             }
         };
-        //
-        //
+
         //******************************************************
         getListVehiculoFromSqlite();
         getListChoferFromSqlite();
-        //Spinner Vehiculo
+        //Spinner Vehiculo--------------------------------------
         ArrayAdapter<CharSequence> adapterVehiculo;
         adapterVehiculo = new ArrayAdapter(this, R.layout.spinner_vehiculo_item, listVehiculoSpinner);
         spinnerPlacaVehiculo.setAdapter(adapterVehiculo);
@@ -198,7 +194,7 @@ public class NewManifActivity extends AppCompatActivity {
 
             }
         });
-        //Spinner Chofer
+        //Spinner Chofer----------------------------------------
         ArrayAdapter<CharSequence> adapterChofer;
         adapterChofer = new ArrayAdapter(this, R.layout.spinner_vehiculo_item, listChoferSpinner);
         spinnerChofer1.setAdapter(adapterChofer);
@@ -218,10 +214,38 @@ public class NewManifActivity extends AppCompatActivity {
 
             }
         });
-        //******************************************************
-        //
 
 
+    }
+
+    private void buildCreateRecyclerPasajero() {
+        // recyclerViewPasajero
+        mListPasajero = new ArrayList<>();
+        recyclerViewPasajero = findViewById(R.id.recyclerViewPasajero);
+        recyclerViewPasajero.setHasFixedSize(true);
+        layoutManager = new LinearLayoutManager(this);
+        recyclerViewPasajero.setLayoutManager(layoutManager);
+        pAdapter = new PasajeroAdapter(mListPasajero);
+        recyclerViewPasajero.setAdapter(pAdapter);
+
+        pAdapter.setOnItemClickListener(new PasajeroAdapter.OnItemClickListener() {
+            @Override
+            public void onEditClick(int position) {
+
+            }
+
+            @Override
+            public void onDeleteClick(int position) {
+                removeItem(position);
+            }
+        });
+
+    }
+
+    private void removeItem(int position) {
+
+        mListPasajero.remove(position);
+        pAdapter.notifyItemRemoved(position);
     }
 
     private void savePasajero(Pasajero pasajero) {
@@ -240,6 +264,7 @@ public class NewManifActivity extends AppCompatActivity {
 
 
     }
+
 
     private void registrarPasajero(Pasajero pasajero) {
         //1.Conexion
@@ -304,6 +329,7 @@ public class NewManifActivity extends AppCompatActivity {
             mListPasajero.add(new Pasajero(nombre, edad, ocupacion, nacionalidad, numBoleta, dni, destino));
         }
         pAdapter.notifyDataSetChanged();
+
         cursor.close();
         mySqliteDB.close();
     }

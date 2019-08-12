@@ -11,6 +11,11 @@ public class Pasajero {
     private String dni;
     private String destino;
 
+    private int img_edit;
+    private int img_remove;
+
+
+
     public Pasajero() {
 
     }
@@ -24,6 +29,19 @@ public class Pasajero {
         this.numBoleta = numBoleta;
         this.dni = dni;
         this.destino = destino;
+    }
+
+    public Pasajero(String nombre, String apellido, String edad, String ocupacion, String nacionalidad, String numBoleta, String dni, String destino, int img_edit, int img_remove) {
+        this.nombre = nombre;
+        this.apellido = apellido;
+        this.edad = edad;
+        this.ocupacion = ocupacion;
+        this.nacionalidad = nacionalidad;
+        this.numBoleta = numBoleta;
+        this.dni = dni;
+        this.destino = destino;
+        this.img_edit = img_edit;
+        this.img_remove = img_remove;
     }
 
     public String getId() {
@@ -96,5 +114,21 @@ public class Pasajero {
 
     public void setDestino(String destino) {
         this.destino = destino;
+    }
+
+    public int getImg_edit() {
+        return img_edit;
+    }
+
+    public void setImg_edit(int img_edit) {
+        this.img_edit = img_edit;
+    }
+
+    public int getImg_remove() {
+        return img_remove;
+    }
+
+    public void setImg_remove(int img_remove) {
+        this.img_remove = img_remove;
     }
 }
