@@ -7,7 +7,6 @@ import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
@@ -20,10 +19,8 @@ import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.cudpast.rivertourapp.Adapter.ChoferAdapter;
 import com.cudpast.rivertourapp.Adapter.PasajeroAdapter;
 import com.cudpast.rivertourapp.Helper.ApiInterface;
-import com.cudpast.rivertourapp.Helper.ApiService;
 import com.cudpast.rivertourapp.Model.Chofer;
 import com.cudpast.rivertourapp.Model.Pasajero;
 import com.cudpast.rivertourapp.Model.Vehiculo;
@@ -36,6 +33,7 @@ import java.util.Calendar;
 
 public class NewManifActivity extends AppCompatActivity {
 
+    public static final String TAG = NewManifActivity.class.getSimpleName();
 
     private TextView guiaNombreVehiculo, guiaMatricula, guiaMarca, guiaGuia, guiaFecha, guiaChofer1, guiaChofer2, guiaBrevete1, guiaBrevete2, guiaDestino;
     private TextView pasajeroNombre, pasajeroEdad, pasajeroOcupacion, pasajeroNacionalidad, pasajeroNBoleta, pasajeroDNI, pasajeroDestino;
@@ -74,8 +72,7 @@ public class NewManifActivity extends AppCompatActivity {
         conn = new MySqliteDB(this);
 
         buildCreateRecyclerPasajero();
-
-
+        loadListPasajero();
 
         //Bloque 1
         spinnerPlacaVehiculo = findViewById(R.id.guiaPlacaVehiculo);
@@ -124,7 +121,7 @@ public class NewManifActivity extends AppCompatActivity {
                 String destino = pasajeroDestino.getText().toString();
 
                 Pasajero pasajero = new Pasajero(nombre, edad, ocupacion, nacionalidad, numBoleta, dni, destino);
-                registrarPasajero(pasajero);
+                createPasajero(pasajero);
 
                 pasajeroNombre.setText(" ");
                 pasajeroEdad.setText(" ");
@@ -244,7 +241,8 @@ public class NewManifActivity extends AppCompatActivity {
 
     private void removeItem(int position) {
 
-        mListPasajero.remove(position);
+        //mListPasajero.remove(position);
+        deletePasajero(mListPasajero.get(position).getDni());
         pAdapter.notifyItemRemoved(position);
     }
 
@@ -262,18 +260,18 @@ public class NewManifActivity extends AppCompatActivity {
 
         // primero vamos a ver la lita de pasajero
 
-
     }
 
 
-    private void registrarPasajero(Pasajero pasajero) {
+    private void createPasajero(Pasajero pasajero) {
         //1.Conexion
         MySqliteDB conn = new MySqliteDB(this);
         //2.Escribir en la database
         SQLiteDatabase db = conn.getWritableDatabase();
         //3.Cogigo para insert into usuario (id,nombre,telefono) values (123 , 'dasd','543534')
         String insert =
-                "INSERT INTO " + Utils.TABLA_PASAJERO + "(" +
+                "INSERT INTO " +
+                        Utils.TABLA_PASAJERO + "(" +
                         Utils.CAMPO_NOMBRE_PASAJERO + "," +
                         Utils.CAMPO_EDAD_PASAJERO + "," +
                         Utils.CAMPO_OCUPACION_PASAJERO + "," +
@@ -289,13 +287,30 @@ public class NewManifActivity extends AppCompatActivity {
                         pasajero.getNumBoleta() + "','" +
                         pasajero.getDni() + "','" +
                         pasajero.getDestino() + "');";
-        Log.e("1 ", "------> " + insert);
+        Log.e(" ", "------> " + insert);
         //4.Insertar
         db.execSQL(insert);
         loadListPasajero();
         //5.Cerrar conexion
         db.close();
 
+
+    }
+
+    private void deletePasajero(String dni) {
+
+        //1.Conexion
+        MySqliteDB conn = new MySqliteDB(this);
+        //2.Escribir en la database
+        SQLiteDatabase db = conn.getWritableDatabase();
+        //3.Sentencia sql
+        String sql = "DELETE FROM " + Utils.TABLA_PASAJERO + " WHERE " + Utils.CAMPO_DNI_PASAJERO + "='" + dni + "'";
+        db.execSQL(sql);
+        //4.Ejecutar SQL
+        db.execSQL(sql);
+        loadListPasajero();
+        //5.Cerrar conexion
+        db.close();
 
     }
 
