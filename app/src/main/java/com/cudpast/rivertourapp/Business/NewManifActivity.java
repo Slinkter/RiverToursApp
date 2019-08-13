@@ -104,6 +104,7 @@ public class NewManifActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Toast.makeText(NewManifActivity.this, "Guia button", Toast.LENGTH_SHORT).show();
+                //todo
             }
         });
         //******************************************************
@@ -123,6 +124,16 @@ public class NewManifActivity extends AppCompatActivity {
                 Pasajero pasajero = new Pasajero(nombre, edad, ocupacion, nacionalidad, numBoleta, dni, destino);
                 createPasajero(pasajero);
 
+
+                pasajeroNombre.setHint("nombre");
+                pasajeroEdad.setHint("edad");
+                pasajeroOcupacion.setHint("ocupacion");
+                pasajeroNacionalidad.setHint("nacionalidad");
+                pasajeroNBoleta.setHint("boleta");
+                pasajeroDNI.setHint("dni");
+                pasajeroDestino.setHint("destino 123");
+
+                /*
                 pasajeroNombre.setText(" ");
                 pasajeroEdad.setText(" ");
                 pasajeroOcupacion.setText(" ");
@@ -131,6 +142,7 @@ public class NewManifActivity extends AppCompatActivity {
                 pasajeroDNI.setText(" ");
                 pasajeroDestino.setText(" ");
 
+                */
             }
         });
 

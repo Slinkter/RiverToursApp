@@ -81,7 +81,7 @@ public class PasajeroAdapter extends RecyclerView.Adapter<PasajeroAdapter.Custom
                 public void onClick(View v) {
                     if (listener != null) {
                         int position = getAdapterPosition();
-
+                        //todo : para se preguntara
                         if (position != RecyclerView.NO_POSITION) {
                             listener.onEditClick(position);
                         }
