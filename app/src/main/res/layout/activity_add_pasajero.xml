@@ -1,0 +1,210 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:layout_gravity="center"
+    android:background="@drawable/bg_login"
+    android:gravity="center"
+    android:orientation="vertical"
+    tools:context=".Business.AddPasajeroActivity">
+
+    //Modulo 2
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:text="Pasajero"
+        android:textColor="@color/login_form_details"
+        android:textSize="20dp"
+        android:textStyle="bold" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="25dp"
+            android:layout_marginRight="25dp"
+            android:orientation="horizontal"
+            android:weightSum="4">
+
+            <EditText
+                android:id="@+id/pasajeroNombre"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/distform"
+                android:layout_weight="1.9"
+                android:background="@drawable/et_bg"
+                android:hint="Nombre Completo"
+                android:inputType="text"
+                android:padding="16dp"
+                android:textColor="@color/white"
+                android:textColorHint="@color/login_form_details" />
+
+            <EditText
+                android:id="@+id/pasajeroEdad"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:layout_marginTop="@dimen/distform"
+                android:layout_marginEnd="8dp"
+                android:layout_weight="0.5"
+                android:background="@drawable/et_bg"
+                android:hint="Edad"
+                android:inputType="number"
+                android:maxLength="2"
+                android:padding="16dp"
+                android:textColor="@color/white"
+                android:textColorHint="@color/login_form_details" />
+
+            <EditText
+                android:id="@+id/pasajeroOcupacion"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/distform"
+                android:layout_marginEnd="8dp"
+                android:layout_weight="0.8"
+                android:background="@drawable/et_bg"
+                android:hint="Ocupación"
+                android:inputType="text"
+                android:padding="16dp"
+                android:textColor="@color/white"
+                android:textColorHint="@color/login_form_details" />
+
+            <EditText
+                android:id="@+id/pasajeroNacionalidad"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/distform"
+                android:layout_weight="0.8"
+                android:background="@drawable/et_bg"
+                android:hint="Nacionalidad"
+                android:inputType="text"
+                android:padding="16dp"
+                android:textColor="@color/white"
+                android:textColorHint="@color/login_form_details" />
+
+
+        </LinearLayout>
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="25dp"
+            android:layout_marginRight="25dp"
+            android:orientation="horizontal"
+            android:weightSum="4">
+
+            <EditText
+                android:id="@+id/pasajeroN"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/distform"
+                android:layout_marginEnd="8dp"
+                android:layout_weight="1"
+                android:background="@drawable/et_bg"
+                android:hint="Nº de Recibo Boleto"
+                android:inputType="text"
+                android:padding="16dp"
+                android:textColor="@color/white"
+                android:textColorHint="@color/login_form_details" />
+
+            <EditText
+                android:id="@+id/pasajeroDNI"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/distform"
+                android:layout_marginEnd="8dp"
+                android:layout_weight="1"
+                android:background="@drawable/et_bg"
+                android:hint="DNI"
+                android:inputType="number"
+                android:maxLength="8"
+                android:padding="16dp"
+                android:textColor="@color/white"
+                android:textColorHint="@color/login_form_details" />
+
+            <EditText
+                android:id="@+id/pasajeroDestino"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/distform"
+                android:layout_weight="1"
+                android:background="@drawable/et_bg"
+                android:hint="Destino"
+                android:inputType="text"
+                android:padding="16dp"
+                android:textColor="@color/white"
+                android:textColorHint="@color/login_form_details" />
+
+            <Button
+                android:id="@+id/btnAddPasajero"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="10dp"
+                android:layout_marginTop="@dimen/distform"
+                android:layout_marginRight="10dp"
+                android:layout_weight="1"
+                android:background="@drawable/btn_add"
+                android:padding="6dp"
+                android:text="Agregar"
+                android:textColor="@color/login_form_details" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:orientation="horizontal"
+            android:padding="25dp"
+            android:weightSum="4">
+
+
+
+        </LinearLayout>
+    </LinearLayout>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:text="Lista de Pasajeros"
+        android:textColor="@color/login_form_details"
+        android:textSize="20dp"
+        android:textStyle="bold" />
+    //Modulo 3
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <LinearLayout
+
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="25dp"
+            android:layout_marginRight="25dp"
+            android:orientation="vertical">
+
+            <android.support.v7.widget.RecyclerView
+                android:id="@+id/recyclerViewPasajero"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent" />
+        </LinearLayout>
+    </ScrollView>
+
+
+</LinearLayout>

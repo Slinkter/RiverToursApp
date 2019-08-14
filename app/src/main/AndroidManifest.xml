@@ -14,9 +14,10 @@
         android:roundIcon="@drawable/rivertourlogo"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
+        <activity android:name=".Business.AddPasajeroActivity"></activity>
         <activity
             android:name=".Business.ConsultManiActivity"
-            android:screenOrientation="portrait"></activity>
+            android:screenOrientation="portrait" />
         <activity
             android:name=".Business.ConsulVehiculoActivity"
             android:screenOrientation="portrait" />
@@ -55,7 +56,6 @@
 
                 <category android:name="android.intent.category.DEFAULT " />
             </intent-filter>
-
         </activity>
     </application>
 
