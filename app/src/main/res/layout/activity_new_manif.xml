@@ -301,4 +301,17 @@
         android:textSize="16dp"
         android:textStyle="bold" />
 
+    <Button
+        android:layout_width="240dp"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_margin="26dp"
+        android:background="@drawable/btn_exit"
+        android:onClick="btn_Salir_Manifiesto"
+        android:text="Salir"
+        android:textColor="@color/white"
+        android:textSize="16dp"
+        android:textStyle="bold" />
+
+
 </LinearLayout>

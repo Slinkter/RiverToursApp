@@ -22,6 +22,7 @@ import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.TextView;
 
+import com.cudpast.rivertourapp.MainActivity;
 import com.cudpast.rivertourapp.Model.Chofer;
 import com.cudpast.rivertourapp.Model.Vehiculo;
 import com.cudpast.rivertourapp.R;
@@ -190,24 +191,31 @@ public class NewManifActivity extends AppCompatActivity {
             return false;
         }
 
-        /*
-        if (!checkFecha()) {
 
+        if (!checkFecha()) {
+            et_guiaFecha.setAnimation(animation);
+            et_guiaFecha.startAnimation(animation);
+            vibrator.vibrate(120);
+            return false;
         }
 
 
         if (!checkDestino()) {
-
+            et_guiaDestino.setAnimation(animation);
+            et_guiaDestino.startAnimation(animation);
+            vibrator.vibrate(120);
+            return false;
         }
 
-        if (!checkVehiculo()) {
 
+        if (!checkVehiculo()) {
+            return false;
         }
 
         if (!checkChofer()) {
-
+            return false;
         }
-*/
+
 
         return true;
     }
@@ -240,7 +248,9 @@ public class NewManifActivity extends AppCompatActivity {
 
     private boolean checkVehiculo() {
         if (tv_marcaVehiculo.getText().toString().trim().isEmpty()) {
-            tv_marcaVehiculo.setError("Ingresar Vehiculo");
+            tv_marcaVehiculo.setError("Seleccione Vehiculo");
+            tv_nombreVehiculo.setError("Seleccione Vehiculo");
+            tv_matriculaVehiculo.setError("Seleccione Vehiculo");
             return false;
         }
         return true;
@@ -249,7 +259,7 @@ public class NewManifActivity extends AppCompatActivity {
 
     private boolean checkChofer() {
         if (tv_breveteChofer.getText().toString().trim().isEmpty()) {
-            tv_breveteChofer.setError("Ingresar brevete");
+            tv_breveteChofer.setError("Seleccione el Chofer");
             return false;
         }
         return true;
@@ -319,4 +329,9 @@ public class NewManifActivity extends AppCompatActivity {
     }
 
 
+    public void btn_Salir_Manifiesto(View view) {
+        Intent intentSalir = new Intent(NewManifActivity.this, MainActivity.class);
+        startActivity(intentSalir);
+        finish();
+    }
 }
