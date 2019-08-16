@@ -5,17 +5,13 @@ import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
-import android.database.sqlite.SQLiteDatabase.CursorFactory;
 import android.util.Log;
 
 import com.cudpast.rivertourapp.Model.Pasajero;
 
-import java.security.acl.LastOwnerException;
-
 import static com.cudpast.rivertourapp.SQLite.Utils.CAMPO_PLACA_VEHICULO;
 import static com.cudpast.rivertourapp.SQLite.Utils.CREATE_TABLA_CHOFER;
 import static com.cudpast.rivertourapp.SQLite.Utils.CREATE_TABLA_PASAJERO;
-import static com.cudpast.rivertourapp.SQLite.Utils.CREATE_TABLA_USUARIO;
 import static com.cudpast.rivertourapp.SQLite.Utils.CREATE_TABLA_VEHICULO;
 
 public class MySqliteDB extends SQLiteOpenHelper {
@@ -53,18 +49,18 @@ public class MySqliteDB extends SQLiteOpenHelper {
     public void mySaveToLocalDBPasajero(Pasajero pasajero, SQLiteDatabase database) {
 
         Log.e("mySaveToLocalDBPasajero", "2");
-        Log.e("mySaveToLocalDBPasajero", "pasajero : " + pasajero.getNombre());
-        Log.e("mySaveToLocalDBPasajero", "pasajero : " + pasajero.getEdad());
-        Log.e("mySaveToLocalDBPasajero", "pasajero : " + pasajero.getOcupacion());
-        Log.e("mySaveToLocalDBPasajero", "pasajero : " + pasajero.getNacionalidad());
+        Log.e("mySaveToLocalDBPasajero", "pasajero : " + pasajero.getNombrePasajero());
+        Log.e("mySaveToLocalDBPasajero", "pasajero : " + pasajero.getEdadPasajero());
+        Log.e("mySaveToLocalDBPasajero", "pasajero : " + pasajero.getOcupacionPasajero());
+        Log.e("mySaveToLocalDBPasajero", "pasajero : " + pasajero.getNacionalidadPasajero());
         ContentValues contentValues = new ContentValues();
-        contentValues.put(Utils.CAMPO_NOMBRE_PASAJERO, pasajero.getNombre());
-        contentValues.put(Utils.CAMPO_EDAD_PASAJERO, pasajero.getEdad());
-        contentValues.put(Utils.CAMPO_OCUPACION_PASAJERO, pasajero.getOcupacion());
-        contentValues.put(Utils.CAMPO_NACIONALIDAD_PASAJERO, pasajero.getNacionalidad());
+        contentValues.put(Utils.CAMPO_NOMBRE_PASAJERO, pasajero.getNombrePasajero());
+        contentValues.put(Utils.CAMPO_EDAD_PASAJERO, pasajero.getEdadPasajero());
+        contentValues.put(Utils.CAMPO_OCUPACION_PASAJERO, pasajero.getOcupacionPasajero());
+        contentValues.put(Utils.CAMPO_NACIONALIDAD_PASAJERO, pasajero.getNacionalidadPasajero());
         contentValues.put(Utils.CAMPO_NUMBOLETA_PASAJERO, pasajero.getNumBoleta());
-        contentValues.put(Utils.CAMPO_DNI_PASAJERO, pasajero.getDni());
-        contentValues.put(Utils.CAMPO_DESTINO_PASAJERO, pasajero.getDestino());
+        contentValues.put(Utils.CAMPO_DNI_PASAJERO, pasajero.getDniPasajero());
+        contentValues.put(Utils.CAMPO_DESTINO_PASAJERO, pasajero.getDestinoPasajero());
 
         long hola = database.insert(Utils.TABLA_PASAJERO, null, contentValues);
 

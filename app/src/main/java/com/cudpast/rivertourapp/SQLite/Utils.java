@@ -90,4 +90,11 @@ public class Utils {
     //Constates campos  Manifiesto
 
 
+    public static final int SYNC_STATUS_OK = 0;
+    public static final int SYNC_STATUS_FAILIDE = 1;
+
+    // todo : 1 . se debe crear la tabla manifiesto ,  se debe crear el insert pasajero con la varaible sync_status_ok  y sync_status_faile ç
+    // todo : 2 . se debe poner el icono de sync (color verde) y se debe sincroniza automaticamente (seguir el ejemplo)
+
+
 }

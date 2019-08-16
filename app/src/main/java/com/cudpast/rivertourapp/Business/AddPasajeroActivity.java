@@ -118,9 +118,7 @@ public class AddPasajeroActivity extends AppCompatActivity {
 
 
     private void removeItem(int position) {
-
-        //mListPasajero.remove(position);
-        deletePasajero(mListPasajero.get(position).getDni());
+        deletePasajero(mListPasajero.get(position).getDniPasajero());
         pAdapter.notifyItemRemoved(position);
     }
 
@@ -141,68 +139,6 @@ public class AddPasajeroActivity extends AppCompatActivity {
     }
 
 
-    private void createPasajero(Pasajero pasajero) {
-        //1.Conexion
-        MySqliteDB conn = new MySqliteDB(this);
-        //2.Escribir en la database
-        SQLiteDatabase db = conn.getWritableDatabase();
-        //3.Cogigo para insert into usuario (id,nombre,telefono) values (123 , 'dasd','543534')
-        String insert =
-                "INSERT INTO " +
-                        Utils.TABLA_PASAJERO + "(" +
-                        Utils.CAMPO_NOMBRE_PASAJERO + "," +
-                        Utils.CAMPO_EDAD_PASAJERO + "," +
-                        Utils.CAMPO_OCUPACION_PASAJERO + "," +
-                        Utils.CAMPO_NACIONALIDAD_PASAJERO + "," +
-                        Utils.CAMPO_NUMBOLETA_PASAJERO + "," +
-                        Utils.CAMPO_DNI_PASAJERO + "," +
-                        Utils.CAMPO_DESTINO_PASAJERO + ")" +
-                        " VALUES ('" +
-                        pasajero.getNombre() + "','" +
-                        pasajero.getEdad() + "','" +
-                        pasajero.getOcupacion() + "','" +
-                        pasajero.getNacionalidad() + "','" +
-                        pasajero.getNumBoleta() + "','" +
-                        pasajero.getDni() + "','" +
-                        pasajero.getDestino() + "');";
-        Log.e(" ", "------> " + insert);
-        //4.Insertar
-        db.execSQL(insert);
-        loadListPasajero();
-        //5.Cerrar conexion
-        db.close();
-
-
-    }
-
-    private void deletePasajero(String dni) {
-
-        //1.Conexion
-        MySqliteDB conn = new MySqliteDB(this);
-        //2.Escribir en la database
-        SQLiteDatabase db = conn.getWritableDatabase();
-        //3.Sentencia sql
-        String sql = "DELETE FROM " + Utils.TABLA_PASAJERO + " WHERE " + Utils.CAMPO_DNI_PASAJERO + "='" + dni + "'";
-        db.execSQL(sql);
-        //4.Ejecutar SQL
-        db.execSQL(sql);
-        loadListPasajero();
-        //5.Cerrar conexion
-        db.close();
-
-    }
-
-
-    private void saveToLocalStorage(Pasajero pasajero) {
-        Log.e("saveToLocalStorag", "1");
-        MySqliteDB mySqliteDB = new MySqliteDB(this);
-        SQLiteDatabase db = mySqliteDB.getWritableDatabase();
-
-        mySqliteDB.mySaveToLocalDBPasajero(pasajero, db);
-        loadListPasajero();
-        mySqliteDB.close();
-    }
-
     private void loadListPasajero() {
         mListPasajero.clear();
         MySqliteDB mySqliteDB = new MySqliteDB(this);
@@ -222,8 +158,56 @@ public class AddPasajeroActivity extends AppCompatActivity {
             mListPasajero.add(new Pasajero(nombre, edad, ocupacion, nacionalidad, numBoleta, dni, destino));
         }
         pAdapter.notifyDataSetChanged();
-
         cursor.close();
         mySqliteDB.close();
+    }
+
+    private void createPasajero(Pasajero pasajero) {
+        //1.Conexion
+        MySqliteDB conn = new MySqliteDB(this);
+        //2.Escribir en la database
+        SQLiteDatabase db = conn.getWritableDatabase();
+        //3.Cogigo para insert into usuario (id,nombre,telefono) values (123 , 'dasd','543534')
+        String insert =
+                "INSERT INTO " +
+                        Utils.TABLA_PASAJERO + "(" +
+                        Utils.CAMPO_NOMBRE_PASAJERO + "," +
+                        Utils.CAMPO_EDAD_PASAJERO + "," +
+                        Utils.CAMPO_OCUPACION_PASAJERO + "," +
+                        Utils.CAMPO_NACIONALIDAD_PASAJERO + "," +
+                        Utils.CAMPO_NUMBOLETA_PASAJERO + "," +
+                        Utils.CAMPO_DNI_PASAJERO + "," +
+                        Utils.CAMPO_DESTINO_PASAJERO + ")" +
+                        " VALUES ('" +
+                        pasajero.getNombrePasajero() + "','" +
+                        pasajero.getEdadPasajero() + "','" +
+                        pasajero.getOcupacionPasajero() + "','" +
+                        pasajero.getNacionalidadPasajero() + "','" +
+                        pasajero.getNumBoleta() + "','" +
+                        pasajero.getDniPasajero() + "','" +
+                        pasajero.getDestinoPasajero() + "');";
+        Log.e(" ", "------> " + insert);
+        //4.Insertar
+        db.execSQL(insert);
+        loadListPasajero();
+        //5.Cerrar conexion
+        db.close();
+
+
+    }
+
+    private void deletePasajero(String dni) {
+        //1.Conexion
+        MySqliteDB conn = new MySqliteDB(this);
+        //2.Escribir en la database
+        SQLiteDatabase db = conn.getWritableDatabase();
+        //3.Sentencia sql
+        String sql = "DELETE FROM " + Utils.TABLA_PASAJERO + " WHERE " + Utils.CAMPO_DNI_PASAJERO + "='" + dni + "'";
+        db.execSQL(sql);
+        //4.Ejecutar SQL
+        db.execSQL(sql);
+        loadListPasajero();
+        //5.Cerrar conexion
+        db.close();
     }
 }

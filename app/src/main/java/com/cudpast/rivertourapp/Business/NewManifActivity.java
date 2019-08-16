@@ -1,6 +1,7 @@
 package com.cudpast.rivertourapp.Business;
 
 import android.app.DatePickerDialog;
+import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.database.Cursor;
@@ -21,9 +22,13 @@ import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.TextView;
+import android.widget.Toast;
 
+import com.cudpast.rivertourapp.Helper.ApiInterface;
+import com.cudpast.rivertourapp.Helper.ApiService;
 import com.cudpast.rivertourapp.MainActivity;
 import com.cudpast.rivertourapp.Model.Chofer;
+import com.cudpast.rivertourapp.Model.Manifiesto;
 import com.cudpast.rivertourapp.Model.Vehiculo;
 import com.cudpast.rivertourapp.R;
 import com.cudpast.rivertourapp.SQLite.MySqliteDB;
@@ -31,6 +36,10 @@ import com.cudpast.rivertourapp.SQLite.Utils;
 
 import java.util.ArrayList;
 import java.util.Calendar;
+
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 public class NewManifActivity extends AppCompatActivity {
 
@@ -52,6 +61,15 @@ public class NewManifActivity extends AppCompatActivity {
 
     private Animation animation;
     private Vibrator vibrator;
+
+    // Insert
+    ApiInterface apiInterface;
+
+    String guiaVehiculo;
+    String guiaChoferBrevete;
+
+    //
+    ProgressDialog progressDialog;
 
 
     @Override
@@ -77,6 +95,7 @@ public class NewManifActivity extends AppCompatActivity {
         //submitForm
         animation = AnimationUtils.loadAnimation(getApplicationContext(), R.anim.shake);
         vibrator = (Vibrator) getSystemService(Context.VIBRATOR_SERVICE);
+        //
 
 
         //******************************************************
@@ -129,6 +148,9 @@ public class NewManifActivity extends AppCompatActivity {
                     tv_nombreVehiculo.setText(listVehiculoFromSqlite.get(position - 1).getNombrevehiculo());
                     tv_matriculaVehiculo.setText(listVehiculoFromSqlite.get(position - 1).getMatriculaVehiculo());
                     tv_marcaVehiculo.setText(listVehiculoFromSqlite.get(position - 1).getMarcaVehiculo());
+                    guiaVehiculo = listVehiculoFromSqlite.get(position - 1).getPlacaVehiculo().toString();
+                    Log.e(TAG, "guia Vehiculo : " + guiaVehiculo);
+
                 } else {
                     tv_nombreVehiculo.setText(" ");
                     tv_matriculaVehiculo.setText(" ");
@@ -150,6 +172,8 @@ public class NewManifActivity extends AppCompatActivity {
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
                 if (position != 0) {
                     tv_breveteChofer.setText(listChoferFromSqlite.get(position - 1).getBrevete());
+                    guiaChoferBrevete = listChoferFromSqlite.get(position - 1).getBrevete().toString();
+                    Log.e(TAG, "guia brevete : " + guiaChoferBrevete);
                 } else {
                     tv_breveteChofer.setText(" ");
 
@@ -168,15 +192,69 @@ public class NewManifActivity extends AppCompatActivity {
             public void onClick(View v) {
 
                 if (submitForm()) {
-                    Intent intent = new Intent(NewManifActivity.this, AddPasajeroActivity.class);
-                    startActivity(intent);
+
+                    insertManifiesto();
+
                 }
 
 
             }
         });
 
+        progressDialog = new ProgressDialog(this);
+        progressDialog.setMessage("Please wait...");
 
+
+    }
+
+
+    private void insertManifiesto() {
+        progressDialog.show();
+        String guiaGuia = et_guiaGuia.getText().toString();
+        String guiaFecha = et_guiaFecha.getText().toString();
+        String guiaDestino = et_guiaDestino.getText().toString();
+
+        apiInterface = ApiService.getApiRetrofitConexion().create(ApiInterface.class);
+        Call<Manifiesto> userInsert = apiInterface.insertManifiesto(guiaGuia, guiaFecha, guiaDestino, guiaVehiculo, guiaChoferBrevete);
+        userInsert.enqueue(new Callback<Manifiesto>() {
+            @Override
+            public void onResponse(Call<Manifiesto> call, Response<Manifiesto> response) {
+
+                Log.e(" response", " " + response.message());
+                Log.e(" response", " " + response.toString());
+                Log.e(" response", " " + response.code());
+
+
+                if (response.isSuccessful() && response.body() != null) {
+                    Boolean success = response.body().getSuccess();
+
+                    if (success) {
+                        Log.e("remoteBD", " onResponse : Success");
+                        Toast.makeText(NewManifActivity.this, "", Toast.LENGTH_SHORT).show();
+                        Log.e("TAG", " response =  " + response.body().getMessage());
+                        Intent intent = new Intent(NewManifActivity.this, AddPasajeroActivity.class);
+                        startActivity(intent);
+                        progressDialog.dismiss();
+                    } else {
+                        progressDialog.dismiss();
+                        Log.e("remoteBD", " onResponse : fail");
+                        Toast.makeText(NewManifActivity.this, response.body().getMessage(), Toast.LENGTH_SHORT).show();
+                        Log.e("TAG", " response =  " + response.body().getMessage());
+                        finish();
+                    }
+                }
+            }
+
+            @Override
+            public void onFailure(Call<Manifiesto> call, Throwable t) {
+
+                Toast.makeText(NewManifActivity.this, t.getLocalizedMessage(), Toast.LENGTH_SHORT).show();
+                Log.e("remoteBD", " onResponse : fail" + t.toString() + "\n " + t.getCause());
+                Log.e("remoteBD", " onResponse : fail");
+                Log.e("onFailure", " response =  " + t.getMessage());
+
+            }
+        });
     }
 
     //***********************************

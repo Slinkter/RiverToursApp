@@ -36,13 +36,13 @@ public class PasajeroAdapter extends RecyclerView.Adapter<PasajeroAdapter.Custom
 
     @Override
     public void onBindViewHolder(@NonNull CustomViewHolderPasajero item, int position) {
-        item.tv_nombrePasajero.setText("Nombre  : " + mListPasajero.get(position).getNombre());
-        item.tv_edadPasajero.setText("Edad : " + mListPasajero.get(position).getEdad() + " " + "años");
-        item.tv_ocupacionPasajero.setText("Ocupación  : " + mListPasajero.get(position).getOcupacion());
-        item.tv_nacionalidadPasajero.setText("Nacionalidad  : " + mListPasajero.get(position).getNacionalidad());
+        item.tv_nombrePasajero.setText("Nombre  : " + mListPasajero.get(position).getNombrePasajero());
+        item.tv_edadPasajero.setText("Edad : " + mListPasajero.get(position).getEdadPasajero() + " " + "años");
+        item.tv_ocupacionPasajero.setText("Ocupación  : " + mListPasajero.get(position).getOcupacionPasajero());
+        item.tv_nacionalidadPasajero.setText("Nacionalidad  : " + mListPasajero.get(position).getNacionalidadPasajero());
         item.tv_numBoletaPasajero.setText("Num Boleto  : " + mListPasajero.get(position).getNumBoleta());
-        item.tv_dniPasajero.setText("DNI  : " + mListPasajero.get(position).getDni());
-        item.tv_destinoPasajero.setText("Destino  : " + mListPasajero.get(position).getDestino());
+        item.tv_dniPasajero.setText("DNI  : " + mListPasajero.get(position).getDniPasajero());
+        item.tv_destinoPasajero.setText("Destino  : " + mListPasajero.get(position).getDestinoPasajero());
     }
 
     @Override

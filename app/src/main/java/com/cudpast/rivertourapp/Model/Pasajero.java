@@ -1,48 +1,70 @@
 package com.cudpast.rivertourapp.Model;
 
+import com.google.gson.annotations.Expose;
+import com.google.gson.annotations.SerializedName;
+
 public class Pasajero {
+
+    @Expose
+    @SerializedName("id")
     private String id;
-    private String nombre;
-    private String apellido;
-    private String edad;
-    private String ocupacion;
-    private String nacionalidad;
+    @Expose
+    @SerializedName("nombrePasajero")
+    private String nombrePasajero;
+    @Expose
+    @SerializedName("apellidoPasajero")
+    private String apellidoPasajero;
+    @Expose
+    @SerializedName("edadPasajero")
+    private String edadPasajero;
+    @Expose
+    @SerializedName("ocupacionPasajero")
+    private String ocupacionPasajero;
+    @Expose
+    @SerializedName("nacionalidadPasajero")
+    private String nacionalidadPasajero;
+    @Expose
+    @SerializedName("numBoleta")
     private String numBoleta;
-    private String dni;
-    private String destino;
+    @Expose
+    @SerializedName("dniPasajero")
+    private String dniPasajero;
+    @Expose
+    @SerializedName("destinoPasajero")
+    private String destinoPasajero;
+    @Expose
+    @SerializedName("idGuia")
+    private String idGuia;
 
-    private int img_edit;
+    //Response from Server : fail Retrofit
+    @Expose
+    @SerializedName("success")
+    private Boolean success;
+    @Expose
+    @SerializedName("message")
+    private String message;
+
+
     private int img_remove;
-
-
 
     public Pasajero() {
 
     }
 
-    public Pasajero(String nombre, String edad, String ocupacion, String nacionalidad, String numBoleta, String dni, String destino) {
-        this.nombre = nombre;
-        this.apellido = apellido;
-        this.edad = edad;
-        this.ocupacion = ocupacion;
-        this.nacionalidad = nacionalidad;
+    public Pasajero(String nombrePasajero, String edadPasajero, String ocupacionPasajero, String nacionalidadPasajero, String numBoleta, String dniPasajero, String destinoPasajero) {
+        this.nombrePasajero = nombrePasajero;
+        this.apellidoPasajero = apellidoPasajero;
+        this.edadPasajero = edadPasajero;
+        this.ocupacionPasajero = ocupacionPasajero;
+        this.nacionalidadPasajero = nacionalidadPasajero;
         this.numBoleta = numBoleta;
-        this.dni = dni;
-        this.destino = destino;
+        this.dniPasajero = dniPasajero;
+        this.destinoPasajero = destinoPasajero;
     }
 
-    public Pasajero(String nombre, String apellido, String edad, String ocupacion, String nacionalidad, String numBoleta, String dni, String destino, int img_edit, int img_remove) {
-        this.nombre = nombre;
-        this.apellido = apellido;
-        this.edad = edad;
-        this.ocupacion = ocupacion;
-        this.nacionalidad = nacionalidad;
-        this.numBoleta = numBoleta;
-        this.dni = dni;
-        this.destino = destino;
-        this.img_edit = img_edit;
-        this.img_remove = img_remove;
-    }
+
+
+
 
     public String getId() {
         return id;
@@ -52,44 +74,44 @@ public class Pasajero {
         this.id = id;
     }
 
-    public String getNombre() {
-        return nombre;
+    public String getNombrePasajero() {
+        return nombrePasajero;
     }
 
-    public void setNombre(String nombre) {
-        this.nombre = nombre;
+    public void setNombrePasajero(String nombrePasajero) {
+        this.nombrePasajero = nombrePasajero;
     }
 
-    public String getApellido() {
-        return apellido;
+    public String getApellidoPasajero() {
+        return apellidoPasajero;
     }
 
-    public void setApellido(String apellido) {
-        this.apellido = apellido;
+    public void setApellidoPasajero(String apellidoPasajero) {
+        this.apellidoPasajero = apellidoPasajero;
     }
 
-    public String getEdad() {
-        return edad;
+    public String getEdadPasajero() {
+        return edadPasajero;
     }
 
-    public void setEdad(String edad) {
-        this.edad = edad;
+    public void setEdadPasajero(String edadPasajero) {
+        this.edadPasajero = edadPasajero;
     }
 
-    public String getOcupacion() {
-        return ocupacion;
+    public String getOcupacionPasajero() {
+        return ocupacionPasajero;
     }
 
-    public void setOcupacion(String ocupacion) {
-        this.ocupacion = ocupacion;
+    public void setOcupacionPasajero(String ocupacionPasajero) {
+        this.ocupacionPasajero = ocupacionPasajero;
     }
 
-    public String getNacionalidad() {
-        return nacionalidad;
+    public String getNacionalidadPasajero() {
+        return nacionalidadPasajero;
     }
 
-    public void setNacionalidad(String nacionalidad) {
-        this.nacionalidad = nacionalidad;
+    public void setNacionalidadPasajero(String nacionalidadPasajero) {
+        this.nacionalidadPasajero = nacionalidadPasajero;
     }
 
     public String getNumBoleta() {
@@ -100,29 +122,23 @@ public class Pasajero {
         this.numBoleta = numBoleta;
     }
 
-    public String getDni() {
-        return dni;
+    public String getDniPasajero() {
+        return dniPasajero;
     }
 
-    public void setDni(String dni) {
-        this.dni = dni;
+    public void setDniPasajero(String dniPasajero) {
+        this.dniPasajero = dniPasajero;
     }
 
-    public String getDestino() {
-        return destino;
+    public String getDestinoPasajero() {
+        return destinoPasajero;
     }
 
-    public void setDestino(String destino) {
-        this.destino = destino;
+    public void setDestinoPasajero(String destinoPasajero) {
+        this.destinoPasajero = destinoPasajero;
     }
 
-    public int getImg_edit() {
-        return img_edit;
-    }
 
-    public void setImg_edit(int img_edit) {
-        this.img_edit = img_edit;
-    }
 
     public int getImg_remove() {
         return img_remove;
