@@ -26,7 +26,6 @@
             android:src="@drawable/rivertourlogo" />
 
 
-
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -42,7 +41,72 @@
             android:layout_height="wrap_content"
             android:orientation="vertical">
 
+            // row 0
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="25dp"
+                android:layout_marginRight="25dp"
+                android:orientation="horizontal"
+                android:weightSum="3">
+
+                <EditText
+                    android:id="@+id/et_guiaGuia"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/distform"
+                    android:layout_marginEnd="8dp"
+                    android:layout_weight="1"
+                    android:background="@drawable/et_bg"
+                    android:hint="Guia"
+                    android:inputType="text"
+                    android:padding="16dp"
+                    android:textColor="@color/white"
+                    android:textColorHint="@color/login_form_details" />
+
+                <EditText
+                    android:id="@+id/et_guiaFecha"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/distform"
+                    android:layout_marginEnd="8dp"
+                    android:layout_weight="1"
+                    android:background="@drawable/et_bg"
+                    android:clickable="true"
+                    android:focusable="false"
+                    android:hint="Fecha "
+                    android:inputType="date"
+                    android:padding="16dp"
+                    android:textColor="@color/white"
+                    android:textColorHint="@color/login_form_details" />
+
+                <EditText
+                    android:id="@+id/et_guiaDestino"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/distform"
+                    android:layout_weight="1"
+                    android:background="@drawable/et_bg"
+                    android:hint="Destino"
+                    android:inputType="text"
+                    android:padding="16dp"
+                    android:textColor="@color/white"
+                    android:textColorHint="@color/login_form_details" />
+
+            </LinearLayout>
+
             // row 1
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="25dp"
+                android:layout_marginTop="20sp"
+                android:text="Seleccion Vehiculo"
+                android:textColor="@color/white"
+                android:textSize="24dp"
+                android:textStyle="bold" />
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -58,7 +122,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginTop="@dimen/distform"
                     android:layout_marginBottom="@dimen/algoborrar"
-                    android:layout_weight="1"
+                    android:layout_weight="2"
                     android:background="@drawable/et_bg"
                     android:hint="Nº de placa"
                     android:inputType="text"
@@ -66,8 +130,33 @@
                     android:textColor="@color/white"
                     android:textColorHint="@color/login_form_details" />
 
+
+            </LinearLayout>
+            // row 2
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="25dp"
+                android:layout_marginRight="25dp"
+                android:orientation="horizontal"
+                android:weightSum="3">
+
                 <TextView
-                    android:id="@+id/guiaNombreVehiculo"
+                    android:id="@+id/tv_marcaVehiculo"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/distform"
+                    android:layout_weight="1"
+                    android:background="@drawable/et_bg"
+                    android:hint="Marca de vehiculo "
+                    android:inputType="text"
+                    android:padding="16dp"
+                    android:textColor="@color/white"
+                    android:textColorHint="@color/login_form_details" />
+
+                <TextView
+                    android:id="@+id/tv_nombreVehiculo"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="8dp"
@@ -82,7 +171,7 @@
                     android:textColorHint="@color/login_form_details" />
 
                 <TextView
-                    android:id="@+id/guiaMatricula"
+                    android:id="@+id/tv_matriculaVehiculo"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="@dimen/distform"
@@ -94,60 +183,19 @@
                     android:textColor="@color/white"
                     android:textColorHint="@color/login_form_details" />
 
-            </LinearLayout>
-            // row 2
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="25dp"
-                android:layout_marginRight="25dp"
-                android:orientation="horizontal"
-                android:weightSum="3">
-
-                <TextView
-                    android:id="@+id/guiaMarca"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="@dimen/distform"
-                    android:layout_weight="1"
-                    android:background="@drawable/et_bg"
-                    android:hint="Marca de vehiculo "
-                    android:inputType="text"
-                    android:padding="16dp"
-                    android:textColor="@color/white"
-                    android:textColorHint="@color/login_form_details" />
-
-                <EditText
-                    android:id="@+id/guiaGuia"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="8dp"
-                    android:layout_marginTop="@dimen/distform"
-                    android:layout_marginEnd="8dp"
-                    android:layout_weight="1"
-                    android:background="@drawable/et_bg"
-                    android:hint="Guia"
-                    android:inputType="text"
-                    android:padding="16dp"
-                    android:textColor="@color/white"
-                    android:textColorHint="@color/login_form_details" />
-
-                <EditText
-                    android:id="@+id/guiaFecha"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="@dimen/distform"
-                    android:layout_weight="1"
-                    android:background="@drawable/et_bg"
-                    android:hint="Fecha "
-                    android:inputType="date"
-                    android:padding="16dp"
-                    android:textColor="@color/white"
-                    android:textColorHint="@color/login_form_details" />
 
             </LinearLayout>
             // row 3
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="25dp"
+                android:layout_marginTop="20sp"
+                android:text="Seleccione Chofer"
+                android:textColor="@color/white"
+                android:textSize="24dp"
+                android:textStyle="bold" />
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -171,7 +219,7 @@
                     android:textColorHint="@color/login_form_details" />
 
                 <TextView
-                    android:id="@+id/guiaBrevete1"
+                    android:id="@+id/tv_breveteChofer"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="8dp"
@@ -234,35 +282,23 @@
                 android:orientation="horizontal"
                 android:weightSum="4">
 
-                <EditText
-                    android:id="@+id/guiaDestino"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="@dimen/distform"
-                    android:layout_weight="2"
-                    android:background="@drawable/et_bg"
-                    android:hint="Destino"
-                    android:inputType="text"
-                    android:padding="16dp"
-                    android:textColor="@color/white"
-                    android:textColorHint="@color/login_form_details" />
-
 
             </LinearLayout>
 
         </LinearLayout>
 
-        <Button
-            android:id="@+id/btnSaveGuia"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:layout_weight="1"
-            android:background="@drawable/btn_add"
-            android:padding="6dp"
-            android:text="Finalizar"
-            android:textColor="@color/login_form_details" />
-
     </LinearLayout>
+
+    <Button
+        android:id="@+id/btnSaveGuia"
+        android:layout_width="240dp"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_margin="26dp"
+        android:background="@drawable/btn_add"
+        android:text="CREAR"
+        android:textColor="@color/white"
+        android:textSize="16dp"
+        android:textStyle="bold" />
 
 </LinearLayout>

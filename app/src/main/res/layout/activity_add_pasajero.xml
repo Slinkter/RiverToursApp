@@ -16,9 +16,9 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="20dp"
-        android:text="Pasajero"
+        android:text="Datos del Pasajero"
         android:textColor="@color/login_form_details"
-        android:textSize="20dp"
+        android:textSize="24dp"
         android:textStyle="bold" />
 
     <LinearLayout
@@ -173,7 +173,6 @@
             android:weightSum="4">
 
 
-
         </LinearLayout>
     </LinearLayout>
 
@@ -181,9 +180,10 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="20dp"
+        android:layout_marginBottom="20dp"
         android:text="Lista de Pasajeros"
         android:textColor="@color/login_form_details"
-        android:textSize="20dp"
+        android:textSize="24dp"
         android:textStyle="bold" />
     //Modulo 3
 

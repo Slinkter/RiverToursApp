@@ -1,28 +1,28 @@
 package com.cudpast.rivertourapp.Business;
 
 import android.app.DatePickerDialog;
+import android.content.Context;
+import android.content.Intent;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
+import android.os.Vibrator;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.View;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.DatePicker;
+import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.TextView;
-import android.widget.Toast;
 
-import com.cudpast.rivertourapp.Adapter.PasajeroAdapter;
-import com.cudpast.rivertourapp.Helper.ApiInterface;
 import com.cudpast.rivertourapp.Model.Chofer;
-import com.cudpast.rivertourapp.Model.Pasajero;
 import com.cudpast.rivertourapp.Model.Vehiculo;
 import com.cudpast.rivertourapp.R;
 import com.cudpast.rivertourapp.SQLite.MySqliteDB;
@@ -35,15 +35,10 @@ public class NewManifActivity extends AppCompatActivity {
 
     public static final String TAG = NewManifActivity.class.getSimpleName();
 
-    private TextView guiaNombreVehiculo, guiaMatricula, guiaMarca, guiaGuia, guiaFecha, guiaChofer1, guiaChofer2, guiaBrevete1, guiaBrevete2, guiaDestino;
-
-
+    private TextView tv_nombreVehiculo, tv_matriculaVehiculo, tv_marcaVehiculo, tv_breveteChofer;
+    private EditText et_guiaGuia, et_guiaFecha, et_guiaDestino;
     private Button btnSaveGuia;
-
-
-    private Spinner spinnerPlacaVehiculo, spinnerChofer1, spinnerChofer2;
-
-
+    private Spinner spinner_PlacaVehiculo, spinnerChofer1;
 
     ArrayList<Vehiculo> listVehiculoFromSqlite;
     ArrayList<String> listVehiculoSpinner;
@@ -51,12 +46,11 @@ public class NewManifActivity extends AppCompatActivity {
     ArrayList<Chofer> listChoferFromSqlite;
     ArrayList<String> listChoferSpinner;
 
-
     MySqliteDB conn;
-    private DatePickerDialog.OnDateSetListener mDateSetListener;
-    public int year_n, month_n, day_n;
+    public DatePickerDialog.OnDateSetListener mDateSetListener;
 
-
+    private Animation animation;
+    private Vibrator vibrator;
 
 
     @Override
@@ -66,53 +60,46 @@ public class NewManifActivity extends AppCompatActivity {
         setContentView(R.layout.activity_new_manif);
         //
         conn = new MySqliteDB(this);
-
-
-
-        //Bloque 1
-        spinnerPlacaVehiculo = findViewById(R.id.guiaPlacaVehiculo);
-        guiaNombreVehiculo = findViewById(R.id.guiaNombreVehiculo);
-        guiaMatricula = findViewById(R.id.guiaMatricula);
-        guiaMarca = findViewById(R.id.guiaMarca);
-        //
-        guiaGuia = findViewById(R.id.guiaGuia);
-        guiaFecha = findViewById(R.id.guiaFecha);
+        //0
+        et_guiaGuia = findViewById(R.id.et_guiaGuia);
+        et_guiaDestino = findViewById(R.id.et_guiaDestino);
+        et_guiaFecha = findViewById(R.id.et_guiaFecha);
+        //1
+        spinner_PlacaVehiculo = findViewById(R.id.guiaPlacaVehiculo);
+        tv_nombreVehiculo = findViewById(R.id.tv_nombreVehiculo);
+        tv_matriculaVehiculo = findViewById(R.id.tv_matriculaVehiculo);
+        tv_marcaVehiculo = findViewById(R.id.tv_marcaVehiculo);
+        //2
         spinnerChofer1 = findViewById(R.id.guiaChofer1);
-        spinnerChofer2 = findViewById(R.id.guiaChofer2);
-        guiaBrevete1 = findViewById(R.id.guiaBrevete1);
-        guiaBrevete2 = findViewById(R.id.guiaBrevete2);
-        guiaDestino = findViewById(R.id.guiaDestino);
+        tv_breveteChofer = findViewById(R.id.tv_breveteChofer);
 
+        //submitForm
+        animation = AnimationUtils.loadAnimation(getApplicationContext(), R.anim.shake);
+        vibrator = (Vibrator) getSystemService(Context.VIBRATOR_SERVICE);
 
 
         //******************************************************
-        btnSaveGuia = findViewById(R.id.btnSaveGuia);
-        btnSaveGuia.setOnClickListener(new View.OnClickListener() {
+        et_guiaFecha.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Toast.makeText(NewManifActivity.this, "Guia button", Toast.LENGTH_SHORT).show();
-                //todo se debe insetar la guia y una lista de pasajero
-
-            }
-        });
-        //******************************************************
-
-
-
-        //******************************************************
-        guiaFecha.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-
+                DatePickerDialog dialog;
                 Calendar cal = Calendar.getInstance();
                 int year = cal.get(Calendar.YEAR);
                 int month = cal.get(Calendar.MONTH);
                 int day = cal.get(Calendar.DAY_OF_MONTH);
 
-                DatePickerDialog dialog = new DatePickerDialog(
+                Log.e(TAG, "YEAR = " + year);
+                Log.e(TAG, "MONTH = " + month);
+                Log.e(TAG, "DAY = " + day);
+
+
+                dialog = new DatePickerDialog(
                         NewManifActivity.this,
                         android.R.style.Theme_Holo_Light_Dialog_MinWidth,
-                        mDateSetListener, year, month, day);
+                        mDateSetListener,
+                        year,
+                        month,
+                        day);
                 dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
                 dialog.show();
             }
@@ -121,32 +108,30 @@ public class NewManifActivity extends AppCompatActivity {
         mDateSetListener = new DatePickerDialog.OnDateSetListener() {
             @Override
             public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
-                String fechauser = year + "/" + month + "/" + dayOfMonth;
-                year_n = year;
-                month_n = month;
-                day_n = dayOfMonth;
-                guiaFecha.setText(fechauser);
+                //     String fecha_manifiesto = year + "/" + (month +1) + "/" + dayOfMonth;
+                String fecha_manifiesto = dayOfMonth + "/" + (month + 1) + "/" + year;
+                et_guiaFecha.setText(fecha_manifiesto);
             }
         };
 
         //******************************************************
         getListVehiculoFromSqlite();
         getListChoferFromSqlite();
-        //Spinner Vehiculo--------------------------------------
+        //Spinner Vehiculo
         ArrayAdapter<CharSequence> adapterVehiculo;
         adapterVehiculo = new ArrayAdapter(this, R.layout.spinner_vehiculo_item, listVehiculoSpinner);
-        spinnerPlacaVehiculo.setAdapter(adapterVehiculo);
-        spinnerPlacaVehiculo.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+        spinner_PlacaVehiculo.setAdapter(adapterVehiculo);
+        spinner_PlacaVehiculo.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
                 if (position != 0) {
-                    guiaNombreVehiculo.setText(listVehiculoFromSqlite.get(position - 1).getNombrevehiculo());
-                    guiaMatricula.setText(listVehiculoFromSqlite.get(position - 1).getMatriculaVehiculo());
-                    guiaMarca.setText(listVehiculoFromSqlite.get(position - 1).getMarcaVehiculo());
+                    tv_nombreVehiculo.setText(listVehiculoFromSqlite.get(position - 1).getNombrevehiculo());
+                    tv_matriculaVehiculo.setText(listVehiculoFromSqlite.get(position - 1).getMatriculaVehiculo());
+                    tv_marcaVehiculo.setText(listVehiculoFromSqlite.get(position - 1).getMarcaVehiculo());
                 } else {
-                    guiaNombreVehiculo.setText(" ");
-                    guiaMatricula.setText(" ");
-                    guiaMarca.setText(" ");
+                    tv_nombreVehiculo.setText(" ");
+                    tv_matriculaVehiculo.setText(" ");
+                    tv_marcaVehiculo.setText(" ");
                 }
             }
 
@@ -155,7 +140,7 @@ public class NewManifActivity extends AppCompatActivity {
 
             }
         });
-        //Spinner Chofer----------------------------------------
+        //Spinner Chofer
         ArrayAdapter<CharSequence> adapterChofer;
         adapterChofer = new ArrayAdapter(this, R.layout.spinner_vehiculo_item, listChoferSpinner);
         spinnerChofer1.setAdapter(adapterChofer);
@@ -163,9 +148,9 @@ public class NewManifActivity extends AppCompatActivity {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
                 if (position != 0) {
-                    guiaBrevete1.setText(listChoferFromSqlite.get(position - 1).getBrevete());
+                    tv_breveteChofer.setText(listChoferFromSqlite.get(position - 1).getBrevete());
                 } else {
-                    guiaBrevete1.setText(" ");
+                    tv_breveteChofer.setText(" ");
 
                 }
             }
@@ -175,12 +160,103 @@ public class NewManifActivity extends AppCompatActivity {
 
             }
         });
+        //Insertar Manifiesto
+        btnSaveGuia = findViewById(R.id.btnSaveGuia);
+        btnSaveGuia.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                if (submitForm()) {
+                    Intent intent = new Intent(NewManifActivity.this, AddPasajeroActivity.class);
+                    startActivity(intent);
+                }
+
+
+            }
+        });
 
 
     }
 
+    //***********************************
+    // Validacion
+
+    private boolean submitForm() {
+
+        if (!checkGuia()) {
+            et_guiaGuia.setAnimation(animation);
+            et_guiaGuia.startAnimation(animation);
+            vibrator.vibrate(120);
+            return false;
+        }
+
+        /*
+        if (!checkFecha()) {
+
+        }
 
 
+        if (!checkDestino()) {
+
+        }
+
+        if (!checkVehiculo()) {
+
+        }
+
+        if (!checkChofer()) {
+
+        }
+*/
+
+        return true;
+    }
+
+
+    private boolean checkGuia() {
+        if (et_guiaGuia.getText().toString().trim().isEmpty()) {
+            et_guiaGuia.setError("Ingresar Guia");
+            return false;
+        }
+        return true;
+    }
+
+    private boolean checkFecha() {
+        if (et_guiaFecha.getText().toString().trim().isEmpty()) {
+            et_guiaFecha.setError("Ingresar Fecha");
+            return false;
+        }
+        return true;
+    }
+
+
+    private boolean checkDestino() {
+        if (et_guiaDestino.getText().toString().trim().isEmpty()) {
+            et_guiaDestino.setError("Ingresar Destino");
+            return false;
+        }
+        return true;
+    }
+
+    private boolean checkVehiculo() {
+        if (tv_marcaVehiculo.getText().toString().trim().isEmpty()) {
+            tv_marcaVehiculo.setError("Ingresar Vehiculo");
+            return false;
+        }
+        return true;
+
+    }
+
+    private boolean checkChofer() {
+        if (tv_breveteChofer.getText().toString().trim().isEmpty()) {
+            tv_breveteChofer.setError("Ingresar brevete");
+            return false;
+        }
+        return true;
+    }
+
+
+    //*******************************************
 
 
     private void getListVehiculoFromSqlite() {
@@ -237,9 +313,10 @@ public class NewManifActivity extends AppCompatActivity {
         listChoferSpinner = new ArrayList<String>();
         listChoferSpinner.add("Seleccione Chofer");
         for (int i = 0; i < listChoferFromSqlite.size(); i++) {
-            listChoferSpinner.add(" " +  listChoferFromSqlite.get(i).getNameChofer() + "  " + listChoferFromSqlite.get(i).getLastChofer());
+            listChoferSpinner.add(" " + listChoferFromSqlite.get(i).getNameChofer() + " " + listChoferFromSqlite.get(i).getLastChofer());
         }
 
     }
+
 
 }
