@@ -33,6 +33,7 @@ public class AddPasajeroActivity extends AppCompatActivity {
     ApiInterface retrofitAPI;
 
     String idguiaManifiesto;
+    TextView tv_guiaidmanifiestopasajero;
 
 
     @Override
@@ -46,6 +47,9 @@ public class AddPasajeroActivity extends AppCompatActivity {
 
         if (getIntent() != null) {
             idguiaManifiesto = getIntent().getStringExtra("idguiaManifiesto");
+            tv_guiaidmanifiestopasajero = findViewById(R.id.tv_guiaidmanifiestopasajero);
+            tv_guiaidmanifiestopasajero.setText(idguiaManifiesto);
+
             Log.e("TAG ", "valor de intent : " + idguiaManifiesto);
         }
 
