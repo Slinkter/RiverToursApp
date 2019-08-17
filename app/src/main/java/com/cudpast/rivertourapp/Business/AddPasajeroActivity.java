@@ -1,5 +1,7 @@
 package com.cudpast.rivertourapp.Business;
 
+import android.app.ProgressDialog;
+import android.content.Intent;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.support.v7.app.AppCompatActivity;
@@ -10,9 +12,13 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.cudpast.rivertourapp.Adapter.PasajeroAdapter;
 import com.cudpast.rivertourapp.Helper.ApiInterface;
+import com.cudpast.rivertourapp.Helper.ApiService;
+import com.cudpast.rivertourapp.MainActivity;
+import com.cudpast.rivertourapp.Model.Manifiesto;
 import com.cudpast.rivertourapp.Model.Pasajero;
 import com.cudpast.rivertourapp.R;
 import com.cudpast.rivertourapp.SQLite.MySqliteDB;
@@ -20,20 +26,29 @@ import com.cudpast.rivertourapp.SQLite.Utils;
 
 import java.util.ArrayList;
 
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
+
 public class AddPasajeroActivity extends AppCompatActivity {
 
     private RecyclerView recyclerViewPasajero;
     private RecyclerView.LayoutManager layoutManager;
     private PasajeroAdapter pAdapter;
-    private Button btnAddPasajero;
+    private Button btnAddPasajero, btnFinalizarGuia;
     private TextView pasajeroNombre, pasajeroEdad, pasajeroOcupacion, pasajeroNacionalidad, pasajeroNBoleta, pasajeroDNI, pasajeroDestino;
 
     //lista Pasajero
     ArrayList<Pasajero> mListPasajero;
     ApiInterface retrofitAPI;
 
-    String idguiaManifiesto;
+    String idguiaManifiesto, FechaMani, DestinoMani, VehiculoMani, ChoferMani;
     TextView tv_guiaidmanifiestopasajero;
+
+    //
+    ApiInterface apiInterface;
+
+    ProgressDialog progressDialog;
 
 
     @Override
@@ -46,7 +61,13 @@ public class AddPasajeroActivity extends AppCompatActivity {
         loadListPasajero();
 
         if (getIntent() != null) {
+            //
             idguiaManifiesto = getIntent().getStringExtra("idguiaManifiesto");
+            FechaMani = getIntent().getStringExtra("FechaMani");
+            DestinoMani = getIntent().getStringExtra("DestinoMani");
+            VehiculoMani = getIntent().getStringExtra("VehiculoMani");
+            ChoferMani = getIntent().getStringExtra("ChoferMani");
+            //
             tv_guiaidmanifiestopasajero = findViewById(R.id.tv_guiaidmanifiestopasajero);
             tv_guiaidmanifiestopasajero.setText(idguiaManifiesto);
 
@@ -76,6 +97,9 @@ public class AddPasajeroActivity extends AppCompatActivity {
                 String dni = pasajeroDNI.getText().toString();
                 String destino = pasajeroDestino.getText().toString();
 
+                //todo : Aqui seria si insertar online o offline
+
+
                 Pasajero pasajero = new Pasajero(nombre, edad, ocupacion, nacionalidad, numBoleta, dni, destino);
                 createPasajero(pasajero);
 
@@ -91,17 +115,79 @@ public class AddPasajeroActivity extends AppCompatActivity {
                 if (pasajeroNombre.getText().toString().isEmpty()) {
                     pasajeroNombre.setHint("nombre");
                 }
-
-
                 pasajeroEdad.setHint("edad");
                 pasajeroOcupacion.setHint("ocupacion");
                 pasajeroNacionalidad.setHint("nacionalidad");
                 pasajeroNBoleta.setHint("boleta");
                 pasajeroDNI.setHint("dni");
                 pasajeroDestino.setHint("destino ");
-
             }
         });
+
+
+        btnFinalizarGuia = findViewById(R.id.btnFinalizarGuia);
+
+        btnFinalizarGuia.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                apiInterface = ApiService.getApiRetrofitConexion().create(ApiInterface.class);
+                Call<Manifiesto> userInsert = apiInterface.insertManifiesto(idguiaManifiesto, FechaMani, DestinoMani, VehiculoMani, ChoferMani);
+                userInsert.enqueue(new Callback<Manifiesto>() {
+                    @Override
+                    public void onResponse(Call<Manifiesto> call, Response<Manifiesto> response) {
+                        Log.e(" response", " " + response.message());
+                        Log.e(" response", " " + response.toString());
+                        Log.e(" response", " " + response.code());
+                        if (response.isSuccessful() && response.body() != null) {
+                            Boolean success = response.body().getSuccess();
+                             Manifiesto manifiesto = new Manifiesto();
+                             manifiesto.setIdGuiaMani(idguiaManifiesto);
+                             manifiesto.setFechaMani(FechaMani);
+                             manifiesto.setDestinoMani(DestinoMani);
+                             manifiesto.setVehiculoMani(VehiculoMani);
+                             manifiesto.setChoferMani(ChoferMani);
+
+                            if (success) {
+                                saveToLocalStorage(manifiesto, Utils.SYNC_STATUS_OK);
+                                //
+                                Log.e("remoteBD", " onResponadse : Success");
+                                Toast.makeText(AddPasajeroActivity.this, "", Toast.LENGTH_SHORT).show();
+                                Log.e("TAG", " response =  " + response.body().getMessage());
+                                Intent intent = new Intent(AddPasajeroActivity.this, MainActivity.class);
+                                startActivity(intent);
+                                progressDialog.dismiss();
+                            } else {
+                                saveToLocalStorage(manifiesto, Utils.SYNC_STATUS_FAILIDE);
+                                //
+                                progressDialog.dismiss();
+                                Log.e("remoteBD", " onResponse : fail");
+                                Toast.makeText(AddPasajeroActivity.this, response.body().getMessage(), Toast.LENGTH_SHORT).show();
+                                Log.e("TAG", " response =  " + response.body().getMessage());
+                                finish();
+                            }
+                        }
+                    }
+
+                    @Override
+                    public void onFailure(Call<Manifiesto> call, Throwable t) {
+
+                        Toast.makeText(AddPasajeroActivity.this, t.getLocalizedMessage(), Toast.LENGTH_SHORT).show();
+                        Log.e("remoteBD", " onResponse : fail" + t.toString() + "\n " + t.getCause());
+                        Log.e("remoteBD", " onResponse : fail");
+                        Log.e("onFailure", " response =  " + t.getMessage());
+                    }
+                });
+            }
+        });
+
+
+        progressDialog = new ProgressDialog(this);
+        progressDialog.setMessage("Please wait...");
+    }
+
+    private void saveToLocalStorage(Manifiesto manifiesto, int syncStatusOk) {
+        // todo : Lunes
     }
 
     private void buildCreateRecyclerPasajero() {

@@ -57,7 +57,6 @@ public class NewManifActivity extends AppCompatActivity {
     private Vibrator vibrator;
 
     // Insert
-    ApiInterface apiInterface;
 
     String guiaVehiculo;
     String guiaChoferBrevete;
@@ -217,51 +216,8 @@ public class NewManifActivity extends AppCompatActivity {
         manifiesto.setChoferMani(guiaChoferBrevete);
         //
         insertManifiestoLocal(manifiesto);
-        //
-        /*
-        apiInterface = ApiService.getApiRetrofitConexion().create(ApiInterface.class);
-        Call<Manifiesto> userInsert = apiInterface.saveManifiestoLocal(guiaGuia, guiaFecha, guiaDestino, guiaVehiculo, guiaChoferBrevete);
-        userInsert.enqueue(new Callback<Manifiesto>() {
-            @Override
-            public void onResponse(Call<Manifiesto> call, Response<Manifiesto> response) {
-
-                Log.e(" response", " " + response.message());
-                Log.e(" response", " " + response.toString());
-                Log.e(" response", " " + response.code());
 
 
-                if (response.isSuccessful() && response.body() != null) {
-                    Boolean success = response.body().getSuccess();
-
-                    if (success) {
-                        Log.e("remoteBD", " onResponse : Success");
-                        Toast.makeText(NewManifActivity.this, "", Toast.LENGTH_SHORT).show();
-                        Log.e("TAG", " response =  " + response.body().getMessage());
-                        Intent intent = new Intent(NewManifActivity.this, AddPasajeroActivity.class);
-                        startActivity(intent);
-                        progressDialog.dismiss();
-                    } else {
-                        progressDialog.dismiss();
-                        Log.e("remoteBD", " onResponse : fail");
-                        Toast.makeText(NewManifActivity.this, response.body().getMessage(), Toast.LENGTH_SHORT).show();
-                        Log.e("TAG", " response =  " + response.body().getMessage());
-                        finish();
-                    }
-                }
-            }
-
-            @Override
-            public void onFailure(Call<Manifiesto> call, Throwable t) {
-
-                Toast.makeText(NewManifActivity.this, t.getLocalizedMessage(), Toast.LENGTH_SHORT).show();
-                Log.e("remoteBD", " onResponse : fail" + t.toString() + "\n " + t.getCause());
-                Log.e("remoteBD", " onResponse : fail");
-                Log.e("onFailure", " response =  " + t.getMessage());
-
-            }
-        });
-
-        */
     }
 
     private void insertManifiestoLocal(Manifiesto manifiesto) {
@@ -290,6 +246,11 @@ public class NewManifActivity extends AppCompatActivity {
         db.close();
         Intent intent = new Intent(NewManifActivity.this, AddPasajeroActivity.class);
         intent.putExtra("idguiaManifiesto",manifiesto.getIdGuiaMani());
+        intent.putExtra("FechaMani",manifiesto.getFechaMani());
+        intent.putExtra("DestinoMani",manifiesto.getDestinoMani());
+        intent.putExtra("VehiculoMani",manifiesto.getVehiculoMani());
+        intent.putExtra("ChoferMani",manifiesto.getChoferMani());
+
         startActivity(intent);
         progressDialog.dismiss();
     }
