@@ -22,10 +22,8 @@ import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.cudpast.rivertourapp.Helper.ApiInterface;
-import com.cudpast.rivertourapp.Helper.ApiService;
 import com.cudpast.rivertourapp.MainActivity;
 import com.cudpast.rivertourapp.Model.Chofer;
 import com.cudpast.rivertourapp.Model.Manifiesto;
@@ -36,10 +34,6 @@ import com.cudpast.rivertourapp.SQLite.Utils;
 
 import java.util.ArrayList;
 import java.util.Calendar;
-
-import retrofit2.Call;
-import retrofit2.Callback;
-import retrofit2.Response;
 
 public class NewManifActivity extends AppCompatActivity {
 
@@ -193,7 +187,7 @@ public class NewManifActivity extends AppCompatActivity {
 
                 if (submitForm()) {
 
-                    insertManifiesto();
+                    saveManifiestoLocal();
 
                 }
 
@@ -208,14 +202,25 @@ public class NewManifActivity extends AppCompatActivity {
     }
 
 
-    private void insertManifiesto() {
+    private void saveManifiestoLocal() {
         progressDialog.show();
         String guiaGuia = et_guiaGuia.getText().toString();
         String guiaFecha = et_guiaFecha.getText().toString();
         String guiaDestino = et_guiaDestino.getText().toString();
 
+        //
+        Manifiesto manifiesto = new Manifiesto();
+        manifiesto.setIdGuiaMani(guiaGuia);
+        manifiesto.setFechaMani(guiaFecha);
+        manifiesto.setDestinoMani(guiaDestino);
+        manifiesto.setVehiculoMani(guiaVehiculo);
+        manifiesto.setChoferMani(guiaChoferBrevete);
+        //
+        insertManifiestoLocal(manifiesto);
+        //
+        /*
         apiInterface = ApiService.getApiRetrofitConexion().create(ApiInterface.class);
-        Call<Manifiesto> userInsert = apiInterface.insertManifiesto(guiaGuia, guiaFecha, guiaDestino, guiaVehiculo, guiaChoferBrevete);
+        Call<Manifiesto> userInsert = apiInterface.saveManifiestoLocal(guiaGuia, guiaFecha, guiaDestino, guiaVehiculo, guiaChoferBrevete);
         userInsert.enqueue(new Callback<Manifiesto>() {
             @Override
             public void onResponse(Call<Manifiesto> call, Response<Manifiesto> response) {
@@ -255,6 +260,37 @@ public class NewManifActivity extends AppCompatActivity {
 
             }
         });
+
+        */
+    }
+
+    private void insertManifiestoLocal(Manifiesto manifiesto) {
+        //1.Conexion
+        MySqliteDB conn = new MySqliteDB(NewManifActivity.this );
+        //2.Escribir en la database
+        SQLiteDatabase db = conn.getWritableDatabase();
+        //3.Cogigo para insert into tb
+        String insert = "INSERT INTO " +
+                Utils.TABLA_MANIFIESTO + "(" +
+                Utils.CAMPO_ID_GUIA + "," +
+                Utils.CAMPO_FECHA_MANIFIESTO + "," +
+                Utils.CAMPO_DESTINO_MANIFIESTO + "," +
+                Utils.CAMPO_VEHICULO_MANIFIESTO + "," +
+                Utils.CAMPO_CHOFER_MANIFIESTO + ")" +
+                " VALUES ('" +
+                manifiesto.getIdGuiaMani() + "','" +
+                manifiesto.getFechaMani() + "','" +
+                manifiesto.getDestinoMani() + "','" +
+                manifiesto.getVehiculoMani() + "','" +
+                manifiesto.getChoferMani() + "');";
+        Log.e(" Manifiesto", "------> " + insert);
+        //4.Insertar
+        db.execSQL(insert);
+        //5.Cerrar conexion
+        db.close();
+        Intent intent = new Intent(NewManifActivity.this, AddPasajeroActivity.class);
+        startActivity(intent);
+        progressDialog.dismiss();
     }
 
     //***********************************

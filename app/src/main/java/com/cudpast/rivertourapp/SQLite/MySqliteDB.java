@@ -11,19 +11,21 @@ import com.cudpast.rivertourapp.Model.Pasajero;
 
 import static com.cudpast.rivertourapp.SQLite.Utils.CAMPO_PLACA_VEHICULO;
 import static com.cudpast.rivertourapp.SQLite.Utils.CREATE_TABLA_CHOFER;
+import static com.cudpast.rivertourapp.SQLite.Utils.CREATE_TABLA_MANIFIESTO;
 import static com.cudpast.rivertourapp.SQLite.Utils.CREATE_TABLA_PASAJERO;
 import static com.cudpast.rivertourapp.SQLite.Utils.CREATE_TABLA_VEHICULO;
 
 public class MySqliteDB extends SQLiteOpenHelper {
 
     public static final String DATABASE_NAME = "dbRiverTour";
-    public static final int DATABASE_VERSION = 2;
+    public static final int DATABASE_VERSION = 3;
 
     private SQLiteDatabase db;
 
     public static final String drop_vehiculo = "DROP TABLE IF EXISTS " + Utils.TABLA_VEHICULO;
     public static final String drop_chofer = "DROP TABLE IF EXISTS " + Utils.TABLA_CHOFER;
     public static final String drop_pasajero = "DROP TABLE IF EXISTS " + Utils.TABLA_PASAJERO;
+    public static final String drop_manifiesto = "DROP TABLE IF EXISTS " + Utils.TABLA_MANIFIESTO;
 
 
     public MySqliteDB(Context context) {
@@ -35,6 +37,7 @@ public class MySqliteDB extends SQLiteOpenHelper {
         db.execSQL(CREATE_TABLA_VEHICULO);
         db.execSQL(CREATE_TABLA_CHOFER);
         db.execSQL(CREATE_TABLA_PASAJERO);
+        db.execSQL(CREATE_TABLA_MANIFIESTO);
     }
 
     @Override
@@ -42,17 +45,19 @@ public class MySqliteDB extends SQLiteOpenHelper {
         db.execSQL(drop_vehiculo);
         db.execSQL(drop_chofer);
         db.execSQL(drop_pasajero);
+        db.execSQL(drop_manifiesto);
         onCreate(db);
     }
 
 
     public void mySaveToLocalDBPasajero(Pasajero pasajero, SQLiteDatabase database) {
 
-        Log.e("mySaveToLocalDBPasajero", "2");
+
         Log.e("mySaveToLocalDBPasajero", "pasajero : " + pasajero.getNombrePasajero());
         Log.e("mySaveToLocalDBPasajero", "pasajero : " + pasajero.getEdadPasajero());
         Log.e("mySaveToLocalDBPasajero", "pasajero : " + pasajero.getOcupacionPasajero());
         Log.e("mySaveToLocalDBPasajero", "pasajero : " + pasajero.getNacionalidadPasajero());
+
         ContentValues contentValues = new ContentValues();
         contentValues.put(Utils.CAMPO_NOMBRE_PASAJERO, pasajero.getNombrePasajero());
         contentValues.put(Utils.CAMPO_EDAD_PASAJERO, pasajero.getEdadPasajero());

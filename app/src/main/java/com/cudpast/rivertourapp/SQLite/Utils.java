@@ -62,6 +62,29 @@ public class Utils {
                     CAMPO_TELEFONO_CHOFER + " " + "TEXT)";
 
 
+    //Constates campos  Manifiesto
+    public static final String TABLA_MANIFIESTO = "manifiesto";
+
+    public static final String CAMPO_ID_GUIA = "idGuiaMani";
+    public static final String CAMPO_FECHA_MANIFIESTO = "fechaMani";
+    public static final String CAMPO_DESTINO_MANIFIESTO = "destinoMani";
+    public static final String CAMPO_VEHICULO_MANIFIESTO = "vehiculoMani";
+    public static final String CAMPO_CHOFER_MANIFIESTO = "choferMani";
+
+    public static final String CREATE_TABLA_MANIFIESTO =
+            "CREATE TABLE " + TABLA_MANIFIESTO + "(" +
+                    CAMPO_ID_GUIA + " " + " INTEGER PRIMARY KEY AUTOINCREMENT," +
+                    CAMPO_FECHA_MANIFIESTO + " " + "TEXT," +
+                    CAMPO_DESTINO_MANIFIESTO + " " + "TEXT," +
+                    CAMPO_VEHICULO_MANIFIESTO + " " + "TEXT," +
+                    CAMPO_CHOFER_MANIFIESTO + " " + "TEXT)";
+
+
+
+    //SYNC 0 y 1
+    public static final int SYNC_STATUS_OK = 0;
+    public static final int SYNC_STATUS_FAILIDE = 1;
+
     // Constates campos de Pasajero
 
     public static final String TABLA_PASAJERO = "pasajero";
@@ -77,7 +100,7 @@ public class Utils {
 
     public static final String CREATE_TABLA_PASAJERO =
             "CREATE TABLE " + TABLA_PASAJERO + "(" +
-                    CAMPO_ID_PASAJERO + " " +"INTEGER PRIMARY KEY AUTOINCREMENT ," +
+                    CAMPO_ID_PASAJERO + " " + "INTEGER PRIMARY KEY AUTOINCREMENT ," +
                     CAMPO_NOMBRE_PASAJERO + " " + "TEXT ," +
                     CAMPO_EDAD_PASAJERO + " " + " TEXT ," +
                     CAMPO_OCUPACION_PASAJERO + " " + " TEXT ," +
@@ -86,12 +109,6 @@ public class Utils {
                     CAMPO_DNI_PASAJERO + " " + "TEXT ," +
                     CAMPO_DESTINO_PASAJERO + " " + "TEXT)";
 
-
-    //Constates campos  Manifiesto
-
-
-    public static final int SYNC_STATUS_OK = 0;
-    public static final int SYNC_STATUS_FAILIDE = 1;
 
     // todo : 1 . se debe crear la tabla manifiesto ,  se debe crear el insert pasajero con la varaible sync_status_ok  y sync_status_faile ç
     // todo : 2 . se debe poner el icono de sync (color verde) y se debe sincroniza automaticamente (seguir el ejemplo)

@@ -192,8 +192,6 @@ public class AddPasajeroActivity extends AppCompatActivity {
         loadListPasajero();
         //5.Cerrar conexion
         db.close();
-
-
     }
 
     private void deletePasajero(String dni) {
