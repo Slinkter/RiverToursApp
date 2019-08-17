@@ -289,6 +289,7 @@ public class NewManifActivity extends AppCompatActivity {
         //5.Cerrar conexion
         db.close();
         Intent intent = new Intent(NewManifActivity.this, AddPasajeroActivity.class);
+        intent.putExtra("idguiaManifiesto",manifiesto.getIdGuiaMani());
         startActivity(intent);
         progressDialog.dismiss();
     }

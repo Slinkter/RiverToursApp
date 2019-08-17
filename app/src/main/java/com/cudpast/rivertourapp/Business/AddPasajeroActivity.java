@@ -32,6 +32,9 @@ public class AddPasajeroActivity extends AppCompatActivity {
     ArrayList<Pasajero> mListPasajero;
     ApiInterface retrofitAPI;
 
+    String idguiaManifiesto;
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -40,6 +43,11 @@ public class AddPasajeroActivity extends AppCompatActivity {
 
         buildCreateRecyclerPasajero();
         loadListPasajero();
+
+        if (getIntent() != null) {
+            idguiaManifiesto = getIntent().getStringExtra("idguiaManifiesto");
+            Log.e("TAG ", "valor de intent : " + idguiaManifiesto);
+        }
 
         //Bloque 2
         pasajeroNombre = findViewById(R.id.pasajeroNombre);
