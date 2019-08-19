@@ -99,9 +99,10 @@ public class Utils {
     public static final String CAMPO_NUMBOLETA_PASAJERO = "numBoletaPasajero";
     public static final String CAMPO_DNI_PASAJERO = "dniPasajero";
     public static final String CAMPO_DESTINO_PASAJERO = "destinoPasajero";
+    public static final String CAMPO_GUIAID_PASAJERO = "guiaIdPasajero";
 
-    public static final String CREATE_TABLA_PASAJERO =
-            "CREATE TABLE " + TABLA_PASAJERO + "(" +
+    public static final String CREATE_TABLA_PASAJERO = "CREATE TABLE " +
+                    TABLA_PASAJERO + "(" +
                     CAMPO_ID_PASAJERO + " " + "INTEGER PRIMARY KEY AUTOINCREMENT ," +
                     CAMPO_NOMBRE_PASAJERO + " " + "TEXT ," +
                     CAMPO_EDAD_PASAJERO + " " + " TEXT ," +
@@ -109,11 +110,8 @@ public class Utils {
                     CAMPO_NACIONALIDAD_PASAJERO + " " + "TEXT ," +
                     CAMPO_NUMBOLETA_PASAJERO + " " + "TEXT ," +
                     CAMPO_DNI_PASAJERO + " " + "TEXT ," +
-                    CAMPO_DESTINO_PASAJERO + " " + "TEXT)";
-
-
-    // todo : 1 . se debe crear la tabla manifiesto ,  se debe crear el insert pasajero con la varaible sync_status_ok  y sync_status_faile ç
-    // todo : 2 . se debe poner el icono de sync (color verde) y se debe sincroniza automaticamente (seguir el ejemplo)
+                    CAMPO_DESTINO_PASAJERO + " " + "TEXT ," +
+                    CAMPO_GUIAID_PASAJERO + " " + "TEXT)";
 
 
 }

@@ -23,8 +23,10 @@ import static com.cudpast.rivertourapp.SQLite.Utils.CREATE_TABLA_VEHICULO;
 
 public class MySqliteDB extends SQLiteOpenHelper {
 
+    public static final String TAG = MySqliteDB.class.getSimpleName();
+
     public static final String DATABASE_NAME = "dbRiverTour";
-    public static final int DATABASE_VERSION = 1;
+    public static final int DATABASE_VERSION = 2;
     private SQLiteDatabase db;
     //
     public static final String drop_vehiculo = "DROP TABLE IF EXISTS " + Utils.TABLA_VEHICULO;
@@ -57,18 +59,21 @@ public class MySqliteDB extends SQLiteOpenHelper {
     //          Metodos de Insert
     //***********************************
     // Insert Manifiesto
-    public void mySaveToLocalDBManifiesto(Manifiesto manifiesto, int sync , SQLiteDatabase db){
+    public void mySaveToLocalDBManifiesto(Manifiesto manifiesto, int sync, SQLiteDatabase db) {
         ContentValues contentValues = new ContentValues();
+        //Log test de data;
+        Log.e(TAG, "  Id Guia Mani " + manifiesto.getIdGuiaMani());
         //Set data
-        contentValues.put(Utils.CAMPO_ID_MANIFIESTO, manifiesto.getIdGuiaMani());
-        contentValues.put(Utils.CAMPO_FECHA_MANIFIESTO,manifiesto.getFechaMani());
-        contentValues.put(Utils.CAMPO_DESTINO_MANIFIESTO,manifiesto.getDestinoMani());
-        contentValues.put(Utils.CAMPO_VEHICULO_MANIFIESTO,manifiesto.getVehiculoMani());
-        contentValues.put(Utils.CAMPO_CHOFER_MANIFIESTO,manifiesto.getChoferMani());
-        contentValues.put(Utils.CAMPO_SYNC_STATUS_MANIFIESTO,sync);
+        contentValues.put(Utils.CAMPO_ID_GUIA, manifiesto.getIdGuiaMani());
+        contentValues.put(Utils.CAMPO_FECHA_MANIFIESTO, manifiesto.getFechaMani());
+        contentValues.put(Utils.CAMPO_DESTINO_MANIFIESTO, manifiesto.getDestinoMani());
+        contentValues.put(Utils.CAMPO_VEHICULO_MANIFIESTO, manifiesto.getVehiculoMani());
+        contentValues.put(Utils.CAMPO_CHOFER_MANIFIESTO, manifiesto.getChoferMani());
+        contentValues.put(Utils.CAMPO_SYNC_STATUS_MANIFIESTO, sync);
         //Insert
         db.insert(Utils.TABLA_MANIFIESTO, null, contentValues);
     }
+
     // Insert Pasajero
     public void mySaveToLocalDBPasajero(Pasajero pasajero, SQLiteDatabase database) {
 
@@ -98,7 +103,6 @@ public class MySqliteDB extends SQLiteOpenHelper {
     public void mySaveToLocalDBPasajero2(Pasajero pasajero, SQLiteDatabase database) {
 
 
-
     }
 
     public Cursor readFromLocalDatabaseVehiculo(SQLiteDatabase database) {
@@ -115,8 +119,6 @@ public class MySqliteDB extends SQLiteOpenHelper {
         String[] projection = {Utils.CAMPO_NOMBRE_PASAJERO, Utils.CAMPO_EDAD_PASAJERO, Utils.CAMPO_OCUPACION_PASAJERO, Utils.CAMPO_NACIONALIDAD_PASAJERO, Utils.CAMPO_NUMBOLETA_PASAJERO, Utils.CAMPO_DNI_PASAJERO, Utils.CAMPO_DESTINO_PASAJERO};
         return (database.query(Utils.TABLA_PASAJERO, projection, null, null, null, null, null));
     }
-
-
 
 
     public void deleteTable() {

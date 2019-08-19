@@ -208,23 +208,23 @@ public class NewManifActivity extends AppCompatActivity {
     }
 
     private void goToAddPasajero(Manifiesto manifiesto) {
-        //Insetar Manfiesto
+        // Insetar Manfiesto
         MySqliteDB mySqliteDB = new MySqliteDB(this);
         SQLiteDatabase db = mySqliteDB.getWritableDatabase();
         mySqliteDB.mySaveToLocalDBManifiesto(manifiesto, 0, db);
         mySqliteDB.close();
-        //Go to Lista de Pasajero
+        // Go to Lista de Pasajero
         Intent intent = new Intent(NewManifActivity.this, AddPasajeroActivity.class);
         intent.putExtra("idguiaManifiesto", manifiesto.getIdGuiaMani());
         //
+        progressDialog.dismiss();
         startActivity(intent);
         finish();
-        progressDialog.dismiss();
     }
 
 
     //***********************************
-    // Validacion
+    // Validación
 
     private boolean submitForm() {
 
@@ -264,7 +264,6 @@ public class NewManifActivity extends AppCompatActivity {
         return true;
     }
 
-
     private boolean checkGuia() {
         if (et_guiaGuia.getText().toString().trim().isEmpty()) {
             et_guiaGuia.setError("Ingresar Guia");
@@ -280,7 +279,6 @@ public class NewManifActivity extends AppCompatActivity {
         }
         return true;
     }
-
 
     private boolean checkDestino() {
         if (et_guiaDestino.getText().toString().trim().isEmpty()) {
@@ -308,7 +306,6 @@ public class NewManifActivity extends AppCompatActivity {
         }
         return true;
     }
-
 
     //*******************************************
     // Obtener datos de vehiculos y chofer

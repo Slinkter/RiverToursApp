@@ -60,23 +60,16 @@ public class AddPasajeroActivity extends AppCompatActivity {
 
         buildCreateRecyclerPasajero();
         loadListPasajero();
-
+        // Info de Manifiesto de la guia id
         if (getIntent() != null) {
             //se tiene el manifiesto
             idguiaManifiesto = getIntent().getStringExtra("idguiaManifiesto");
-            FechaMani = getIntent().getStringExtra("FechaMani");
-            DestinoMani = getIntent().getStringExtra("DestinoMani");
-            VehiculoMani = getIntent().getStringExtra("VehiculoMani");
-            ChoferMani = getIntent().getStringExtra("ChoferMani");
             SyncMani = 0;
-
-
             //
             tv_guiaidmanifiestopasajero = findViewById(R.id.tv_guiaidmanifiestopasajero);
             tv_guiaidmanifiestopasajero.setText(idguiaManifiesto);
             Log.e("TAG ", "valor de intent : " + idguiaManifiesto);
         }
-
         //Bloque 2
         pasajeroNombre = findViewById(R.id.pasajeroNombre);
         pasajeroEdad = findViewById(R.id.pasajeroEdad);
@@ -86,115 +79,130 @@ public class AddPasajeroActivity extends AppCompatActivity {
         pasajeroDNI = findViewById(R.id.pasajeroDNI);
         pasajeroDestino = findViewById(R.id.pasajeroDestino);
         //
-
         btnAddPasajero = findViewById(R.id.btnAddPasajero);
-        btnAddPasajero.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
+        btnAddPasajero
+                .setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
 
-                String nombre = pasajeroNombre.getText().toString();
-                String edad = pasajeroEdad.getText().toString();
-                String ocupacion = pasajeroOcupacion.getText().toString();
-                String nacionalidad = pasajeroNacionalidad.getText().toString();
-                String numBoleta = pasajeroNBoleta.getText().toString();
-                String dni = pasajeroDNI.getText().toString();
-                String destino = pasajeroDestino.getText().toString();
-                //todo : Aqui seria si insertar online o offline
-                Pasajero pasajero = new Pasajero(nombre, edad, ocupacion, nacionalidad, numBoleta, dni, destino);
-                createPasajero(pasajero);
-                pasajeroNombre.setText("");
-                pasajeroEdad.setText("");
-                pasajeroOcupacion.setText("");
-                pasajeroNacionalidad.setText("");
-                pasajeroNBoleta.setText("");
-                pasajeroDNI.setText("");
-                pasajeroDestino.setText("");
-                //
-                if (pasajeroNombre.getText().toString().isEmpty()) {
-                    pasajeroNombre.setHint("nombre");
-                }
-                pasajeroEdad.setHint("edad");
-                pasajeroOcupacion.setHint("ocupacion");
-                pasajeroNacionalidad.setHint("nacionalidad");
-                pasajeroNBoleta.setHint("boleta");
-                pasajeroDNI.setHint("dni");
-                pasajeroDestino.setHint("destino ");
-            }
-        });
+                        String nombre = pasajeroNombre.getText().toString();
+                        String edad = pasajeroEdad.getText().toString();
+                        String ocupacion = pasajeroOcupacion.getText().toString();
+                        String nacionalidad = pasajeroNacionalidad.getText().toString();
+                        String numBoleta = pasajeroNBoleta.getText().toString();
+                        String dni = pasajeroDNI.getText().toString();
+                        String destino = pasajeroDestino.getText().toString();
+                        //
+                        Pasajero pasajero = new Pasajero(nombre, edad, ocupacion, nacionalidad, numBoleta, dni, destino);
+                        //
+                        createPasajero(pasajero);
+                        //
+                        clearTextPasajero();
+                        clearHintPasajero();
+
+                    }
+                });
 
         btnFinalizarGuia = findViewById(R.id.btnFinalizarGuia);
 
         btnFinalizarGuia.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                /*
-                1.Se insertar primera offine el manifiesto y se obtiene el id
-                y una vez obtenido el idManifiesto , se registar pasajero
+         /*
+         todo :
+         Caso 1 : Online
+         se va a crear una lista local de pasajero , cuando se
+         finalice la lista de pasajeros  el boton debe cambiar a guardar
+         obtener la info de la guia y guardar la guia con la lista de pasajero
 
-                2.Si esta offline se guarda con la variable Fail_sync
-                */
+         Caso 2 : Offline
+         se va a crear una lista local de pasajero ,cuando finalice la lista de pasajero,
+         se guardar en local con
+        */
 
 
-
-
-
-
-
-
-                apiInterface = ApiService.getApiRetrofitConexion().create(ApiInterface.class);
-                Call<Manifiesto> userInsert = apiInterface.insertManifiesto(idguiaManifiesto, FechaMani, DestinoMani, VehiculoMani, ChoferMani);
-                userInsert.enqueue(new Callback<Manifiesto>() {
-                    @Override
-                    public void onResponse(Call<Manifiesto> call, Response<Manifiesto> response) {
-                        Log.e(" response", " " + response.message());
-                        Log.e(" response", " " + response.toString());
-                        Log.e(" response", " " + response.code());
-                        if (response.isSuccessful() && response.body() != null) {
-                            Boolean success = response.body().getSuccess();
-                            //
-                            Manifiesto manifiesto = new Manifiesto();
-                            manifiesto.setIdGuiaMani(idguiaManifiesto);
-                            manifiesto.setFechaMani(FechaMani);
-                            manifiesto.setDestinoMani(DestinoMani);
-                            manifiesto.setVehiculoMani(VehiculoMani);
-                            manifiesto.setChoferMani(ChoferMani);
-                            //
-                            if (success) {
-                                saveToLocalStorage(manifiesto, Utils.SYNC_STATUS_OK_MANIFIESTO);
-                                //
-                                Log.e("remoteBD", " onResponadse : Success");
-                                Toast.makeText(AddPasajeroActivity.this, "", Toast.LENGTH_SHORT).show();
-                                Log.e("TAG", " response =  " + response.body().getMessage());
-                                Intent intent = new Intent(AddPasajeroActivity.this, MainActivity.class);
-                                startActivity(intent);
-                                progressDialog.dismiss();
-                            } else {
-                                saveToLocalStorage(manifiesto, Utils.SYNC_STATUS_FAILIDE_MANIFIESTO);
-                                //
-                                progressDialog.dismiss();
-                                Log.e("remoteBD", " onResponse : fail");
-                                Toast.makeText(AddPasajeroActivity.this, response.body().getMessage(), Toast.LENGTH_SHORT).show();
-                                Log.e("TAG", " response =  " + response.body().getMessage());
-                                finish();
-                            }
-                        }
-                    }
-
-                    @Override
-                    public void onFailure(Call<Manifiesto> call, Throwable t) {
-
-                        Toast.makeText(AddPasajeroActivity.this, t.getLocalizedMessage(), Toast.LENGTH_SHORT).show();
-                        Log.e("remoteBD", " onResponse : fail" + t.toString() + "\n " + t.getCause());
-                        Log.e("remoteBD", " onResponse : fail");
-                        Log.e("onFailure", " response =  " + t.getMessage());
-                    }
-                });
             }
         });
 
 
         progressDialog = new ProgressDialog(this);
         progressDialog.setMessage("Please wait...");
+    }
+
+
+    private void revisar() {
+        apiInterface = ApiService.getApiRetrofitConexion().create(ApiInterface.class);
+        Call<Manifiesto> userInsert = apiInterface.insertManifiesto(idguiaManifiesto, FechaMani, DestinoMani, VehiculoMani, ChoferMani);
+        userInsert.enqueue(new Callback<Manifiesto>() {
+            @Override
+            public void onResponse(Call<Manifiesto> call, Response<Manifiesto> response) {
+                Log.e(" response", " " + response.message());
+                Log.e(" response", " " + response.toString());
+                Log.e(" response", " " + response.code());
+                if (response.isSuccessful() && response.body() != null) {
+                    Boolean success = response.body().getSuccess();
+                    //
+                    Manifiesto manifiesto = new Manifiesto();
+                    manifiesto.setIdGuiaMani(idguiaManifiesto);
+                    manifiesto.setFechaMani(FechaMani);
+                    manifiesto.setDestinoMani(DestinoMani);
+                    manifiesto.setVehiculoMani(VehiculoMani);
+                    manifiesto.setChoferMani(ChoferMani);
+                    //
+                    if (success) {
+                        saveToLocalStorage(manifiesto, Utils.SYNC_STATUS_OK_MANIFIESTO);
+                        //
+                        Log.e("remoteBD", " onResponadse : Success");
+                        Toast.makeText(AddPasajeroActivity.this, "", Toast.LENGTH_SHORT).show();
+                        Log.e("TAG", " response =  " + response.body().getMessage());
+                        Intent intent = new Intent(AddPasajeroActivity.this, MainActivity.class);
+                        startActivity(intent);
+                        progressDialog.dismiss();
+                    } else {
+                        saveToLocalStorage(manifiesto, Utils.SYNC_STATUS_FAILIDE_MANIFIESTO);
+                        //
+                        progressDialog.dismiss();
+                        Log.e("remoteBD", " onResponse : fail");
+                        Toast.makeText(AddPasajeroActivity.this, response.body().getMessage(), Toast.LENGTH_SHORT).show();
+                        Log.e("TAG", " response =  " + response.body().getMessage());
+                        finish();
+                    }
+                }
+            }
+
+            @Override
+            public void onFailure(Call<Manifiesto> call, Throwable t) {
+
+                Toast.makeText(AddPasajeroActivity.this, t.getLocalizedMessage(), Toast.LENGTH_SHORT).show();
+                Log.e("remoteBD", " onResponse : fail" + t.toString() + "\n " + t.getCause());
+                Log.e("remoteBD", " onResponse : fail");
+                Log.e("onFailure", " response =  " + t.getMessage());
+            }
+        });
+    }
+
+
+    private void clearTextPasajero() {
+        pasajeroNombre.setText("");
+        pasajeroEdad.setText("");
+        pasajeroOcupacion.setText("");
+        pasajeroNacionalidad.setText("");
+        pasajeroNBoleta.setText("");
+        pasajeroDNI.setText("");
+        pasajeroDestino.setText("");
+    }
+
+    private void clearHintPasajero() {
+
+        if (pasajeroNombre.getText().toString().isEmpty()) {
+            pasajeroNombre.setHint("nombre");
+            pasajeroEdad.setHint("edad");
+            pasajeroOcupacion.setHint("ocupacion");
+            pasajeroNacionalidad.setHint("nacionalidad");
+            pasajeroNBoleta.setHint("boleta");
+            pasajeroDNI.setHint("dni");
+            pasajeroDestino.setHint("destino ");
+        }
     }
 
     private void saveToLocalStorage(Manifiesto manifiesto, int sync) {
@@ -214,40 +222,18 @@ public class AddPasajeroActivity extends AppCompatActivity {
         recyclerViewPasajero.setLayoutManager(layoutManager);
         pAdapter = new PasajeroAdapter(mListPasajero);
         recyclerViewPasajero.setAdapter(pAdapter);
-
+        //
         pAdapter.setOnItemClickListener(new PasajeroAdapter.OnItemClickListener() {
             @Override
             public void onEditClick(int position) {
-
+                // Eliminar metodo
             }
 
             @Override
             public void onDeleteClick(int position) {
-                removeItem(position);
+                removePasajero(position);
             }
         });
-
-    }
-
-
-    private void removeItem(int position) {
-        deletePasajero(mListPasajero.get(position).getDniPasajero());
-        pAdapter.notifyItemRemoved(position);
-    }
-
-    private void savePasajero(Pasajero pasajero) {
-        /* todo :
-         Caso 1 : Online
-         se va a crear una lista local de pasajero , cuando se
-         finalice la lista de pasajeros  el boton debe cambiar a guardar
-         obtener la info de la guia y guardar la guia con la lista de pasajero
-
-         Caso 2 : Offline
-         se va a crear una lista local de pasajero ,cuando finalice la lista de pasajero,
-         se guardar en local con
-        */
-
-        // primero vamos a ver la lita de pasajero
 
     }
 
@@ -290,7 +276,8 @@ public class AddPasajeroActivity extends AppCompatActivity {
                         Utils.CAMPO_NACIONALIDAD_PASAJERO + "," +
                         Utils.CAMPO_NUMBOLETA_PASAJERO + "," +
                         Utils.CAMPO_DNI_PASAJERO + "," +
-                        Utils.CAMPO_DESTINO_PASAJERO + ")" +
+                        Utils.CAMPO_DESTINO_PASAJERO + "," +
+                        Utils.CAMPO_GUIAID_PASAJERO + ")" +
                         " VALUES ('" +
                         pasajero.getNombrePasajero() + "','" +
                         pasajero.getEdadPasajero() + "','" +
@@ -298,13 +285,20 @@ public class AddPasajeroActivity extends AppCompatActivity {
                         pasajero.getNacionalidadPasajero() + "','" +
                         pasajero.getNumBoleta() + "','" +
                         pasajero.getDniPasajero() + "','" +
-                        pasajero.getDestinoPasajero() + "');";
-        Log.e(" ", "------> " + insert);
+                        pasajero.getDestinoPasajero() + "','" +
+                        idguiaManifiesto + "');";
+        Log.e("TAG", "------> " + insert);
         //4.Insertar
         db.execSQL(insert);
         loadListPasajero();
         //5.Cerrar conexion
         db.close();
+    }
+
+    private void removePasajero(int position) {
+        String dni = mListPasajero.get(position).getDniPasajero();
+        deletePasajero(dni);
+        pAdapter.notifyItemRemoved(position);
     }
 
     private void deletePasajero(String dni) {
