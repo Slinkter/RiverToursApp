@@ -65,6 +65,7 @@ public class Utils {
     //Constates campos  Manifiesto
     public static final String TABLA_MANIFIESTO = "manifiesto";
 
+    public static final String CAMPO_ID_MANIFIESTO = "idManfiesto";
     public static final String CAMPO_ID_GUIA = "idGuiaMani";
     public static final String CAMPO_FECHA_MANIFIESTO = "fechaMani";
     public static final String CAMPO_DESTINO_MANIFIESTO = "destinoMani";
@@ -73,13 +74,12 @@ public class Utils {
 
     public static final String CREATE_TABLA_MANIFIESTO =
             "CREATE TABLE " + TABLA_MANIFIESTO + "(" +
-                    CAMPO_ID_GUIA + " " + " INTEGER PRIMARY KEY AUTOINCREMENT," +
+                    CAMPO_ID_MANIFIESTO + " " + " INTEGER PRIMARY KEY AUTOINCREMENT," +
+                    CAMPO_ID_GUIA + " " + " TEXT," +
                     CAMPO_FECHA_MANIFIESTO + " " + "TEXT," +
                     CAMPO_DESTINO_MANIFIESTO + " " + "TEXT," +
                     CAMPO_VEHICULO_MANIFIESTO + " " + "TEXT," +
                     CAMPO_CHOFER_MANIFIESTO + " " + "TEXT)";
-
-
 
     //SYNC 0 y 1
     public static final int SYNC_STATUS_OK = 0;

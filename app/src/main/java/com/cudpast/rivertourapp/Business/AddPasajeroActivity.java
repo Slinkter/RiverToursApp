@@ -130,7 +130,14 @@ public class AddPasajeroActivity extends AppCompatActivity {
         btnFinalizarGuia.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                /*
+                1.Se insertar primera online el manifiesto y se obtiene el id
+                y una vez obtenido el idManifiesto , se registar pasajero
 
+                2.Si esta offline se guarda con la variable Fail_sync
+
+
+                */
                 apiInterface = ApiService.getApiRetrofitConexion().create(ApiInterface.class);
                 Call<Manifiesto> userInsert = apiInterface.insertManifiesto(idguiaManifiesto, FechaMani, DestinoMani, VehiculoMani, ChoferMani);
                 userInsert.enqueue(new Callback<Manifiesto>() {
@@ -141,13 +148,14 @@ public class AddPasajeroActivity extends AppCompatActivity {
                         Log.e(" response", " " + response.code());
                         if (response.isSuccessful() && response.body() != null) {
                             Boolean success = response.body().getSuccess();
-                             Manifiesto manifiesto = new Manifiesto();
-                             manifiesto.setIdGuiaMani(idguiaManifiesto);
-                             manifiesto.setFechaMani(FechaMani);
-                             manifiesto.setDestinoMani(DestinoMani);
-                             manifiesto.setVehiculoMani(VehiculoMani);
-                             manifiesto.setChoferMani(ChoferMani);
-
+                            //
+                            Manifiesto manifiesto = new Manifiesto();
+                            manifiesto.setIdGuiaMani(idguiaManifiesto);
+                            manifiesto.setFechaMani(FechaMani);
+                            manifiesto.setDestinoMani(DestinoMani);
+                            manifiesto.setVehiculoMani(VehiculoMani);
+                            manifiesto.setChoferMani(ChoferMani);
+                            //
                             if (success) {
                                 saveToLocalStorage(manifiesto, Utils.SYNC_STATUS_OK);
                                 //
