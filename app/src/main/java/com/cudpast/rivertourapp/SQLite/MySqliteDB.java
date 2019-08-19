@@ -26,7 +26,7 @@ public class MySqliteDB extends SQLiteOpenHelper {
     public static final String TAG = MySqliteDB.class.getSimpleName();
 
     public static final String DATABASE_NAME = "dbRiverTour";
-    public static final int DATABASE_VERSION = 2;
+    public static final int DATABASE_VERSION = 7;
     private SQLiteDatabase db;
     //
     public static final String drop_vehiculo = "DROP TABLE IF EXISTS " + Utils.TABLA_VEHICULO;
@@ -71,7 +71,8 @@ public class MySqliteDB extends SQLiteOpenHelper {
         contentValues.put(Utils.CAMPO_CHOFER_MANIFIESTO, manifiesto.getChoferMani());
         contentValues.put(Utils.CAMPO_SYNC_STATUS_MANIFIESTO, sync);
         //Insert
-        db.insert(Utils.TABLA_MANIFIESTO, null, contentValues);
+        long hola = db.insert(Utils.TABLA_MANIFIESTO, null, contentValues);
+        Log.e(TAG, "INSERT TABLA_MANIFIESTO " + hola);
     }
 
     // Insert Pasajero
