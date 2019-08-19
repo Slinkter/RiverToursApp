@@ -3,6 +3,9 @@ package com.cudpast.rivertourapp.SQLite;
 public class Utils {
 
     public static final int db_version = 1;
+    //SYNC 0 y 1
+    public static final int SYNC_STATUS_OK_MANIFIESTO = 0;
+    public static final int SYNC_STATUS_FAILIDE_MANIFIESTO = 1;
 
     //Constates campos  usuario
     public static final String TABLA_USUARIO = "usuario";
@@ -71,6 +74,7 @@ public class Utils {
     public static final String CAMPO_DESTINO_MANIFIESTO = "destinoMani";
     public static final String CAMPO_VEHICULO_MANIFIESTO = "vehiculoMani";
     public static final String CAMPO_CHOFER_MANIFIESTO = "choferMani";
+    public static final String CAMPO_SYNC_STATUS_MANIFIESTO = "syncstatus";
 
     public static final String CREATE_TABLA_MANIFIESTO =
             "CREATE TABLE " + TABLA_MANIFIESTO + "(" +
@@ -79,11 +83,9 @@ public class Utils {
                     CAMPO_FECHA_MANIFIESTO + " " + "TEXT," +
                     CAMPO_DESTINO_MANIFIESTO + " " + "TEXT," +
                     CAMPO_VEHICULO_MANIFIESTO + " " + "TEXT," +
-                    CAMPO_CHOFER_MANIFIESTO + " " + "TEXT)";
+                    CAMPO_CHOFER_MANIFIESTO + " " + "TEXT," +
+                    CAMPO_SYNC_STATUS_MANIFIESTO + " " + "INTEGER);";
 
-    //SYNC 0 y 1
-    public static final int SYNC_STATUS_OK = 0;
-    public static final int SYNC_STATUS_FAILIDE = 1;
 
     // Constates campos de Pasajero
 

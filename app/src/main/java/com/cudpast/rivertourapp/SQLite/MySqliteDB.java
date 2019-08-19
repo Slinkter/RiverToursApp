@@ -7,7 +7,10 @@ import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.util.Log;
 
+import com.cudpast.rivertourapp.Model.Manifiesto;
 import com.cudpast.rivertourapp.Model.Pasajero;
+
+import okhttp3.internal.Util;
 
 import static com.cudpast.rivertourapp.SQLite.Utils.CAMPO_PLACA_VEHICULO;
 import static com.cudpast.rivertourapp.SQLite.Utils.CREATE_TABLA_CHOFER;
@@ -19,14 +22,12 @@ public class MySqliteDB extends SQLiteOpenHelper {
 
     public static final String DATABASE_NAME = "dbRiverTour";
     public static final int DATABASE_VERSION = 1;
-
     private SQLiteDatabase db;
-
+    //
     public static final String drop_vehiculo = "DROP TABLE IF EXISTS " + Utils.TABLA_VEHICULO;
     public static final String drop_chofer = "DROP TABLE IF EXISTS " + Utils.TABLA_CHOFER;
     public static final String drop_pasajero = "DROP TABLE IF EXISTS " + Utils.TABLA_PASAJERO;
     public static final String drop_manifiesto = "DROP TABLE IF EXISTS " + Utils.TABLA_MANIFIESTO;
-
 
     public MySqliteDB(Context context) {
         super(context, DATABASE_NAME, null, DATABASE_VERSION);
@@ -47,6 +48,21 @@ public class MySqliteDB extends SQLiteOpenHelper {
         db.execSQL(drop_pasajero);
         db.execSQL(drop_manifiesto);
         onCreate(db);
+    }
+
+    //*************************************
+    //          Metodos de Insert
+    //***********************************
+
+    public void mySaveToLocalDBManifiesto(Manifiesto manifiesto, int sync , SQLiteDatabase db){
+        ContentValues contentValues = new ContentValues();
+        contentValues.put(Utils.CAMPO_ID_MANIFIESTO, manifiesto.getIdGuiaMani());
+        contentValues.put(Utils.CAMPO_FECHA_MANIFIESTO,manifiesto.getFechaMani());
+        contentValues.put(Utils.CAMPO_DESTINO_MANIFIESTO,manifiesto.getDestinoMani());
+        contentValues.put(Utils.CAMPO_VEHICULO_MANIFIESTO,manifiesto.getVehiculoMani());
+        contentValues.put(Utils.CAMPO_CHOFER_MANIFIESTO,manifiesto.getChoferMani());
+        db.insert(Utils.TABLA_MANIFIESTO, null, contentValues);
+
     }
 
 

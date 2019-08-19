@@ -43,6 +43,7 @@ public class AddPasajeroActivity extends AppCompatActivity {
     ApiInterface retrofitAPI;
 
     String idguiaManifiesto, FechaMani, DestinoMani, VehiculoMani, ChoferMani;
+    int SyncMani;
     TextView tv_guiaidmanifiestopasajero;
 
     //
@@ -61,16 +62,16 @@ public class AddPasajeroActivity extends AppCompatActivity {
         loadListPasajero();
 
         if (getIntent() != null) {
-            //
+            //se tiene el manifiesto
             idguiaManifiesto = getIntent().getStringExtra("idguiaManifiesto");
             FechaMani = getIntent().getStringExtra("FechaMani");
             DestinoMani = getIntent().getStringExtra("DestinoMani");
             VehiculoMani = getIntent().getStringExtra("VehiculoMani");
             ChoferMani = getIntent().getStringExtra("ChoferMani");
+            SyncMani = 0;
             //
             tv_guiaidmanifiestopasajero = findViewById(R.id.tv_guiaidmanifiestopasajero);
             tv_guiaidmanifiestopasajero.setText(idguiaManifiesto);
-
             Log.e("TAG ", "valor de intent : " + idguiaManifiesto);
         }
 
@@ -82,7 +83,7 @@ public class AddPasajeroActivity extends AppCompatActivity {
         pasajeroNBoleta = findViewById(R.id.pasajeroN);
         pasajeroDNI = findViewById(R.id.pasajeroDNI);
         pasajeroDestino = findViewById(R.id.pasajeroDestino);
-
+        //
 
         btnAddPasajero = findViewById(R.id.btnAddPasajero);
         btnAddPasajero.setOnClickListener(new View.OnClickListener() {
@@ -96,14 +97,9 @@ public class AddPasajeroActivity extends AppCompatActivity {
                 String numBoleta = pasajeroNBoleta.getText().toString();
                 String dni = pasajeroDNI.getText().toString();
                 String destino = pasajeroDestino.getText().toString();
-
                 //todo : Aqui seria si insertar online o offline
-
-
                 Pasajero pasajero = new Pasajero(nombre, edad, ocupacion, nacionalidad, numBoleta, dni, destino);
                 createPasajero(pasajero);
-
-
                 pasajeroNombre.setText("");
                 pasajeroEdad.setText("");
                 pasajeroOcupacion.setText("");
@@ -111,7 +107,7 @@ public class AddPasajeroActivity extends AppCompatActivity {
                 pasajeroNBoleta.setText("");
                 pasajeroDNI.setText("");
                 pasajeroDestino.setText("");
-
+                //
                 if (pasajeroNombre.getText().toString().isEmpty()) {
                     pasajeroNombre.setHint("nombre");
                 }
@@ -124,7 +120,6 @@ public class AddPasajeroActivity extends AppCompatActivity {
             }
         });
 
-
         btnFinalizarGuia = findViewById(R.id.btnFinalizarGuia);
 
         btnFinalizarGuia.setOnClickListener(new View.OnClickListener() {
@@ -135,8 +130,6 @@ public class AddPasajeroActivity extends AppCompatActivity {
                 y una vez obtenido el idManifiesto , se registar pasajero
 
                 2.Si esta offline se guarda con la variable Fail_sync
-
-
                 */
                 apiInterface = ApiService.getApiRetrofitConexion().create(ApiInterface.class);
                 Call<Manifiesto> userInsert = apiInterface.insertManifiesto(idguiaManifiesto, FechaMani, DestinoMani, VehiculoMani, ChoferMani);
@@ -157,7 +150,7 @@ public class AddPasajeroActivity extends AppCompatActivity {
                             manifiesto.setChoferMani(ChoferMani);
                             //
                             if (success) {
-                                saveToLocalStorage(manifiesto, Utils.SYNC_STATUS_OK);
+                                saveToLocalStorage(manifiesto, Utils.SYNC_STATUS_OK_MANIFIESTO);
                                 //
                                 Log.e("remoteBD", " onResponadse : Success");
                                 Toast.makeText(AddPasajeroActivity.this, "", Toast.LENGTH_SHORT).show();
@@ -166,7 +159,7 @@ public class AddPasajeroActivity extends AppCompatActivity {
                                 startActivity(intent);
                                 progressDialog.dismiss();
                             } else {
-                                saveToLocalStorage(manifiesto, Utils.SYNC_STATUS_FAILIDE);
+                                saveToLocalStorage(manifiesto, Utils.SYNC_STATUS_FAILIDE_MANIFIESTO);
                                 //
                                 progressDialog.dismiss();
                                 Log.e("remoteBD", " onResponse : fail");
@@ -194,8 +187,12 @@ public class AddPasajeroActivity extends AppCompatActivity {
         progressDialog.setMessage("Please wait...");
     }
 
-    private void saveToLocalStorage(Manifiesto manifiesto, int syncStatusOk) {
+    private void saveToLocalStorage(Manifiesto manifiesto, int sync) {
         // todo : Lunes
+        MySqliteDB mySqliteDB = new MySqliteDB(this);
+        SQLiteDatabase db = mySqliteDB.getWritableDatabase();
+        mySqliteDB.mySaveToLocalDBManifiesto(manifiesto, sync, db);
+        mySqliteDB.close();
     }
 
     private void buildCreateRecyclerPasajero() {

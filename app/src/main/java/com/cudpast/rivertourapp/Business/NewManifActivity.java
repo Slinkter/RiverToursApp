@@ -89,8 +89,6 @@ public class NewManifActivity extends AppCompatActivity {
         animation = AnimationUtils.loadAnimation(getApplicationContext(), R.anim.shake);
         vibrator = (Vibrator) getSystemService(Context.VIBRATOR_SERVICE);
         //
-
-
         //******************************************************
         et_guiaFecha.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -104,7 +102,6 @@ public class NewManifActivity extends AppCompatActivity {
                 Log.e(TAG, "YEAR = " + year);
                 Log.e(TAG, "MONTH = " + month);
                 Log.e(TAG, "DAY = " + day);
-
 
                 dialog = new DatePickerDialog(
                         NewManifActivity.this,
@@ -185,30 +182,23 @@ public class NewManifActivity extends AppCompatActivity {
             public void onClick(View v) {
 
                 if (submitForm()) {
-
                     saveManifiestoLocal();
-
                 }
-
-
             }
         });
-
+        //******************************************************
         progressDialog = new ProgressDialog(this);
         progressDialog.setMessage("Please wait...");
-
-
     }
-
 
     private void saveManifiestoLocal() {
         progressDialog.show();
         String guiaGuia = et_guiaGuia.getText().toString();
         String guiaFecha = et_guiaFecha.getText().toString();
         String guiaDestino = et_guiaDestino.getText().toString();
-
         //
         Manifiesto manifiesto = new Manifiesto();
+        //
         manifiesto.setIdGuiaMani(guiaGuia);
         manifiesto.setFechaMani(guiaFecha);
         manifiesto.setDestinoMani(guiaDestino);
@@ -216,13 +206,11 @@ public class NewManifActivity extends AppCompatActivity {
         manifiesto.setChoferMani(guiaChoferBrevete);
         //
         insertManifiestoLocal(manifiesto);
-
-
     }
 
     private void insertManifiestoLocal(Manifiesto manifiesto) {
         //1.Conexion
-        MySqliteDB conn = new MySqliteDB(NewManifActivity.this );
+        MySqliteDB conn = new MySqliteDB(NewManifActivity.this);
         //2.Escribir en la database
         SQLiteDatabase db = conn.getWritableDatabase();
         //3.Cogigo para insert into tb
@@ -232,25 +220,28 @@ public class NewManifActivity extends AppCompatActivity {
                 Utils.CAMPO_FECHA_MANIFIESTO + "," +
                 Utils.CAMPO_DESTINO_MANIFIESTO + "," +
                 Utils.CAMPO_VEHICULO_MANIFIESTO + "," +
-                Utils.CAMPO_CHOFER_MANIFIESTO + ")" +
+                Utils.CAMPO_CHOFER_MANIFIESTO + "," +
+                Utils.CAMPO_SYNC_STATUS_MANIFIESTO + ")" +
                 " VALUES ('" +
                 manifiesto.getIdGuiaMani() + "','" +
                 manifiesto.getFechaMani() + "','" +
                 manifiesto.getDestinoMani() + "','" +
                 manifiesto.getVehiculoMani() + "','" +
-                manifiesto.getChoferMani() + "');";
+                manifiesto.getChoferMani() + "','" +
+                0 + "');";
         Log.e(" Manifiesto", "------> " + insert);
         //4.Insertar
         db.execSQL(insert);
         //5.Cerrar conexion
         db.close();
         Intent intent = new Intent(NewManifActivity.this, AddPasajeroActivity.class);
-        intent.putExtra("idguiaManifiesto",manifiesto.getIdGuiaMani());
-        intent.putExtra("FechaMani",manifiesto.getFechaMani());
-        intent.putExtra("DestinoMani",manifiesto.getDestinoMani());
-        intent.putExtra("VehiculoMani",manifiesto.getVehiculoMani());
-        intent.putExtra("ChoferMani",manifiesto.getChoferMani());
-
+        intent.putExtra("idguiaManifiesto", manifiesto.getIdGuiaMani());
+        intent.putExtra("FechaMani", manifiesto.getFechaMani());
+        intent.putExtra("DestinoMani", manifiesto.getDestinoMani());
+        intent.putExtra("VehiculoMani", manifiesto.getVehiculoMani());
+        intent.putExtra("ChoferMani", manifiesto.getChoferMani());
+        intent.putExtra("syncMani", 0);
+        //
         startActivity(intent);
         progressDialog.dismiss();
     }
@@ -403,7 +394,6 @@ public class NewManifActivity extends AppCompatActivity {
         }
 
     }
-
 
     public void btn_Salir_Manifiesto(View view) {
         Intent intentSalir = new Intent(NewManifActivity.this, MainActivity.class);
