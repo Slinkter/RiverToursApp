@@ -23,7 +23,6 @@ import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.TextView;
 
-import com.cudpast.rivertourapp.Helper.ApiInterface;
 import com.cudpast.rivertourapp.MainActivity;
 import com.cudpast.rivertourapp.Model.Chofer;
 import com.cudpast.rivertourapp.Model.Manifiesto;
@@ -205,46 +204,24 @@ public class NewManifActivity extends AppCompatActivity {
         manifiesto.setVehiculoMani(guiaVehiculo);
         manifiesto.setChoferMani(guiaChoferBrevete);
         //
-        insertManifiestoLocal(manifiesto);
+        goToAddPasajero(manifiesto);
     }
 
-    private void insertManifiestoLocal(Manifiesto manifiesto) {
-        //1.Conexion
-        MySqliteDB conn = new MySqliteDB(NewManifActivity.this);
-        //2.Escribir en la database
-        SQLiteDatabase db = conn.getWritableDatabase();
-        //3.Cogigo para insert into tb
-        String insert = "INSERT INTO " +
-                Utils.TABLA_MANIFIESTO + "(" +
-                Utils.CAMPO_ID_GUIA + "," +
-                Utils.CAMPO_FECHA_MANIFIESTO + "," +
-                Utils.CAMPO_DESTINO_MANIFIESTO + "," +
-                Utils.CAMPO_VEHICULO_MANIFIESTO + "," +
-                Utils.CAMPO_CHOFER_MANIFIESTO + "," +
-                Utils.CAMPO_SYNC_STATUS_MANIFIESTO + ")" +
-                " VALUES ('" +
-                manifiesto.getIdGuiaMani() + "','" +
-                manifiesto.getFechaMani() + "','" +
-                manifiesto.getDestinoMani() + "','" +
-                manifiesto.getVehiculoMani() + "','" +
-                manifiesto.getChoferMani() + "','" +
-                0 + "');";
-        Log.e(" Manifiesto", "------> " + insert);
-        //4.Insertar
-        db.execSQL(insert);
-        //5.Cerrar conexion
-        db.close();
+    private void goToAddPasajero(Manifiesto manifiesto) {
+        //Insetar Manfiesto
+        MySqliteDB mySqliteDB = new MySqliteDB(this);
+        SQLiteDatabase db = mySqliteDB.getWritableDatabase();
+        mySqliteDB.mySaveToLocalDBManifiesto(manifiesto, 0, db);
+        mySqliteDB.close();
+        //Go to Lista de Pasajero
         Intent intent = new Intent(NewManifActivity.this, AddPasajeroActivity.class);
         intent.putExtra("idguiaManifiesto", manifiesto.getIdGuiaMani());
-        intent.putExtra("FechaMani", manifiesto.getFechaMani());
-        intent.putExtra("DestinoMani", manifiesto.getDestinoMani());
-        intent.putExtra("VehiculoMani", manifiesto.getVehiculoMani());
-        intent.putExtra("ChoferMani", manifiesto.getChoferMani());
-        intent.putExtra("syncMani", 0);
         //
         startActivity(intent);
+        finish();
         progressDialog.dismiss();
     }
+
 
     //***********************************
     // Validacion
@@ -334,7 +311,7 @@ public class NewManifActivity extends AppCompatActivity {
 
 
     //*******************************************
-
+    // Obtener datos de vehiculos y chofer
 
     private void getListVehiculoFromSqlite() {
         SQLiteDatabase db;
@@ -400,4 +377,45 @@ public class NewManifActivity extends AppCompatActivity {
         startActivity(intentSalir);
         finish();
     }
+
+    //*******************************************
+    // Borrar ??
+    private void insertManifiestoLocalAntiguo(Manifiesto manifiesto) {
+        //1.Conexion
+        MySqliteDB conn = new MySqliteDB(NewManifActivity.this);
+        //2.Escribir en la database
+        SQLiteDatabase db = conn.getWritableDatabase();
+        //3.Cogigo para insert into tb
+        String insert = "INSERT INTO " +
+                Utils.TABLA_MANIFIESTO + "(" +
+                Utils.CAMPO_ID_GUIA + "," +
+                Utils.CAMPO_FECHA_MANIFIESTO + "," +
+                Utils.CAMPO_DESTINO_MANIFIESTO + "," +
+                Utils.CAMPO_VEHICULO_MANIFIESTO + "," +
+                Utils.CAMPO_CHOFER_MANIFIESTO + "," +
+                Utils.CAMPO_SYNC_STATUS_MANIFIESTO + ")" +
+                " VALUES ('" +
+                manifiesto.getIdGuiaMani() + "','" +
+                manifiesto.getFechaMani() + "','" +
+                manifiesto.getDestinoMani() + "','" +
+                manifiesto.getVehiculoMani() + "','" +
+                manifiesto.getChoferMani() + "','" +
+                0 + "');";
+        Log.e(" Manifiesto", "------> " + insert);
+        //4.Insertar
+        db.execSQL(insert);
+        //5.Cerrar conexion
+        db.close();
+        Intent intent = new Intent(NewManifActivity.this, AddPasajeroActivity.class);
+        intent.putExtra("idguiaManifiesto", manifiesto.getIdGuiaMani());
+        intent.putExtra("FechaMani", manifiesto.getFechaMani());
+        intent.putExtra("DestinoMani", manifiesto.getDestinoMani());
+        intent.putExtra("VehiculoMani", manifiesto.getVehiculoMani());
+        intent.putExtra("ChoferMani", manifiesto.getChoferMani());
+        intent.putExtra("syncMani", 0);
+        //
+        startActivity(intent);
+        progressDialog.dismiss();
+    }
+
 }

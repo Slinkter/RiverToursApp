@@ -69,6 +69,8 @@ public class AddPasajeroActivity extends AppCompatActivity {
             VehiculoMani = getIntent().getStringExtra("VehiculoMani");
             ChoferMani = getIntent().getStringExtra("ChoferMani");
             SyncMani = 0;
+
+
             //
             tv_guiaidmanifiestopasajero = findViewById(R.id.tv_guiaidmanifiestopasajero);
             tv_guiaidmanifiestopasajero.setText(idguiaManifiesto);
@@ -126,11 +128,19 @@ public class AddPasajeroActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 /*
-                1.Se insertar primera online el manifiesto y se obtiene el id
+                1.Se insertar primera offine el manifiesto y se obtiene el id
                 y una vez obtenido el idManifiesto , se registar pasajero
 
                 2.Si esta offline se guarda con la variable Fail_sync
                 */
+
+
+
+
+
+
+
+
                 apiInterface = ApiService.getApiRetrofitConexion().create(ApiInterface.class);
                 Call<Manifiesto> userInsert = apiInterface.insertManifiesto(idguiaManifiesto, FechaMani, DestinoMani, VehiculoMani, ChoferMani);
                 userInsert.enqueue(new Callback<Manifiesto>() {

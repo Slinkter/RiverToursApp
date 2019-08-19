@@ -2,11 +2,14 @@ package com.cudpast.rivertourapp.SQLite;
 
 import android.content.ContentValues;
 import android.content.Context;
+import android.content.Intent;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.util.Log;
 
+import com.cudpast.rivertourapp.Business.AddPasajeroActivity;
+import com.cudpast.rivertourapp.Business.NewManifActivity;
 import com.cudpast.rivertourapp.Model.Manifiesto;
 import com.cudpast.rivertourapp.Model.Pasajero;
 
@@ -53,27 +56,26 @@ public class MySqliteDB extends SQLiteOpenHelper {
     //*************************************
     //          Metodos de Insert
     //***********************************
-
+    // Insert Manifiesto
     public void mySaveToLocalDBManifiesto(Manifiesto manifiesto, int sync , SQLiteDatabase db){
         ContentValues contentValues = new ContentValues();
+        //Set data
         contentValues.put(Utils.CAMPO_ID_MANIFIESTO, manifiesto.getIdGuiaMani());
         contentValues.put(Utils.CAMPO_FECHA_MANIFIESTO,manifiesto.getFechaMani());
         contentValues.put(Utils.CAMPO_DESTINO_MANIFIESTO,manifiesto.getDestinoMani());
         contentValues.put(Utils.CAMPO_VEHICULO_MANIFIESTO,manifiesto.getVehiculoMani());
         contentValues.put(Utils.CAMPO_CHOFER_MANIFIESTO,manifiesto.getChoferMani());
+        contentValues.put(Utils.CAMPO_SYNC_STATUS_MANIFIESTO,sync);
+        //Insert
         db.insert(Utils.TABLA_MANIFIESTO, null, contentValues);
-
     }
-
-
+    // Insert Pasajero
     public void mySaveToLocalDBPasajero(Pasajero pasajero, SQLiteDatabase database) {
-
 
         Log.e("mySaveToLocalDBPasajero", "pasajero : " + pasajero.getNombrePasajero());
         Log.e("mySaveToLocalDBPasajero", "pasajero : " + pasajero.getEdadPasajero());
         Log.e("mySaveToLocalDBPasajero", "pasajero : " + pasajero.getOcupacionPasajero());
         Log.e("mySaveToLocalDBPasajero", "pasajero : " + pasajero.getNacionalidadPasajero());
-
         ContentValues contentValues = new ContentValues();
         contentValues.put(Utils.CAMPO_NOMBRE_PASAJERO, pasajero.getNombrePasajero());
         contentValues.put(Utils.CAMPO_EDAD_PASAJERO, pasajero.getEdadPasajero());
