@@ -110,89 +110,91 @@ public class AddPasajeroActivity extends AppCompatActivity {
         btnFinalizarGuia.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                final Manifiesto newMani = getManifiesto();
 
-                apiInterface = ApiService.getApiRetrofitConexion().create(ApiInterface.class);
-                // Insert 1
-                Call<Manifiesto> userInsert = apiInterface.insertManifiesto(idguiaManifiesto, newMani.getFechaMani(), newMani.getDestinoMani(), newMani.getVehiculoMani(), newMani.getChoferMani());
-                userInsert.enqueue(new Callback<Manifiesto>() {
-                    @Override
-                    public void onResponse(Call<Manifiesto> call, Response<Manifiesto> response) {
-                        if (response.isSuccessful() && response.body() != null) {
-                            Boolean success = response.body().getSuccess();
-                            if (success) {
-                                Log.e("INSERT 1", " insert exitoso ");
-                                // un for de lista de pasajero sqlite
-                                ArrayList<Pasajero> mListPasajero = getListPasajero();
-                                for (int i = 0; i < mListPasajero.size(); i++) {
-                                    Call<Pasajero> pasajeroInsert = apiInterface.insertPasajero(
-                                            mListPasajero.get(i).getNombrePasajero(),
-                                            mListPasajero.get(i).getApellidoPasajero(),
-                                            mListPasajero.get(i).getEdadPasajero(),
-                                            mListPasajero.get(i).getOcupacionPasajero(),
-                                            mListPasajero.get(i).getNacionalidadPasajero(),
-                                            mListPasajero.get(i).getNumBoleta(),
-                                            mListPasajero.get(i).getDniPasajero(),
-                                            mListPasajero.get(i).getDestinoPasajero(),
-                                            idguiaManifiesto);
-                                    //Insert 2
-                                    pasajeroInsert.enqueue(new Callback<Pasajero>() {
-                                        @Override
-                                        public void onResponse(Call<Pasajero> call, Response<Pasajero> response) {
-                                            if (response.isSuccessful() && response.body() != null) {
-                                                Boolean success = response.body().getSuccess();
-                                                if (success) {
-                                                    Log.e("INSERT 2", " insert exitoso ");
-                                                } else {
-                                                    Log.e("INSERT 2", " insert No exitoso ");
-                                                }
-                                            }
-                                        }
-
-                                        @Override
-                                        public void onFailure(Call<Pasajero> call, Throwable t) {
-                                            Log.e("INSERT 2", " insert No exitoso ");
-                                        }
-                                    });
-                                }
-                                saveToLocalStorage(newMani, Utils.SYNC_STATUS_OK_MANIFIESTO);
-                                progressDialog.dismiss();
-                                //
-                                Log.e("remoteBD", " onResponadse : Success");
-                                Toast.makeText(AddPasajeroActivity.this, "", Toast.LENGTH_SHORT).show();
-                                Log.e("TAG", " response =  " + response.body().getMessage());
-                                Intent intent = new Intent(AddPasajeroActivity.this, MainActivity.class);
-                                startActivity(intent);
-                            } else {
-                                Log.e("INSERT 1", " insert no exitoso ");
-                                saveToLocalStorage(newMani, Utils.SYNC_STATUS_FAILIDE_MANIFIESTO);
-                                progressDialog.dismiss();
-                                //
-                                Log.e("remoteBD", " onResponse : fail");
-                                Toast.makeText(AddPasajeroActivity.this, response.body().getMessage(), Toast.LENGTH_SHORT).show();
-                                Log.e("TAG", " response =  " + response.body().getMessage());
-                                finish();
-                            }
-                        }
-                    }
-
-                    @Override
-                    public void onFailure(Call<Manifiesto> call, Throwable t) {
-
-                        Toast.makeText(AddPasajeroActivity.this, t.getLocalizedMessage(), Toast.LENGTH_SHORT).show();
-                        Log.e("remoteBD", " onResponse : fail" + t.toString() + "\n " + t.getCause());
-                        Log.e("remoteBD", " onResponse : fail");
-                        Log.e("onFailure", " response =  " + t.getMessage());
-                    }
-                });
-
-
+                saveManifiestoOnline();
             }
         });
 
 
         progressDialog = new ProgressDialog(this);
         progressDialog.setMessage("Please wait...");
+    }
+
+    private void saveManifiestoOnline() {
+        final Manifiesto newMani = getManifiesto();
+        apiInterface = ApiService.getApiRetrofitConexion().create(ApiInterface.class);
+        // Insert 1
+        Call<Manifiesto> userInsert = null;
+        userInsert = apiInterface.insertManifiesto(idguiaManifiesto, newMani.getFechaMani(), newMani.getDestinoMani(), newMani.getVehiculoMani(), newMani.getChoferMani());
+        userInsert.enqueue(new Callback<Manifiesto>() {
+            @Override
+            public void onResponse(Call<Manifiesto> call, Response<Manifiesto> response) {
+                if (response.isSuccessful() && response.body() != null) {
+                    Boolean success = response.body().getSuccess();
+                    if (success) {
+                        Log.e("INSERT 1", " insert exitoso ");
+                        ArrayList<Pasajero> mListPasajero = getListPasajero();
+                        for (int i = 0; i < mListPasajero.size(); i++) {
+                            Call<Pasajero> pasajeroInsert;
+                            pasajeroInsert = apiInterface.insertPasajero(
+                                    mListPasajero.get(i).getNombrePasajero(),
+                                    mListPasajero.get(i).getApellidoPasajero(),
+                                    mListPasajero.get(i).getEdadPasajero(),
+                                    mListPasajero.get(i).getOcupacionPasajero(),
+                                    mListPasajero.get(i).getNacionalidadPasajero(),
+                                    mListPasajero.get(i).getNumBoleta(),
+                                    mListPasajero.get(i).getDniPasajero(),
+                                    mListPasajero.get(i).getDestinoPasajero(),
+                                    idguiaManifiesto);
+                            //Insert 2
+                            pasajeroInsert.enqueue(new Callback<Pasajero>() {
+                                @Override
+                                public void onResponse(Call<Pasajero> call, Response<Pasajero> response) {
+                                    if (response.isSuccessful() && response.body() != null) {
+                                        Boolean success = response.body().getSuccess();
+                                        if (success) {
+                                            Log.e("INSERT 2", " insert exitoso ");
+                                        } else {
+                                            Log.e("INSERT 2", " insert No exitoso ");
+                                        }
+                                    }
+                                }
+
+                                @Override
+                                public void onFailure(Call<Pasajero> call, Throwable t) {
+                                    Log.e("INSERT 2", " insert No exitoso ");
+                                }
+                            });
+                        }
+                        saveToLocalStorage(newMani, Utils.SYNC_STATUS_OK_MANIFIESTO);
+                        progressDialog.dismiss();
+                        Log.e("remoteBD", " onResponadse : Success");
+                        Toast.makeText(AddPasajeroActivity.this, "", Toast.LENGTH_SHORT).show();
+                        Log.e("TAG", " response =  " + response.body().getMessage());
+                        Intent intent = new Intent(AddPasajeroActivity.this, MainActivity.class);
+                        startActivity(intent);
+                    } else {
+                        Log.e("INSERT 1", " insert no exitoso ");
+                        saveToLocalStorage(newMani, Utils.SYNC_STATUS_FAILIDE_MANIFIESTO);
+                        progressDialog.dismiss();
+                        Log.e("remoteBD", " onResponse : fail");
+                        Toast.makeText(AddPasajeroActivity.this, response.body().getMessage(), Toast.LENGTH_SHORT).show();
+                        Log.e("TAG", " response =  " + response.body().getMessage());
+                        finish();
+                    }
+                }
+            }
+
+            @Override
+            public void onFailure(Call<Manifiesto> call, Throwable t) {
+
+                Toast.makeText(AddPasajeroActivity.this, t.getLocalizedMessage(), Toast.LENGTH_SHORT).show();
+                Log.e("remoteBD", " onResponse : fail" + t.toString() + "\n " + t.getCause());
+                Log.e("remoteBD", " onResponse : fail");
+                Log.e("onFailure", " response =  " + t.getMessage());
+            }
+        });
+
     }
 
     private ArrayList<Pasajero> getListPasajero() {
