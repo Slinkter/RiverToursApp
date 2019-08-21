@@ -124,9 +124,16 @@ public class AddPasajeroActivity extends AppCompatActivity {
         final Manifiesto newMani = getManifiesto();
         apiInterface = ApiService.getApiRetrofitConexion().create(ApiInterface.class);
         // Insert 1
-        Call<Manifiesto> userInsert = null;
-        userInsert = apiInterface.insertManifiesto(idguiaManifiesto, newMani.getFechaMani(), newMani.getDestinoMani(), newMani.getVehiculoMani(), newMani.getChoferMani());
-        userInsert.enqueue(new Callback<Manifiesto>() {
+        /*
+        * se obtiene el manifiesto desde db_local con valor sync = 0
+        * si se inserta en el db_remoto debe cambiar este valor sync = 1 sino no se hace nada
+        * para cunando se se carga en el main debe cargar los 2 tanto sync = 0 y sync = 1;
+        * cuando se sincroniza debe eliminarse el manifiesto
+        *
+        * */
+        Call<Manifiesto> manifiestoOnline = null;
+        manifiestoOnline = apiInterface.insertManifiesto(idguiaManifiesto, newMani.getFechaMani(), newMani.getDestinoMani(), newMani.getVehiculoMani(), newMani.getChoferMani());
+        manifiestoOnline.enqueue(new Callback<Manifiesto>() {
             @Override
             public void onResponse(Call<Manifiesto> call, Response<Manifiesto> response) {
                 if (response.isSuccessful() && response.body() != null) {
@@ -154,6 +161,7 @@ public class AddPasajeroActivity extends AppCompatActivity {
                                         Boolean success = response.body().getSuccess();
                                         if (success) {
                                             Log.e("INSERT 2", " insert exitoso ");
+
                                         } else {
                                             Log.e("INSERT 2", " insert No exitoso ");
                                         }
