@@ -3,6 +3,7 @@ package com.cudpast.rivertourapp.Helper;
 import com.cudpast.rivertourapp.Model.Chofer;
 import com.cudpast.rivertourapp.Model.ChoferList;
 import com.cudpast.rivertourapp.Model.Manifiesto;
+import com.cudpast.rivertourapp.Model.Pasajero;
 import com.cudpast.rivertourapp.Model.User;
 import com.cudpast.rivertourapp.Model.Vehiculo;
 
@@ -62,5 +63,19 @@ public interface ApiInterface {
             @Query("destinoMani") String destinoMani,
             @Query("vehiculoMani") String vehiculoMani,
             @Query("choferMani") String choferMani);
+
+    ///////////////////////////
+    @GET("savePasajeroRiver.php")
+    Call<Pasajero> insertPasajero(
+            @Query("nombrePasajero") String nombrePasajero,
+            @Query("apellidoPasajero") String apellidoPasajero,
+            @Query("edadPasajero") String edadPasajero,
+            @Query("ocupacionPasajero") String ocupacionPasajero,
+            @Query("nacionalidadPasajero") String nacionalidadPasajero,
+            @Query("numBoleta") String numBoleta,
+            @Query("dniPasajero") String dniPasajero,
+            @Query("destinoPasajero") String destinoPasajero,
+            @Query("idGuia") String idGuia);
+
 
 }

@@ -63,9 +63,6 @@ public class Pasajero {
     }
 
 
-
-
-
     public String getId() {
         return id;
     }
@@ -138,7 +135,29 @@ public class Pasajero {
         this.destinoPasajero = destinoPasajero;
     }
 
+    public String getIdGuia() {
+        return idGuia;
+    }
 
+    public void setIdGuia(String idGuia) {
+        this.idGuia = idGuia;
+    }
+
+    public Boolean getSuccess() {
+        return success;
+    }
+
+    public void setSuccess(Boolean success) {
+        this.success = success;
+    }
+
+    public String getMessage() {
+        return message;
+    }
+
+    public void setMessage(String message) {
+        this.message = message;
+    }
 
     public int getImg_remove() {
         return img_remove;

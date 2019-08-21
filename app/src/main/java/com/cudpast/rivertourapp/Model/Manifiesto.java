@@ -21,6 +21,8 @@ public class Manifiesto {
     @SerializedName("choferMani")
     private String choferMani;
 
+    private int sync_status;
+
     //Response from Server : fail Retrofit
     @Expose
     @SerializedName("success")
@@ -89,5 +91,14 @@ public class Manifiesto {
 
     public void setMessage(String message) {
         this.message = message;
+    }
+
+
+    public int getSync_status() {
+        return sync_status;
+    }
+
+    public void setSync_status(int sync_status) {
+        this.sync_status = sync_status;
     }
 }
