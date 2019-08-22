@@ -124,7 +124,7 @@ public class AddPasajeroActivity extends AppCompatActivity {
         final Manifiesto newMani = getManifiesto();
         apiInterface = ApiService.getApiRetrofitConexion().create(ApiInterface.class);
         // Insert 1
-        /*
+        /* cambios
         * se obtiene el manifiesto desde db_local con valor sync = 0
         * si se inserta en el db_remoto debe cambiar este valor sync = 1 sino no se hace nada
         * para cunando se se carga en el main debe cargar los 2 tanto sync = 0 y sync = 1;
