@@ -121,7 +121,7 @@ public class ConsulChoferActivity extends AppCompatActivity {
 
         MySqliteDB mySqliteDB = new MySqliteDB(this);
         SQLiteDatabase db = mySqliteDB.getReadableDatabase();
-        Cursor cursor = mySqliteDB.readFromLocalDatabaseChofer(db);
+        Cursor cursor = mySqliteDB.getListChofer(db);
 
         while (cursor.moveToNext()) {
             Chofer chofer = new Chofer();

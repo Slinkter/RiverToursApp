@@ -110,7 +110,6 @@ public class AddPasajeroActivity extends AppCompatActivity {
         btnFinalizarGuia.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
                 saveManifiestoOnline();
             }
         });
@@ -121,14 +120,11 @@ public class AddPasajeroActivity extends AppCompatActivity {
     }
 
     private void saveManifiestoOnline() {
-        final Manifiesto newMani = getManifiesto();
+        final Manifiesto newMani = getManifiestoById();
         apiInterface = ApiService.getApiRetrofitConexion().create(ApiInterface.class);
         // Insert 1
         /* cambios
-        * se obtiene el manifiesto desde db_local con valor sync = 0
-        * si se inserta en el db_remoto debe cambiar este valor sync = 1 sino no se hace nada
-        * para cunando se se carga en el main debe cargar los 2 tanto sync = 0 y sync = 1;
-        * cuando se sincroniza debe eliminarse el manifiesto
+
         *
         * */
         Call<Manifiesto> manifiestoOnline = null;
@@ -161,7 +157,6 @@ public class AddPasajeroActivity extends AppCompatActivity {
                                         Boolean success = response.body().getSuccess();
                                         if (success) {
                                             Log.e("INSERT 2", " insert exitoso ");
-
                                         } else {
                                             Log.e("INSERT 2", " insert No exitoso ");
                                         }
@@ -211,7 +206,7 @@ public class AddPasajeroActivity extends AppCompatActivity {
 
         MySqliteDB mySqliteDB = new MySqliteDB(this);
         SQLiteDatabase database = mySqliteDB.getReadableDatabase();
-        Cursor cursor = mySqliteDB.readFromLocalDatabasePasajero(database);
+        Cursor cursor = mySqliteDB.getListPasajero(database);
 
         while (cursor.moveToNext()) {
             String nombre = cursor.getString(cursor.getColumnIndex(Utils.CAMPO_NOMBRE_PASAJERO));
@@ -298,7 +293,7 @@ public class AddPasajeroActivity extends AppCompatActivity {
 
     }
 
-    private Manifiesto getManifiesto() {
+    private Manifiesto getManifiestoById() {
         //1.Conexion
         MySqliteDB conn = new MySqliteDB(this);
         //2.Escribir en la database
@@ -326,7 +321,7 @@ public class AddPasajeroActivity extends AppCompatActivity {
                 manifiesto.setChoferMani(CAMPO_CHOFER_MANIFIESTO);
                 manifiesto.setSync_status(CAMPO_SYNC_STATUS_MANIFIESTO);
                 //
-                Log.e("getManifiesto", "\n" +
+                Log.e("getManifiestoById", "\n" +
                         CAMPO_ID_GUIA + " \n" +
                         CAMPO_FECHA_MANIFIESTO + " \n" +
                         CAMPO_DESTINO_MANIFIESTO + " \n" +
@@ -347,7 +342,7 @@ public class AddPasajeroActivity extends AppCompatActivity {
         mListPasajero.clear();
         MySqliteDB mySqliteDB = new MySqliteDB(this);
         SQLiteDatabase database = mySqliteDB.getReadableDatabase();
-        Cursor cursor = mySqliteDB.readFromLocalDatabasePasajero(database);
+        Cursor cursor = mySqliteDB.getListPasajero(database);
 
         while (cursor.moveToNext()) {
 

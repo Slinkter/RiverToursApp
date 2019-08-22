@@ -4,8 +4,9 @@ public class Utils {
 
     public static final int db_version = 1;
     //SYNC 0 y 1
-    public static final int SYNC_STATUS_OK_MANIFIESTO = 0;
-    public static final int SYNC_STATUS_FAILIDE_MANIFIESTO = 1;
+    public static final int SYNC_STATUS_FAILIDE_MANIFIESTO = 0;
+    public static final int SYNC_STATUS_OK_MANIFIESTO = 1;
+
 
     //Constates campos  usuario
     public static final String TABLA_USUARIO = "usuario";

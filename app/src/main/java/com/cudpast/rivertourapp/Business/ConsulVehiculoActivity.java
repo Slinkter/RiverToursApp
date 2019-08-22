@@ -124,7 +124,7 @@ public class ConsulVehiculoActivity extends AppCompatActivity {
 
         MySqliteDB mySqliteDB = new MySqliteDB(this);
         SQLiteDatabase db = mySqliteDB.getReadableDatabase();
-        Cursor cursor = mySqliteDB.readFromLocalDatabaseVehiculo(db);
+        Cursor cursor = mySqliteDB.getListVehiculo(db);
 
 
         while (cursor.moveToNext()) {
