@@ -41,6 +41,7 @@ public class AddPasajeroActivity extends AppCompatActivity {
     TextView tv_guiaidmanifiestopasajero;
     //
     ProgressDialog progressDialog;
+
     //
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -71,35 +72,31 @@ public class AddPasajeroActivity extends AppCompatActivity {
         pasajeroDestino = findViewById(R.id.pasajeroDestino);
         //
         btn_AddPasajero = findViewById(R.id.btnAddPasajero);
-        btn_AddPasajero
-                .setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-
-                        String nombre = pasajeroNombre.getText().toString();
-                        String edad = pasajeroEdad.getText().toString();
-                        String ocupacion = pasajeroOcupacion.getText().toString();
-                        String nacionalidad = pasajeroNacionalidad.getText().toString();
-                        String numBoleta = pasajeroNBoleta.getText().toString();
-                        String dni = pasajeroDNI.getText().toString();
-                        String destino = pasajeroDestino.getText().toString();
-                        //
-                        Pasajero pasajero = new Pasajero(nombre, edad, ocupacion, nacionalidad, numBoleta, dni, destino);
-                        //
-                        createPasajero(pasajero);
-                        //
-                        clearTextPasajero();
-                        clearHintPasajero();
-
-                    }
-                });
-
         btn_SaveGuia = findViewById(R.id.btnFinalizarGuia);
-
+        //
+        btn_AddPasajero.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                //
+                String nombre = pasajeroNombre.getText().toString();
+                String edad = pasajeroEdad.getText().toString();
+                String ocupacion = pasajeroOcupacion.getText().toString();
+                String nacionalidad = pasajeroNacionalidad.getText().toString();
+                String numBoleta = pasajeroNBoleta.getText().toString();
+                String dni = pasajeroDNI.getText().toString();
+                String destino = pasajeroDestino.getText().toString();
+                //
+                Pasajero pasajero = new Pasajero(nombre, edad, ocupacion, nacionalidad, numBoleta, dni, destino);
+                //
+                createPasajero(pasajero);
+                clearTextPasajero();
+                clearHintPasajero();
+            }
+        });
         btn_SaveGuia.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
+                Toast.makeText(AddPasajeroActivity.this, "BUTTON SAVE GUIA ", Toast.LENGTH_SHORT).show();
             }
         });
 
@@ -226,15 +223,18 @@ public class AddPasajeroActivity extends AppCompatActivity {
 
         while (cursor.moveToNext()) {
 
-            String nombre = cursor.getString(cursor.getColumnIndex(Utils.CAMPO_NOMBRE_PASAJERO));
-            String edad = cursor.getString(cursor.getColumnIndex(Utils.CAMPO_EDAD_PASAJERO));
-            String ocupacion = cursor.getString(cursor.getColumnIndex(Utils.CAMPO_OCUPACION_PASAJERO));
-            String nacionalidad = cursor.getString(cursor.getColumnIndex(Utils.CAMPO_NACIONALIDAD_PASAJERO));
-            String numBoleta = cursor.getString(cursor.getColumnIndex(Utils.CAMPO_NUMBOLETA_PASAJERO));
-            String dni = cursor.getString(cursor.getColumnIndex(Utils.CAMPO_DNI_PASAJERO));
-            String destino = cursor.getString(cursor.getColumnIndex(Utils.CAMPO_DESTINO_PASAJERO));
+            if (Utils.CAMPO_GUIAID_PASAJERO.equalsIgnoreCase(idguiaManifiesto)) {
+                String nombre = cursor.getString(cursor.getColumnIndex(Utils.CAMPO_NOMBRE_PASAJERO));
+                String edad = cursor.getString(cursor.getColumnIndex(Utils.CAMPO_EDAD_PASAJERO));
+                String ocupacion = cursor.getString(cursor.getColumnIndex(Utils.CAMPO_OCUPACION_PASAJERO));
+                String nacionalidad = cursor.getString(cursor.getColumnIndex(Utils.CAMPO_NACIONALIDAD_PASAJERO));
+                String numBoleta = cursor.getString(cursor.getColumnIndex(Utils.CAMPO_NUMBOLETA_PASAJERO));
+                String dni = cursor.getString(cursor.getColumnIndex(Utils.CAMPO_DNI_PASAJERO));
+                String destino = cursor.getString(cursor.getColumnIndex(Utils.CAMPO_DESTINO_PASAJERO));
+                mListPasajero.add(new Pasajero(nombre, edad, ocupacion, nacionalidad, numBoleta, dni, destino));
+            }
 
-            mListPasajero.add(new Pasajero(nombre, edad, ocupacion, nacionalidad, numBoleta, dni, destino));
+
         }
         pAdapter.notifyDataSetChanged();
         cursor.close();
