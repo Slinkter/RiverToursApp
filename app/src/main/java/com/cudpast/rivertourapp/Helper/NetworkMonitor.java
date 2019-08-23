@@ -8,10 +8,7 @@ import android.database.sqlite.SQLiteDatabase;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.util.Log;
-import android.widget.Toast;
 
-import com.cudpast.rivertourapp.Business.AddPasajeroActivity;
-import com.cudpast.rivertourapp.MainActivity;
 import com.cudpast.rivertourapp.Model.Manifiesto;
 import com.cudpast.rivertourapp.Model.Pasajero;
 import com.cudpast.rivertourapp.SQLite.MySqliteDB;
@@ -43,7 +40,7 @@ public class NetworkMonitor extends BroadcastReceiver {
                 if (sync_status == Utils.SYNC_STATUS_OK_MANIFIESTO) {
                     Log.e("CURSOR", "el manifiesto esta sincronizado");
                 } else if (sync_status == Utils.SYNC_STATUS_FAILIDE_MANIFIESTO) {
-                    // Obtener en cada fila
+                    // Obtener en cada fila si tiene sync = 0 ;
                     String idGuiaMani = "";
                     String fechaMani = "";
                     String destinoMani = "";
@@ -57,7 +54,7 @@ public class NetworkMonitor extends BroadcastReceiver {
                     manifiesto.setVehiculoMani(vehiculoMani);
                     manifiesto.setChoferMani(choferMani);
                     //
-                    saveManifiestoOnline(manifiesto, context,conn);
+                    saveManifiestoOnline(manifiesto, context, conn);
                     //
                 }
             }
@@ -65,11 +62,11 @@ public class NetworkMonitor extends BroadcastReceiver {
     }
 
 
-    private void saveManifiestoOnline(final Manifiesto manifiesto, final Context context,final MySqliteDB conn) {
+    private void saveManifiestoOnline(final Manifiesto manifiesto, final Context context, final MySqliteDB conn) {
 
         apiInterface = ApiService.getApiRetrofitConexion().create(ApiInterface.class);
         //3.Insertar Manifesto
-        Call<Manifiesto> manifiestoOnline = null;
+        Call<Manifiesto> manifiestoOnline;
         manifiestoOnline = apiInterface.insertManifiesto(manifiesto.getIdGuiaMani(), manifiesto.getFechaMani(), manifiesto.getDestinoMani(), manifiesto.getVehiculoMani(), manifiesto.getChoferMani());
         manifiestoOnline.enqueue(new Callback<Manifiesto>() {
             @Override
@@ -78,7 +75,8 @@ public class NetworkMonitor extends BroadcastReceiver {
                     Boolean success = response.body().getSuccess();
                     if (success) {
                         Log.e(TAG, "onResponse : Insert Manifiesto ");
-                        ArrayList<Pasajero> mListPasajero = getListPasajero(context);
+                        // obtener listaa de pasajero de la guia  con el sync = 0 pasar su idGuia;
+                        ArrayList<Pasajero> mListPasajero = myGetListPasajeroByIdGuia(context, manifiesto.getIdGuiaMani());
                         for (int i = 0; i < mListPasajero.size(); i++) {
                             Call<Pasajero> pasajeroInsert;
                             pasajeroInsert = apiInterface.insertPasajero(
@@ -100,7 +98,8 @@ public class NetworkMonitor extends BroadcastReceiver {
                                         if (success) {
                                             // 5. Actualizar el sync = 1(falta)
                                             Log.e(TAG, "onResponse : Insert Pasajero ");
-                                            conn.myUpdateManifiesto(manifiesto.getIdGuiaMani(), Utils.SYNC_STATUS_OK_MANIFIESTO,conn.getWritableDatabase());
+                                            conn.myUpdateManifiesto(manifiesto.getIdGuiaMani(), Utils.SYNC_STATUS_OK_MANIFIESTO, conn.getWritableDatabase());
+                                            context.sendBroadcast(new Intent(Utils.UI_UPDATE_BROADCAST));
                                         } else {
                                             Log.e(TAG, " onResponse : Insert no Pasajero ");
                                         }
@@ -127,7 +126,7 @@ public class NetworkMonitor extends BroadcastReceiver {
     }
 
 
-    private ArrayList<Pasajero> getListPasajero(Context context) {
+    private ArrayList<Pasajero> myGetListPasajeroByIdGuia(Context context, String idGuia) {
 
         ArrayList<Pasajero> mLista = new ArrayList<>();
 
@@ -136,14 +135,18 @@ public class NetworkMonitor extends BroadcastReceiver {
         Cursor cursor = mySqliteDB.getListPasajero(database);
 
         while (cursor.moveToNext()) {
-            String nombre = cursor.getString(cursor.getColumnIndex(Utils.CAMPO_NOMBRE_PASAJERO));
-            String edad = cursor.getString(cursor.getColumnIndex(Utils.CAMPO_EDAD_PASAJERO));
-            String ocupacion = cursor.getString(cursor.getColumnIndex(Utils.CAMPO_OCUPACION_PASAJERO));
-            String nacionalidad = cursor.getString(cursor.getColumnIndex(Utils.CAMPO_NACIONALIDAD_PASAJERO));
-            String numBoleta = cursor.getString(cursor.getColumnIndex(Utils.CAMPO_NUMBOLETA_PASAJERO));
-            String dni = cursor.getString(cursor.getColumnIndex(Utils.CAMPO_DNI_PASAJERO));
-            String destino = cursor.getString(cursor.getColumnIndex(Utils.CAMPO_DESTINO_PASAJERO));
-            mLista.add(new Pasajero(nombre, edad, ocupacion, nacionalidad, numBoleta, dni, destino));
+            String idGuiaPasajero = cursor.getString(cursor.getColumnIndex(Utils.CAMPO_GUIAID_PASAJERO));
+            if (idGuiaPasajero == idGuia) {
+                String nombre = cursor.getString(cursor.getColumnIndex(Utils.CAMPO_NOMBRE_PASAJERO));
+                String edad = cursor.getString(cursor.getColumnIndex(Utils.CAMPO_EDAD_PASAJERO));
+                String ocupacion = cursor.getString(cursor.getColumnIndex(Utils.CAMPO_OCUPACION_PASAJERO));
+                String nacionalidad = cursor.getString(cursor.getColumnIndex(Utils.CAMPO_NACIONALIDAD_PASAJERO));
+                String numBoleta = cursor.getString(cursor.getColumnIndex(Utils.CAMPO_NUMBOLETA_PASAJERO));
+                String dni = cursor.getString(cursor.getColumnIndex(Utils.CAMPO_DNI_PASAJERO));
+                String destino = cursor.getString(cursor.getColumnIndex(Utils.CAMPO_DESTINO_PASAJERO));
+                mLista.add(new Pasajero(nombre, edad, ocupacion, nacionalidad, numBoleta, dni, destino));
+            }
+
         }
         cursor.close();
         mySqliteDB.close();

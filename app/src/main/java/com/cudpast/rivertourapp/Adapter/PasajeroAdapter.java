@@ -76,27 +76,13 @@ public class PasajeroAdapter extends RecyclerView.Adapter<PasajeroAdapter.Custom
             mEdit = itemView.findViewById(R.id.btn_edit);
             mDelete = itemView.findViewById(R.id.btn_delete);
 
-            mEdit.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    if (listener != null) {
-                        int position = getAdapterPosition();
-                        //todo : para se preguntara
-                        if (position != RecyclerView.NO_POSITION) {
-                            listener.onEditClick(position);
-                        }
-                    }
-                }
-            });
-
             mDelete.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
                     if (listener != null) {
                         int position = getAdapterPosition();
-
-                        Log.e(TAG, " " +position);
-                        Toast.makeText(itemView.getContext(), "delete " + position, Toast.LENGTH_SHORT).show();
+                        Log.e(TAG, " " + position);
+                        Toast.makeText(itemView.getContext(), "delete " + (position + 1), Toast.LENGTH_SHORT).show();
                         if (position != RecyclerView.NO_POSITION) {
                             listener.onDeleteClick(position);
                         }
@@ -107,7 +93,6 @@ public class PasajeroAdapter extends RecyclerView.Adapter<PasajeroAdapter.Custom
 
         }
     }
-
 
 
     public interface OnItemClickListener {

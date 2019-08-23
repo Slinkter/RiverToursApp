@@ -115,4 +115,7 @@ public class Utils {
                     CAMPO_GUIAID_PASAJERO + " " + "TEXT)";
 
 
+    public static final String UI_UPDATE_BROADCAST = "com.cudpast.rivertourapp.synctest.uiupdatebroadcast";
+
+
 }

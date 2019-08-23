@@ -1,7 +1,6 @@
 package com.cudpast.rivertourapp.Business;
 
 import android.app.ProgressDialog;
-import android.content.Intent;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.support.v7.app.AppCompatActivity;
@@ -16,8 +15,6 @@ import android.widget.Toast;
 
 import com.cudpast.rivertourapp.Adapter.PasajeroAdapter;
 import com.cudpast.rivertourapp.Helper.ApiInterface;
-import com.cudpast.rivertourapp.Helper.ApiService;
-import com.cudpast.rivertourapp.MainActivity;
 import com.cudpast.rivertourapp.Model.Manifiesto;
 import com.cudpast.rivertourapp.Model.Pasajero;
 import com.cudpast.rivertourapp.R;
@@ -26,42 +23,34 @@ import com.cudpast.rivertourapp.SQLite.Utils;
 
 import java.util.ArrayList;
 
-import retrofit2.Call;
-import retrofit2.Callback;
-import retrofit2.Response;
-
 public class AddPasajeroActivity extends AppCompatActivity {
-
-    private RecyclerView recyclerViewPasajero;
-    private RecyclerView.LayoutManager layoutManager;
-    private PasajeroAdapter pAdapter;
-    private Button btnAddPasajero, btnFinalizarGuia;
-    private TextView pasajeroNombre, pasajeroEdad, pasajeroOcupacion, pasajeroNacionalidad, pasajeroNBoleta, pasajeroDNI, pasajeroDestino;
-
+    //
+    public static final String TAG = AddPasajeroActivity.class.getSimpleName();
+    // El manifiesto y la lista de pasajeros debe estar insetada en local(sqlite)
+    // y cuando se valla mainActivity debe actualizar
+    // la base de datos remota;
+    public RecyclerView rv_Pasajero;
+    public RecyclerView.LayoutManager rv_layoutManager;
+    public PasajeroAdapter pAdapter;
+    public Button btn_AddPasajero, btn_SaveGuia;
+    public TextView pasajeroNombre, pasajeroEdad, pasajeroOcupacion, pasajeroNacionalidad, pasajeroNBoleta, pasajeroDNI, pasajeroDestino;
     //lista Pasajero
     ArrayList<Pasajero> mListPasajero;
-    ApiInterface retrofitAPI;
-
     String idguiaManifiesto;
     int SyncMani;
     TextView tv_guiaidmanifiestopasajero;
-
     //
-    ApiInterface apiInterface;
-
     ProgressDialog progressDialog;
-
     //
-
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        //
         setContentView(R.layout.activity_add_pasajero);
         getSupportActionBar().hide();
-
+        //
         buildCreateRecyclerPasajero();
-        loadListPasajero();
+        //loadListPasajero();
         // Info de Manifiesto de la guia id
         if (getIntent() != null) {
             //se tiene el manifiesto
@@ -81,8 +70,8 @@ public class AddPasajeroActivity extends AppCompatActivity {
         pasajeroDNI = findViewById(R.id.pasajeroDNI);
         pasajeroDestino = findViewById(R.id.pasajeroDestino);
         //
-        btnAddPasajero = findViewById(R.id.btnAddPasajero);
-        btnAddPasajero
+        btn_AddPasajero = findViewById(R.id.btnAddPasajero);
+        btn_AddPasajero
                 .setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
@@ -105,127 +94,18 @@ public class AddPasajeroActivity extends AppCompatActivity {
                     }
                 });
 
-        btnFinalizarGuia = findViewById(R.id.btnFinalizarGuia);
+        btn_SaveGuia = findViewById(R.id.btnFinalizarGuia);
 
-        btnFinalizarGuia.setOnClickListener(new View.OnClickListener() {
+        btn_SaveGuia.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                saveManifiestoOnline();
+
             }
         });
 
 
         progressDialog = new ProgressDialog(this);
         progressDialog.setMessage("Please wait...");
-    }
-
-    private void saveManifiestoOnline() {
-        final Manifiesto newMani = getManifiestoById();
-        apiInterface = ApiService.getApiRetrofitConexion().create(ApiInterface.class);
-        // Insert 1
-        /* cambios
-
-        *
-        * */
-        Call<Manifiesto> manifiestoOnline = null;
-        manifiestoOnline = apiInterface.insertManifiesto(idguiaManifiesto, newMani.getFechaMani(), newMani.getDestinoMani(), newMani.getVehiculoMani(), newMani.getChoferMani());
-        manifiestoOnline.enqueue(new Callback<Manifiesto>() {
-            @Override
-            public void onResponse(Call<Manifiesto> call, Response<Manifiesto> response) {
-                if (response.isSuccessful() && response.body() != null) {
-                    Boolean success = response.body().getSuccess();
-                    if (success) {
-                        Log.e("INSERT 1", " insert exitoso ");
-                        ArrayList<Pasajero> mListPasajero = getListPasajero();
-                        for (int i = 0; i < mListPasajero.size(); i++) {
-                            Call<Pasajero> pasajeroInsert;
-                            pasajeroInsert = apiInterface.insertPasajero(
-                                    mListPasajero.get(i).getNombrePasajero(),
-                                    mListPasajero.get(i).getApellidoPasajero(),
-                                    mListPasajero.get(i).getEdadPasajero(),
-                                    mListPasajero.get(i).getOcupacionPasajero(),
-                                    mListPasajero.get(i).getNacionalidadPasajero(),
-                                    mListPasajero.get(i).getNumBoleta(),
-                                    mListPasajero.get(i).getDniPasajero(),
-                                    mListPasajero.get(i).getDestinoPasajero(),
-                                    idguiaManifiesto);
-                            //Insert 2
-                            pasajeroInsert.enqueue(new Callback<Pasajero>() {
-                                @Override
-                                public void onResponse(Call<Pasajero> call, Response<Pasajero> response) {
-                                    if (response.isSuccessful() && response.body() != null) {
-                                        Boolean success = response.body().getSuccess();
-                                        if (success) {
-                                            Log.e("INSERT 2", " insert exitoso ");
-                                        } else {
-                                            Log.e("INSERT 2", " insert No exitoso ");
-                                        }
-                                    }
-                                }
-
-                                @Override
-                                public void onFailure(Call<Pasajero> call, Throwable t) {
-                                    Log.e("INSERT 2", " insert No exitoso ");
-                                }
-                            });
-                        }
-                        saveToLocalStorage(newMani, Utils.SYNC_STATUS_OK_MANIFIESTO);
-                        progressDialog.dismiss();
-                        Log.e("remoteBD", " onResponadse : Success");
-                        Toast.makeText(AddPasajeroActivity.this, "", Toast.LENGTH_SHORT).show();
-                        Log.e("TAG", " response =  " + response.body().getMessage());
-                        Intent intent = new Intent(AddPasajeroActivity.this, MainActivity.class);
-                        startActivity(intent);
-                    } else {
-                        Log.e("INSERT 1", " insert no exitoso ");
-                        saveToLocalStorage(newMani, Utils.SYNC_STATUS_FAILIDE_MANIFIESTO);
-                        progressDialog.dismiss();
-                        Log.e("remoteBD", " onResponse : fail");
-                        Toast.makeText(AddPasajeroActivity.this, response.body().getMessage(), Toast.LENGTH_SHORT).show();
-                        Log.e("TAG", " response =  " + response.body().getMessage());
-                        finish();
-                    }
-                }
-            }
-
-            @Override
-            public void onFailure(Call<Manifiesto> call, Throwable t) {
-
-                Toast.makeText(AddPasajeroActivity.this, t.getLocalizedMessage(), Toast.LENGTH_SHORT).show();
-                Log.e("remoteBD", " onResponse : fail" + t.toString() + "\n " + t.getCause());
-                Log.e("remoteBD", " onResponse : fail");
-                Log.e("onFailure", " response =  " + t.getMessage());
-            }
-        });
-
-    }
-
-    private ArrayList<Pasajero> getListPasajero() {
-
-        ArrayList<Pasajero> mLista = new ArrayList<>();
-
-        MySqliteDB mySqliteDB = new MySqliteDB(this);
-        SQLiteDatabase database = mySqliteDB.getReadableDatabase();
-        Cursor cursor = mySqliteDB.getListPasajero(database);
-
-        while (cursor.moveToNext()) {
-            String nombre = cursor.getString(cursor.getColumnIndex(Utils.CAMPO_NOMBRE_PASAJERO));
-            String edad = cursor.getString(cursor.getColumnIndex(Utils.CAMPO_EDAD_PASAJERO));
-            String ocupacion = cursor.getString(cursor.getColumnIndex(Utils.CAMPO_OCUPACION_PASAJERO));
-            String nacionalidad = cursor.getString(cursor.getColumnIndex(Utils.CAMPO_NACIONALIDAD_PASAJERO));
-            String numBoleta = cursor.getString(cursor.getColumnIndex(Utils.CAMPO_NUMBOLETA_PASAJERO));
-            String dni = cursor.getString(cursor.getColumnIndex(Utils.CAMPO_DNI_PASAJERO));
-            String destino = cursor.getString(cursor.getColumnIndex(Utils.CAMPO_DESTINO_PASAJERO));
-            mLista.add(new Pasajero(nombre, edad, ocupacion, nacionalidad, numBoleta, dni, destino));
-        }
-        cursor.close();
-        mySqliteDB.close();
-        return mLista;
-    }
-
-
-    private void revisar() {
-
     }
 
 
@@ -264,19 +144,19 @@ public class AddPasajeroActivity extends AppCompatActivity {
     }
 
     private void buildCreateRecyclerPasajero() {
-        // recyclerViewPasajero
+        // rv_Pasajero
         mListPasajero = new ArrayList<>();
-        recyclerViewPasajero = findViewById(R.id.recyclerViewPasajero);
-        recyclerViewPasajero.setHasFixedSize(true);
-        layoutManager = new LinearLayoutManager(this);
-        recyclerViewPasajero.setLayoutManager(layoutManager);
         pAdapter = new PasajeroAdapter(mListPasajero);
-        recyclerViewPasajero.setAdapter(pAdapter);
+        rv_layoutManager = new LinearLayoutManager(this);
+        rv_Pasajero = findViewById(R.id.recyclerViewPasajero);
+        rv_Pasajero.setHasFixedSize(true);
+        rv_Pasajero.setLayoutManager(rv_layoutManager);
+        rv_Pasajero.setAdapter(pAdapter);
         //
         pAdapter.setOnItemClickListener(new PasajeroAdapter.OnItemClickListener() {
             @Override
             public void onEditClick(int position) {
-                // Eliminar metodo
+                //
             }
 
             @Override
