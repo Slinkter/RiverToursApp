@@ -20,6 +20,8 @@
     <color name="ballReleaseColor">#9E9E9E</color>
     <color name="ballPressColor">#f816a463</color>
 
+    <color name="textColorGuiaPasajero">#9E9E9E</color>
+
 
     <color name="bluelight">#49acd5</color>
     <color name="green">#45bc62</color>

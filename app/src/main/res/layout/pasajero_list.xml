@@ -3,13 +3,16 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:layout_margin="5dp"
+    android:layout_margin="15dp"
     android:background="@color/white"
     android:clickable="true"
-    android:paddingBottom="13dp"
-    app:cardCornerRadius="25dp">
+    app:cardElevation="5dp"
+    app:cardUseCompatPadding="true"
+    app:cardCornerRadius="15dp">
 
     <LinearLayout
+
+        android:layout_margin="15dp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
@@ -46,28 +49,28 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="nombrePasajero"
-                android:textColor="@color/colorAccent" />
+                android:textColor="@color/textColorGuiaPasajero" />
 
             <TextView
                 android:id="@+id/tv_edadPasajero"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="edadPasajero"
-                android:textColor="@color/colorAccent" />
+                android:textColor="@color/textColorGuiaPasajero" />
 
             <TextView
                 android:id="@+id/tv_ocupacionPasajero"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="ocupacionPasajero"
-                android:textColor="@color/colorAccent" />
+                android:textColor="@color/textColorGuiaPasajero" />
 
             <TextView
                 android:id="@+id/tv_nacionalidadPasajero"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="nacionalidadPasajero"
-                android:textColor="@color/colorAccent" />
+                android:textColor="@color/textColorGuiaPasajero" />
         </LinearLayout>
 
         <LinearLayout
@@ -82,21 +85,21 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="numBoletaPasajero"
-                android:textColor="@color/colorAccent" />
+                android:textColor="@color/textColorGuiaPasajero" />
 
             <TextView
                 android:id="@+id/tv_dniPasajero"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="dniPasajero"
-                android:textColor="@color/colorAccent" />
+                android:textColor="@color/textColorGuiaPasajero" />
 
             <TextView
                 android:id="@+id/tv_destinoPasajero"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="destinoPasajero"
-                android:textColor="@color/colorAccent" />
+                android:textColor="@color/textColorGuiaPasajero" />
 
         </LinearLayout>
 
@@ -109,14 +112,6 @@
             android:layout_weight="0.5"
             android:gravity="center"
             android:orientation="vertical">
-
-
-            <ImageView
-                android:visibility="invisible"
-                android:id="@+id/btn_edit"
-                android:layout_width="match_parent"
-                android:layout_height="70dp"
-                android:src="@drawable/ic_edit" />
 
         </LinearLayout>
 

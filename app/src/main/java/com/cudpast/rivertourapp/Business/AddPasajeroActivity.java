@@ -129,17 +129,6 @@ public class AddPasajeroActivity extends AppCompatActivity {
         }
     }
 
-    private void saveToLocalStorage(Manifiesto manifiesto, int sync) {
-        // todo : Lunes
-        Toast.makeText(this, "metodo vacion", Toast.LENGTH_SHORT).show();
-        /*
-        MySqliteDB mySqliteDB = new MySqliteDB(this);
-        SQLiteDatabase db = mySqliteDB.getWritableDatabase();
-        mySqliteDB.mySaveToLocalDBManifiesto(manifiesto, sync, db);
-        mySqliteDB.close();
-        */
-    }
-
     private void buildCreateRecyclerPasajero() {
         // rv_Pasajero
         mListPasajero = new ArrayList<>();
@@ -151,11 +140,6 @@ public class AddPasajeroActivity extends AppCompatActivity {
         rv_Pasajero.setAdapter(pAdapter);
         //
         pAdapter.setOnItemClickListener(new PasajeroAdapter.OnItemClickListener() {
-            @Override
-            public void onEditClick(int position) {
-                //
-            }
-
             @Override
             public void onDeleteClick(int position) {
                 removePasajero(position);

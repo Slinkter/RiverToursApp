@@ -73,7 +73,7 @@ public class PasajeroAdapter extends RecyclerView.Adapter<PasajeroAdapter.Custom
             tv_dniPasajero = itemView.findViewById(R.id.tv_dniPasajero);
             tv_destinoPasajero = itemView.findViewById(R.id.tv_destinoPasajero);
 
-            mEdit = itemView.findViewById(R.id.btn_edit);
+
             mDelete = itemView.findViewById(R.id.btn_delete);
 
             mDelete.setOnClickListener(new View.OnClickListener() {
@@ -97,7 +97,7 @@ public class PasajeroAdapter extends RecyclerView.Adapter<PasajeroAdapter.Custom
 
     public interface OnItemClickListener {
 
-        void onEditClick(int position);
+
 
         void onDeleteClick(int position);
     }

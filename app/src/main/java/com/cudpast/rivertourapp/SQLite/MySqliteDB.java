@@ -92,7 +92,7 @@ public class MySqliteDB extends SQLiteOpenHelper {
         contentValues.put(Utils.CAMPO_NUMBOLETA_PASAJERO, pasajero.getNumBoleta());
         contentValues.put(Utils.CAMPO_DNI_PASAJERO, pasajero.getDniPasajero());
         contentValues.put(Utils.CAMPO_DESTINO_PASAJERO, pasajero.getDestinoPasajero());
-
+        // falta
         long hola = database.insert(Utils.TABLA_PASAJERO, null, contentValues);
 
         if (hola > 0) {
