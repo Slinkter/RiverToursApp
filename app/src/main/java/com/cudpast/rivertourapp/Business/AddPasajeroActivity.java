@@ -14,8 +14,6 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.cudpast.rivertourapp.Adapter.PasajeroAdapter;
-import com.cudpast.rivertourapp.Helper.ApiInterface;
-import com.cudpast.rivertourapp.Model.Manifiesto;
 import com.cudpast.rivertourapp.Model.Pasajero;
 import com.cudpast.rivertourapp.R;
 import com.cudpast.rivertourapp.SQLite.MySqliteDB;
@@ -86,9 +84,8 @@ public class AddPasajeroActivity extends AppCompatActivity {
                 String dni = pasajeroDNI.getText().toString();
                 String destino = pasajeroDestino.getText().toString();
                 //
-                Pasajero pasajero = new Pasajero(nombre, edad, ocupacion, nacionalidad, numBoleta, dni, destino);
+                insertPasajero(new Pasajero(nombre, edad, ocupacion, nacionalidad, numBoleta, dni, destino));
                 //
-                createPasajero(pasajero);
                 clearTextPasajero();
                 clearHintPasajero();
             }
@@ -148,63 +145,13 @@ public class AddPasajeroActivity extends AppCompatActivity {
 
     }
 
-    @Override
-    protected void onStart() {
-        super.onStart();
-
-    }
-
-    private Manifiesto getManifiestoById() {
-        //1.Conexion
-        MySqliteDB conn = new MySqliteDB(this);
-        //2.Escribir en la database
-        SQLiteDatabase db = conn.getWritableDatabase();
-        //3.Código
-        String sql = "select * from " + Utils.TABLA_MANIFIESTO + " where " + Utils.CAMPO_ID_GUIA + " = " + "'" + idguiaManifiesto + "'";
-        Log.e("getManifeisto() ", sql);
-        Cursor c = db.rawQuery(sql, null);
-        //
-        Manifiesto manifiesto = new Manifiesto();
-        if (c.moveToFirst()) {
-            do {
-                //
-                String CAMPO_ID_GUIA = c.getString(1);
-                String CAMPO_FECHA_MANIFIESTO = c.getString(2);
-                String CAMPO_DESTINO_MANIFIESTO = c.getString(3);
-                String CAMPO_VEHICULO_MANIFIESTO = c.getString(4);
-                String CAMPO_CHOFER_MANIFIESTO = c.getString(5);
-                int CAMPO_SYNC_STATUS_MANIFIESTO = c.getInt(6);
-                //
-                manifiesto.setIdGuiaMani(CAMPO_ID_GUIA);
-                manifiesto.setFechaMani(CAMPO_FECHA_MANIFIESTO);
-                manifiesto.setDestinoMani(CAMPO_DESTINO_MANIFIESTO);
-                manifiesto.setVehiculoMani(CAMPO_VEHICULO_MANIFIESTO);
-                manifiesto.setChoferMani(CAMPO_CHOFER_MANIFIESTO);
-                manifiesto.setSync_status(CAMPO_SYNC_STATUS_MANIFIESTO);
-                //
-                Log.e("getManifiestoById", "\n" +
-                        CAMPO_ID_GUIA + " \n" +
-                        CAMPO_FECHA_MANIFIESTO + " \n" +
-                        CAMPO_DESTINO_MANIFIESTO + " \n" +
-                        CAMPO_VEHICULO_MANIFIESTO + " \n" +
-                        CAMPO_CHOFER_MANIFIESTO + " \n" +
-                        CAMPO_SYNC_STATUS_MANIFIESTO + " \n");
-
-            } while (c.moveToNext());
-        }
-        c.close();
-        //5.Cerrar conexion
-        db.close();
-        return manifiesto;
-    }
-
-
     private void loadListPasajero() {
         mListPasajero.clear();
+        //
         MySqliteDB mySqliteDB = new MySqliteDB(this);
         SQLiteDatabase database = mySqliteDB.getReadableDatabase();
         Cursor cursor = mySqliteDB.getListPasajero(database);
-
+        //
         while (cursor.moveToNext()) {
             try {
                 String id = cursor.getString(cursor.getColumnIndex(Utils.CAMPO_GUIAID_PASAJERO));
@@ -229,38 +176,38 @@ public class AddPasajeroActivity extends AppCompatActivity {
         mySqliteDB.close();
     }
 
-    private void createPasajero(Pasajero pasajero) {
+    private void insertPasajero(Pasajero pasajero) {
         //1.Conexion
         MySqliteDB conn = new MySqliteDB(this);
         //2.Escribir en la database
         SQLiteDatabase db = conn.getWritableDatabase();
         //3.Cogigo para insert into usuario (id,nombre,telefono) values (123 , 'dasd','543534')
-        String insert =
-                "INSERT INTO " +
-                        Utils.TABLA_PASAJERO + "(" +
-                        Utils.CAMPO_NOMBRE_PASAJERO + "," +
-                        Utils.CAMPO_EDAD_PASAJERO + "," +
-                        Utils.CAMPO_OCUPACION_PASAJERO + "," +
-                        Utils.CAMPO_NACIONALIDAD_PASAJERO + "," +
-                        Utils.CAMPO_NUMBOLETA_PASAJERO + "," +
-                        Utils.CAMPO_DNI_PASAJERO + "," +
-                        Utils.CAMPO_DESTINO_PASAJERO + "," +
-                        Utils.CAMPO_GUIAID_PASAJERO + ")" +
-                        " VALUES ('" +
-                        pasajero.getNombrePasajero() + "','" +
-                        pasajero.getEdadPasajero() + "','" +
-                        pasajero.getOcupacionPasajero() + "','" +
-                        pasajero.getNacionalidadPasajero() + "','" +
-                        pasajero.getNumBoleta() + "','" +
-                        pasajero.getDniPasajero() + "','" +
-                        pasajero.getDestinoPasajero() + "','" +
-                        idguiaManifiesto + "');";
-        Log.e("TAG", "------> " + insert);
+        String insert = "INSERT INTO " +
+                Utils.TABLA_PASAJERO + "(" +
+                Utils.CAMPO_NOMBRE_PASAJERO + "," +
+                Utils.CAMPO_EDAD_PASAJERO + "," +
+                Utils.CAMPO_OCUPACION_PASAJERO + "," +
+                Utils.CAMPO_NACIONALIDAD_PASAJERO + "," +
+                Utils.CAMPO_NUMBOLETA_PASAJERO + "," +
+                Utils.CAMPO_DNI_PASAJERO + "," +
+                Utils.CAMPO_DESTINO_PASAJERO + "," +
+                Utils.CAMPO_GUIAID_PASAJERO + ")" +
+                " VALUES ('" +
+                pasajero.getNombrePasajero() + "','" +
+                pasajero.getEdadPasajero() + "','" +
+                pasajero.getOcupacionPasajero() + "','" +
+                pasajero.getNacionalidadPasajero() + "','" +
+                pasajero.getNumBoleta() + "','" +
+                pasajero.getDniPasajero() + "','" +
+                pasajero.getDestinoPasajero() + "','" +
+                idguiaManifiesto + "');";
+
         //4.Insertar
         db.execSQL(insert);
-        loadListPasajero();
         //5.Cerrar conexion
         db.close();
+        //6.
+        loadListPasajero();
     }
 
     private void removePasajero(int position) {
@@ -275,7 +222,7 @@ public class AddPasajeroActivity extends AppCompatActivity {
         //2.Escribir en la database
         SQLiteDatabase db = conn.getWritableDatabase();
         //3.Sentencia sql
-        String sql = "DELETE FROM " + Utils.TABLA_PASAJERO + " WHERE " + Utils.CAMPO_DNI_PASAJERO + "='" + dni + "'";
+        String sql = "DELETE FROM " + Utils.TABLA_PASAJERO + " WHERE " + Utils.CAMPO_DNI_PASAJERO + " = '" + dni + "'" + " AND " + " WHERE " + Utils.CAMPO_GUIAID_PASAJERO + "='" + idguiaManifiesto + "'";
         db.execSQL(sql);
         //4.Ejecutar SQL
         db.execSQL(sql);

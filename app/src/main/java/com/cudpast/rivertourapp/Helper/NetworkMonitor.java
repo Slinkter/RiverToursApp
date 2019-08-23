@@ -160,4 +160,55 @@ public class NetworkMonitor extends BroadcastReceiver {
         return (networkInfo != null && networkInfo.isConnected());
     }
 
+
+    // Revisar
+
+    /*
+    private Manifiesto getManifiestoById() {
+        //1.Conexion
+        MySqliteDB conn = new MySqliteDB(this);
+        //2.Escribir en la database
+        SQLiteDatabase db = conn.getWritableDatabase();
+        //3.Código
+        String sql = "select * from " + Utils.TABLA_MANIFIESTO + " where " + Utils.CAMPO_ID_GUIA + " = " + "'" + idguiaManifiesto + "'";
+        Log.e("getManifeisto() ", sql);
+        Cursor c = db.rawQuery(sql, null);
+        //
+        Manifiesto manifiesto = new Manifiesto();
+        if (c.moveToFirst()) {
+            do {
+                //
+                String CAMPO_ID_GUIA = c.getString(1);
+                String CAMPO_FECHA_MANIFIESTO = c.getString(2);
+                String CAMPO_DESTINO_MANIFIESTO = c.getString(3);
+                String CAMPO_VEHICULO_MANIFIESTO = c.getString(4);
+                String CAMPO_CHOFER_MANIFIESTO = c.getString(5);
+                int CAMPO_SYNC_STATUS_MANIFIESTO = c.getInt(6);
+                //
+                manifiesto.setIdGuiaMani(CAMPO_ID_GUIA);
+                manifiesto.setFechaMani(CAMPO_FECHA_MANIFIESTO);
+                manifiesto.setDestinoMani(CAMPO_DESTINO_MANIFIESTO);
+                manifiesto.setVehiculoMani(CAMPO_VEHICULO_MANIFIESTO);
+                manifiesto.setChoferMani(CAMPO_CHOFER_MANIFIESTO);
+                manifiesto.setSync_status(CAMPO_SYNC_STATUS_MANIFIESTO);
+                //
+                Log.e("getManifiestoById", "\n" +
+                        CAMPO_ID_GUIA + " \n" +
+                        CAMPO_FECHA_MANIFIESTO + " \n" +
+                        CAMPO_DESTINO_MANIFIESTO + " \n" +
+                        CAMPO_VEHICULO_MANIFIESTO + " \n" +
+                        CAMPO_CHOFER_MANIFIESTO + " \n" +
+                        CAMPO_SYNC_STATUS_MANIFIESTO + " \n");
+
+            } while (c.moveToNext());
+        }
+        c.close();
+        //5.Cerrar conexion
+        db.close();
+        return manifiesto;
+    }
+
+    */
+
+
 }

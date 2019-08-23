@@ -6,16 +6,15 @@
     android:layout_margin="15dp"
     android:background="@color/white"
     android:clickable="true"
+    app:cardCornerRadius="15dp"
     app:cardElevation="5dp"
-    app:cardUseCompatPadding="true"
-    app:cardCornerRadius="15dp">
+    app:cardUseCompatPadding="true">
 
     <LinearLayout
-
-        android:layout_margin="15dp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
+        android:layout_margin="15dp"
         android:orientation="horizontal"
         android:weightSum="4">
 
@@ -27,7 +26,6 @@
             android:layout_weight="0.5"
             android:gravity="center"
             android:orientation="vertical">
-
 
             <ImageView
                 android:id="@+id/image_profile"
@@ -103,7 +101,6 @@
 
         </LinearLayout>
 
-
         <LinearLayout
             android:layout_width="0dp"
             android:layout_height="wrap_content"
@@ -116,7 +113,6 @@
         </LinearLayout>
 
         <LinearLayout
-
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
@@ -124,7 +120,6 @@
             android:layout_weight="0.5"
             android:gravity="center"
             android:orientation="vertical">
-
 
             <ImageView
                 android:id="@+id/btn_delete"
@@ -133,7 +128,6 @@
                 android:src="@drawable/ic_delete" />
 
         </LinearLayout>
-
 
     </LinearLayout>
 </android.support.v7.widget.CardView>
