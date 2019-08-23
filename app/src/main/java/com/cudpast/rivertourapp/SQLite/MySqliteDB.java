@@ -25,8 +25,8 @@ public class MySqliteDB extends SQLiteOpenHelper {
 
     public static final String TAG = MySqliteDB.class.getSimpleName();
 
-    public static final String DATABASE_NAME = "dbRiverTour";
-    public static final int DATABASE_VERSION = 7;
+    private static final String DATABASE_NAME = "dbRiverTour";
+    public static final int DATABASE_VERSION = 1;
     private SQLiteDatabase db;
     //
     public static final String drop_vehiculo = "DROP TABLE IF EXISTS " + Utils.TABLA_VEHICULO;
@@ -119,7 +119,7 @@ public class MySqliteDB extends SQLiteOpenHelper {
     }
 
     public Cursor getListPasajero(SQLiteDatabase database) {
-        String[] projection = {Utils.CAMPO_NOMBRE_PASAJERO, Utils.CAMPO_EDAD_PASAJERO, Utils.CAMPO_OCUPACION_PASAJERO, Utils.CAMPO_NACIONALIDAD_PASAJERO, Utils.CAMPO_NUMBOLETA_PASAJERO, Utils.CAMPO_DNI_PASAJERO, Utils.CAMPO_DESTINO_PASAJERO};
+        String[] projection = {Utils.CAMPO_NOMBRE_PASAJERO, Utils.CAMPO_EDAD_PASAJERO, Utils.CAMPO_OCUPACION_PASAJERO, Utils.CAMPO_NACIONALIDAD_PASAJERO, Utils.CAMPO_NUMBOLETA_PASAJERO, Utils.CAMPO_DNI_PASAJERO, Utils.CAMPO_DESTINO_PASAJERO, Utils.CAMPO_GUIAID_PASAJERO};
         return (database.query(Utils.TABLA_PASAJERO, projection, null, null, null, null, null));
     }
 
@@ -127,7 +127,6 @@ public class MySqliteDB extends SQLiteOpenHelper {
         String[] projection = {Utils.CAMPO_ID_GUIA, Utils.CAMPO_FECHA_MANIFIESTO, Utils.CAMPO_DESTINO_MANIFIESTO, Utils.CAMPO_VEHICULO_MANIFIESTO, Utils.CAMPO_CHOFER_MANIFIESTO, Utils.CAMPO_SYNC_STATUS_MANIFIESTO};
         return (database.query(Utils.TABLA_MANIFIESTO, projection, null, null, null, null, null));
     }
-
 
 
     public void myUpdateManifiesto(String idGuia, int sync_status, SQLiteDatabase db) {

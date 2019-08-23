@@ -222,18 +222,22 @@ public class AddPasajeroActivity extends AppCompatActivity {
         Cursor cursor = mySqliteDB.getListPasajero(database);
 
         while (cursor.moveToNext()) {
-
-            if (Utils.CAMPO_GUIAID_PASAJERO.equalsIgnoreCase(idguiaManifiesto)) {
-                String nombre = cursor.getString(cursor.getColumnIndex(Utils.CAMPO_NOMBRE_PASAJERO));
-                String edad = cursor.getString(cursor.getColumnIndex(Utils.CAMPO_EDAD_PASAJERO));
-                String ocupacion = cursor.getString(cursor.getColumnIndex(Utils.CAMPO_OCUPACION_PASAJERO));
-                String nacionalidad = cursor.getString(cursor.getColumnIndex(Utils.CAMPO_NACIONALIDAD_PASAJERO));
-                String numBoleta = cursor.getString(cursor.getColumnIndex(Utils.CAMPO_NUMBOLETA_PASAJERO));
-                String dni = cursor.getString(cursor.getColumnIndex(Utils.CAMPO_DNI_PASAJERO));
-                String destino = cursor.getString(cursor.getColumnIndex(Utils.CAMPO_DESTINO_PASAJERO));
-                mListPasajero.add(new Pasajero(nombre, edad, ocupacion, nacionalidad, numBoleta, dni, destino));
+            try {
+                String id = cursor.getString(cursor.getColumnIndex(Utils.CAMPO_GUIAID_PASAJERO));
+                if (id.equalsIgnoreCase(idguiaManifiesto)) {
+                    String nombre = cursor.getString(cursor.getColumnIndex(Utils.CAMPO_NOMBRE_PASAJERO));
+                    String edad = cursor.getString(cursor.getColumnIndex(Utils.CAMPO_EDAD_PASAJERO));
+                    String ocupacion = cursor.getString(cursor.getColumnIndex(Utils.CAMPO_OCUPACION_PASAJERO));
+                    String nacionalidad = cursor.getString(cursor.getColumnIndex(Utils.CAMPO_NACIONALIDAD_PASAJERO));
+                    String numBoleta = cursor.getString(cursor.getColumnIndex(Utils.CAMPO_NUMBOLETA_PASAJERO));
+                    String dni = cursor.getString(cursor.getColumnIndex(Utils.CAMPO_DNI_PASAJERO));
+                    String destino = cursor.getString(cursor.getColumnIndex(Utils.CAMPO_DESTINO_PASAJERO));
+                    mListPasajero.add(new Pasajero(nombre, edad, ocupacion, nacionalidad, numBoleta, dni, destino));
+                }
+                Log.e(TAG, "id : " + id + "\n" + "idguiaManifiesto : " + idguiaManifiesto);
+            } catch (Exception e) {
+                e.printStackTrace();
             }
-
 
         }
         pAdapter.notifyDataSetChanged();
