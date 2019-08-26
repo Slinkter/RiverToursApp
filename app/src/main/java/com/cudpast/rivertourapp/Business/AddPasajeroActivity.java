@@ -221,7 +221,7 @@ public class AddPasajeroActivity extends AppCompatActivity {
         MySqliteDB conn = new MySqliteDB(this);
         //2.Escribir en la database
         SQLiteDatabase db = conn.getWritableDatabase();
-        //3.Sentencia sql
+        //3.Sentencia todo sql probar en mysqladmin
         String sql = "DELETE FROM " + Utils.TABLA_PASAJERO + " WHERE " + Utils.CAMPO_DNI_PASAJERO + " = '" + dni + "'" + " AND " + " WHERE " + Utils.CAMPO_GUIAID_PASAJERO + "='" + idguiaManifiesto + "'";
         db.execSQL(sql);
         //4.Ejecutar SQL
