@@ -181,7 +181,7 @@ public class AddPasajeroActivity extends AppCompatActivity {
         MySqliteDB conn = new MySqliteDB(this);
         //2.Escribir en la database
         SQLiteDatabase db = conn.getWritableDatabase();
-        //3.Cogigo para insert into usuario (id,nombre,telefono) values (123 , 'dasd','543534')
+        //3.Cogigo para insert
         String insert = "INSERT INTO " +
                 Utils.TABLA_PASAJERO + "(" +
                 Utils.CAMPO_NOMBRE_PASAJERO + "," +
@@ -208,6 +208,17 @@ public class AddPasajeroActivity extends AppCompatActivity {
         db.close();
         //6.
         loadListPasajero();
+    }
+    private void insertPasajero2(Pasajero pasajero){
+        // Insetar no funciono
+
+        MySqliteDB mySqliteDB = new MySqliteDB(this);
+        SQLiteDatabase db = mySqliteDB.getWritableDatabase();
+        mySqliteDB.mySaveToLocalDBPasajero(pasajero,  db);
+        loadListPasajero();
+        mySqliteDB.close();
+        //
+
     }
 
     private void removePasajero(int position) {

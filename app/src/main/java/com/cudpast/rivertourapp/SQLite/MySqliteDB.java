@@ -21,7 +21,7 @@ public class MySqliteDB extends SQLiteOpenHelper {
     // variables
     public static final String TAG = MySqliteDB.class.getSimpleName();
     private static final String DATABASE_NAME = "dbRiverTour";
-    public static final int DATABASE_VERSION = 1;
+    public static final int DATABASE_VERSION = 2;
     private SQLiteDatabase db;
     // Variables constante
     public static final String drop_vehiculo = "DROP TABLE IF EXISTS " + Utils.TABLA_VEHICULO;
@@ -75,20 +75,20 @@ public class MySqliteDB extends SQLiteOpenHelper {
             Log.e(TAG, "mySaveToLocalDBManifiesto() - insert :  " + valor);
         }
 
-
     }
 
     // Insert Pasajero
     public void mySaveToLocalDBPasajero(Pasajero pasajero, SQLiteDatabase database) {
         //Set data
         ContentValues contentValues = new ContentValues();
-        contentValues.put(Utils.CAMPO_NOMBRE_PASAJERO, pasajero.getNombrePasajero());
-        contentValues.put(Utils.CAMPO_EDAD_PASAJERO, pasajero.getEdadPasajero());
-        contentValues.put(Utils.CAMPO_OCUPACION_PASAJERO, pasajero.getOcupacionPasajero());
+        contentValues.put(Utils.CAMPO_NOMBRE_PASAJERO, pasajero.getNombrePasajero());//
+        contentValues.put(Utils.CAMPO_EDAD_PASAJERO, pasajero.getEdadPasajero());//
+        contentValues.put(Utils.CAMPO_OCUPACION_PASAJERO, pasajero.getOcupacionPasajero());//
         contentValues.put(Utils.CAMPO_NACIONALIDAD_PASAJERO, pasajero.getNacionalidadPasajero());
         contentValues.put(Utils.CAMPO_NUMBOLETA_PASAJERO, pasajero.getNumBoleta());
         contentValues.put(Utils.CAMPO_DNI_PASAJERO, pasajero.getDniPasajero());
         contentValues.put(Utils.CAMPO_DESTINO_PASAJERO, pasajero.getDestinoPasajero());
+        contentValues.put(Utils.CAMPO_GUIAID_PASAJERO, pasajero.getIdGuia());
 
         long valor = database.insert(Utils.TABLA_PASAJERO, null, contentValues);
 
