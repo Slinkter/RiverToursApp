@@ -187,7 +187,7 @@ public class AddManifActivity extends AppCompatActivity {
         });
         //******************************************************
         progressDialog = new ProgressDialog(this);
-        progressDialog.setMessage("Please wait...");
+        progressDialog.setMessage("Cargando datos...");
     }
 
     private void saveManifiestoLocal() {
@@ -197,27 +197,30 @@ public class AddManifActivity extends AppCompatActivity {
         String guiaDestino = et_guiaDestino.getText().toString();
         //
         Manifiesto manifiesto = new Manifiesto();
-        //
         manifiesto.setIdGuiaMani(guiaGuia);
         manifiesto.setFechaMani(guiaFecha);
         manifiesto.setDestinoMani(guiaDestino);
         manifiesto.setVehiculoMani(guiaVehiculo);
         manifiesto.setChoferMani(guiaChoferBrevete);
         //
-        goToAddPasajero(manifiesto);
+        AddManifiesto(manifiesto);
     }
 
-    private void goToAddPasajero(Manifiesto manifiesto) {
+    private void AddManifiesto(Manifiesto manifiesto) {
+        progressDialog.dismiss();
         // Insetar Manfiesto
         MySqliteDB mySqliteDB = new MySqliteDB(this);
         SQLiteDatabase db = mySqliteDB.getWritableDatabase();
         mySqliteDB.mySaveToLocalDBManifiesto(manifiesto, 0, db);
         mySqliteDB.close();
-        // Go to Lista de Pasajero
-        Intent intent = new Intent(AddManifActivity.this, AddPasajeroActivity.class);
-        intent.putExtra("idguiaManifiesto", manifiesto.getIdGuiaMani());
         //
-        progressDialog.dismiss();
+        gotoAddPasajero(manifiesto.getIdGuiaMani());
+    }
+
+    private void gotoAddPasajero(String idGuiaMani) {
+        // Go to AddPasajero
+        Intent intent = new Intent(AddManifActivity.this, AddPasajeroActivity.class);
+        intent.putExtra("idguiaManifiesto", idGuiaMani);
         startActivity(intent);
         finish();
     }
