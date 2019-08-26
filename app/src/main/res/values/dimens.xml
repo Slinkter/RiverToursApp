@@ -2,4 +2,5 @@
 <resources>
     <dimen name="algoborrar">0dp</dimen>
     <dimen name="distform">20dp</dimen>
+    <dimen name="textSizeGuia">14dp</dimen>
 </resources>

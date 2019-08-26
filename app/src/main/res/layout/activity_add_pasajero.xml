@@ -65,7 +65,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center"
-                        android:text="hola"
+                        android:text="guia "
                         android:textSize="20dp"
                         android:textStyle="bold" />
                 </android.support.v7.widget.CardView>
@@ -102,10 +102,12 @@
                         android:padding="16dp"
                         android:text="Nombre : "
                         android:textColor="@color/white"
-                        android:textSize="14dp"
+                        android:textSize="@dimen/textSizeGuia"
                         android:textStyle="bold" />
 
                     <EditText
+
+
                         android:id="@+id/pasajeroNombre"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
@@ -113,7 +115,7 @@
                         android:layout_weight="3"
                         android:padding="16dp"
                         android:textColor="@color/white"
-                        android:textSize="18dp"
+                        android:textSize="@dimen/textSizeGuia"
                         app:backgroundTint="@color/white" />
 
 
@@ -138,7 +140,7 @@
                         android:padding="16dp"
                         android:text="Edad : "
                         android:textColor="@color/white"
-                        android:textSize="14dp"
+                        android:textSize="@dimen/textSizeGuia"
                         android:textStyle="bold"/>
 
                     <EditText
@@ -150,7 +152,7 @@
                         android:inputType="number"
                         android:padding="16dp"
                         android:textColor="@color/white"
-                        android:textSize="18dp"
+                        android:textSize="@dimen/textSizeGuia"
                         app:backgroundTint="@color/white"/>
 
 
@@ -178,7 +180,7 @@
                         android:padding="16dp"
                         android:text="Ocupación : "
                         android:textColor="@color/white"
-                        android:textSize="14dp"
+                        android:textSize="@dimen/textSizeGuia"
                         android:textStyle="bold"/>
 
                     <EditText
@@ -189,7 +191,7 @@
                         android:layout_weight="3"
                         android:padding="16dp"
                         android:textColor="@color/white"
-                        android:textSize="18dp"
+                        android:textSize="@dimen/textSizeGuia"
                         app:backgroundTint="@color/white"/>
 
 
@@ -217,7 +219,7 @@
                         android:padding="16dp"
                         android:text="Nacionalidad : "
                         android:textColor="@color/white"
-                        android:textSize="14dp"
+                        android:textSize="@dimen/textSizeGuia"
                         android:textStyle="bold"/>
 
                     <EditText
@@ -228,7 +230,7 @@
                         android:layout_weight="3"
                         android:padding="16dp"
                         android:textColor="@color/white"
-                        android:textSize="18dp"
+                        android:textSize="@dimen/textSizeGuia"
                         app:backgroundTint="@color/white"/>
 
 
@@ -256,7 +258,7 @@
                         android:padding="16dp"
                         android:text="DNI : "
                         android:textColor="@color/white"
-                        android:textSize="14dp"
+                        android:textSize="@dimen/textSizeGuia"
                         android:textStyle="bold">
 
                     </TextView>
@@ -270,7 +272,7 @@
                         android:inputType="number"
                         android:padding="16dp"
                         android:textColor="@color/white"
-                        android:textSize="18dp"
+                        android:textSize="@dimen/textSizeGuia"
                         app:backgroundTint="@color/white">
 
 
@@ -302,7 +304,7 @@
                         android:padding="16dp"
                         android:text="Destino : "
                         android:textColor="@color/white"
-                        android:textSize="14dp"
+                        android:textSize="@dimen/textSizeGuia"
                         android:textStyle="bold">
 
                     </TextView>
@@ -315,7 +317,7 @@
                         android:layout_weight="3"
                         android:padding="16dp"
                         android:textColor="@color/white"
-                        android:textSize="18dp"
+                        android:textSize="@dimen/textSizeGuia"
                         app:backgroundTint="@color/white">
 
 
@@ -345,7 +347,7 @@
                         android:padding="16dp"
                         android:text=" Recibo : "
                         android:textColor="@color/white"
-                        android:textSize="14dp"
+                        android:textSize="@dimen/textSizeGuia"
                         android:textStyle="bold">
 
                     </TextView>
@@ -358,7 +360,7 @@
                         android:layout_weight="3"
                         android:padding="16dp"
                         android:textColor="@color/white"
-                        android:textSize="18dp"
+                        android:textSize="@dimen/textSizeGuia"
                         app:backgroundTint="@color/white"></EditText>
                 </LinearLayout>
 
@@ -383,7 +385,7 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-
+                android:fontFamily="monospace"
                 android:layout_marginBottom="10dp"
                 android:text="Lista de Pasajeros"
                 android:textColor="@color/login_form_details"
@@ -396,7 +398,7 @@
 
                 <LinearLayout
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
+                    android:layout_height="match_parent"
                     android:layout_marginLeft="25dp"
                     android:layout_marginRight="25dp"
                     android:orientation="vertical">
@@ -410,13 +412,6 @@
 
         </LinearLayout>
 
-
-
-
-
     </android.support.v7.widget.CardView>
-
-
-
 
 </LinearLayout>

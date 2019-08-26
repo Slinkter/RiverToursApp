@@ -181,6 +181,7 @@ public class AddManifActivity extends AppCompatActivity {
             public void onClick(View v) {
 
                 if (submitForm()) {
+
                     saveManifiestoLocal();
                 }
             }
@@ -207,7 +208,7 @@ public class AddManifActivity extends AppCompatActivity {
     }
 
     private void AddManifiesto(Manifiesto manifiesto) {
-        progressDialog.dismiss();
+
         // Insetar Manfiesto
         MySqliteDB mySqliteDB = new MySqliteDB(this);
         SQLiteDatabase db = mySqliteDB.getWritableDatabase();
@@ -218,6 +219,7 @@ public class AddManifActivity extends AppCompatActivity {
     }
 
     private void gotoAddPasajero(String idGuiaMani) {
+        progressDialog.dismiss();
         // Go to AddPasajero
         Intent intent = new Intent(AddManifActivity.this, AddPasajeroActivity.class);
         intent.putExtra("idguiaManifiesto", idGuiaMani);
