@@ -26,7 +26,7 @@
             android:name=".Business.NewChoferActivity"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".Business.NewManifActivity"
+            android:name=".Business.AddManifActivity"
             android:screenOrientation="portrait" />
         <activity
             android:name=".RegisterActivity"

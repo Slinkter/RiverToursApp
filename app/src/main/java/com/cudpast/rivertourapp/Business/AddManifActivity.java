@@ -34,9 +34,9 @@ import com.cudpast.rivertourapp.SQLite.Utils;
 import java.util.ArrayList;
 import java.util.Calendar;
 
-public class NewManifActivity extends AppCompatActivity {
+public class AddManifActivity extends AppCompatActivity {
 
-    public static final String TAG = NewManifActivity.class.getSimpleName();
+    public static final String TAG = AddManifActivity.class.getSimpleName();
 
     private TextView tv_nombreVehiculo, tv_matriculaVehiculo, tv_marcaVehiculo, tv_breveteChofer;
     private EditText et_guiaGuia, et_guiaFecha, et_guiaDestino;
@@ -103,7 +103,7 @@ public class NewManifActivity extends AppCompatActivity {
                 Log.e(TAG, "DAY = " + day);
 
                 dialog = new DatePickerDialog(
-                        NewManifActivity.this,
+                        AddManifActivity.this,
                         android.R.style.Theme_Holo_Light_Dialog_MinWidth,
                         mDateSetListener,
                         year,
@@ -214,7 +214,7 @@ public class NewManifActivity extends AppCompatActivity {
         mySqliteDB.mySaveToLocalDBManifiesto(manifiesto, 0, db);
         mySqliteDB.close();
         // Go to Lista de Pasajero
-        Intent intent = new Intent(NewManifActivity.this, AddPasajeroActivity.class);
+        Intent intent = new Intent(AddManifActivity.this, AddPasajeroActivity.class);
         intent.putExtra("idguiaManifiesto", manifiesto.getIdGuiaMani());
         //
         progressDialog.dismiss();
@@ -370,7 +370,7 @@ public class NewManifActivity extends AppCompatActivity {
     }
 
     public void btn_Salir_Manifiesto(View view) {
-        Intent intentSalir = new Intent(NewManifActivity.this, MainActivity.class);
+        Intent intentSalir = new Intent(AddManifActivity.this, MainActivity.class);
         startActivity(intentSalir);
         finish();
     }
@@ -379,7 +379,7 @@ public class NewManifActivity extends AppCompatActivity {
     // Borrar ??
     private void insertManifiestoLocalAntiguo(Manifiesto manifiesto) {
         //1.Conexion
-        MySqliteDB conn = new MySqliteDB(NewManifActivity.this);
+        MySqliteDB conn = new MySqliteDB(AddManifActivity.this);
         //2.Escribir en la database
         SQLiteDatabase db = conn.getWritableDatabase();
         //3.Cogigo para insert into tb
@@ -403,7 +403,7 @@ public class NewManifActivity extends AppCompatActivity {
         db.execSQL(insert);
         //5.Cerrar conexion
         db.close();
-        Intent intent = new Intent(NewManifActivity.this, AddPasajeroActivity.class);
+        Intent intent = new Intent(AddManifActivity.this, AddPasajeroActivity.class);
         intent.putExtra("idguiaManifiesto", manifiesto.getIdGuiaMani());
         intent.putExtra("FechaMani", manifiesto.getFechaMani());
         intent.putExtra("DestinoMani", manifiesto.getDestinoMani());

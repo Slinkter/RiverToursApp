@@ -9,7 +9,7 @@ import com.cudpast.rivertourapp.Business.ConsulChoferActivity;
 import com.cudpast.rivertourapp.Business.ConsulVehiculoActivity;
 import com.cudpast.rivertourapp.Business.ConsultManiActivity;
 import com.cudpast.rivertourapp.Business.NewChoferActivity;
-import com.cudpast.rivertourapp.Business.NewManifActivity;
+import com.cudpast.rivertourapp.Business.AddManifActivity;
 import com.cudpast.rivertourapp.Business.NewVehiculoActivity;
 
 public class MainActivity extends AppCompatActivity {
@@ -52,7 +52,7 @@ public class MainActivity extends AppCompatActivity {
 
 
     public void newManifiesto(View view) {
-        Intent intent = new Intent(MainActivity.this, NewManifActivity.class);
+        Intent intent = new Intent(MainActivity.this, AddManifActivity.class);
         startActivity(intent);
     }
 

@@ -116,7 +116,7 @@ public class ConsulVehiculoActivity extends AppCompatActivity {
     private void destroyDBVehiculo() {
         Log.e(TAG, " eliminar  drop table vehiculo ");
         MySqliteDB mySqliteDB = new MySqliteDB(this);
-        mySqliteDB.deleteTable();
+        mySqliteDB.deleteTableVehiculo();
     }
 
     private void loadListVehiculoOffline() {
