@@ -5,383 +5,418 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:layout_gravity="center"
-    android:background="@drawable/bg_login"
-    android:gravity="center"
-    android:orientation="vertical"
+
     tools:context=".Business.AddPasajeroActivity">
 
-    <LinearLayout
+    <android.support.v7.widget.CardView
+       android:layout_margin="15dp"
+        app:cardBackgroundColor="#C4D30808"
+        app:cardCornerRadius="25dp"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:gravity="center"
-        android:orientation="vertical">
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:layout_marginTop="60dp"
-            android:fontFamily="monospace"
-            android:text="Guia Manifiesto"
-            android:textColor="@color/login_form_details"
-            android:textSize="24dp"
-            android:textStyle="bold" />
-
-        <android.support.v7.widget.CardView
-            android:layout_width="250dp"
-            android:layout_height="50dp"
-            android:layout_marginTop="15dp"
-            app:cardCornerRadius="15dp">
-
-            <TextView
-                android:id="@+id/tv_guiaidmanifiestopasajero"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:text="hola"
-                android:textSize="20dp"
-                android:textStyle="bold" />
-        </android.support.v7.widget.CardView>
-    </LinearLayout>
-
-    //
-
-    <LinearLayout
-        android:orientation="vertical"
-        android:layout_marginLeft="25dp"
-        android:layout_marginRight="25dp"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content">
-        //1
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:layout_marginLeft="25dp"
-            android:layout_marginRight="25dp"
-            android:weightSum="4">
-
-            <TextView
-                android:fontFamily="monospace"
-                android:gravity="right"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/distform"
-                android:layout_weight="1"
-                android:text="Nombre : "
-                android:textSize="14dp"
-                android:textStyle="bold"
-                android:layout_marginRight="15dp"
-                android:padding="16dp"
-                android:textColor="@color/white">
-
-            </TextView>
-
-            <EditText
-                android:id="@+id/pasajeroNombre"
-                app:backgroundTint="@color/white"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/distform"
-                android:textSize="18dp"
-                android:textColor="@color/white"
-                android:padding="16dp"
-                android:layout_weight="3">
-            </EditText>
-
-
-
-
-        </LinearLayout>
-        //1
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:layout_marginLeft="25dp"
-            android:layout_marginRight="25dp"
-            android:weightSum="4">
-
-            <TextView
-                android:fontFamily="monospace"
-                android:gravity="right"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/distform"
-                android:layout_weight="1"
-                android:text="Edad : "
-                android:textSize="14dp"
-                android:textStyle="bold"
-                android:layout_marginRight="15dp"
-                android:padding="16dp"
-
-                android:textColor="@color/white">
-
-            </TextView>
-
-            <EditText
-                android:id="@+id/pasajeroEdad"
-                android:inputType="number"
-                app:backgroundTint="@color/white"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/distform"
-                android:textSize="18dp"
-                android:textColor="@color/white"
-                android:padding="16dp"
-                android:layout_weight="3">
-
-
-            </EditText>
-
-
-
-
-        </LinearLayout>
-        //1
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:layout_marginLeft="25dp"
-            android:layout_marginRight="25dp"
-            android:weightSum="4">
-
-            <TextView
-                android:fontFamily="monospace"
-                android:gravity="right"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/distform"
-                android:layout_weight="1"
-                android:text="Ocupación : "
-                android:layout_marginRight="15dp"
-                android:padding="16dp"
-                android:textSize="14dp"
-                android:textStyle="bold"
-                android:textColor="@color/white">
-
-            </TextView>
-
-            <EditText
-                android:id="@+id/pasajeroOcupacion"
-                app:backgroundTint="@color/white"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/distform"
-                android:textColor="@color/white"
-                android:padding="16dp"
-                android:textSize="18dp"
-                android:layout_weight="3">
-
-
-            </EditText>
-
-
-
-
-        </LinearLayout>
-        //1
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:layout_marginLeft="25dp"
-            android:layout_marginRight="25dp"
-            android:weightSum="4">
-
-            <TextView
-                android:fontFamily="monospace"
-                android:gravity="right"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/distform"
-                android:layout_weight="1"
-                android:text="Nacionalidad : "
-                android:layout_marginRight="15dp"
-                android:textSize="14dp"
-                android:textStyle="bold"
-                android:padding="16dp"
-                android:textColor="@color/white">
-
-            </TextView>
-
-            <EditText
-                android:id="@+id/pasajeroNacionalidad"
-                app:backgroundTint="@color/white"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/distform"
-                android:textColor="@color/white"
-                android:padding="16dp"
-                android:textSize="18dp"
-                android:layout_weight="3">
-
-
-            </EditText>
-
-
-
-
-        </LinearLayout>
-        //1
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:layout_marginLeft="25dp"
-            android:layout_marginRight="25dp"
-            android:weightSum="4">
-
-            <TextView
-                android:fontFamily="monospace"
-                android:gravity="right"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/distform"
-                android:layout_weight="1"
-                android:text="DNI : "
-                android:textSize="14dp"
-                android:textStyle="bold"
-                android:padding="16dp"
-                android:layout_marginRight="15dp"
-                android:textColor="@color/white">
-
-            </TextView>
-
-            <EditText
-                android:id="@+id/pasajeroDNI"
-                app:backgroundTint="@color/white"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/distform"
-                android:inputType="number"
-                android:textSize="18dp"
-                android:textColor="@color/white"
-                android:padding="16dp"
-                android:layout_weight="3">
-
-
-            </EditText>
-
-
-
-
-        </LinearLayout>
-        //1
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:layout_marginLeft="25dp"
-            android:layout_marginRight="25dp"
-            android:weightSum="4">
-
-            <TextView
-                android:fontFamily="monospace"
-                android:inputType="number"
-                android:gravity="right"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/distform"
-                android:layout_weight="1"
-                android:text="Destino : "
-                android:textSize="14dp"
-                android:textStyle="bold"
-                android:padding="16dp"
-                android:layout_marginRight="15dp"
-                android:textColor="@color/white">
-
-            </TextView>
-
-            <EditText
-                app:backgroundTint="@color/white"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/distform"
-                android:id="@+id/pasajeroDestino"
-                android:textSize="18dp"
-                android:textColor="@color/white"
-                android:padding="16dp"
-                android:layout_weight="3">
-
-
-            </EditText>
-
-
-
-
-        </LinearLayout>
-        //1
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:layout_marginLeft="25dp"
-            android:layout_marginRight="25dp"
-            android:weightSum="4">
-
-            <TextView
-                android:fontFamily="monospace"
-                android:gravity="right"
-                android:layout_width="0dp"
-                android:layout_marginRight="15dp"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/distform"
-                android:layout_weight="1"
-                android:text=" Recibo : "
-                android:textSize="14dp"
-                android:textStyle="bold"
-                android:padding="16dp"
-                android:textColor="@color/white">
-
-            </TextView>
-
-            <EditText
-                android:id="@+id/pasajeroN"
-                app:backgroundTint="@color/white"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/distform"
-                android:textColor="@color/white"
-                android:textSize="18dp"
-                android:padding="16dp"
-                android:layout_weight="3">
-            </EditText>
-
-        </LinearLayout>
-
-    </LinearLayout>
-    //
-
-
-
-    <ScrollView
-        android:layout_width="match_parent"
+        app:cardElevation="5dp"
         android:layout_height="match_parent">
 
         <LinearLayout
+            android:gravity="center"
+
+            android:orientation="vertical"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="25dp"
-            android:layout_marginRight="25dp"
-            android:orientation="vertical">
+            android:layout_height="wrap_content">
 
-            <android.support.v7.widget.RecyclerView
-                android:id="@+id/recyclerViewPasajero"
+            <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="match_parent" />
-        </LinearLayout>
-    </ScrollView>
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:gravity="center"
+                android:orientation="vertical">
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="20dp"
-        android:layout_marginBottom="20dp"
-        android:text="Lista de Pasajeros"
-        android:textColor="@color/login_form_details"
-        android:textSize="24dp"
-        android:textStyle="bold" />
+                <Button
+                    android:layout_marginRight="10dp"
+                    android:layout_marginTop="30dp"
+                    android:id="@+id/btnFinalizarGuia"
+                    android:background="@drawable/ic_check"
+                    android:layout_gravity="right"
+                    android:layout_width="75dp"
+
+                    android:layout_height="75dp">
+
+                </Button>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:fontFamily="monospace"
+                    android:text="Guia Manifiesto"
+                    android:textColor="@color/login_form_details"
+                    android:textSize="24dp"
+                    android:textStyle="bold" />
+
+                <android.support.v7.widget.CardView
+                    android:layout_gravity="center"
+                    android:layout_width="250dp"
+                    android:layout_height="50dp"
+                    android:layout_marginTop="15dp"
+                    app:cardCornerRadius="15dp">
+
+                    <TextView
+                        android:id="@+id/tv_guiaidmanifiestopasajero"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:text="hola"
+                        android:textSize="20dp"
+                        android:textStyle="bold" />
+                </android.support.v7.widget.CardView>
+
+
+            </LinearLayout>
+
+            //
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="25dp"
+                android:layout_marginRight="25dp"
+                android:orientation="vertical">
+                //1
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="25dp"
+                    android:layout_marginRight="25dp"
+                    android:orientation="horizontal"
+                    android:weightSum="4">
+
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/distform"
+                        android:layout_marginRight="15dp"
+                        android:layout_weight="1"
+                        android:fontFamily="monospace"
+                        android:gravity="right"
+                        android:padding="16dp"
+                        android:text="Nombre : "
+                        android:textColor="@color/white"
+                        android:textSize="14dp"
+                        android:textStyle="bold" />
+
+                    <EditText
+                        android:id="@+id/pasajeroNombre"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/distform"
+                        android:layout_weight="3"
+                        android:padding="16dp"
+                        android:textColor="@color/white"
+                        android:textSize="18dp"
+                        app:backgroundTint="@color/white" />
+
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="25dp"
+                    android:layout_marginRight="25dp"
+                    android:orientation="horizontal"
+                    android:weightSum="4">
+
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/distform"
+                        android:layout_marginRight="15dp"
+                        android:layout_weight="1"
+                        android:fontFamily="monospace"
+                        android:gravity="right"
+                        android:padding="16dp"
+                        android:text="Edad : "
+                        android:textColor="@color/white"
+                        android:textSize="14dp"
+                        android:textStyle="bold"/>
+
+                    <EditText
+                        android:id="@+id/pasajeroEdad"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/distform"
+                        android:layout_weight="3"
+                        android:inputType="number"
+                        android:padding="16dp"
+                        android:textColor="@color/white"
+                        android:textSize="18dp"
+                        app:backgroundTint="@color/white"/>
+
+
+
+
+                </LinearLayout>
+                //1
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="25dp"
+                    android:layout_marginRight="25dp"
+                    android:orientation="horizontal"
+                    android:weightSum="4">
+
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/distform"
+                        android:layout_marginRight="15dp"
+                        android:layout_weight="1"
+                        android:fontFamily="monospace"
+                        android:gravity="right"
+                        android:padding="16dp"
+                        android:text="Ocupación : "
+                        android:textColor="@color/white"
+                        android:textSize="14dp"
+                        android:textStyle="bold"/>
+
+                    <EditText
+                        android:id="@+id/pasajeroOcupacion"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/distform"
+                        android:layout_weight="3"
+                        android:padding="16dp"
+                        android:textColor="@color/white"
+                        android:textSize="18dp"
+                        app:backgroundTint="@color/white"/>
+
+
+
+
+                </LinearLayout>
+                //1
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="25dp"
+                    android:layout_marginRight="25dp"
+                    android:orientation="horizontal"
+                    android:weightSum="4">
+
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/distform"
+                        android:layout_marginRight="15dp"
+                        android:layout_weight="1"
+                        android:fontFamily="monospace"
+                        android:gravity="right"
+                        android:padding="16dp"
+                        android:text="Nacionalidad : "
+                        android:textColor="@color/white"
+                        android:textSize="14dp"
+                        android:textStyle="bold"/>
+
+                    <EditText
+                        android:id="@+id/pasajeroNacionalidad"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/distform"
+                        android:layout_weight="3"
+                        android:padding="16dp"
+                        android:textColor="@color/white"
+                        android:textSize="18dp"
+                        app:backgroundTint="@color/white"/>
+
+
+
+
+                </LinearLayout>
+                //1
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="25dp"
+                    android:layout_marginRight="25dp"
+                    android:orientation="horizontal"
+                    android:weightSum="4">
+
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/distform"
+                        android:layout_marginRight="15dp"
+                        android:layout_weight="1"
+                        android:fontFamily="monospace"
+                        android:gravity="right"
+                        android:padding="16dp"
+                        android:text="DNI : "
+                        android:textColor="@color/white"
+                        android:textSize="14dp"
+                        android:textStyle="bold">
+
+                    </TextView>
+
+                    <EditText
+                        android:id="@+id/pasajeroDNI"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/distform"
+                        android:layout_weight="3"
+                        android:inputType="number"
+                        android:padding="16dp"
+                        android:textColor="@color/white"
+                        android:textSize="18dp"
+                        app:backgroundTint="@color/white">
+
+
+                    </EditText>
+
+
+
+
+                </LinearLayout>
+                //1
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="25dp"
+                    android:layout_marginRight="25dp"
+                    android:orientation="horizontal"
+                    android:weightSum="4">
+
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/distform"
+                        android:layout_marginRight="15dp"
+                        android:layout_weight="1"
+                        android:fontFamily="monospace"
+                        android:gravity="right"
+                        android:inputType="number"
+                        android:padding="16dp"
+                        android:text="Destino : "
+                        android:textColor="@color/white"
+                        android:textSize="14dp"
+                        android:textStyle="bold">
+
+                    </TextView>
+
+                    <EditText
+                        android:id="@+id/pasajeroDestino"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/distform"
+                        android:layout_weight="3"
+                        android:padding="16dp"
+                        android:textColor="@color/white"
+                        android:textSize="18dp"
+                        app:backgroundTint="@color/white">
+
+
+                    </EditText>
+
+
+
+                </LinearLayout>
+                //1
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="25dp"
+                    android:layout_marginRight="25dp"
+                    android:orientation="horizontal"
+                    android:weightSum="4">
+
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/distform"
+                        android:layout_marginRight="15dp"
+                        android:layout_weight="1"
+                        android:fontFamily="monospace"
+                        android:gravity="right"
+                        android:padding="16dp"
+                        android:text=" Recibo : "
+                        android:textColor="@color/white"
+                        android:textSize="14dp"
+                        android:textStyle="bold">
+
+                    </TextView>
+
+                    <EditText
+                        android:id="@+id/pasajeroN"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/distform"
+                        android:layout_weight="3"
+                        android:padding="16dp"
+                        android:textColor="@color/white"
+                        android:textSize="18dp"
+                        app:backgroundTint="@color/white"></EditText>
+                </LinearLayout>
+
+                <LinearLayout
+                    android:gravity="right"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+                    <Button
+                        android:layout_marginRight="10dp"
+                        android:layout_marginTop="10dp"
+                        android:id="@+id/btnAddPasajero"
+                        android:layout_width="75dp"
+                        android:layout_height="75dp"
+                        android:background="@drawable/ic_add_circle"
+                        android:textColor="@color/white" />
+
+                </LinearLayout>
+
+
+            </LinearLayout>
+            //
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+
+                android:layout_marginBottom="10dp"
+                android:text="Lista de Pasajeros"
+                android:textColor="@color/login_form_details"
+                android:textSize="24dp"
+                android:textStyle="bold" />
+
+            <ScrollView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="25dp"
+                    android:layout_marginRight="25dp"
+                    android:orientation="vertical">
+
+                    <android.support.v7.widget.RecyclerView
+                        android:id="@+id/recyclerViewPasajero"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content" />
+                </LinearLayout>
+            </ScrollView>
+
+        </LinearLayout>
+
+
+
+
+
+    </android.support.v7.widget.CardView>
+
+
+
+
 </LinearLayout>
