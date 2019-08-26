@@ -24,7 +24,6 @@ import static com.cudpast.rivertourapp.SQLite.Utils.CREATE_TABLA_VEHICULO;
 public class MySqliteDB extends SQLiteOpenHelper {
 
     public static final String TAG = MySqliteDB.class.getSimpleName();
-
     private static final String DATABASE_NAME = "dbRiverTour";
     public static final int DATABASE_VERSION = 1;
     private SQLiteDatabase db;
