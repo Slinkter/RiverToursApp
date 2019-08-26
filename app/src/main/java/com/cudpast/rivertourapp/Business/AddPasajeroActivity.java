@@ -1,6 +1,7 @@
 package com.cudpast.rivertourapp.Business;
 
 import android.app.ProgressDialog;
+import android.content.Intent;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.support.v7.app.AppCompatActivity;
@@ -14,6 +15,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.cudpast.rivertourapp.Adapter.PasajeroAdapter;
+import com.cudpast.rivertourapp.MainActivity;
 import com.cudpast.rivertourapp.Model.Pasajero;
 import com.cudpast.rivertourapp.R;
 import com.cudpast.rivertourapp.SQLite.MySqliteDB;
@@ -93,13 +95,23 @@ public class AddPasajeroActivity extends AppCompatActivity {
         btn_SaveGuia.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Toast.makeText(AddPasajeroActivity.this, "BUTTON SAVE GUIA ", Toast.LENGTH_SHORT).show();
+                progressDialog.show();
+                Toast.makeText(AddPasajeroActivity.this, "Manifiesto Guardado", Toast.LENGTH_SHORT).show();
+                goToMain();
             }
         });
 
 
         progressDialog = new ProgressDialog(this);
-        progressDialog.setMessage("Please wait...");
+        progressDialog.setMessage("Espere por favor  ...");
+    }
+
+    private void goToMain() {
+        progressDialog.dismiss();
+        // Go to Main
+        Intent intent = new Intent(AddPasajeroActivity.this, MainActivity.class);
+        startActivity(intent);
+        finish();
     }
 
 

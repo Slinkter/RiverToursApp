@@ -26,6 +26,9 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onStart() {
         super.onStart();
+
+        //todo : Sincronizacion  de manifiesto sync = 0;
+
         //Verificar si esta logeado o no
         /*
         User userLogined = Common.user;
