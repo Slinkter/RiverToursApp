@@ -19,7 +19,7 @@ import com.cudpast.rivertourapp.SQLite.Utils;
 public class MainActivity extends AppCompatActivity {
 
     public static final String TAG = MainActivity.class.getSimpleName();
-    BroadcastReceiver broadcastReceiver;
+    private BroadcastReceiver broadcastReceiver;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -41,6 +41,7 @@ public class MainActivity extends AppCompatActivity {
         super.onStart();
         registerReceiver(broadcastReceiver, new IntentFilter(Utils.UI_UPDATE_BROADCAST));
 
+
     }
 
     @Override
@@ -49,10 +50,7 @@ public class MainActivity extends AppCompatActivity {
         unregisterReceiver(broadcastReceiver);
     }
 
-    //SYNC = 1
-    public void sync(){
 
-    }
 
 
     private void returnLoginActivity() {

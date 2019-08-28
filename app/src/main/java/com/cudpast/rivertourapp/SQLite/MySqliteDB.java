@@ -114,7 +114,16 @@ public class MySqliteDB extends SQLiteOpenHelper {
     }
 
     public Cursor getListPasajero(SQLiteDatabase database) {
-        String[] projection = {Utils.CAMPO_NOMBRE_PASAJERO, Utils.CAMPO_EDAD_PASAJERO, Utils.CAMPO_OCUPACION_PASAJERO, Utils.CAMPO_NACIONALIDAD_PASAJERO, Utils.CAMPO_NUMBOLETA_PASAJERO, Utils.CAMPO_DNI_PASAJERO, Utils.CAMPO_DESTINO_PASAJERO, Utils.CAMPO_GUIAID_PASAJERO};
+        String[] projection = {
+                Utils.CAMPO_NOMBRE_PASAJERO,
+                Utils.CAMPO_EDAD_PASAJERO,
+                Utils.CAMPO_OCUPACION_PASAJERO,
+                Utils.CAMPO_NACIONALIDAD_PASAJERO,
+                Utils.CAMPO_NUMBOLETA_PASAJERO,
+                Utils.CAMPO_DNI_PASAJERO,
+                Utils.CAMPO_DESTINO_PASAJERO,
+                Utils.CAMPO_GUIAID_PASAJERO
+        };
         return (database.query(Utils.TABLA_PASAJERO, projection, null, null, null, null, null));
     }
 

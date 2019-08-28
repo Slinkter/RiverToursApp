@@ -177,7 +177,7 @@ public class AddPasajeroActivity extends AppCompatActivity {
                     String destino = cursor.getString(cursor.getColumnIndex(Utils.CAMPO_DESTINO_PASAJERO));
                     mListPasajero.add(new Pasajero(nombre, edad, ocupacion, nacionalidad, numBoleta, dni, destino));
                 }
-                Log.e(TAG, "id : " + id + "\n" + "idguiaManifiesto : " + idguiaManifiesto);
+                Log.e(TAG, "id : " + id + " / " + "idguiaManifiesto : " + idguiaManifiesto);
             } catch (Exception e) {
                 e.printStackTrace();
             }

@@ -23,14 +23,13 @@ import retrofit2.Callback;
 import retrofit2.Response;
 
 public class NetworkMonitor extends BroadcastReceiver {
-
-    ApiInterface apiInterface;
     public static final String TAG = NetworkMonitor.class.getSimpleName();
+    private ApiInterface apiInterface;
 
-    // Sobre escribir método :
+
     @Override
     public void onReceive(Context context, Intent intent) {
-
+        Log.e(TAG, " BroadcastReceiver");
         if (checkNetworkConnection(context)) {
             //1.Obtener lista de Manifiesto
             MySqliteDB conn = new MySqliteDB(context);
@@ -39,17 +38,25 @@ public class NetworkMonitor extends BroadcastReceiver {
             //2.Recoger la lista de maniesto , si sync = 0  insertar remoto
             while (cursor.moveToNext()) {
                 int sync_status = cursor.getInt(cursor.getColumnIndex(Utils.CAMPO_SYNC_STATUS_MANIFIESTO));
+                Log.e(TAG, "SYNC_STATUS_OK_MANIFIESTO" + sync_status);
                 if (sync_status == Utils.SYNC_STATUS_OK_MANIFIESTO) {
                     //sync = 1;
                     Log.e(TAG, "SYNC_STATUS_OK_MANIFIESTO");
                 } else if (sync_status == Utils.SYNC_STATUS_FAILIDE_MANIFIESTO) {
                     // Obtener en cada fila si tiene sync = 0 ;
                     Log.e(TAG, "SYNC_STATUS_FAILIDE_MANIFIESTO");
-                    String idGuiaMani = "";
-                    String fechaMani = "";
-                    String destinoMani = "";
-                    String vehiculoMani = "";
-                    String choferMani = "";
+
+                    String idGuiaMani = cursor.getString(cursor.getColumnIndex(Utils.CAMPO_ID_GUIA));
+                    String fechaMani = cursor.getString(cursor.getColumnIndex(Utils.CAMPO_FECHA_MANIFIESTO));
+                    String destinoMani = cursor.getString(cursor.getColumnIndex(Utils.CAMPO_DESTINO_MANIFIESTO));
+                    String vehiculoMani = cursor.getString(cursor.getColumnIndex(Utils.CAMPO_VEHICULO_MANIFIESTO));
+                    String choferMani = cursor.getString(cursor.getColumnIndex(Utils.CAMPO_CHOFER_MANIFIESTO));
+
+
+                    //
+                    Log.e(TAG, "idGuiaMani : " + idGuiaMani);
+                    Log.e(TAG, "fechaMani : " + fechaMani);
+                    Log.e(TAG, "destinoMani : " + destinoMani);
                     //
                     Manifiesto manifiesto = new Manifiesto();
                     manifiesto.setIdGuiaMani(idGuiaMani);
@@ -62,12 +69,14 @@ public class NetworkMonitor extends BroadcastReceiver {
                     //
                 }
             }
+        } else {
+            Log.e(TAG, "ESTA SIN WIFI");
         }
     }
 
 
     private void saveManifiestoOnline(final Manifiesto manifiesto, final Context context, final MySqliteDB conn) {
-
+        Log.e(TAG, " saveManifiestoOnline");
         apiInterface = ApiService.getApiRetrofitConexion().create(ApiInterface.class);
         //3.Insertar Manifesto
         Call<Manifiesto> manifiestoOnline;
@@ -79,10 +88,13 @@ public class NetworkMonitor extends BroadcastReceiver {
                     Boolean success = response.body().getSuccess();
                     if (success) {
                         Log.e(TAG, "onResponse : Insert Manifiesto ");
-                        // obtener lista de pasajero de la guia  con el sync = 0 pasar su idGuia;
+                        conn.myUpdateManifiesto(manifiesto.getIdGuiaMani(), Utils.SYNC_STATUS_OK_MANIFIESTO, conn.getWritableDatabase());
+                        // Obtener lista de pasajero de la guia  con el sync = 0 pasar su idGuia;
                         ArrayList<Pasajero> mListPasajero = myGetListPasajeroByIdGuia(context, manifiesto.getIdGuiaMani());
                         for (int i = 0; i < mListPasajero.size(); i++) {
                             Call<Pasajero> pasajeroInsert;
+                            Log.e(TAG, "mListPasajero  size : " + mListPasajero.size());
+                            Log.e(TAG, " item  : " + i);
                             pasajeroInsert = apiInterface.insertPasajero(
                                     mListPasajero.get(i).getNombrePasajero(),
                                     mListPasajero.get(i).getApellidoPasajero(),
@@ -102,7 +114,7 @@ public class NetworkMonitor extends BroadcastReceiver {
                                         if (success) {
                                             // 5. Actualizar el sync = 1(falta)
                                             Log.e(TAG, "onResponse : Insert Pasajero ");
-                                            conn.myUpdateManifiesto(manifiesto.getIdGuiaMani(), Utils.SYNC_STATUS_OK_MANIFIESTO, conn.getWritableDatabase());
+
                                             context.sendBroadcast(new Intent(Utils.UI_UPDATE_BROADCAST));
                                         } else {
                                             Log.e(TAG, " onResponse : Insert no Pasajero ");
@@ -139,7 +151,7 @@ public class NetworkMonitor extends BroadcastReceiver {
 
         while (cursor.moveToNext()) {
             String idGuiaPasajero = cursor.getString(cursor.getColumnIndex(Utils.CAMPO_GUIAID_PASAJERO));
-            if (idGuiaPasajero == idGuia) {
+            if (idGuiaPasajero.equalsIgnoreCase(idGuia)) {
 
                 String nombre = cursor.getString(cursor.getColumnIndex(Utils.CAMPO_NOMBRE_PASAJERO));
                 String edad = cursor.getString(cursor.getColumnIndex(Utils.CAMPO_EDAD_PASAJERO));
@@ -157,62 +169,11 @@ public class NetworkMonitor extends BroadcastReceiver {
         return mLista;
     }
 
-
     public boolean checkNetworkConnection(Context context) {
         ConnectivityManager connectivityManager = (ConnectivityManager) context.getSystemService(Context.CONNECTIVITY_SERVICE);
         NetworkInfo networkInfo = connectivityManager.getActiveNetworkInfo();
         return (networkInfo != null && networkInfo.isConnected());
     }
-
-
-    // Revisar
-
-    /*
-    private Manifiesto getManifiestoById() {
-        //1.Conexion
-        MySqliteDB conn = new MySqliteDB(this);
-        //2.Escribir en la database
-        SQLiteDatabase db = conn.getWritableDatabase();
-        //3.Código
-        String sql = "select * from " + Utils.TABLA_MANIFIESTO + " where " + Utils.CAMPO_ID_GUIA + " = " + "'" + idguiaManifiesto + "'";
-        Log.e("getManifeisto() ", sql);
-        Cursor c = db.rawQuery(sql, null);
-        //
-        Manifiesto manifiesto = new Manifiesto();
-        if (c.moveToFirst()) {
-            do {
-                //
-                String CAMPO_ID_GUIA = c.getString(1);
-                String CAMPO_FECHA_MANIFIESTO = c.getString(2);
-                String CAMPO_DESTINO_MANIFIESTO = c.getString(3);
-                String CAMPO_VEHICULO_MANIFIESTO = c.getString(4);
-                String CAMPO_CHOFER_MANIFIESTO = c.getString(5);
-                int CAMPO_SYNC_STATUS_MANIFIESTO = c.getInt(6);
-                //
-                manifiesto.setIdGuiaMani(CAMPO_ID_GUIA);
-                manifiesto.setFechaMani(CAMPO_FECHA_MANIFIESTO);
-                manifiesto.setDestinoMani(CAMPO_DESTINO_MANIFIESTO);
-                manifiesto.setVehiculoMani(CAMPO_VEHICULO_MANIFIESTO);
-                manifiesto.setChoferMani(CAMPO_CHOFER_MANIFIESTO);
-                manifiesto.setSync_status(CAMPO_SYNC_STATUS_MANIFIESTO);
-                //
-                Log.e("getManifiestoById", "\n" +
-                        CAMPO_ID_GUIA + " \n" +
-                        CAMPO_FECHA_MANIFIESTO + " \n" +
-                        CAMPO_DESTINO_MANIFIESTO + " \n" +
-                        CAMPO_VEHICULO_MANIFIESTO + " \n" +
-                        CAMPO_CHOFER_MANIFIESTO + " \n" +
-                        CAMPO_SYNC_STATUS_MANIFIESTO + " \n");
-
-            } while (c.moveToNext());
-        }
-        c.close();
-        //5.Cerrar conexion
-        db.close();
-        return manifiesto;
-    }
-
-    */
 
 
 }
