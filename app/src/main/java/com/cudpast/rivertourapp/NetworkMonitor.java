@@ -1,4 +1,4 @@
-package com.cudpast.rivertourapp.Helper;
+package com.cudpast.rivertourapp;
 
 import android.content.BroadcastReceiver;
 import android.content.Context;
@@ -9,6 +9,8 @@ import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.util.Log;
 
+import com.cudpast.rivertourapp.Helper.ApiInterface;
+import com.cudpast.rivertourapp.Helper.ApiService;
 import com.cudpast.rivertourapp.Model.Manifiesto;
 import com.cudpast.rivertourapp.Model.Pasajero;
 import com.cudpast.rivertourapp.SQLite.MySqliteDB;
@@ -38,9 +40,11 @@ public class NetworkMonitor extends BroadcastReceiver {
             while (cursor.moveToNext()) {
                 int sync_status = cursor.getInt(cursor.getColumnIndex(Utils.CAMPO_SYNC_STATUS_MANIFIESTO));
                 if (sync_status == Utils.SYNC_STATUS_OK_MANIFIESTO) {
-                    Log.e("CURSOR", "el manifiesto esta sincronizado");
+                    //sync = 1;
+                    Log.e(TAG, "SYNC_STATUS_OK_MANIFIESTO");
                 } else if (sync_status == Utils.SYNC_STATUS_FAILIDE_MANIFIESTO) {
                     // Obtener en cada fila si tiene sync = 0 ;
+                    Log.e(TAG, "SYNC_STATUS_FAILIDE_MANIFIESTO");
                     String idGuiaMani = "";
                     String fechaMani = "";
                     String destinoMani = "";
@@ -75,7 +79,7 @@ public class NetworkMonitor extends BroadcastReceiver {
                     Boolean success = response.body().getSuccess();
                     if (success) {
                         Log.e(TAG, "onResponse : Insert Manifiesto ");
-                        // obtener listaa de pasajero de la guia  con el sync = 0 pasar su idGuia;
+                        // obtener lista de pasajero de la guia  con el sync = 0 pasar su idGuia;
                         ArrayList<Pasajero> mListPasajero = myGetListPasajeroByIdGuia(context, manifiesto.getIdGuiaMani());
                         for (int i = 0; i < mListPasajero.size(); i++) {
                             Call<Pasajero> pasajeroInsert;
@@ -112,7 +116,6 @@ public class NetworkMonitor extends BroadcastReceiver {
                                 }
                             });
                         }
-
                     }
                 }
             }
@@ -137,6 +140,7 @@ public class NetworkMonitor extends BroadcastReceiver {
         while (cursor.moveToNext()) {
             String idGuiaPasajero = cursor.getString(cursor.getColumnIndex(Utils.CAMPO_GUIAID_PASAJERO));
             if (idGuiaPasajero == idGuia) {
+
                 String nombre = cursor.getString(cursor.getColumnIndex(Utils.CAMPO_NOMBRE_PASAJERO));
                 String edad = cursor.getString(cursor.getColumnIndex(Utils.CAMPO_EDAD_PASAJERO));
                 String ocupacion = cursor.getString(cursor.getColumnIndex(Utils.CAMPO_OCUPACION_PASAJERO));
