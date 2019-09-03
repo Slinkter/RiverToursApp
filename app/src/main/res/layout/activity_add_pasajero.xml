@@ -48,7 +48,7 @@
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
 
-                    android:text="Guia Manifiesto"
+                    android:text="Guía Manifiesto"
 
                     android:fontFamily="@font/quattrocento_sans"
                     android:textColor="@color/white"

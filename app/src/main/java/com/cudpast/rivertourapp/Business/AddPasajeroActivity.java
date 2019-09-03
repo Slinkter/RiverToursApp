@@ -89,7 +89,7 @@ public class AddPasajeroActivity extends AppCompatActivity {
                 insertPasajero(new Pasajero(nombre, edad, ocupacion, nacionalidad, numBoleta, dni, destino));
                 //
                 clearTextPasajero();
-                clearHintPasajero();
+                //clearHintPasajero();
             }
         });
         btn_SaveGuia.setOnClickListener(new View.OnClickListener() {

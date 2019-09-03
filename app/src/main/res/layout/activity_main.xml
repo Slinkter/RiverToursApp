@@ -3,19 +3,20 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-
     android:background="#00B0FF"
     android:gravity="center"
     android:orientation="vertical"
     tools:context=".MainActivity">
 
     <LinearLayout
+
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="wrap_content"
         android:layout_marginLeft="25dp"
         android:layout_marginRight="25dp"
         android:gravity="center"
-        android:orientation="vertical">
+        android:orientation="vertical"
+        android:visibility="gone">
 
         <Button
             android:layout_width="350dp"
@@ -23,7 +24,7 @@
             android:layout_marginTop="15dp"
             android:layout_marginBottom="30dp"
             android:background="@drawable/bg_btn_white"
-            android:onClick="newManifiesto"
+
             android:text="Registar Manifiesto"
             android:textColor="@color/baseReleaseColor"
             android:textSize="20dp"
@@ -54,32 +55,184 @@
             android:layout_height="wrap_content"
             android:layout_marginBottom="30dp"
             android:background="@drawable/bg_btn_white"
-            android:onClick="reviewManifiesto"
+
             android:text="Lista de Manifiesto "
-            android:textColor="@color/baseReleaseColor"
-            android:visibility="gone" />
+            android:textColor="@color/baseReleaseColor" />
 
         <Button
             android:layout_width="350dp"
             android:layout_height="100dp"
             android:layout_marginBottom="30dp"
             android:background="@drawable/bg_btn_white"
-            android:onClick="reviewChofer"
+
             android:text="Lista de Chofer"
+            android:textColor="@color/baseReleaseColor"
             android:textSize="20dp"
-            android:textStyle="bold"
-            android:textColor="@color/baseReleaseColor" />
+            android:textStyle="bold" />
 
         <Button
             android:layout_width="350dp"
             android:layout_height="100dp"
             android:layout_marginBottom="30dp"
             android:background="@drawable/bg_btn_white"
-            android:onClick="reviewVehiculo"
+
             android:text="Lista de Vehiculos"
+            android:textColor="@color/baseReleaseColor"
             android:textSize="20dp"
-            android:textStyle="bold"
-            android:textColor="@color/baseReleaseColor" />
+            android:textStyle="bold" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="0dp"
+        android:clipToPadding="false"
+        android:gravity="center"
+        android:onClick="newManifiesto"
+        android:orientation="horizontal">
+
+        <android.support.v7.widget.CardView
+            android:layout_width="150dp"
+            android:layout_height="190dp"
+            android:layout_margin="10dp"
+            android:foreground="?android:attr/selectableItemBackground">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:gravity="center"
+                android:orientation="vertical">
+
+                <Button
+
+                    android:layout_width="64dp"
+                    android:layout_height="64dp"
+                    android:background="@drawable/ic_manifiesto"
+                    android:baselineAligned="false" />
+
+                <TextView
+
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="5dp"
+                    android:layout_marginTop="15dp"
+                    android:layout_marginRight="5dp"
+                    android:gravity="center"
+
+                    android:text="Registar Manifiesto">
+
+                </TextView>
+            </LinearLayout>
+        </android.support.v7.widget.CardView>
+
+        <android.support.v7.widget.CardView
+            android:layout_width="150dp"
+            android:layout_height="190dp"
+            android:layout_margin="10dp"
+            android:foreground="?android:attr/selectableItemBackground"
+
+            android:onClick="reviewManifiesto">
+
+            <LinearLayout
+
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:gravity="center"
+                android:orientation="vertical">
+
+                <Button
+
+                    android:layout_width="64dp"
+                    android:layout_height="64dp"
+                    android:background="@drawable/ic_view_manifiesto"
+                    android:baselineAligned="false" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="5dp"
+                    android:layout_marginTop="15dp"
+                    android:layout_marginRight="5dp"
+                    android:gravity="center"
+
+                    android:text="Lista de Manifiesto " />
+            </LinearLayout>
+        </android.support.v7.widget.CardView>
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="0dp"
+        android:clipToPadding="false"
+        android:gravity="center"
+        android:orientation="horizontal">
+
+        <android.support.v7.widget.CardView
+            android:layout_width="150dp"
+            android:layout_height="190dp"
+            android:layout_margin="10dp"
+            android:foreground="?android:attr/selectableItemBackground"
+            android:onClick="reviewChofer">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:gravity="center"
+                android:orientation="vertical">
+
+                <Button
+
+                    android:layout_width="64dp"
+                    android:layout_height="64dp"
+                    android:background="@drawable/ic_driver"
+                    android:baselineAligned="false" />
+
+                <TextView
+
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="5dp"
+                    android:layout_marginTop="15dp"
+                    android:layout_marginRight="5dp"
+                    android:gravity="center"
+
+                    android:text="Lista de Chofer" />
+            </LinearLayout>
+        </android.support.v7.widget.CardView>
+
+        <android.support.v7.widget.CardView
+
+            android:layout_width="150dp"
+            android:layout_height="190dp"
+            android:layout_margin="10dp"
+            android:foreground="?android:attr/selectableItemBackground"
+            android:onClick="reviewVehiculo">
+
+            <LinearLayout
+
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:gravity="center"
+                android:orientation="vertical">
+
+                <Button
+
+                    android:layout_width="64dp"
+                    android:layout_height="64dp"
+                    android:background="@drawable/ic_bus"
+                    android:baselineAligned="false" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="5dp"
+                    android:layout_marginTop="15dp"
+                    android:layout_marginRight="5dp"
+                    android:gravity="center"
+                    android:text="Lista de Vehiculos" />
+            </LinearLayout>
+        </android.support.v7.widget.CardView>
     </LinearLayout>
 
 
