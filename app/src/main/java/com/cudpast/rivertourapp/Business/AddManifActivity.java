@@ -37,7 +37,6 @@ import java.util.Calendar;
 public class AddManifActivity extends AppCompatActivity {
 
     public static final String TAG = AddManifActivity.class.getSimpleName();
-
     private TextView tv_nombreVehiculo, tv_matriculaVehiculo, tv_marcaVehiculo, tv_breveteChofer;
     private EditText et_guiaGuia, et_guiaFecha, et_guiaDestino;
     private Button btnSaveGuia;

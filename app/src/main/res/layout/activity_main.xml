@@ -4,7 +4,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
 
-    android:background="@drawable/background_1"
+    android:background="#00B0FF"
     android:gravity="center"
     android:orientation="vertical"
     tools:context=".MainActivity">
@@ -18,14 +18,16 @@
         android:orientation="vertical">
 
         <Button
-            android:layout_width="250dp"
-            android:layout_height="wrap_content"
+            android:layout_width="350dp"
+            android:layout_height="100dp"
             android:layout_marginTop="15dp"
             android:layout_marginBottom="30dp"
             android:background="@drawable/bg_btn_white"
             android:onClick="newManifiesto"
             android:text="Registar Manifiesto"
-            android:textColor="@color/baseReleaseColor" />
+            android:textColor="@color/baseReleaseColor"
+            android:textSize="20dp"
+            android:textStyle="bold" />
 
         <Button
             android:layout_width="250dp"
@@ -38,8 +40,8 @@
             android:visibility="gone" />
 
         <Button
-            android:layout_width="250dp"
-            android:layout_height="wrap_content"
+            android:layout_width="350dp"
+            android:layout_height="100dp"
             android:layout_marginBottom="30dp"
             android:background="@drawable/bg_btn_white"
             android:onClick="newVehiculo"
@@ -54,24 +56,29 @@
             android:background="@drawable/bg_btn_white"
             android:onClick="reviewManifiesto"
             android:text="Lista de Manifiesto "
-            android:textColor="@color/baseReleaseColor" />
+            android:textColor="@color/baseReleaseColor"
+            android:visibility="gone" />
 
         <Button
-            android:layout_width="250dp"
-            android:layout_height="wrap_content"
+            android:layout_width="350dp"
+            android:layout_height="100dp"
             android:layout_marginBottom="30dp"
             android:background="@drawable/bg_btn_white"
             android:onClick="reviewChofer"
             android:text="Lista de Chofer"
+            android:textSize="20dp"
+            android:textStyle="bold"
             android:textColor="@color/baseReleaseColor" />
 
         <Button
-            android:layout_width="250dp"
-            android:layout_height="wrap_content"
+            android:layout_width="350dp"
+            android:layout_height="100dp"
             android:layout_marginBottom="30dp"
             android:background="@drawable/bg_btn_white"
             android:onClick="reviewVehiculo"
             android:text="Lista de Vehiculos"
+            android:textSize="20dp"
+            android:textStyle="bold"
             android:textColor="@color/baseReleaseColor" />
     </LinearLayout>
 

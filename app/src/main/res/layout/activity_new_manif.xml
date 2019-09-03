@@ -5,43 +5,52 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@drawable/bg_01"
-    android:gravity="center"
-    android:orientation="vertical"
     tools:context=".Business.AddManifActivity">
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center"
+        android:layout_height="match_parent"
         android:gravity="center"
         android:orientation="vertical">
 
-        <de.hdodenhof.circleimageview.CircleImageView
-            android:id="@+id/icon"
-            android:layout_width="110dp"
-            android:layout_height="110dp"
-            android:layout_margin="5dp"
-            android:layout_marginTop="30dp"
-            android:contentDescription="logo"
-            android:src="@drawable/rivertourlogo" />
-
-
-        <TextView
-            android:layout_width="wrap_content"
+        <LinearLayout
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Nuevo Manifiesto de Pasajero"
-            android:textColor="@color/login_form_details"
-            android:textSize="20dp"
-            android:textStyle="bold" />
+            android:gravity="center">
 
-        //Modulo 1
+            <de.hdodenhof.circleimageview.CircleImageView
+                android:id="@+id/icon"
+                android:layout_width="180dp"
+                android:layout_height="180dp"
+                android:layout_margin="5dp"
+                android:layout_marginTop="30dp"
+                android:contentDescription="logo"
+                android:src="@drawable/rivertourlogo" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:orientation="vertical">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/quattrocento_sans"
+                android:text="Nuevo Manifiesto "
+                android:textColor="@color/white"
+                android:textSize="28dp"
+                android:textStyle="bold" />
+
+        </LinearLayout>
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical">
 
-            // row 0
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -59,11 +68,12 @@
                     android:layout_marginEnd="8dp"
                     android:layout_weight="1"
                     android:background="@drawable/et_bg"
-                    android:hint="Guia"
+                    android:hint="Guía"
                     android:inputType="text"
-                    android:padding="16dp"
+                    android:padding="18dp"
                     android:textColor="@color/white"
-                    android:textColorHint="@color/login_form_details" />
+                    android:textColorHint="@color/login_form_details"
+                    android:textSize="18dp" />
 
                 <EditText
                     android:id="@+id/et_guiaFecha"
@@ -79,7 +89,8 @@
                     android:inputType="date"
                     android:padding="16dp"
                     android:textColor="@color/white"
-                    android:textColorHint="@color/login_form_details" />
+                    android:textColorHint="@color/login_form_details"
+                    android:textSize="18dp" />
 
                 <EditText
                     android:id="@+id/et_guiaDestino"
@@ -92,21 +103,27 @@
                     android:inputType="text"
                     android:padding="16dp"
                     android:textColor="@color/white"
-                    android:textColorHint="@color/login_form_details" />
+                    android:textColorHint="@color/login_form_details"
+                    android:textSize="18dp" />
 
             </LinearLayout>
 
-            // row 1
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="25dp"
-                android:layout_marginTop="20sp"
-                android:text="Seleccion Vehiculo"
-                android:textColor="@color/white"
-                android:textSize="24dp"
-                android:textStyle="bold" />
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="25dp"
+                    android:layout_marginTop="20sp"
+
+                    android:text="Seleccione Vehículo"
+                    android:fontFamily="@font/quattrocento_sans"
+                    android:textColor="@color/white"
+                    android:textSize="20dp"
+                    android:textStyle="bold" />
+            </LinearLayout>
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -132,7 +149,6 @@
 
 
             </LinearLayout>
-            // row 2
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -153,7 +169,8 @@
                     android:inputType="text"
                     android:padding="16dp"
                     android:textColor="@color/white"
-                    android:textColorHint="@color/login_form_details" />
+                    android:textColorHint="@color/login_form_details"
+                    android:textSize="18dp" />
 
                 <TextView
                     android:id="@+id/tv_nombreVehiculo"
@@ -168,7 +185,8 @@
                     android:inputType="text"
                     android:padding="16dp"
                     android:textColor="@color/white"
-                    android:textColorHint="@color/login_form_details" />
+                    android:textColorHint="@color/login_form_details"
+                    android:textSize="18dp" />
 
                 <TextView
                     android:id="@+id/tv_matriculaVehiculo"
@@ -181,21 +199,28 @@
                     android:inputType="text"
                     android:padding="16dp"
                     android:textColor="@color/white"
-                    android:textColorHint="@color/login_form_details" />
+                    android:textColorHint="@color/login_form_details"
+                    android:textSize="18dp" />
 
 
             </LinearLayout>
-            // row 3
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="25dp"
-                android:layout_marginTop="20sp"
-                android:text="Seleccione Chofer"
-                android:textColor="@color/white"
-                android:textSize="24dp"
-                android:textStyle="bold" />
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="25dp"
+                    android:layout_marginTop="20sp"
+                    android:fontFamily="@font/quattrocento_sans"
+                    android:text="Seleccione Chofer"
+                    android:textColor="@color/white"
+                    android:textSize="20dp"
+                    android:textStyle="bold" />
+            </LinearLayout>
+
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -204,7 +229,6 @@
                 android:layout_marginRight="25dp"
                 android:orientation="horizontal"
                 android:weightSum="3">
-
 
                 <Spinner
                     android:id="@+id/guiaChofer1"
@@ -230,11 +254,12 @@
                     android:inputType="text"
                     android:padding="16dp"
                     android:textColor="@color/white"
-                    android:textColorHint="@color/login_form_details" />
+                    android:textColorHint="@color/login_form_details"
+                    android:textSize="18dp" />
 
 
             </LinearLayout>
-            // row 4
+
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -272,7 +297,6 @@
                     android:textColorHint="@color/login_form_details" />
 
             </LinearLayout>
-            // row 5
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -285,8 +309,8 @@
 
             </LinearLayout>
 
-        </LinearLayout>
 
+        </LinearLayout>
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -319,11 +343,7 @@
                 android:textStyle="bold" />
         </LinearLayout>
 
+
     </LinearLayout>
-
-
-
-
-
 
 </LinearLayout>

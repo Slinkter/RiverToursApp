@@ -10,7 +10,7 @@
 
     <android.support.v7.widget.CardView
        android:layout_margin="15dp"
-        app:cardBackgroundColor="#C4D30808"
+        app:cardBackgroundColor="#00B0FF"
         app:cardCornerRadius="25dp"
         android:layout_width="match_parent"
 
@@ -47,10 +47,12 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
-                    android:fontFamily="monospace"
+
                     android:text="Guia Manifiesto"
-                    android:textColor="@color/login_form_details"
-                    android:textSize="24dp"
+
+                    android:fontFamily="@font/quattrocento_sans"
+                    android:textColor="@color/white"
+                    android:textSize="28dp"
                     android:textStyle="bold" />
 
                 <android.support.v7.widget.CardView
@@ -97,7 +99,8 @@
                         android:layout_marginTop="@dimen/distform"
                         android:layout_marginRight="15dp"
                         android:layout_weight="1"
-                        android:fontFamily="monospace"
+                        android:fontFamily="@font/quattrocento_sans"
+
                         android:gravity="right"
                         android:padding="16dp"
                         android:text="Nombre : "
@@ -135,7 +138,7 @@
                         android:layout_marginTop="@dimen/distform"
                         android:layout_marginRight="15dp"
                         android:layout_weight="1"
-                        android:fontFamily="monospace"
+                        android:fontFamily="@font/quattrocento_sans"
                         android:gravity="right"
                         android:padding="16dp"
                         android:text="Edad : "
@@ -175,7 +178,7 @@
                         android:layout_marginTop="@dimen/distform"
                         android:layout_marginRight="15dp"
                         android:layout_weight="1"
-                        android:fontFamily="monospace"
+                        android:fontFamily="@font/quattrocento_sans"
                         android:gravity="right"
                         android:padding="16dp"
                         android:text="Ocupación : "
@@ -214,7 +217,7 @@
                         android:layout_marginTop="@dimen/distform"
                         android:layout_marginRight="15dp"
                         android:layout_weight="1"
-                        android:fontFamily="monospace"
+                        android:fontFamily="@font/quattrocento_sans"
                         android:gravity="right"
                         android:padding="16dp"
                         android:text="Nacionalidad : "
@@ -253,7 +256,7 @@
                         android:layout_marginTop="@dimen/distform"
                         android:layout_marginRight="15dp"
                         android:layout_weight="1"
-                        android:fontFamily="monospace"
+                        android:fontFamily="@font/quattrocento_sans"
                         android:gravity="right"
                         android:padding="16dp"
                         android:text="DNI : "
@@ -298,7 +301,7 @@
                         android:layout_marginTop="@dimen/distform"
                         android:layout_marginRight="15dp"
                         android:layout_weight="1"
-                        android:fontFamily="monospace"
+                        android:fontFamily="@font/quattrocento_sans"
                         android:gravity="right"
                         android:inputType="number"
                         android:padding="16dp"
@@ -342,7 +345,7 @@
                         android:layout_marginTop="@dimen/distform"
                         android:layout_marginRight="15dp"
                         android:layout_weight="1"
-                        android:fontFamily="monospace"
+                        android:fontFamily="@font/quattrocento_sans"
                         android:gravity="right"
                         android:padding="16dp"
                         android:text=" Recibo : "
@@ -359,6 +362,7 @@
                         android:layout_marginTop="@dimen/distform"
                         android:layout_weight="3"
                         android:padding="16dp"
+                        android:fontFamily="@font/quattrocento_sans"
                         android:textColor="@color/white"
                         android:textSize="@dimen/textSizeGuia"
                         app:backgroundTint="@color/white"></EditText>
@@ -385,10 +389,11 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:fontFamily="monospace"
+                android:fontFamily="@font/quattrocento_sans"
                 android:layout_marginBottom="10dp"
+
                 android:text="Lista de Pasajeros"
-                android:textColor="@color/login_form_details"
+                android:textColor="@color/white"
                 android:textSize="24dp"
                 android:textStyle="bold" />
 

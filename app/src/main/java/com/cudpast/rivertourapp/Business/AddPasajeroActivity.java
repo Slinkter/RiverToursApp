@@ -106,14 +106,25 @@ public class AddPasajeroActivity extends AppCompatActivity {
         progressDialog.setMessage("Espere por favor  ...");
     }
 
-    private void goToMain() {
-        progressDialog.dismiss();
-        // Go to Main
-        Intent intent = new Intent(AddPasajeroActivity.this, MainActivity.class);
-        startActivity(intent);
-        finish();
-    }
 
+    private void buildCreateRecyclerPasajero() {
+        // rv_Pasajero
+        mListPasajero = new ArrayList<>();
+        pAdapter = new PasajeroAdapter(mListPasajero);
+        rv_layoutManager = new LinearLayoutManager(this);
+        rv_Pasajero = findViewById(R.id.recyclerViewPasajero);
+        rv_Pasajero.setHasFixedSize(true);
+        rv_Pasajero.setLayoutManager(rv_layoutManager);
+        rv_Pasajero.setAdapter(pAdapter);
+        //
+        pAdapter.setOnItemClickListener(new PasajeroAdapter.OnItemClickListener() {
+            @Override
+            public void onDeleteClick(int position) {
+                removePasajero(position);
+            }
+        });
+
+    }
 
     private void clearTextPasajero() {
         pasajeroNombre.setText("");
@@ -136,25 +147,6 @@ public class AddPasajeroActivity extends AppCompatActivity {
             pasajeroDNI.setHint("dni");
             pasajeroDestino.setHint("destino ");
         }
-    }
-
-    private void buildCreateRecyclerPasajero() {
-        // rv_Pasajero
-        mListPasajero = new ArrayList<>();
-        pAdapter = new PasajeroAdapter(mListPasajero);
-        rv_layoutManager = new LinearLayoutManager(this);
-        rv_Pasajero = findViewById(R.id.recyclerViewPasajero);
-        rv_Pasajero.setHasFixedSize(true);
-        rv_Pasajero.setLayoutManager(rv_layoutManager);
-        rv_Pasajero.setAdapter(pAdapter);
-        //
-        pAdapter.setOnItemClickListener(new PasajeroAdapter.OnItemClickListener() {
-            @Override
-            public void onDeleteClick(int position) {
-                removePasajero(position);
-            }
-        });
-
     }
 
     private void loadListPasajero() {
@@ -221,12 +213,13 @@ public class AddPasajeroActivity extends AppCompatActivity {
         //6.
         loadListPasajero();
     }
-    private void insertPasajero2(Pasajero pasajero){
+
+    private void insertPasajero2(Pasajero pasajero) {
         // Insetar no funciono
 
         MySqliteDB mySqliteDB = new MySqliteDB(this);
         SQLiteDatabase db = mySqliteDB.getWritableDatabase();
-        mySqliteDB.mySaveToLocalDBPasajero(pasajero,  db);
+        mySqliteDB.mySaveToLocalDBPasajero(pasajero, db);
         loadListPasajero();
         mySqliteDB.close();
         //
@@ -245,12 +238,20 @@ public class AddPasajeroActivity extends AppCompatActivity {
         //2.Escribir en la database
         SQLiteDatabase db = conn.getWritableDatabase();
         //3.Sentencia
-        String sql = "DELETE FROM " + Utils.TABLA_PASAJERO + " WHERE " + Utils.CAMPO_DNI_PASAJERO + " = '" + dni + "'" + " AND "  + Utils.CAMPO_GUIAID_PASAJERO + "='" + idguiaManifiesto + "'";
+        String sql = "DELETE FROM " + Utils.TABLA_PASAJERO + " WHERE " + Utils.CAMPO_DNI_PASAJERO + " = '" + dni + "'" + " AND " + Utils.CAMPO_GUIAID_PASAJERO + "='" + idguiaManifiesto + "'";
         db.execSQL(sql);
         //4.Ejecutar SQL
         db.execSQL(sql);
         loadListPasajero();
         //5.Cerrar conexion
         db.close();
+    }
+
+    private void goToMain() {
+        progressDialog.dismiss();
+        // Go to Main
+        Intent intent = new Intent(AddPasajeroActivity.this, MainActivity.class);
+        startActivity(intent);
+        finish();
     }
 }
