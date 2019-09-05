@@ -90,8 +90,15 @@ public class AddPasajeroActivity extends AppCompatActivity {
                 //
                 clearTextPasajero();
                 //clearHintPasajero();
+                btn_SaveGuia.setVisibility(View.VISIBLE);
             }
         });
+
+        if (mListPasajero.size() > 1) {
+            btn_SaveGuia.setVisibility(View.VISIBLE);
+        }else {
+            btn_SaveGuia.setVisibility(View.INVISIBLE);
+        }
         btn_SaveGuia.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -178,6 +185,15 @@ public class AddPasajeroActivity extends AppCompatActivity {
         pAdapter.notifyDataSetChanged();
         cursor.close();
         mySqliteDB.close();
+
+
+        if (mListPasajero.size() > 1) {
+            btn_SaveGuia.setVisibility(View.VISIBLE);
+        }else {
+            btn_SaveGuia.setVisibility(View.INVISIBLE);
+        }
+
+
     }
 
     private void insertPasajero(Pasajero pasajero) {

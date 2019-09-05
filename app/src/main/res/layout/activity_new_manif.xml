@@ -1,15 +1,17 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:layout_gravity="center"
     android:background="@drawable/bg_01"
     tools:context=".Business.AddManifActivity">
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:layout_gravity="center"
         android:gravity="center"
         android:orientation="vertical">
 
@@ -118,8 +120,8 @@
                     android:layout_marginLeft="25dp"
                     android:layout_marginTop="20sp"
 
-                    android:text="Seleccione Vehículo"
                     android:fontFamily="@font/quattrocento_sans"
+                    android:text="Seleccione Vehículo"
                     android:textColor="@color/white"
                     android:textSize="20dp"
                     android:textStyle="bold" />
@@ -346,4 +348,4 @@
 
     </LinearLayout>
 
-</LinearLayout>
+</ScrollView>
