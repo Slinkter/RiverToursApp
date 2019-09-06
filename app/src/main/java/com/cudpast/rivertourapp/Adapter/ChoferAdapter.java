@@ -24,7 +24,7 @@ public class ChoferAdapter extends RecyclerView.Adapter<ChoferAdapter.CustomView
     @NonNull
     @Override
     public CustomViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int i) {
-        View itemView = LayoutInflater.from(parent.getContext()).inflate(R.layout.chofer_list, parent, false);
+        View itemView = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_chofer, parent, false);
         return new CustomViewHolder(itemView);
     }
 

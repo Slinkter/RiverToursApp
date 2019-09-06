@@ -29,7 +29,7 @@ public class PasajeroAdapter extends RecyclerView.Adapter<PasajeroAdapter.Custom
     @NonNull
     @Override
     public CustomViewHolderPasajero onCreateViewHolder(@NonNull ViewGroup parent, int i) {
-        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.pasajero_list, parent, false);
+        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_pasajero, parent, false);
         CustomViewHolderPasajero myVH = new CustomViewHolderPasajero(view, mItemListener);
         return myVH;
     }
@@ -61,7 +61,7 @@ public class PasajeroAdapter extends RecyclerView.Adapter<PasajeroAdapter.Custom
                 tv_dniPasajero,
                 tv_destinoPasajero;
 
-        ImageView mEdit, mDelete;
+        ImageView mDelete;
 
         public CustomViewHolderPasajero(@NonNull final View itemView, final OnItemClickListener listener) {
             super(itemView);
@@ -82,23 +82,17 @@ public class PasajeroAdapter extends RecyclerView.Adapter<PasajeroAdapter.Custom
                     if (listener != null) {
                         int position = getAdapterPosition();
                         Log.e(TAG, " " + position);
-                        Toast.makeText(itemView.getContext(), "delete " + (position + 1), Toast.LENGTH_SHORT).show();
+                        Toast.makeText(itemView.getContext(), "Pasajero Eliminado " + (position + 1), Toast.LENGTH_SHORT).show();
                         if (position != RecyclerView.NO_POSITION) {
                             listener.onDeleteClick(position);
                         }
                     }
                 }
             });
-
-
         }
     }
 
-
     public interface OnItemClickListener {
-
-
-
         void onDeleteClick(int position);
     }
 

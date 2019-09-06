@@ -8,12 +8,15 @@ public class Manifiesto {
     @Expose
     @SerializedName("idGuiaMani")
     private String idGuiaMani;
+
     @Expose
     @SerializedName("fechaMani")
     private String fechaMani;
+
     @Expose
     @SerializedName("destinoMani")
     private String destinoMani;
+
     @Expose
     @SerializedName("vehiculoMani")
     private String vehiculoMani;
@@ -75,7 +78,13 @@ public class Manifiesto {
         this.choferMani = choferMani;
     }
 
-    //
+    public int getSync_status() {
+        return sync_status;
+    }
+
+    public void setSync_status(int sync_status) {
+        this.sync_status = sync_status;
+    }
 
     public Boolean getSuccess() {
         return success;
@@ -91,14 +100,5 @@ public class Manifiesto {
 
     public void setMessage(String message) {
         this.message = message;
-    }
-
-
-    public int getSync_status() {
-        return sync_status;
-    }
-
-    public void setSync_status(int sync_status) {
-        this.sync_status = sync_status;
     }
 }

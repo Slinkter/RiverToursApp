@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.v7.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_margin="15dp"
+    android:background="@color/white"
+    android:clickable="true"
+    app:cardCornerRadius="15dp"
+    app:cardElevation="5dp"
+    app:cardUseCompatPadding="true">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_margin="15dp"
+        android:orientation="horizontal"
+        android:weightSum="3">
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginLeft="10dp"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:orientation="vertical">
+
+
+            <TextView
+                android:id="@+id/it_idGuia"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="idGuiaMAni" />
+
+            <TextView
+                android:id="@+id/it_fechaGuia"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="fechaMani" />
+
+            <TextView
+                android:id="@+id/it_destinoMani"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="destinoMani" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginLeft="10dp"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/it_vehiculoMani"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="vehiculoMani" />
+
+            <TextView
+                android:id="@+id/it_choferMAni"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="choferMAni" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginLeft="10dp"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:orientation="vertical">
+
+            <ImageView
+                android:id="@+id/it_buttonListPasajero"
+                android:layout_width="match_parent"
+                android:layout_height="70dp"
+                android:src="@drawable/ic_list_pasajero" />
+        </LinearLayout>
+    </LinearLayout>
+</android.support.v7.widget.CardView>

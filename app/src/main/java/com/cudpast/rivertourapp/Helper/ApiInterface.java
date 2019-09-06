@@ -17,7 +17,7 @@ import retrofit2.http.Query;
 public interface ApiInterface {
 
     @Headers("Content-Type: application/json")
-
+    //0.
     @GET("saveUserRiver.php")
     Call<User> insertUser(
             @Query("firstname") String firstname,
@@ -31,7 +31,7 @@ public interface ApiInterface {
     @GET("loadUserRiver.php")
     Call<User> getUser(@Query("uid") String uid);
 
-    ////////////////////////////
+    //1.
     @GET("saveChoferRiver.php")
     Call<Chofer> insertChofer(
             @Query("nameChofer") String nameChofer,
@@ -43,8 +43,7 @@ public interface ApiInterface {
     @GET("loadChoferRiver.php")
     Call<List<Chofer>> getListChofer();
 
-    ///////////////////////////
-
+    //2.
     @GET("saveVehiculoRiver.php")
     Call<Vehiculo> insertVehiculo(
             @Query("nombreVehiculo") String nombreVehiculo,
@@ -55,7 +54,7 @@ public interface ApiInterface {
     @GET("loadVehiculoRiver.php")
     Call<List<Vehiculo>> getListVehiculo();
 
-    ///////////////////////////
+    //3.
     @GET("saveManifiestoRiver.php")
     Call<Manifiesto> insertManifiesto(
             @Query("idGuiaMani") String idGuiaMani,
@@ -64,7 +63,10 @@ public interface ApiInterface {
             @Query("vehiculoMani") String vehiculoMani,
             @Query("choferMani") String choferMani);
 
-    ///////////////////////////
+    @GET("loadManifiestoRiver.php")
+    Call<List<Manifiesto>> getListManifiesto();
+
+    //4.
     @GET("savePasajeroRiver.php")
     Call<Pasajero> insertPasajero(
             @Query("nombrePasajero") String nombrePasajero,
@@ -76,6 +78,8 @@ public interface ApiInterface {
             @Query("dniPasajero") String dniPasajero,
             @Query("destinoPasajero") String destinoPasajero,
             @Query("idGuia") String idGuia);
+
+
 
 
 }
