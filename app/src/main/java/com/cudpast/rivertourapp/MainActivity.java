@@ -27,7 +27,6 @@ public class MainActivity extends AppCompatActivity {
         getSupportActionBar().hide();
         setContentView(R.layout.activity_main);
 
-
         broadcastReceiver = new BroadcastReceiver() {
             @Override
             public void onReceive(Context context, Intent intent) {
@@ -40,8 +39,6 @@ public class MainActivity extends AppCompatActivity {
     protected void onStart() {
         super.onStart();
         registerReceiver(broadcastReceiver, new IntentFilter(Utils.UI_UPDATE_BROADCAST));
-
-
     }
 
     @Override
@@ -49,9 +46,6 @@ public class MainActivity extends AppCompatActivity {
         super.onPause();
         unregisterReceiver(broadcastReceiver);
     }
-
-
-
 
     private void returnLoginActivity() {
         Intent intent = new Intent(MainActivity.this, LoginActivity.class);

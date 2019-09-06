@@ -21,7 +21,7 @@ public class MySqliteDB extends SQLiteOpenHelper {
     // variables
     public static final String TAG = MySqliteDB.class.getSimpleName();
     private static final String DATABASE_NAME = "dbRiverTour";
-    public static final int DATABASE_VERSION = 1;
+    public static final int DATABASE_VERSION = 2;
     private SQLiteDatabase db;
     // Variables constante
     public static final String drop_vehiculo = "DROP TABLE IF EXISTS " + Utils.TABLA_VEHICULO;

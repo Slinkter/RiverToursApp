@@ -23,9 +23,9 @@ import retrofit2.Callback;
 import retrofit2.Response;
 
 public class NetworkMonitor extends BroadcastReceiver {
+
     public static final String TAG = NetworkMonitor.class.getSimpleName();
     private ApiInterface apiInterface;
-
 
     @Override
     public void onReceive(Context context, Intent intent) {
