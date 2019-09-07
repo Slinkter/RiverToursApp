@@ -69,6 +69,7 @@ public class ConsultManiActivity extends AppCompatActivity {
                     List<Manifiesto> mListaManifiesto = response.body();
                     Log.e(TAG, " " + mListaManifiesto);
                     destroyDBManifiesto();
+                    /*
                     for (int i = 0; i < mListaManifiesto.size(); i++) {
                         //
                         String idguia = mListaManifiesto.get(i).getIdGuiaMani();
@@ -89,6 +90,8 @@ public class ConsultManiActivity extends AppCompatActivity {
 
                         Log.e(TAG, cadena);
                     }
+
+                     */
                     recyclerView = findViewById(R.id.recycler_view_manifiesto);
                     mAdapter = new ManifiestoAdapter(mListaManifiesto);
                     mAdapter.notifyDataSetChanged();
@@ -147,8 +150,6 @@ public class ConsultManiActivity extends AppCompatActivity {
         cursor.close();
         mySqliteDB.close();
         Toast.makeText(this, "Esta offline", Toast.LENGTH_SHORT).show();
-
-
     }
 
 
@@ -156,7 +157,8 @@ public class ConsultManiActivity extends AppCompatActivity {
         try {
             MySqliteDB conn = new MySqliteDB(this);
             SQLiteDatabase db = conn.getWritableDatabase();
-            String insert = "INSERT INTO " + Utils.TABLA_MANIFIESTO + "( " +
+            String insert = "INSERT INTO " +
+                    Utils.TABLA_MANIFIESTO + "( " +
                     Utils.CAMPO_ID_GUIA + "," +
                     Utils.CAMPO_FECHA_MANIFIESTO + "," +
                     Utils.CAMPO_DESTINO_MANIFIESTO + "," +
@@ -173,7 +175,7 @@ public class ConsultManiActivity extends AppCompatActivity {
             Log.e(TAG, " INSERT : updateListManifiesto \n " + insert);
         } catch (Exception e) {
             e.printStackTrace();
-            Log.e(TAG, "ERROR :  updateListManifiesto");
+            Log.e(TAG, " ERROR :  updateListManifiesto");
         }
     }
 

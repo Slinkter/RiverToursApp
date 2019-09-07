@@ -36,7 +36,7 @@ public class ManifiestoAdapter extends RecyclerView.Adapter<ManifiestoAdapter.cu
             destinoMani = itemView.findViewById(R.id.it_destinoMani);
             vehiculoMani = itemView.findViewById(R.id.it_vehiculoMani);
             choferMani = itemView.findViewById(R.id.it_choferMAni);
-      //      btn_listPasajero = itemView.findViewById(R.id.it_buttonListPasajero);
+            //      btn_listPasajero = itemView.findViewById(R.id.it_buttonListPasajero);
 
         }
     }
@@ -48,17 +48,17 @@ public class ManifiestoAdapter extends RecyclerView.Adapter<ManifiestoAdapter.cu
         View itemView = LayoutInflater
                 .from(viewGroup.getContext())
                 .inflate(R.layout.item_manifiesto, viewGroup, false);
-        return  new customRVManifiesto(itemView);
+        return new customRVManifiesto(itemView);
     }
 
     @Override
     public void onBindViewHolder(@NonNull customRVManifiesto holder, int position) {
         Manifiesto manifiesto = mListManifiesto.get(position);
-        holder.idGuiaMani.setText("Guia :" + manifiesto.getIdGuiaMani());
+        holder.idGuiaMani.setText("Guía :" + manifiesto.getIdGuiaMani());
         holder.fechaMani.setText("Fecha :" + manifiesto.getFechaMani());
         holder.destinoMani.setText("Destino : " + manifiesto.getDestinoMani());
-        holder.vehiculoMani.setText("Vehiculo " + manifiesto.getVehiculoMani());
-        holder.choferMani.setText("Chofer " + manifiesto.getChoferMani());
+        holder.vehiculoMani.setText("Vehiculo : " + manifiesto.getVehiculoMani());
+        holder.choferMani.setText("Chofer : " + manifiesto.getChoferMani());
 
     }
 
