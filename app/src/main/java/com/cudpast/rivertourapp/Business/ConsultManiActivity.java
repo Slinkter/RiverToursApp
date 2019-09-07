@@ -56,7 +56,8 @@ public class ConsultManiActivity extends AppCompatActivity {
         pDialog.setCancelable(false);
         pDialog.show();
         mListOff = new ArrayList<Manifiesto>();
-        obtenerListaManifiestoOnline();
+        // obtenerListaManifiestoOnline();
+        loadListManifiestoOffline();
     }
 
     private void obtenerListaManifiestoOnline() {
@@ -117,6 +118,8 @@ public class ConsultManiActivity extends AppCompatActivity {
 
     private void loadListManifiestoOffline() {
         mListOff.clear();
+        Log.e(TAG, "loadListManifiestoOffline()  ");
+
         MySqliteDB mySqliteDB = new MySqliteDB(this);
         SQLiteDatabase db = mySqliteDB.getReadableDatabase();
         Cursor cursor = mySqliteDB.getListManifiesto(db);
@@ -129,12 +132,20 @@ public class ConsultManiActivity extends AppCompatActivity {
             String destinoMani = cursor.getString(cursor.getColumnIndex(Utils.CAMPO_DESTINO_MANIFIESTO));
             String vehiculoMani = cursor.getString(cursor.getColumnIndex(Utils.CAMPO_VEHICULO_MANIFIESTO));
             String choferMani = cursor.getString(cursor.getColumnIndex(Utils.CAMPO_CHOFER_MANIFIESTO));
+            int syncMani = cursor.getInt(cursor.getColumnIndex(Utils.CAMPO_SYNC_STATUS_MANIFIESTO));
             //
             manifiesto.setIdGuiaMani(idguia);
             manifiesto.setFechaMani(fechaMani);
             manifiesto.setDestinoMani(destinoMani);
             manifiesto.setVehiculoMani(vehiculoMani);
             manifiesto.setChoferMani(choferMani);
+            manifiesto.setSync_status(syncMani);
+            Log.e(TAG, "idguia : " + idguia);
+            Log.e(TAG, "fechaMani : " + fechaMani);
+            Log.e(TAG, "destinoMani : " + destinoMani);
+            Log.e(TAG, "vehiculoMani : " + vehiculoMani);
+            Log.e(TAG, "choferMani : " + choferMani);
+            Log.e(TAG, "syncMani : " + syncMani);
             //
             mListOff.add(manifiesto);
         }
@@ -150,6 +161,7 @@ public class ConsultManiActivity extends AppCompatActivity {
         cursor.close();
         mySqliteDB.close();
         Toast.makeText(this, "Esta offline", Toast.LENGTH_SHORT).show();
+        pDialog.dismiss();
     }
 
 

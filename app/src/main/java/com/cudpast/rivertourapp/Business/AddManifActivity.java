@@ -82,7 +82,6 @@ public class AddManifActivity extends AppCompatActivity {
         //2
         spinnerChofer1 = findViewById(R.id.guiaChofer1);
         tv_breveteChofer = findViewById(R.id.tv_breveteChofer);
-
         //submitForm
         animation = AnimationUtils.loadAnimation(getApplicationContext(), R.anim.shake);
         vibrator = (Vibrator) getSystemService(Context.VIBRATOR_SERVICE);
@@ -180,7 +179,6 @@ public class AddManifActivity extends AppCompatActivity {
             public void onClick(View v) {
 
                 if (submitForm()) {
-
                     saveManifiestoLocal();
                 }
             }
@@ -203,10 +201,10 @@ public class AddManifActivity extends AppCompatActivity {
         manifiesto.setVehiculoMani(guiaVehiculo);
         manifiesto.setChoferMani(guiaChoferBrevete);
         //
-        AddManifiesto(manifiesto);
+        AddManifiestoOffline(manifiesto);
     }
 
-    private void AddManifiesto(Manifiesto manifiesto) {
+    private void AddManifiestoOffline(Manifiesto manifiesto) {
 
         // Insetar Manfiesto
         MySqliteDB mySqliteDB = new MySqliteDB(this);

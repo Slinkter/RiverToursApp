@@ -41,7 +41,6 @@ public class AddPasajeroActivity extends AppCompatActivity {
     TextView tv_guiaidmanifiestopasajero;
     //
     ProgressDialog progressDialog;
-
     //
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -107,12 +106,9 @@ public class AddPasajeroActivity extends AppCompatActivity {
                 goToMain();
             }
         });
-
-
         progressDialog = new ProgressDialog(this);
         progressDialog.setMessage("Espere por favor  ...");
     }
-
 
     private void buildCreateRecyclerPasajero() {
         // rv_Pasajero
@@ -265,7 +261,6 @@ public class AddPasajeroActivity extends AppCompatActivity {
 
     private void goToMain() {
         progressDialog.dismiss();
-        // Go to Main
         Intent intent = new Intent(AddPasajeroActivity.this, MainActivity.class);
         startActivity(intent);
         finish();
