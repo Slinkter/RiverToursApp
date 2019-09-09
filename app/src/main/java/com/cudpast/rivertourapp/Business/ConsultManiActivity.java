@@ -106,6 +106,18 @@ public class ConsultManiActivity extends AppCompatActivity {
         recyclerView.setItemAnimator(new DefaultItemAnimator());
         recyclerView.setAdapter(mAdapter);
 
+        mAdapter.setOnItemClickListener(new ManifiestoAdapter.OnItemClickListener() {
+            @Override
+            public void onShowSync(int position) {
+                showsync(position);
+            }
+
+            @Override
+            public void onShowListManfiesto(int position) {
+                showlist(position);
+            }
+        });
+
         Toast.makeText(this, "Esta offline", Toast.LENGTH_SHORT).show();
         pDialog.dismiss();
 
@@ -113,6 +125,16 @@ public class ConsultManiActivity extends AppCompatActivity {
         mySqliteDB.close();
     }
 
+    private void showsync(int position) {
+
+        Toast.makeText(this, "es 1 " + position, Toast.LENGTH_SHORT).show();
+
+
+    }
+
+    private void showlist(int position) {
+        Toast.makeText(this, " lista de pasajero " + position, Toast.LENGTH_SHORT).show();
+    }
 
     private void updateListManifiesto(String idguia, String fechaMani, String destinoMani, String vehiculoMani, String choferMani) {
         try {

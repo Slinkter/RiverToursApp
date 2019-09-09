@@ -1,5 +1,6 @@
 package com.cudpast.rivertourapp.Adapter;
 
+import android.content.Intent;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
@@ -10,8 +11,10 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.cudpast.rivertourapp.Business.ListPasajeroActivity;
 import com.cudpast.rivertourapp.Model.Manifiesto;
 import com.cudpast.rivertourapp.R;
+import com.cudpast.rivertourapp.SQLite.Utils;
 
 import java.util.ArrayList;
 
@@ -27,53 +30,6 @@ public class ManifiestoAdapter extends RecyclerView.Adapter<ManifiestoAdapter.cu
         this.mListManifiesto = mListManifiesto;
     }
 
-    //.3 Clase RecyclerView
-    public class customRVManifiesto extends RecyclerView.ViewHolder {
-
-        TextView idGuiaMani, fechaMani, destinoMani, vehiculoMani, choferMani;
-        ImageView btn_listPasajero, btn_showSyncStatus;
-
-        public customRVManifiesto(@NonNull final View itemView, final OnItemClickListener listener) {
-            super(itemView);
-            idGuiaMani = itemView.findViewById(R.id.it_idGuia);
-            fechaMani = itemView.findViewById(R.id.it_fechaGuia);
-            destinoMani = itemView.findViewById(R.id.it_destinoMani);
-            vehiculoMani = itemView.findViewById(R.id.it_vehiculoMani);
-            choferMani = itemView.findViewById(R.id.it_choferMAni);
-            btn_showSyncStatus = itemView.findViewById(R.id.it_btn_showSyncStatus);
-            btn_listPasajero = itemView.findViewById(R.id.it_btn_showListPasajero);
-
-            btn_showSyncStatus.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    if (listener != null) {
-                        int position = getAdapterPosition();
-                        Log.e(TAG, " " + position);
-                        Toast.makeText(itemView.getContext(), "Pasajero Eliminado " + (position + 1), Toast.LENGTH_SHORT).show();
-                        if (position != RecyclerView.NO_POSITION) {
-                            listener.onShowListManfiesto(position);
-                        }
-                    }
-                }
-            });
-
-            btn_listPasajero.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    if (listener != null) {
-                        int position = getAdapterPosition();
-                        Log.e(TAG, " " + position);
-                        Toast.makeText(itemView.getContext(), "Sync " + (position + 1), Toast.LENGTH_SHORT).show();
-                        if (position != RecyclerView.NO_POSITION) {
-                            listener.onShowSync(position);
-                        }
-                    }
-                }
-            });
-
-        }
-    }
-    //.
 
     @NonNull
     @Override
@@ -85,13 +41,44 @@ public class ManifiestoAdapter extends RecyclerView.Adapter<ManifiestoAdapter.cu
     }
 
     @Override
-    public void onBindViewHolder(@NonNull customRVManifiesto holder, int position) {
+    public void onBindViewHolder(@NonNull final customRVManifiesto holder, int position) {
         Manifiesto manifiesto = mListManifiesto.get(position);
+        //
         holder.idGuiaMani.setText("Guía :" + manifiesto.getIdGuiaMani());
         holder.fechaMani.setText("Fecha :" + manifiesto.getFechaMani());
         holder.destinoMani.setText("Destino : " + manifiesto.getDestinoMani());
         holder.vehiculoMani.setText("Vehiculo : " + manifiesto.getVehiculoMani());
         holder.choferMani.setText("Chofer : " + manifiesto.getChoferMani());
+        //
+        int sync_status = mListManifiesto.get(position).getSync_status();
+        if (sync_status == Utils.SYNC_STATUS_OK_MANIFIESTO) {
+            holder.btn_showSyncStatus.setImageResource(R.drawable.ic_checked);
+            holder.btn_showSyncStatus.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Toast.makeText(holder.itemView.getContext(), " check ok ", Toast.LENGTH_SHORT).show();
+                }
+            });
+
+        } else {
+            holder.btn_showSyncStatus.setImageResource(R.drawable.ic_sync);
+            holder.btn_showSyncStatus.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Toast.makeText(holder.itemView.getContext(), " falta sync ", Toast.LENGTH_SHORT).show();
+                }
+            });
+
+        }
+        holder.btn_listPasajero.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent i = new Intent(holder.itemView.getContext(), ListPasajeroActivity.class);
+                holder.itemView.getContext().startActivity(i);
+            }
+        });
+
+
     }
 
     @Override
@@ -109,5 +96,53 @@ public class ManifiestoAdapter extends RecyclerView.Adapter<ManifiestoAdapter.cu
     public void setOnItemClickListener(OnItemClickListener listener) {
         mItemListener = listener;
     }
+
+
+    //.Clase Externa - RecyclerView
+    public class customRVManifiesto extends RecyclerView.ViewHolder {
+
+        TextView idGuiaMani, fechaMani, destinoMani, vehiculoMani, choferMani;
+        ImageView btn_listPasajero, btn_showSyncStatus;
+        View mView;
+
+        public customRVManifiesto(@NonNull final View itemView, final OnItemClickListener listener) {
+            super(itemView);
+            //
+            mView = itemView;
+            idGuiaMani = mView.findViewById(R.id.it_idGuia);
+            fechaMani = mView.findViewById(R.id.it_fechaGuia);
+            destinoMani = mView.findViewById(R.id.it_destinoMani);
+            vehiculoMani = mView.findViewById(R.id.it_vehiculoMani);
+            choferMani = mView.findViewById(R.id.it_choferMAni);
+            btn_showSyncStatus = mView.findViewById(R.id.it_btn_showSyncStatus);
+            btn_listPasajero = mView.findViewById(R.id.it_btn_showListPasajero);
+
+            btn_showSyncStatus.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    if (listener != null) {
+                        int position = getAdapterPosition();
+                        if (position != RecyclerView.NO_POSITION) {
+                            listener.onShowSync(position);
+                        }
+                    }
+                }
+            });
+
+            btn_listPasajero.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    if (listener != null) {
+                        int position = getAdapterPosition();
+                        if (position != RecyclerView.NO_POSITION) {
+                            listener.onShowListManfiesto(position);
+                        }
+                    }
+                }
+            });
+
+        }
+    }
+
 
 }

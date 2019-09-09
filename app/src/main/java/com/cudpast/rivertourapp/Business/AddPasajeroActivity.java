@@ -242,6 +242,7 @@ public class AddPasajeroActivity extends AppCompatActivity {
         String dni = mListPasajero.get(position).getDniPasajero();
         deletePasajero(dni);
         pAdapter.notifyItemRemoved(position);
+
     }
 
     private void deletePasajero(String dni) {
