@@ -4,186 +4,226 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#00B0FF"
     android:gravity="center"
     android:orientation="vertical"
     tools:context=".MainActivity">
 
-    <LinearLayout
 
+    <android.support.v7.widget.CardView
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="match_parent"
+        android:layout_margin="15dp"
+        android:clickable="true"
+        app:cardBackgroundColor="@color/color_celeste"
+        app:cardCornerRadius="15dp"
 
-        <TextView
-            android:layout_marginBottom="30dp"
+        app:cardElevation="3dp"
+        app:cardUseCompatPadding="true">
+
+        <LinearLayout
+
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:fontFamily="@font/quattrocento_sans"
+            android:layout_height="match_parent"
             android:gravity="center"
-            android:text="Seleccione"
-            android:textColor="@color/white"
-            android:textSize="28dp"
-            android:textStyle="bold" />
-
-    </LinearLayout>
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_margin="0dp"
-        android:clipToPadding="false"
-        android:gravity="center"
-        android:onClick="newManifiesto"
-        android:orientation="horizontal">
-
-        <android.support.v7.widget.CardView
-            android:layout_width="210dp"
-            android:layout_height="260dp"
-            android:layout_margin="5dp"
-            android:foreground="?android:attr/selectableItemBackground"
-            app:cardCornerRadius="20dp">
+            android:orientation="vertical">
 
             <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:gravity="center"
-                android:orientation="vertical">
 
-                <Button
-                    android:layout_width="94dp"
-                    android:layout_height="94dp"
-                    android:background="@drawable/ic_manifiesto"
-                    android:baselineAligned="false"
-                    android:onClick="newManifiesto" />
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
 
                 <TextView
-                    android:layout_width="wrap_content"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginLeft="5dp"
-                    android:layout_marginTop="15dp"
-                    android:layout_marginRight="5dp"
+                    android:layout_marginBottom="30dp"
+                    android:fontFamily="@font/quattrocento_sans"
                     android:gravity="center"
-                    android:text="Registar \nManifiesto"
-                    android:textSize="18dp"
-                    android:textStyle="bold">
-
-                </TextView>
-            </LinearLayout>
-        </android.support.v7.widget.CardView>
-
-        <android.support.v7.widget.CardView
-            android:layout_width="210dp"
-            android:layout_height="260dp"
-            android:layout_margin="5dp"
-            android:foreground="?android:attr/selectableItemBackground"
-            android:onClick="reviewManifiesto"
-            app:cardCornerRadius="20dp">
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:gravity="center"
-                android:orientation="vertical">
-
-                <Button
-                    android:layout_width="94dp"
-                    android:layout_height="94dp"
-                    android:background="@drawable/ic_view_manifiesto"
-                    android:baselineAligned="false"
-                    android:onClick="reviewManifiesto" />
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginLeft="5dp"
-                    android:layout_marginTop="15dp"
-                    android:layout_marginRight="5dp"
-                    android:gravity="center"
-                    android:text="Lista \nde Manifiesto "
-                    android:textSize="18dp"
+                    android:text="Seleccione"
+                    android:textColor="@color/white"
+                    android:textSize="28dp"
                     android:textStyle="bold" />
+
             </LinearLayout>
-        </android.support.v7.widget.CardView>
-    </LinearLayout>
 
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_margin="0dp"
-        android:clipToPadding="false"
-        android:gravity="center"
-        android:orientation="horizontal">
-
-        <android.support.v7.widget.CardView
-            android:layout_width="210dp"
-            android:layout_height="260dp"
-            android:layout_margin="5dp"
-            android:foreground="?android:attr/selectableItemBackground"
-            android:onClick="reviewChofer"
-            app:cardCornerRadius="20dp">
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:gravity="center"
-                android:orientation="vertical">
-
-                <Button
-                    android:layout_width="94dp"
-                    android:layout_height="94dp"
-                    android:background="@drawable/ic_driver"
-                    android:baselineAligned="false"
-                    android:onClick="reviewChofer" />
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginLeft="5dp"
-                    android:layout_marginTop="15dp"
-                    android:layout_marginRight="5dp"
-                    android:gravity="center"
-                    android:text="Lista \nde Choferes"
-                    android:textSize="18dp"
-                    android:textStyle="bold" />
-            </LinearLayout>
-        </android.support.v7.widget.CardView>
-
-        <android.support.v7.widget.CardView
-
-            android:layout_width="210dp"
-            android:layout_height="260dp"
-            android:layout_margin="5dp"
-            android:foreground="?android:attr/selectableItemBackground"
-            android:onClick="reviewVehiculo"
-            app:cardCornerRadius="20dp">
 
             <LinearLayout
 
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="0dp"
+                android:clipToPadding="false"
                 android:gravity="center"
-                android:orientation="vertical">
+                android:onClick="newManifiesto"
+                android:orientation="horizontal">
 
-                <Button
-                    android:layout_width="94dp"
-                    android:layout_height="94dp"
-                    android:background="@drawable/ic_bus"
-                    android:baselineAligned="false"
-                    android:onClick="reviewVehiculo" />
+                <android.support.v7.widget.CardView
+                    android:layout_width="210dp"
+                    android:layout_height="260dp"
+                    android:layout_margin="15dp"
+                    android:foreground="?android:attr/selectableItemBackground"
+                    app:cardCornerRadius="25dp"
+                    app:cardElevation="5dp"
+                    app:cardUseCompatPadding="true">
 
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginLeft="5dp"
-                    android:layout_marginTop="15dp"
-                    android:layout_marginRight="5dp"
-                    android:gravity="center"
-                    android:text="Lista \nde Vehiculos"
-                    android:textSize="18dp"
-                    android:textStyle="bold" />
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:gravity="center"
+                        android:orientation="vertical">
+
+                        <Button
+                            android:layout_width="94dp"
+                            android:layout_height="94dp"
+                            android:background="@drawable/ic_manifiesto"
+                            android:baselineAligned="false"
+                            android:onClick="newManifiesto" />
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="5dp"
+                            android:layout_marginTop="15dp"
+                            android:layout_marginRight="5dp"
+                            android:fontFamily="@font/quattrocento_sans"
+                            android:gravity="center"
+                            android:text="Registar \nManifiesto"
+                            android:textSize="18dp"
+                            android:textStyle="bold">
+
+                        </TextView>
+                    </LinearLayout>
+                </android.support.v7.widget.CardView>
+
+                <android.support.v7.widget.CardView
+                    android:layout_width="210dp"
+                    android:layout_height="260dp"
+                    android:layout_margin="15dp"
+                    android:background="@color/green"
+                    android:foreground="?android:attr/selectableItemBackground"
+                    android:onClick="reviewManifiesto"
+                    app:cardCornerRadius="25dp"
+                    app:cardElevation="5dp"
+                    app:cardUseCompatPadding="true">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:gravity="center"
+                        android:orientation="vertical">
+
+                        <Button
+                            android:layout_width="94dp"
+                            android:layout_height="94dp"
+                            android:background="@drawable/ic_view_manifiesto"
+                            android:baselineAligned="false"
+                            android:onClick="reviewManifiesto" />
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="5dp"
+                            android:layout_marginTop="15dp"
+                            android:layout_marginRight="5dp"
+                            android:fontFamily="@font/quattrocento_sans"
+                            android:gravity="center"
+                            android:text="Visualizar\nManifiesto "
+                            android:textSize="18dp"
+                            android:textStyle="bold" />
+                    </LinearLayout>
+                </android.support.v7.widget.CardView>
             </LinearLayout>
-        </android.support.v7.widget.CardView>
-    </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="0dp"
+                android:clipToPadding="false"
+                android:gravity="center"
+                android:orientation="horizontal">
+
+                <android.support.v7.widget.CardView
+                    android:layout_width="210dp"
+                    android:layout_height="260dp"
+                    android:layout_margin="15dp"
+                    android:background="@color/green"
+                    android:foreground="?android:attr/selectableItemBackground"
+                    android:onClick="reviewChofer"
+                    app:cardCornerRadius="25dp"
+
+                    app:cardElevation="5dp"
+                    app:cardUseCompatPadding="true">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:gravity="center"
+                        android:orientation="vertical">
+
+                        <Button
+                            android:layout_width="94dp"
+                            android:layout_height="94dp"
+                            android:background="@drawable/ic_driver"
+                            android:baselineAligned="false"
+                            android:onClick="reviewChofer" />
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="5dp"
+                            android:layout_marginTop="15dp"
+                            android:layout_marginRight="5dp"
+                            android:fontFamily="@font/quattrocento_sans"
+                            android:gravity="center"
+                            android:text="Visualizar\n Choferes"
+                            android:textSize="18dp"
+                            android:textStyle="bold" />
+                    </LinearLayout>
+                </android.support.v7.widget.CardView>
+
+                <android.support.v7.widget.CardView
+
+                    android:layout_width="210dp"
+                    android:layout_height="260dp"
+                    android:layout_margin="15dp"
+                    android:background="@color/green"
+                    android:foreground="?android:attr/selectableItemBackground"
+                    android:onClick="reviewVehiculo"
+                    app:cardCornerRadius="25dp"
+                    app:cardElevation="5dp"
+                    app:cardUseCompatPadding="true">
+
+                    <LinearLayout
+
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:gravity="center"
+                        android:orientation="vertical">
+
+                        <Button
+                            android:layout_width="94dp"
+                            android:layout_height="94dp"
+                            android:background="@drawable/ic_bus"
+                            android:baselineAligned="false"
+                            android:onClick="reviewVehiculo" />
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="5dp"
+                            android:layout_marginTop="15dp"
+                            android:layout_marginRight="5dp"
+                            android:fontFamily="@font/quattrocento_sans"
+                            android:gravity="center"
+                            android:text="Visualizar\nVehiculos"
+                            android:textSize="18dp"
+                            android:textStyle="bold" />
+                    </LinearLayout>
+                </android.support.v7.widget.CardView>
+            </LinearLayout>
+        </LinearLayout>
+
+
+    </android.support.v7.widget.CardView>
 
 
 </LinearLayout>

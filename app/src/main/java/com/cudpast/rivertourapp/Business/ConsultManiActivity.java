@@ -49,7 +49,8 @@ public class ConsultManiActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        getSupportActionBar().hide();
+        getSupportActionBar().setTitle("Regresar");
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         setContentView(R.layout.activity_consult_mani);
         pDialog = new ProgressDialog(ConsultManiActivity.this);
         pDialog.setMessage("Loading Data.. Please wait...");
