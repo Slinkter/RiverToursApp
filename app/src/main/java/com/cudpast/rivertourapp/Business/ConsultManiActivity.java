@@ -39,11 +39,12 @@ import static com.cudpast.rivertourapp.SQLite.Utils.CAMPO_PLACA_VEHICULO;
 public class ConsultManiActivity extends AppCompatActivity {
 
     public static final String TAG = ConsultManiActivity.class.getSimpleName();
+    //
     private ProgressDialog pDialog;
     private RecyclerView recyclerView;
     private ManifiestoAdapter mAdapter;
     private ApiInterface apiInterface;
-    List<Manifiesto> mListOff;
+    ArrayList<Manifiesto> mListOff;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -55,76 +56,20 @@ public class ConsultManiActivity extends AppCompatActivity {
         pDialog.setIndeterminate(false);
         pDialog.setCancelable(false);
         pDialog.show();
-        mListOff = new ArrayList<Manifiesto>();
-        // obtenerListaManifiestoOnline();
+        mListOff = new ArrayList<>();
         loadListManifiestoOffline();
-    }
-
-    private void obtenerListaManifiestoOnline() {
-        apiInterface = ApiService.getApiRetrofitConexion().create(ApiInterface.class);
-        Call<List<Manifiesto>> getListaManifiesto = apiInterface.getListManifiesto();
-        getListaManifiesto.enqueue(new Callback<List<Manifiesto>>() {
-            @Override
-            public void onResponse(Call<List<Manifiesto>> call, Response<List<Manifiesto>> response) {
-                if (response.isSuccessful() && response.body() != null) {
-                    List<Manifiesto> mListaManifiesto = response.body();
-                    Log.e(TAG, " " + mListaManifiesto);
-                    destroyDBManifiesto();
-                    /*
-                    for (int i = 0; i < mListaManifiesto.size(); i++) {
-                        //
-                        String idguia = mListaManifiesto.get(i).getIdGuiaMani();
-                        String fechaMani = mListaManifiesto.get(i).getFechaMani();
-                        String destinoMani = mListaManifiesto.get(i).getDestinoMani();
-                        String vehiculoMani = mListaManifiesto.get(i).getVehiculoMani();
-                        String choferMani = mListaManifiesto.get(i).getChoferMani();
-                        //
-                        updateListManifiesto(idguia, fechaMani, destinoMani, vehiculoMani, choferMani);
-                        //
-                        String cadena = "\n" + "==== Manifiesto Nº " + i + " ====== " + "\n"
-                                + " idguia : " + idguia + "\n"
-                                + " fechaMani : " + fechaMani + "\n"
-                                + " destinoMani : " + destinoMani + "\n"
-                                + " vehiculoMani : " + vehiculoMani + "\n"
-                                + " choferMani : " + choferMani + "\n"
-                                + "  " + "" + "\n";
-
-                        Log.e(TAG, cadena);
-                    }
-
-                     */
-                    recyclerView = findViewById(R.id.recycler_view_manifiesto);
-                    mAdapter = new ManifiestoAdapter(mListaManifiesto);
-                    mAdapter.notifyDataSetChanged();
-
-                    RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(getApplicationContext());
-                    recyclerView.setLayoutManager(layoutManager);
-                    recyclerView.setItemAnimator(new DefaultItemAnimator());
-                    recyclerView.setAdapter(mAdapter);
-                    pDialog.dismiss();
-                } else {
-                    loadListManifiestoOffline();
-                    pDialog.dismiss();
-                }
-            }
-
-            @Override
-            public void onFailure(Call<List<Manifiesto>> call, Throwable t) {
-                loadListManifiestoOffline();
-                pDialog.dismiss();
-            }
-        });
     }
 
     private void loadListManifiestoOffline() {
         mListOff.clear();
-        Log.e(TAG, "loadListManifiestoOffline()  ");
-
+        Log.e(TAG, " loadListManifiestoOffline() ");
+        //
         MySqliteDB mySqliteDB = new MySqliteDB(this);
         SQLiteDatabase db = mySqliteDB.getReadableDatabase();
         Cursor cursor = mySqliteDB.getListManifiesto(db);
-
+        //
         while (cursor.moveToNext()) {
+
             Manifiesto manifiesto = new Manifiesto();
             //
             String idguia = cursor.getString(cursor.getColumnIndex(Utils.CAMPO_ID_GUIA));
@@ -140,6 +85,7 @@ public class ConsultManiActivity extends AppCompatActivity {
             manifiesto.setVehiculoMani(vehiculoMani);
             manifiesto.setChoferMani(choferMani);
             manifiesto.setSync_status(syncMani);
+            Log.e(TAG, "================================");
             Log.e(TAG, "idguia : " + idguia);
             Log.e(TAG, "fechaMani : " + fechaMani);
             Log.e(TAG, "destinoMani : " + destinoMani);
@@ -150,18 +96,21 @@ public class ConsultManiActivity extends AppCompatActivity {
             mListOff.add(manifiesto);
         }
 
-        recyclerView = findViewById(R.id.recycler_view_manifiesto);
+        //
         mAdapter = new ManifiestoAdapter(mListOff);
         mAdapter.notifyDataSetChanged();
-
+        //
         RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(getApplicationContext());
+        recyclerView = findViewById(R.id.recycler_view_manifiesto);
         recyclerView.setLayoutManager(layoutManager);
         recyclerView.setItemAnimator(new DefaultItemAnimator());
         recyclerView.setAdapter(mAdapter);
-        cursor.close();
-        mySqliteDB.close();
+
         Toast.makeText(this, "Esta offline", Toast.LENGTH_SHORT).show();
         pDialog.dismiss();
+
+        cursor.close();
+        mySqliteDB.close();
     }
 
 

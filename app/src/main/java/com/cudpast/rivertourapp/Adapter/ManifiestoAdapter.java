@@ -13,24 +13,24 @@ import android.widget.Toast;
 import com.cudpast.rivertourapp.Model.Manifiesto;
 import com.cudpast.rivertourapp.R;
 
-import java.util.List;
+import java.util.ArrayList;
+
 
 public class ManifiestoAdapter extends RecyclerView.Adapter<ManifiestoAdapter.customRVManifiesto> {
     public static final String TAG = ManifiestoAdapter.class.getSimpleName();
-    //.Variable
-    private List<Manifiesto> mListManifiesto;
+    //.1 Variable
+    private ArrayList<Manifiesto> mListManifiesto;
     private OnItemClickListener mItemListener;
 
-    //.Constructor
-    public ManifiestoAdapter(List<Manifiesto> mListManifiesto) {
+    //.2 Constructor
+    public ManifiestoAdapter(ArrayList<Manifiesto> mListManifiesto) {
         this.mListManifiesto = mListManifiesto;
     }
 
-    //.Clase RecyclerView
+    //.3 Clase RecyclerView
     public class customRVManifiesto extends RecyclerView.ViewHolder {
 
         TextView idGuiaMani, fechaMani, destinoMani, vehiculoMani, choferMani;
-
         ImageView btn_listPasajero, btn_showSyncStatus;
 
         public customRVManifiesto(@NonNull final View itemView, final OnItemClickListener listener) {
