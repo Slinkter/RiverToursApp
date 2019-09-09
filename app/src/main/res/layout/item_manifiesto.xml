@@ -16,7 +16,7 @@
         android:layout_gravity="center"
         android:layout_margin="15dp"
         android:orientation="horizontal"
-        android:weightSum="3">
+        android:weightSum="4">
 
         <LinearLayout
             android:layout_width="0dp"
@@ -85,10 +85,26 @@
             android:orientation="vertical">
 
             <ImageView
-                android:id="@+id/it_buttonListPasajero"
+                android:id="@+id/it_btn_showSyncStatus"
                 android:layout_width="match_parent"
                 android:layout_height="70dp"
-                android:src="@drawable/ic_list_pasajero" />
+                android:src="@drawable/ic_sync" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginLeft="10dp"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:orientation="vertical">
+
+            <ImageView
+                android:id="@+id/it_btn_showListPasajero"
+                android:layout_width="match_parent"
+                android:layout_height="70dp"
+                android:src="@drawable/ic_list" />
         </LinearLayout>
     </LinearLayout>
 </android.support.v7.widget.CardView>
