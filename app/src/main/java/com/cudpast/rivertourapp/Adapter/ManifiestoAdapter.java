@@ -42,7 +42,7 @@ public class ManifiestoAdapter extends RecyclerView.Adapter<ManifiestoAdapter.cu
 
     @Override
     public void onBindViewHolder(@NonNull final customRVManifiesto holder, int position) {
-        Manifiesto manifiesto = mListManifiesto.get(position);
+        final Manifiesto manifiesto = mListManifiesto.get(position);
         //
         holder.idGuiaMani.setText(manifiesto.getIdGuiaMani());
         holder.fechaMani.setText(manifiesto.getFechaMani());
@@ -72,6 +72,7 @@ public class ManifiestoAdapter extends RecyclerView.Adapter<ManifiestoAdapter.cu
             @Override
             public void onClick(View v) {
                 Intent i = new Intent(holder.itemView.getContext(), ListPasajeroActivity.class);
+                i.putExtra("idguiaManifiesto",manifiesto.getIdGuiaMani());
                 holder.itemView.getContext().startActivity(i);
             }
         });

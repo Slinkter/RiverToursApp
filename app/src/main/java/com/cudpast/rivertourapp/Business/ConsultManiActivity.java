@@ -127,10 +127,7 @@ public class ConsultManiActivity extends AppCompatActivity {
     }
 
     private void showsync(int position) {
-
         Toast.makeText(this, "es 1 " + position, Toast.LENGTH_SHORT).show();
-
-
     }
 
     private void showlist(int position) {

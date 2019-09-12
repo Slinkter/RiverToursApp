@@ -41,6 +41,7 @@ public class AddPasajeroActivity extends AppCompatActivity {
     TextView tv_guiaidmanifiestopasajero;
     //
     ProgressDialog progressDialog;
+
     //
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -50,7 +51,6 @@ public class AddPasajeroActivity extends AppCompatActivity {
         getSupportActionBar().hide();
         //
         buildCreateRecyclerPasajero();
-        //loadListPasajero();
         // Info de Manifiesto de la guia id
         if (getIntent() != null) {
             //se tiene el manifiesto
@@ -95,7 +95,7 @@ public class AddPasajeroActivity extends AppCompatActivity {
 
         if (mListPasajero.size() > 1) {
             btn_SaveGuia.setVisibility(View.VISIBLE);
-        }else {
+        } else {
             btn_SaveGuia.setVisibility(View.INVISIBLE);
         }
         btn_SaveGuia.setOnClickListener(new View.OnClickListener() {
@@ -181,15 +181,11 @@ public class AddPasajeroActivity extends AppCompatActivity {
         pAdapter.notifyDataSetChanged();
         cursor.close();
         mySqliteDB.close();
-
-
         if (mListPasajero.size() > 1) {
             btn_SaveGuia.setVisibility(View.VISIBLE);
-        }else {
+        } else {
             btn_SaveGuia.setVisibility(View.INVISIBLE);
         }
-
-
     }
 
     private void insertPasajero(Pasajero pasajero) {
