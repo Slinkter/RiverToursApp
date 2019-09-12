@@ -44,12 +44,12 @@ public class ManifiestoAdapter extends RecyclerView.Adapter<ManifiestoAdapter.cu
     public void onBindViewHolder(@NonNull final customRVManifiesto holder, int position) {
         Manifiesto manifiesto = mListManifiesto.get(position);
         //
-        holder.idGuiaMani.setText("Guía :" + manifiesto.getIdGuiaMani());
-        holder.fechaMani.setText("Fecha :" + manifiesto.getFechaMani());
-        holder.destinoMani.setText("Destino : " + manifiesto.getDestinoMani());
-        holder.vehiculoMani.setText("Vehiculo : " + manifiesto.getVehiculoMani());
-        holder.choferMani.setText("Chofer : " + manifiesto.getChoferMani());
-        //
+        holder.idGuiaMani.setText(manifiesto.getIdGuiaMani());
+        holder.fechaMani.setText(manifiesto.getFechaMani());
+        holder.destinoMani.setText(manifiesto.getDestinoMani());
+        holder.vehiculoMani.setText(manifiesto.getVehiculoMani());
+        holder.choferMani.setText(manifiesto.getChoferMani());
+
         int sync_status = mListManifiesto.get(position).getSync_status();
         if (sync_status == Utils.SYNC_STATUS_OK_MANIFIESTO) {
             holder.btn_showSyncStatus.setImageResource(R.drawable.ic_checked);
@@ -59,7 +59,6 @@ public class ManifiestoAdapter extends RecyclerView.Adapter<ManifiestoAdapter.cu
                     Toast.makeText(holder.itemView.getContext(), " check ok ", Toast.LENGTH_SHORT).show();
                 }
             });
-
         } else {
             holder.btn_showSyncStatus.setImageResource(R.drawable.ic_sync);
             holder.btn_showSyncStatus.setOnClickListener(new View.OnClickListener() {
@@ -68,7 +67,6 @@ public class ManifiestoAdapter extends RecyclerView.Adapter<ManifiestoAdapter.cu
                     Toast.makeText(holder.itemView.getContext(), " falta sync ", Toast.LENGTH_SHORT).show();
                 }
             });
-
         }
         holder.btn_listPasajero.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -77,8 +75,6 @@ public class ManifiestoAdapter extends RecyclerView.Adapter<ManifiestoAdapter.cu
                 holder.itemView.getContext().startActivity(i);
             }
         });
-
-
     }
 
     @Override

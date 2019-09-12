@@ -1,5 +1,6 @@
 package com.cudpast.rivertourapp;
 
+import android.app.ProgressDialog;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
@@ -20,6 +21,7 @@ public class MainActivity extends AppCompatActivity {
 
     public static final String TAG = MainActivity.class.getSimpleName();
     private BroadcastReceiver broadcastReceiver;
+    ProgressDialog progressDialog;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -33,6 +35,9 @@ public class MainActivity extends AppCompatActivity {
 
             }
         };
+
+        progressDialog = new ProgressDialog(this);
+        progressDialog.setMessage("Cargando datos...");
     }
 
     @Override
@@ -47,21 +52,36 @@ public class MainActivity extends AppCompatActivity {
         unregisterReceiver(broadcastReceiver);
     }
 
-    private void returnLoginActivity() {
-        Intent intent = new Intent(MainActivity.this, LoginActivity.class);
-        startActivity(intent);
-        finish();
-
-    }
-
-    private void loadInfoUser() {
-    }
-
 
     public void newManifiesto(View view) {
+        progressDialog.show();
         Intent intent = new Intent(MainActivity.this, AddManifActivity.class);
         startActivity(intent);
+        progressDialog.dismiss();
     }
+
+
+    public void reviewManifiesto(View view) {
+        progressDialog.show();
+        Intent intent = new Intent(MainActivity.this, ConsultManiActivity.class);
+        startActivity(intent);
+        progressDialog.dismiss();
+    }
+
+    public void reviewChofer(View view) {
+        progressDialog.show();
+        Intent intent = new Intent(MainActivity.this, ConsulChoferActivity.class);
+        startActivity(intent);
+        progressDialog.dismiss();
+    }
+
+    public void reviewVehiculo(View view) {
+        progressDialog.show();
+        Intent intent = new Intent(MainActivity.this, ConsulVehiculoActivity.class);
+        startActivity(intent);
+        progressDialog.dismiss();
+    }
+
 
     public void newChofer(View view) {
         Intent intent = new Intent(MainActivity.this, NewChoferActivity.class);
@@ -75,18 +95,15 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
-    public void reviewManifiesto(View view) {
-        Intent intent = new Intent(MainActivity.this, ConsultManiActivity.class);
+    private void returnLoginActivity() {
+        Intent intent = new Intent(MainActivity.this, LoginActivity.class);
         startActivity(intent);
+        finish();
+
     }
 
-    public void reviewChofer(View view) {
-        Intent intent = new Intent(MainActivity.this, ConsulChoferActivity.class);
-        startActivity(intent);
+    private void loadInfoUser() {
     }
 
-    public void reviewVehiculo(View view) {
-        Intent intent = new Intent(MainActivity.this, ConsulVehiculoActivity.class);
-        startActivity(intent);
-    }
+
 }

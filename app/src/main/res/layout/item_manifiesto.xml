@@ -5,16 +5,15 @@
     android:layout_height="wrap_content"
     android:layout_margin="15dp"
     android:background="@color/white"
-    android:clickable="true"
-    app:cardCornerRadius="15dp"
-    app:cardElevation="5dp"
+    app:cardCornerRadius="25dp"
+    app:cardElevation="8dp"
     app:cardUseCompatPadding="true">
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
-        android:layout_margin="15dp"
+        android:layout_margin="20dp"
         android:orientation="horizontal"
         android:weightSum="4">
 
@@ -27,24 +26,44 @@
             android:gravity="left"
             android:orientation="vertical">
 
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Guía : "
+                android:textSize="16dp"
+                android:textStyle="bold" />
 
             <TextView
                 android:id="@+id/it_idGuia"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="idGuiaMAni" />
+                android:text="" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Fecha : "
+                android:textSize="16dp"
+                android:textStyle="bold" />
 
             <TextView
                 android:id="@+id/it_fechaGuia"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="fechaMani" />
+                android:text="" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Destino : "
+                android:textSize="16dp"
+                android:textStyle="bold" />
 
             <TextView
                 android:id="@+id/it_destinoMani"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="destinoMani" />
+                android:text="" />
 
         </LinearLayout>
 
@@ -58,16 +77,36 @@
             android:orientation="vertical">
 
             <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Vehiculo : "
+                android:textSize="16dp"
+                android:textStyle="bold" />
+
+            <TextView
                 android:id="@+id/it_vehiculoMani"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="vehiculoMani" />
+                android:text="" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Chofer : "
+                android:textSize="16dp"
+                android:textStyle="bold" />
 
             <TextView
                 android:id="@+id/it_choferMAni"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="choferMAni" />
+                android:text="" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="16dp"
+                android:textStyle="bold" />
 
             <TextView
                 android:layout_width="wrap_content"
@@ -87,7 +126,7 @@
             <ImageView
                 android:id="@+id/it_btn_showSyncStatus"
                 android:layout_width="match_parent"
-                android:layout_height="70dp"
+                android:layout_height="95dp"
                 android:src="@drawable/ic_sync" />
         </LinearLayout>
 
@@ -103,7 +142,7 @@
             <ImageView
                 android:id="@+id/it_btn_showListPasajero"
                 android:layout_width="match_parent"
-                android:layout_height="70dp"
+                android:layout_height="95dp"
                 android:src="@drawable/ic_list" />
         </LinearLayout>
     </LinearLayout>

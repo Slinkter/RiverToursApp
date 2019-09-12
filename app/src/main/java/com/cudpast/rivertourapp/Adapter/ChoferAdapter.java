@@ -19,7 +19,6 @@ public class ChoferAdapter extends RecyclerView.Adapter<ChoferAdapter.CustomView
     public ChoferAdapter(List<Chofer> chofers) {
         this.mListChofers = chofers;
     }
-
     //
     @NonNull
     @Override
