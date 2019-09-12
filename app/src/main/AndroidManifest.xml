@@ -9,7 +9,9 @@
         android:roundIcon="@drawable/rivertourlogo"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".Business.ListPasajeroActivity"></activity>
+        <activity
+            android:screenOrientation="portrait"
+            android:name=".Business.ListPasajeroActivity"/>
         <activity
             android:name=".Business.AddPasajeroActivity"
             android:screenOrientation="portrait" />

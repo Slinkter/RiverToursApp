@@ -397,7 +397,6 @@
                 android:layout_height="wrap_content"
                 android:fontFamily="@font/quattrocento_sans"
                 android:layout_marginBottom="10dp"
-
                 android:text="Lista de Pasajeros"
                 android:textColor="@color/white"
                 android:textSize="24dp"

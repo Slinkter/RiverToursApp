@@ -1,0 +1,133 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.v7.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_margin="15dp"
+    android:background="@color/white"
+    android:clickable="true"
+    app:cardCornerRadius="15dp"
+    app:cardElevation="5dp"
+    app:cardUseCompatPadding="true">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_margin="15dp"
+        android:orientation="horizontal"
+        android:weightSum="4">
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginLeft="10dp"
+            android:layout_weight="0.5"
+            android:gravity="center"
+            android:orientation="vertical">
+
+            <ImageView
+                android:id="@+id/image_profile"
+                android:layout_width="match_parent"
+                android:layout_height="70dp"
+                android:src="@drawable/ic_account" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="10dp"
+            android:layout_weight="1.5"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/tv_nombrePasajero_guia"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="nombrePasajero"
+                android:textColor="@color/textColorGuiaPasajero" />
+
+            <TextView
+                android:id="@+id/tv_edadPasajero_guia"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="edadPasajero"
+                android:textColor="@color/textColorGuiaPasajero" />
+
+            <TextView
+                android:id="@+id/tv_ocupacionPasajero_guia"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="ocupacionPasajero"
+                android:textColor="@color/textColorGuiaPasajero" />
+
+            <TextView
+                android:id="@+id/tv_nacionalidadPasajero_guia"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="nacionalidadPasajero"
+                android:textColor="@color/textColorGuiaPasajero" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="10dp"
+            android:layout_weight="1"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/tv_numBoletaPasajero_guia"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="numBoletaPasajero"
+                android:textColor="@color/textColorGuiaPasajero" />
+
+            <TextView
+                android:id="@+id/tv_dniPasajero_guia"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="dniPasajero"
+                android:textColor="@color/textColorGuiaPasajero" />
+
+            <TextView
+                android:id="@+id/tv_destinoPasajero_guia"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="destinoPasajero"
+                android:textColor="@color/textColorGuiaPasajero" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginLeft="10dp"
+            android:layout_weight="0.3"
+            android:gravity="center"
+            android:orientation="vertical">
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginLeft="10dp"
+            android:layout_weight="0.7"
+            android:gravity="center"
+            android:orientation="vertical">
+
+            <ImageView
+                android:id="@+id/btn_delete_guia"
+                android:layout_width="match_parent"
+                android:layout_height="70dp"
+                android:src="@drawable/ic_delete" />
+
+        </LinearLayout>
+
+    </LinearLayout>
+</android.support.v7.widget.CardView>
