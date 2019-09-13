@@ -38,11 +38,13 @@ public class ConsulChoferActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        getSupportActionBar().hide();
+        getSupportActionBar().setTitle("   ");
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+
         setContentView(R.layout.activity_consul_chofer);
         //.
         pDialog = new ProgressDialog(ConsulChoferActivity.this);
-        pDialog.setMessage("Loading Data.. Please wait...");
+        pDialog.setMessage("Descargnado datos...");
         pDialog.setIndeterminate(false);
         pDialog.setCancelable(false);
         pDialog.show();
