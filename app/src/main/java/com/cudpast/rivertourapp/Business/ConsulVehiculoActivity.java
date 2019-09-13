@@ -34,7 +34,6 @@ import static com.cudpast.rivertourapp.SQLite.Utils.CAMPO_PLACA_VEHICULO;
 public class ConsulVehiculoActivity extends AppCompatActivity {
 
     public static final String TAG = ConsulVehiculoActivity.class.getSimpleName();
-
     private ProgressDialog pDialog;
     private RecyclerView recyclerView;
     private VehiculoAdapter vAdapter;
@@ -48,14 +47,13 @@ public class ConsulVehiculoActivity extends AppCompatActivity {
         setContentView(R.layout.activity_consul_vehiculo);
         //
         pDialog = new ProgressDialog(ConsulVehiculoActivity.this);
-        pDialog.setMessage("Loading Data.. Please wait...");
+        pDialog.setMessage("Actualizando datos...");
         pDialog.setIndeterminate(false);
         pDialog.setCancelable(false);
         pDialog.show();
         //
         mListOff = new ArrayList<Vehiculo>();
         loadListVehiculoOnline();
-
     }
 
     // Obtener la lista de choferes desde remote DB

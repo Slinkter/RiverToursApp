@@ -4,39 +4,73 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#00B0FF"
     android:gravity="center"
     android:orientation="vertical"
-    android:padding="5sp"
     tools:context=".Business.ConsultManiActivity">
 
-    <TextView
-        android:layout_width="wrap_content"
+    <LinearLayout
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="15dp"
-        android:fontFamily="@font/quattrocento_sans"
-        android:text="Lista de Manifiesto"
-        android:textColor="@color/white"
-        android:textSize="28dp"
-        android:textStyle="bold" />
+        android:layout_marginTop="40dp"
+        android:weightSum="3">
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:layout_weight="1"
+            android:gravity="left">
+
+            <ImageView
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:layout_marginLeft="40dp"
+                android:src="@drawable/ic_back" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:layout_weight="1"
+            android:gravity="center">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/quattrocento_sans"
+                android:text="Lista de Manifiesto"
+                android:textColor="@color/color_celeste"
+                android:textSize="28dp"
+                android:textStyle="bold" />
+        </LinearLayout>
+
+    </LinearLayout>
 
     <android.support.v7.widget.CardView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_margin="5dp"
-        android:background="@color/white"
-        android:clickable="true"
-        app:cardCornerRadius="15dp"
+        android:layout_margin="15dp"
+        app:cardBackgroundColor="@color/color_celeste"
+        app:cardCornerRadius="25dp"
         app:cardElevation="5dp"
         app:cardUseCompatPadding="true">
 
-        <android.support.v7.widget.RecyclerView
-            android:id="@+id/recycler_view_manifiesto"
+        <ScrollView
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_margin="10dp"
-            android:scrollbars="vertical" />
+            android:layout_height="match_parent">
 
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_margin="25dp">
+
+                <android.support.v7.widget.RecyclerView
+                    android:id="@+id/recycler_view_manifiesto"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:scrollbars="vertical" />
+            </LinearLayout>
+        </ScrollView>
     </android.support.v7.widget.CardView>
-
 </LinearLayout>
