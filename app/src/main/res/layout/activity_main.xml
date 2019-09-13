@@ -16,7 +16,6 @@
         android:clickable="true"
         app:cardBackgroundColor="@color/color_celeste"
         app:cardCornerRadius="15dp"
-
         app:cardElevation="3dp"
         app:cardUseCompatPadding="true">
 

@@ -10,6 +10,7 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity
+            android:parentActivityName=".Business.ConsultManiActivity"
             android:screenOrientation="portrait"
             android:name=".Business.ListPasajeroActivity"/>
         <activity

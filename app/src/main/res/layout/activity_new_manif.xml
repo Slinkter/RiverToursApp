@@ -5,311 +5,395 @@
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
     android:layout_gravity="center"
-    android:background="@drawable/bg_01"
+    android:background="@color/white"
     tools:context=".Business.AddManifActivity">
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_gravity="center"
-        android:gravity="center"
+        android:layout_height="wrap_content"
         android:orientation="vertical">
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:gravity="center">
+            android:layout_height="match_parent"
+            android:orientation="vertical">
 
-            <de.hdodenhof.circleimageview.CircleImageView
-                android:id="@+id/icon"
-                android:layout_width="180dp"
-                android:layout_height="180dp"
-                android:layout_margin="5dp"
+            <LinearLayout
                 android:layout_marginTop="30dp"
-                android:contentDescription="logo"
-                android:src="@drawable/rivertourlogo" />
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:gravity="center">
 
-        </LinearLayout>
+                <de.hdodenhof.circleimageview.CircleImageView
+                    android:id="@+id/icon"
+                    android:layout_width="180dp"
+                    android:layout_height="180dp"
+                    android:layout_margin="5dp"
 
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:gravity="center"
-            android:orientation="vertical">
+                    android:contentDescription="logo"
+                    android:src="@drawable/rivertourlogo"
+                    app:civ_border_color="@color/backgroundGray"
+                    app:civ_border_overlay="true"
+                    app:civ_border_width="2dp" />
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:fontFamily="@font/quattrocento_sans"
-                android:text="Nuevo Manifiesto "
-                android:textColor="@color/white"
-                android:textSize="28dp"
-                android:textStyle="bold" />
+            </LinearLayout>
 
-        </LinearLayout>
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="vertical">
-
-
-            <LinearLayout
+            <android.support.v7.widget.CardView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="25dp"
-                android:layout_marginRight="25dp"
-                android:orientation="horizontal"
-                android:weightSum="3">
+                android:layout_margin="15dp"
+                app:cardBackgroundColor="@color/color_celeste"
+                app:cardCornerRadius="25dp"
+                app:cardElevation="3dp"
+                app:cardUseCompatPadding="true">
 
-                <EditText
-                    android:id="@+id/et_guiaGuia"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="@dimen/distform"
-                    android:layout_marginEnd="8dp"
-                    android:layout_weight="1"
-                    android:background="@drawable/et_bg"
-                    android:hint="Guía"
-                    android:inputType="text"
-                    android:padding="18dp"
-                    android:textColor="@color/white"
-                    android:textColorHint="@color/login_form_details"
-                    android:textSize="18dp" />
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_marginTop="25dp"
+                    android:layout_marginBottom="25dp"
+                    android:orientation="vertical">
 
-                <EditText
-                    android:id="@+id/et_guiaFecha"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="@dimen/distform"
-                    android:layout_marginEnd="8dp"
-                    android:layout_weight="1"
-                    android:background="@drawable/et_bg"
-                    android:clickable="true"
-                    android:focusable="false"
-                    android:hint="Fecha "
-                    android:inputType="date"
-                    android:padding="16dp"
-                    android:textColor="@color/white"
-                    android:textColorHint="@color/login_form_details"
-                    android:textSize="18dp" />
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:gravity="left"
+                        android:orientation="vertical">
 
-                <EditText
-                    android:id="@+id/et_guiaDestino"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="@dimen/distform"
-                    android:layout_weight="1"
-                    android:background="@drawable/et_bg"
-                    android:hint="Destino"
-                    android:inputType="text"
-                    android:padding="16dp"
-                    android:textColor="@color/white"
-                    android:textColorHint="@color/login_form_details"
-                    android:textSize="18dp" />
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="25dp"
+                            android:layout_marginTop="25sp"
+                            android:fontFamily="@font/quattrocento_sans"
+                            android:text="Manifiesto "
+                            android:textColor="@color/white"
+                            android:textSize="20dp"
+                            android:textStyle="bold" />
 
-            </LinearLayout>
+                    </LinearLayout>
 
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content">
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_marginLeft="25dp"
+                        android:layout_marginRight="25dp"
+                        android:orientation="vertical">
 
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginLeft="25dp"
-                    android:layout_marginTop="20sp"
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginBottom="25dp"
+                            android:orientation="horizontal"
+                            android:weightSum="3">
 
-                    android:fontFamily="@font/quattrocento_sans"
-                    android:text="Seleccione Vehículo"
-                    android:textColor="@color/white"
-                    android:textSize="20dp"
-                    android:textStyle="bold" />
-            </LinearLayout>
+                            <EditText
+                                android:id="@+id/et_guiaGuia"
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:layout_marginTop="@dimen/distform"
+                                android:layout_marginEnd="8dp"
+                                android:layout_weight="1"
+                                android:background="@drawable/et_bg"
+                                android:hint="Guía"
+                                android:inputType="text"
+                                android:padding="18dp"
+                                android:textColor="@color/white"
+                                android:textColorHint="@color/login_form_details"
+                                android:textSize="18dp" />
 
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="25dp"
-                android:layout_marginRight="25dp"
-                android:orientation="horizontal"
-                android:weightSum="3">
+                            <EditText
+                                android:id="@+id/et_guiaFecha"
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:layout_marginTop="@dimen/distform"
+                                android:layout_marginEnd="8dp"
+                                android:layout_weight="1"
+                                android:background="@drawable/et_bg"
+                                android:clickable="true"
+                                android:focusable="false"
+                                android:hint="Fecha "
+                                android:inputType="date"
+                                android:padding="16dp"
+                                android:textColor="@color/white"
+                                android:textColorHint="@color/login_form_details"
+                                android:textSize="18dp" />
 
-                <Spinner
-                    android:id="@+id/guiaPlacaVehiculo"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="@dimen/distform"
-                    android:layout_marginBottom="@dimen/algoborrar"
-                    android:layout_weight="2"
-                    android:background="@drawable/et_bg"
-                    android:hint="Nº de placa"
-                    android:inputType="text"
-                    android:padding="16dp"
-                    android:textColor="@color/white"
-                    android:textColorHint="@color/login_form_details" />
+                            <EditText
+                                android:id="@+id/et_guiaDestino"
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:layout_marginTop="@dimen/distform"
+                                android:layout_weight="1"
+                                android:background="@drawable/et_bg"
+                                android:hint="Destino"
+                                android:inputType="text"
+                                android:padding="16dp"
+                                android:textColor="@color/white"
+                                android:textColorHint="@color/login_form_details"
+                                android:textSize="18dp" />
 
-
-            </LinearLayout>
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="25dp"
-                android:layout_marginRight="25dp"
-                android:orientation="horizontal"
-                android:weightSum="3">
-
-                <TextView
-                    android:id="@+id/tv_marcaVehiculo"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="@dimen/distform"
-                    android:layout_weight="1"
-                    android:background="@drawable/et_bg"
-                    android:hint="Marca de vehiculo "
-                    android:inputType="text"
-                    android:padding="16dp"
-                    android:textColor="@color/white"
-                    android:textColorHint="@color/login_form_details"
-                    android:textSize="18dp" />
-
-                <TextView
-                    android:id="@+id/tv_nombreVehiculo"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="8dp"
-                    android:layout_marginTop="@dimen/distform"
-                    android:layout_marginEnd="8dp"
-                    android:layout_weight="1"
-                    android:background="@drawable/et_bg"
-                    android:hint="Nombre Vehiculo"
-                    android:inputType="text"
-                    android:padding="16dp"
-                    android:textColor="@color/white"
-                    android:textColorHint="@color/login_form_details"
-                    android:textSize="18dp" />
-
-                <TextView
-                    android:id="@+id/tv_matriculaVehiculo"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="@dimen/distform"
-                    android:layout_weight="1"
-                    android:background="@drawable/et_bg"
-                    android:hint="Matricula de departamento"
-                    android:inputType="text"
-                    android:padding="16dp"
-                    android:textColor="@color/white"
-                    android:textColorHint="@color/login_form_details"
-                    android:textSize="18dp" />
+                        </LinearLayout>
 
 
-            </LinearLayout>
+                    </LinearLayout>
+                </LinearLayout>
 
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content">
+            </android.support.v7.widget.CardView>
 
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginLeft="25dp"
-                    android:layout_marginTop="20sp"
-                    android:fontFamily="@font/quattrocento_sans"
-                    android:text="Seleccione Chofer"
-                    android:textColor="@color/white"
-                    android:textSize="20dp"
-                    android:textStyle="bold" />
-            </LinearLayout>
-
-
-            <LinearLayout
+            <android.support.v7.widget.CardView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="25dp"
-                android:layout_marginRight="25dp"
-                android:orientation="horizontal"
-                android:weightSum="3">
+                android:layout_margin="15dp"
+                app:cardBackgroundColor="@color/color_celeste"
+                app:cardCornerRadius="25dp"
+                app:cardElevation="3dp"
+                app:cardUseCompatPadding="true">
 
-                <Spinner
-                    android:id="@+id/guiaChofer1"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="@dimen/distform"
-                    android:layout_weight="1.70"
-                    android:background="@drawable/et_bg"
-                    android:hint="Chofer 1"
-                    android:inputType="text"
-                    android:padding="16dp"
-                    android:textColorHint="@color/login_form_details" />
-
-                <TextView
-                    android:id="@+id/tv_breveteChofer"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="8dp"
-                    android:layout_marginTop="@dimen/distform"
-                    android:layout_weight="1.30"
-                    android:background="@drawable/et_bg"
-                    android:hint="Brevete 1"
-                    android:inputType="text"
-                    android:padding="16dp"
-                    android:textColor="@color/white"
-                    android:textColorHint="@color/login_form_details"
-                    android:textSize="18dp" />
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_marginTop="25dp"
+                    android:layout_marginBottom="25dp"
+                    android:orientation="vertical">
 
 
-            </LinearLayout>
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_marginLeft="25dp"
+                        android:layout_marginRight="25dp"
+                        android:orientation="vertical">
 
 
-            <LinearLayout
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content">
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+
+                                android:layout_marginTop="25sp"
+                                android:fontFamily="@font/quattrocento_sans"
+                                android:text="Vehículo"
+                                android:textColor="@color/white"
+                                android:textSize="20dp"
+                                android:textStyle="bold" />
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:orientation="horizontal"
+                            android:weightSum="3">
+
+                            <Spinner
+                                android:id="@+id/guiaPlacaVehiculo"
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:layout_marginTop="@dimen/distform"
+                                android:layout_marginBottom="@dimen/algoborrar"
+                                android:layout_weight="2"
+                                android:background="@drawable/et_bg"
+                                android:hint="Nº de placa"
+                                android:inputType="text"
+                                android:padding="16dp"
+                                android:textColor="@color/white"
+                                android:textColorHint="@color/login_form_details" />
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:orientation="horizontal"
+                            android:weightSum="3">
+
+                            <TextView
+                                android:id="@+id/tv_marcaVehiculo"
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:layout_marginTop="@dimen/distform"
+                                android:layout_weight="1"
+                                android:background="@drawable/et_bg"
+                                android:hint="Marca de vehiculo "
+                                android:inputType="text"
+                                android:padding="16dp"
+                                android:textColor="@color/white"
+                                android:textColorHint="@color/login_form_details"
+                                android:textSize="18dp" />
+
+                            <TextView
+                                android:id="@+id/tv_nombreVehiculo"
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:layout_marginStart="8dp"
+                                android:layout_marginTop="@dimen/distform"
+                                android:layout_marginEnd="8dp"
+                                android:layout_weight="1"
+                                android:background="@drawable/et_bg"
+                                android:hint="Nombre Vehiculo"
+                                android:inputType="text"
+                                android:padding="16dp"
+                                android:textColor="@color/white"
+                                android:textColorHint="@color/login_form_details"
+                                android:textSize="18dp" />
+
+                            <TextView
+                                android:id="@+id/tv_matriculaVehiculo"
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:layout_marginTop="@dimen/distform"
+                                android:layout_weight="1"
+                                android:background="@drawable/et_bg"
+                                android:hint="Matricula de departamento"
+                                android:inputType="text"
+                                android:padding="16dp"
+                                android:textColor="@color/white"
+                                android:textColorHint="@color/login_form_details"
+                                android:textSize="18dp" />
+
+
+                        </LinearLayout>
+
+
+                    </LinearLayout>
+                </LinearLayout>
+
+            </android.support.v7.widget.CardView>
+
+
+            <android.support.v7.widget.CardView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="25dp"
-                android:layout_marginRight="25dp"
-                android:orientation="horizontal"
-                android:visibility="gone"
-                android:weightSum="3">
+                android:layout_margin="15dp"
+                app:cardBackgroundColor="@color/color_celeste"
+                app:cardCornerRadius="25dp"
+                app:cardElevation="3dp"
+                app:cardUseCompatPadding="true">
 
-                <Spinner
-                    android:id="@+id/guiaChofer2"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="@dimen/distform"
-                    android:layout_weight="1.70"
-                    android:background="@drawable/et_bg"
-                    android:hint="Chofer 2"
-                    android:inputType="text"
-                    android:padding="16dp"
-                    android:textColorHint="@color/login_form_details" />
-
-                <TextView
-                    android:id="@+id/guiaBrevete2"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="8dp"
-                    android:layout_marginTop="@dimen/distform"
-                    android:layout_weight="1.30"
-                    android:background="@drawable/et_bg"
-                    android:hint="Brevete 2"
-                    android:inputType="text"
-                    android:padding="16dp"
-                    android:textColor="@color/white"
-                    android:textColorHint="@color/login_form_details" />
-
-            </LinearLayout>
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="25dp"
-                android:layout_marginRight="25dp"
-                android:orientation="horizontal"
-                android:weightSum="4">
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_marginTop="25dp"
+                    android:layout_marginBottom="25dp"
+                    android:orientation="vertical">
 
 
-            </LinearLayout>
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_marginLeft="25dp"
+                        android:layout_marginRight="25dp"
+                        android:orientation="vertical">
+
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content">
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginTop="20sp"
+                                android:fontFamily="@font/quattrocento_sans"
+                                android:text="Chofer"
+                                android:textColor="@color/white"
+                                android:textSize="20dp"
+                                android:textStyle="bold" />
+                        </LinearLayout>
+
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:orientation="vertical">
+
+                            <LinearLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:weightSum="3">
+
+                                <Spinner
+                                    android:id="@+id/guiaChofer1"
+                                    android:layout_width="0dp"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginTop="@dimen/distform"
+                                    android:layout_weight="2"
+                                    android:background="@drawable/et_bg"
+                                    android:hint="Chofer 1"
+                                    android:inputType="text"
+                                    android:padding="16dp"
+                                    android:textColorHint="@color/login_form_details" />
+                            </LinearLayout>
+
+                            <LinearLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:weightSum="3">
+
+                                <TextView
+                                    android:id="@+id/tv_breveteChofer"
+                                    android:layout_width="0dp"
+                                    android:layout_height="wrap_content"
+
+                                    android:layout_marginTop="@dimen/distform"
+                                    android:layout_weight="1.30"
+                                    android:background="@drawable/et_bg"
+                                    android:hint="Brevete 1"
+                                    android:inputType="text"
+                                    android:padding="16dp"
+                                    android:textColor="@color/white"
+                                    android:textColorHint="@color/login_form_details"
+                                    android:textSize="18dp" />
+                            </LinearLayout>
+
+
+                        </LinearLayout>
+
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="25dp"
+                            android:layout_marginRight="25dp"
+                            android:orientation="horizontal"
+                            android:visibility="gone"
+                            android:weightSum="3">
+
+                            <Spinner
+                                android:id="@+id/guiaChofer2"
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:layout_marginTop="@dimen/distform"
+                                android:layout_weight="1.70"
+                                android:background="@drawable/et_bg"
+                                android:hint="Chofer 2"
+                                android:inputType="text"
+                                android:padding="16dp"
+                                android:textColorHint="@color/login_form_details" />
+
+                            <TextView
+                                android:id="@+id/guiaBrevete2"
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:layout_marginStart="8dp"
+                                android:layout_marginTop="@dimen/distform"
+                                android:layout_weight="1.30"
+                                android:background="@drawable/et_bg"
+                                android:hint="Brevete 2"
+                                android:inputType="text"
+                                android:padding="16dp"
+                                android:textColor="@color/white"
+                                android:textColorHint="@color/login_form_details" />
+
+                        </LinearLayout>
+
+
+                    </LinearLayout>
+                </LinearLayout>
+
+            </android.support.v7.widget.CardView>
 
 
         </LinearLayout>
@@ -327,9 +411,10 @@
                 android:layout_gravity="center"
                 android:layout_margin="26dp"
                 android:background="@drawable/btn_add"
+                android:elevation="8dp"
                 android:text="CREAR"
                 android:textColor="@color/white"
-                android:textSize="16dp"
+                android:textSize="18dp"
                 android:textStyle="bold" />
 
             <Button
@@ -338,13 +423,12 @@
                 android:layout_gravity="center"
                 android:layout_margin="26dp"
                 android:background="@drawable/btn_exit"
-                android:onClick="btn_Salir_Manifiesto"
+                android:elevation="8dp"
                 android:text="Salir"
                 android:textColor="@color/white"
-                android:textSize="16dp"
+                android:textSize="18dp"
                 android:textStyle="bold" />
         </LinearLayout>
-
 
     </LinearLayout>
 

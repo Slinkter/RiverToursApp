@@ -28,7 +28,9 @@ public class PasajeroAdapterGuia extends RecyclerView.Adapter<PasajeroAdapterGui
     @NonNull
     @Override
     public CustomViewHolderPasajero onCreateViewHolder(@NonNull ViewGroup parent, int i) {
-        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_pasajero_guia, parent, false);
+        View view = LayoutInflater
+                .from(parent.getContext())
+                .inflate(R.layout.item_pasajero_guia, parent, false);
         CustomViewHolderPasajero myVH = new CustomViewHolderPasajero(view);
         return myVH;
     }

@@ -13,7 +13,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="25dp"
         android:fontFamily="@font/quattrocento_sans"
-        android:text="Lista de Manifiesto"
+        android:text="Lista de Pasajero"
         android:textColor="@color/color_celeste"
         android:textSize="28dp"
         android:textStyle="bold" />
