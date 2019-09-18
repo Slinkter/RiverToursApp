@@ -58,57 +58,55 @@ public class ConsulVehiculoActivity extends AppCompatActivity {
 
     // Obtener la lista de choferes desde remote DB
     private void loadListVehiculoOnline() {
-
+        Log.e(TAG, " loadListVehiculoOnline()");
         apiInterface = ApiService.getApiRetrofitConexion().create(ApiInterface.class);
         Call<List<Vehiculo>> getListaChofer = apiInterface.getListVehiculo();
-        getListaChofer
-                .enqueue(new Callback<List<Vehiculo>>() {
-                    @Override
-                    public void onResponse(Call<List<Vehiculo>> call, Response<List<Vehiculo>> response) {
-                        if (response.isSuccessful() && response.body() != null) {
-                            // se obtiene la lista de vehiculo remotamente
-                            List<Vehiculo> mList = response.body();
-                            destroyDBVehiculo();
-                            // update la lista de vehiculo en sqlite
-                            for (int i = 0; i < mList.size(); i++) {
-                                String nombrevehiculo = mList.get(i).getNombrevehiculo();
-                                String marcaVehiculo = mList.get(i).getMarcaVehiculo();
-                                String matriculaVehiculo = mList.get(i).getMatriculaVehiculo();
-                                String placaVehiculo = mList.get(i).getPlacaVehiculo();
-
-                                updateListVehiculoFromMysql(nombrevehiculo, marcaVehiculo, matriculaVehiculo, placaVehiculo);
-
-                                String cadena = "==== Vehiculo Nº " + i + " ====== " + "\n"
-                                        + " nombrevehiculo : " + nombrevehiculo + "\n"
-                                        + " marcaVehiculo : " + marcaVehiculo + "\n"
-                                        + " matriculaVehiculo : " + matriculaVehiculo + "\n"
-                                        + " placaVehiculo : " + placaVehiculo + "\n"
-                                        + "  " + "" + "\n";
-
-                                Log.e(TAG, cadena);
-                                //
-                            }
-                            // mostrar lista de vehiculos remotament
-                            recyclerView = findViewById(R.id.recycler_view_vehiculo);
-                            vAdapter = new VehiculoAdapter(mList);
-                            RecyclerView.LayoutManager eLayoutManager = new LinearLayoutManager(getApplicationContext());
-                            recyclerView.setLayoutManager(eLayoutManager);
-                            recyclerView.setItemAnimator(new DefaultItemAnimator());
-                            recyclerView.setAdapter(vAdapter);
-                            pDialog.dismiss();
-                        } else {
-                            loadListVehiculoOffline();
-                            pDialog.dismiss();
-                        }
+        getListaChofer.enqueue(new Callback<List<Vehiculo>>() {
+            @Override
+            public void onResponse(Call<List<Vehiculo>> call, Response<List<Vehiculo>> response) {
+                if (response.isSuccessful() && response.body() != null) {
+                    // se obtiene la lista de vehiculo remotamente
+                    Log.e(TAG, " loadListVehiculoOnline() :  onResponse");
+                    List<Vehiculo> mList = response.body();
+                    destroyDBVehiculo();
+                    // update la lista de vehiculo en sqlite
+                    for (int i = 0; i < mList.size(); i++) {
+                        String nombrevehiculo = mList.get(i).getNombrevehiculo();
+                        String marcaVehiculo = mList.get(i).getMarcaVehiculo();
+                        String matriculaVehiculo = mList.get(i).getMatriculaVehiculo();
+                        String placaVehiculo = mList.get(i).getPlacaVehiculo();
+                        updateListVehiculoFromMysql(nombrevehiculo, marcaVehiculo, matriculaVehiculo, placaVehiculo);
+                        String cadena = "==== Vehiculo Nº " + i + " ====== " + "\n"
+                                + " nombrevehiculo : " + nombrevehiculo + "\n"
+                                + " marcaVehiculo : " + marcaVehiculo + "\n"
+                                + " matriculaVehiculo : " + matriculaVehiculo + "\n"
+                                + " placaVehiculo : " + placaVehiculo + "\n"
+                                + "  " + "" + "\n";
+                        Log.e(TAG, cadena);
+                        //
                     }
+                    // mostrar lista de vehiculos remotament
+                    recyclerView = findViewById(R.id.recycler_view_vehiculo);
+                    vAdapter = new VehiculoAdapter(mList);
+                    RecyclerView.LayoutManager eLayoutManager = new LinearLayoutManager(getApplicationContext());
+                    recyclerView.setLayoutManager(eLayoutManager);
+                    recyclerView.setItemAnimator(new DefaultItemAnimator());
+                    recyclerView.setAdapter(vAdapter);
+                    pDialog.dismiss();
+                } else {
+                    Log.e(TAG, " loadListVehiculoOnline() :  Not onResponse response.body() null");
+                    loadListVehiculoOffline();
+                    pDialog.dismiss();
+                }
+            }
 
-                    @Override
-                    public void onFailure(Call<List<Vehiculo>> call, Throwable t) {
-                        loadListVehiculoOffline();
-                        pDialog.dismiss();
-                        Log.e(TAG, " error onFailure " + t.getMessage());
-                    }
-                });
+            @Override
+            public void onFailure(Call<List<Vehiculo>> call, Throwable t) {
+                loadListVehiculoOffline();
+                pDialog.dismiss();
+                Log.e(TAG, "loadListVehiculoOnline() : onFailure " + t.getMessage());
+            }
+        });
     }
 
     private void destroyDBVehiculo() {

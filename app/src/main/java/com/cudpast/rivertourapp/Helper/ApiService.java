@@ -5,7 +5,7 @@ import retrofit2.converter.gson.GsonConverterFactory;
 
 public class ApiService {
 
-    public static final String URL = "http://appretrofitnote.000webhostapp.com/php/";
+    public static final String URL = "https://appretrofitnote.000webhostapp.com/php/";
     public static Retrofit conexion = null;
 
     public static Retrofit getApiRetrofitConexion() {
