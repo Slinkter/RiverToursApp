@@ -44,7 +44,7 @@
                 android:layout_margin="15dp"
                 app:cardBackgroundColor="@color/color_celeste"
                 app:cardCornerRadius="25dp"
-                app:cardElevation="3dp"
+                app:cardElevation="10dp"
                 app:cardUseCompatPadding="true">
 
                 <LinearLayout
@@ -85,7 +85,7 @@
                             android:layout_height="wrap_content"
                             android:layout_marginBottom="25dp"
                             android:orientation="horizontal"
-                            android:weightSum="3">
+                            android:weightSum="2">
 
                             <EditText
                                 android:id="@+id/et_guiaGuia"
@@ -119,6 +119,31 @@
                                 android:textColorHint="@color/login_form_details"
                                 android:textSize="18dp" />
 
+
+
+                        </LinearLayout>
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginBottom="25dp"
+                            android:orientation="horizontal"
+                            android:weightSum="2">
+
+                            <EditText
+                                android:layout_marginEnd="8dp"
+                                android:id="@+id/et_guiaOrigen"
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:layout_marginTop="@dimen/distform"
+                                android:layout_weight="1"
+                                android:background="@drawable/et_bg"
+                                android:hint="Origin"
+                                android:inputType="text"
+                                android:padding="16dp"
+                                android:textColor="@color/white"
+                                android:textColorHint="@color/login_form_details"
+                                android:textSize="18dp" />
+
                             <EditText
                                 android:id="@+id/et_guiaDestino"
                                 android:layout_width="0dp"
@@ -135,7 +160,6 @@
 
                         </LinearLayout>
 
-
                     </LinearLayout>
                 </LinearLayout>
 
@@ -147,7 +171,7 @@
                 android:layout_margin="15dp"
                 app:cardBackgroundColor="@color/color_celeste"
                 app:cardCornerRadius="25dp"
-                app:cardElevation="3dp"
+                app:cardElevation="10dp"
                 app:cardUseCompatPadding="true">
 
                 <LinearLayout
@@ -269,7 +293,7 @@
                 android:layout_margin="15dp"
                 app:cardBackgroundColor="@color/color_celeste"
                 app:cardCornerRadius="25dp"
-                app:cardElevation="3dp"
+                app:cardElevation="10dp"
                 app:cardUseCompatPadding="true">
 
                 <LinearLayout

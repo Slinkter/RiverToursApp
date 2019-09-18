@@ -3,78 +3,79 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:layout_marginLeft="8dp"
-    android:layout_marginTop="8dp"
-    android:layout_marginRight="8dp"
-    android:layout_marginBottom="8dp"
-    android:clickable="true"
-    android:paddingBottom="13dp"
-    app:cardCornerRadius="15dp"
-    app:cardElevation="5dp">
+    android:layout_margin="8dp"
+    app:cardCornerRadius="25dp"
+    app:cardElevation="8dp"
+    app:cardUseCompatPadding="true">
 
-    <RelativeLayout
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="8dp"
-        android:layout_marginTop="8dp"
-        android:layout_marginRight="8dp"
-        android:layout_marginBottom="8dp">
+        android:orientation="horizontal"
+        android:paddingTop="20dp"
+        android:paddingBottom="20dp"
+        android:weightSum="3">
 
-        <TextView
-            android:id="@+id/nombreVehiculo"
-            android:layout_width="wrap_content"
+        <LinearLayout
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_alignParentStart="true"
-            android:layout_alignParentLeft="true"
-            android:layout_alignParentTop="true"
-            android:layout_marginStart="17dp"
-            android:layout_marginLeft="17dp"
-            android:layout_marginTop="13dp"
-            android:text="Nombre Vehiculo"
-            android:textColor="@color/colorPrimaryDark"
-            android:textSize="18dp" />
+            android:layout_weight="1">
 
-        <TextView
-            android:id="@+id/marcaVehiculo"
-            android:layout_width="wrap_content"
+            <ImageView
+                android:id="@+id/image_profile"
+                android:layout_width="match_parent"
+                android:layout_height="70dp"
+                android:src="@drawable/ic_bus" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_below="@+id/nombreVehiculo"
-            android:layout_alignStart="@+id/nombreVehiculo"
-            android:layout_alignLeft="@+id/nombreVehiculo"
-            android:text="Marca vehiculo" />
+            android:layout_weight="1"
+            android:orientation="vertical">
 
-        <TextView
-            android:id="@+id/matriculaVehiculo"
-            android:layout_width="wrap_content"
+            <TextView
+                android:id="@+id/nombreVehiculo"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Nombre Vehiculo" />
+
+            <TextView
+                android:id="@+id/marcaVehiculo"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Marca vehiculo" />
+
+            <TextView
+                android:id="@+id/matriculaVehiculo"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="13dp"
+                android:text="Matricula Vehiculo" />
+
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_below="@+id/marcaVehiculo"
-            android:layout_alignStart="@+id/marcaVehiculo"
-            android:layout_alignLeft="@+id/marcaVehiculo"
-            android:layout_marginBottom="13dp"
-            android:text="Matricula Vehiculo" />
+            android:layout_weight="1"
+            android:orientation="vertical">
 
+            <TextView
+                android:id="@+id/placaVehiculo"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Placa Vehiculo" />
 
-        <TextView
-            android:id="@+id/placaVehiculo"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignTop="@+id/nombreVehiculo"
-            android:layout_alignEnd="@+id/brevete"
-            android:layout_alignRight="@+id/brevete"
-            android:text="Placa Vehiculo" />
+            <TextView
+                android:id="@+id/brevete"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="" />
+        </LinearLayout>
 
-        <TextView
+    </LinearLayout>
 
-            android:id="@+id/brevete"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_below="@+id/placaVehiculo"
-            android:layout_alignParentEnd="true"
-            android:layout_alignParentRight="true"
-            android:layout_marginEnd="27dp"
-            android:layout_marginRight="27dp"
-            android:text="" />
-
-
-    </RelativeLayout>
 </android.support.v7.widget.CardView>
