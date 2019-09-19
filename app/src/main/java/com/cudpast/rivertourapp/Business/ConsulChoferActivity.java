@@ -37,14 +37,18 @@ public class ConsulChoferActivity extends AppCompatActivity {
     private ChoferAdapter cAdapter;
     private ApiInterface apiInterface;
     private List<Chofer> mListOff;
+    Call<List<Chofer>> getListChofer;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        // getSupportActionBar().setTitle("   ");
-        //getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().hide();
         setContentView(R.layout.activity_consul_chofer);
+        init();
+    }
+
+
+    private void init() {
         //.
         pDialog = new ProgressDialog(ConsulChoferActivity.this);
         pDialog.setMessage("Actualizando datos...");
@@ -54,73 +58,68 @@ public class ConsulChoferActivity extends AppCompatActivity {
         //.
         mListOff = new ArrayList<Chofer>();
         obtenerListaChoferOnline();
-
     }
 
-    // Obtener la lista de choferes desde remote DB
+
+    // Obtener la lista de choferes Online
     private void obtenerListaChoferOnline() {
 
         apiInterface = ApiService.getApiRetrofitConexion().create(ApiInterface.class);
-        Call<List<Chofer>> getListaChofer = apiInterface.getListChofer();
-        getListaChofer
-                .enqueue(new Callback<List<Chofer>>() {
-                    @Override
-                    public void onResponse(Call<List<Chofer>> call, Response<List<Chofer>> response) {
-                        // se recive un array desde el html
-                        if (response.isSuccessful() && response.body() != null) {
-                            List<Chofer> mListChofer = response.body();
-                            destroyDBChofer();
-                            //
-                            for (int i = 0; i < mListChofer.size(); i++) {
-                                String nombreChofer = mListChofer.get(i).getNameChofer();
-                                String lastChofer = mListChofer.get(i).getLastChofer();
-                                String dniChofer = mListChofer.get(i).getDniChofer();
-                                String breveteChofer = mListChofer.get(i).getBrevete();
-                                String telefonochofer = mListChofer.get(i).getNumphone();
-                                //
-                                updateListChofer(nombreChofer, lastChofer, dniChofer, breveteChofer, telefonochofer);
-                                String cadena = "==== Chofer Nº " + i + " ====== " + "\n"
-                                        + " nombrevehiculo : " + nombreChofer + "\n"
-                                        + " marcaVehiculo : " + lastChofer + "\n"
-                                        + " matriculaVehiculo : " + dniChofer + "\n"
-                                        + " matriculaVehiculo : " + breveteChofer + "\n"
-                                        + " placaVehiculo : " + telefonochofer + "\n"
-                                        + "  " + "" + "\n";
-                                Log.e(TAG, cadena);
-                            }
-
-                            recyclerView = findViewById(R.id.recycler_view_chofer);
-                            cAdapter = new ChoferAdapter(mListChofer);
-                            cAdapter.notifyDataSetChanged();
-
-                            RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(getApplicationContext());
-                            recyclerView.setLayoutManager(layoutManager);
-                            recyclerView.setItemAnimator(new DefaultItemAnimator());
-                            recyclerView.setAdapter(cAdapter);
-                            pDialog.dismiss();
-                            //
-                        } else {
-                            loadListChoferOffline();
-                            pDialog.dismiss();
-                        }
-
+        getListChofer = apiInterface.getListChofer();
+        getListChofer.enqueue(new Callback<List<Chofer>>() {
+            @Override
+            public void onResponse(Call<List<Chofer>> call, Response<List<Chofer>> response) {
+                // se obtener un array (lista) desde el html
+                if (response.isSuccessful() && response.body() != null) {
+                    List<Chofer> mListChofer = response.body();
+                    //
+                    destroyDBChofer();
+                    //
+                    for (int i = 0; i < mListChofer.size(); i++) {
+                        String nombreChofer = mListChofer.get(i).getNameChofer();
+                        String lastChofer = mListChofer.get(i).getLastChofer();
+                        String dniChofer = mListChofer.get(i).getDniChofer();
+                        String breveteChofer = mListChofer.get(i).getBrevete();
+                        String telefonochofer = mListChofer.get(i).getNumphone();
+                        //
+                        updateListChofer(nombreChofer, lastChofer, dniChofer, breveteChofer, telefonochofer);
+                        String cadena = "==== Chofer Nº " + i + " ====== " + "\n"
+                                + " nombrevehiculo : " + nombreChofer + "\n"
+                                + " marcaVehiculo : " + lastChofer + "\n"
+                                + " matriculaVehiculo : " + dniChofer + "\n"
+                                + " matriculaVehiculo : " + breveteChofer + "\n"
+                                + " placaVehiculo : " + telefonochofer + "\n"
+                                + "  " + "" + "\n";
+                        Log.e(TAG, cadena);
                     }
 
-                    @Override
-                    public void onFailure(Call<List<Chofer>> call, Throwable t) {
-                        loadListChoferOffline();
-                        pDialog.dismiss();
-                        Log.e(TAG, " error onFailure " + t.getMessage());
-                    }
-                });
+                    recyclerView = findViewById(R.id.recycler_view_chofer);
+                    cAdapter = new ChoferAdapter(mListChofer);
+                    cAdapter.notifyDataSetChanged();
+
+                    RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(getApplicationContext());
+                    recyclerView.setLayoutManager(layoutManager);
+                    recyclerView.setItemAnimator(new DefaultItemAnimator());
+                    recyclerView.setAdapter(cAdapter);
+                    pDialog.dismiss();
+                    //
+                } else {
+                    loadListChoferOffline();
+                    pDialog.dismiss();
+                }
+
+            }
+
+            @Override
+            public void onFailure(Call<List<Chofer>> call, Throwable t) {
+                loadListChoferOffline();
+                pDialog.dismiss();
+                Log.e(TAG, " error onFailure " + t.getMessage());
+            }
+        });
     }
 
-    private void destroyDBChofer() {
-        Log.e(TAG, " eliminar  drop table chofer ");
-        MySqliteDB mySqliteDB = new MySqliteDB(this);
-        mySqliteDB.deleteTableChofer();
-    }
-
+    // Obtener la lista de choferes Offline
     private void loadListChoferOffline() {
         mListOff.clear();
 
@@ -162,6 +161,7 @@ public class ConsulChoferActivity extends AppCompatActivity {
 
     }
 
+    //
     private void updateListChofer(String nombreChofer, String apellidoChofer, String dniChofer, String breveteChofer, String telefonoChofer) {
 
         try {
@@ -191,6 +191,14 @@ public class ConsulChoferActivity extends AppCompatActivity {
 
     }
 
+    //
+    private void destroyDBChofer() {
+        Log.e(TAG, " eliminar  drop table chofer ");
+        MySqliteDB mySqliteDB = new MySqliteDB(this);
+        mySqliteDB.deleteTableChofer();
+    }
+
+    //
     public void backToMain(View view) {
         Intent i = new Intent(ConsulChoferActivity.this, MainActivity.class);
         startActivity(i);
