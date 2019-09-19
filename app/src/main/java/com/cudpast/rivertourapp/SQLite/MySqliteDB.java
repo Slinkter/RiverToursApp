@@ -138,7 +138,7 @@ public class MySqliteDB extends SQLiteOpenHelper {
                         Utils.CAMPO_CHOFER_MANIFIESTO,
                         Utils.CAMPO_SYNC_STATUS_MANIFIESTO
                 };
-        return (database.query(Utils.TABLA_MANIFIESTO, projection, null, null, null, null, null));
+        return (database.query(Utils.TABLA_MANIFIESTO, projection, null, null, null, null, Utils.CAMPO_ID_GUIA+" DESC"));
     }
     //*************************************
     //          Metodos de Update
