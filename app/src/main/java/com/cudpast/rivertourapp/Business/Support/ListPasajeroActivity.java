@@ -1,4 +1,4 @@
-package com.cudpast.rivertourapp.Business;
+package com.cudpast.rivertourapp.Business.Support;
 
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
@@ -7,10 +7,7 @@ import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
-import android.view.View;
-import android.widget.TextView;
 
-import com.cudpast.rivertourapp.Adapter.PasajeroAdapter;
 import com.cudpast.rivertourapp.Adapter.PasajeroAdapterGuia;
 import com.cudpast.rivertourapp.Model.Pasajero;
 import com.cudpast.rivertourapp.R;

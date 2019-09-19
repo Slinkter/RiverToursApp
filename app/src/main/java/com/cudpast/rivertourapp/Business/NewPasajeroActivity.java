@@ -23,9 +23,9 @@ import com.cudpast.rivertourapp.SQLite.Utils;
 
 import java.util.ArrayList;
 
-public class AddPasajeroActivity extends AppCompatActivity {
+public class NewPasajeroActivity extends AppCompatActivity {
     //
-    public static final String TAG = AddPasajeroActivity.class.getSimpleName();
+    public static final String TAG = NewPasajeroActivity.class.getSimpleName();
     // El manifiesto y la lista de pasajeros debe estar insetada en local(sqlite)
     // y cuando se valla mainActivity debe actualizar
     // la base de datos remota;
@@ -41,7 +41,6 @@ public class AddPasajeroActivity extends AppCompatActivity {
     TextView tv_guiaidmanifiestopasajero;
     //
     ProgressDialog progressDialog;
-
     //
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -102,7 +101,7 @@ public class AddPasajeroActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 progressDialog.show();
-                Toast.makeText(AddPasajeroActivity.this, "Manifiesto Guardado", Toast.LENGTH_SHORT).show();
+                Toast.makeText(NewPasajeroActivity.this, "Manifiesto Guardado", Toast.LENGTH_SHORT).show();
                 goToMain();
             }
         });
@@ -258,7 +257,7 @@ public class AddPasajeroActivity extends AppCompatActivity {
 
     private void goToMain() {
         progressDialog.dismiss();
-        Intent intent = new Intent(AddPasajeroActivity.this, MainActivity.class);
+        Intent intent = new Intent(NewPasajeroActivity.this, MainActivity.class);
         startActivity(intent);
         finish();
     }

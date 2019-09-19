@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     android:layout_gravity="center"
 
-    tools:context=".Business.AddPasajeroActivity">
+    tools:context=".Business.NewPasajeroActivity">
 
     <android.support.v7.widget.CardView
        android:layout_margin="15dp"

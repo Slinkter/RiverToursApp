@@ -29,9 +29,9 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-public class ConsulChoferActivity extends AppCompatActivity {
+public class QueryChoferActivity extends AppCompatActivity {
 
-    public static final String TAG = ConsulChoferActivity.class.getSimpleName();
+    public static final String TAG = QueryChoferActivity.class.getSimpleName();
     private ProgressDialog pDialog;
     private RecyclerView recyclerView;
     private ChoferAdapter cAdapter;
@@ -50,7 +50,7 @@ public class ConsulChoferActivity extends AppCompatActivity {
 
     private void init() {
         //.
-        pDialog = new ProgressDialog(ConsulChoferActivity.this);
+        pDialog = new ProgressDialog(QueryChoferActivity.this);
         pDialog.setMessage("Actualizando datos...");
         pDialog.setIndeterminate(false);
         pDialog.setCancelable(false);
@@ -200,7 +200,7 @@ public class ConsulChoferActivity extends AppCompatActivity {
 
     //
     public void backToMain(View view) {
-        Intent i = new Intent(ConsulChoferActivity.this, MainActivity.class);
+        Intent i = new Intent(QueryChoferActivity.this, MainActivity.class);
         startActivity(i);
         finish();
     }

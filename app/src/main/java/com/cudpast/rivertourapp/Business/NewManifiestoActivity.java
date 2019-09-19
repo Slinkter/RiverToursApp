@@ -34,13 +34,15 @@ import com.cudpast.rivertourapp.SQLite.Utils;
 import java.util.ArrayList;
 import java.util.Calendar;
 
-public class AddManifActivity extends AppCompatActivity {
+public class NewManifiestoActivity extends AppCompatActivity {
 
-    public static final String TAG = AddManifActivity.class.getSimpleName();
+    public static final String TAG = NewManifiestoActivity.class.getSimpleName();
+    //
     private TextView tv_nombreVehiculo, tv_matriculaVehiculo, tv_marcaVehiculo, tv_breveteChofer;
     private EditText et_guiaGuia, et_guiaFecha, et_guiaDestino;
-    private Button btnSaveGuia,btnSalirGuia;
-    private Spinner spinner_PlacaVehiculo, spinnerChofer1;
+
+    Button btn_SaveGuia, btn_SalirGuia;
+    Spinner spinner_PlacaVehiculo, spinner_Chofer1;
 
     ArrayList<Vehiculo> listVehiculoFromSqlite;
     ArrayList<String> listVehiculoSpinner;
@@ -49,17 +51,14 @@ public class AddManifActivity extends AppCompatActivity {
     ArrayList<String> listChoferSpinner;
 
     MySqliteDB conn;
-    public DatePickerDialog.OnDateSetListener mDateSetListener;
+    DatePickerDialog.OnDateSetListener mDateSetListener;
 
-    private Animation animation;
-    private Vibrator vibrator;
-
-    // Insert
+    Animation animation;
+    Vibrator vibrator;
 
     String guiaVehiculo;
     String guiaChoferBrevete;
 
-    //
     ProgressDialog progressDialog;
 
 
@@ -67,7 +66,7 @@ public class AddManifActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         getSupportActionBar().hide();
-        setContentView(R.layout.activity_new_manif);
+        setContentView(R.layout.activity_new_manifiesto);
         //
         conn = new MySqliteDB(this);
         //0
@@ -80,7 +79,7 @@ public class AddManifActivity extends AppCompatActivity {
         tv_matriculaVehiculo = findViewById(R.id.tv_matriculaVehiculo);
         tv_marcaVehiculo = findViewById(R.id.tv_marcaVehiculo);
         //2
-        spinnerChofer1 = findViewById(R.id.guiaChofer1);
+        spinner_Chofer1 = findViewById(R.id.guiaChofer1);
         tv_breveteChofer = findViewById(R.id.tv_breveteChofer);
         //submitForm
         animation = AnimationUtils.loadAnimation(getApplicationContext(), R.anim.shake);
@@ -101,7 +100,7 @@ public class AddManifActivity extends AppCompatActivity {
                 Log.e(TAG, "DAY = " + day);
 
                 dialog = new DatePickerDialog(
-                        AddManifActivity.this,
+                        NewManifiestoActivity.this,
                         android.R.style.Theme_Holo_Light_Dialog_MinWidth,
                         mDateSetListener,
                         year,
@@ -153,8 +152,8 @@ public class AddManifActivity extends AppCompatActivity {
         //Spinner Chofer
         ArrayAdapter<CharSequence> adapterChofer;
         adapterChofer = new ArrayAdapter(this, R.layout.spinner_vehiculo_item, listChoferSpinner);
-        spinnerChofer1.setAdapter(adapterChofer);
-        spinnerChofer1.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+        spinner_Chofer1.setAdapter(adapterChofer);
+        spinner_Chofer1.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
                 if (position != 0) {
@@ -173,8 +172,8 @@ public class AddManifActivity extends AppCompatActivity {
             }
         });
         //Insertar Manifiesto
-        btnSaveGuia = findViewById(R.id.btnSaveGuia);
-        btnSaveGuia.setOnClickListener(new View.OnClickListener() {
+        btn_SaveGuia = findViewById(R.id.btnSaveGuia);
+        btn_SaveGuia.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
 
@@ -184,11 +183,11 @@ public class AddManifActivity extends AppCompatActivity {
             }
         });
         //Salir  Manifiesto
-        btnSalirGuia = findViewById(R.id.btnSalirGuia);
-        btnSalirGuia.setOnClickListener(new View.OnClickListener() {
+        btn_SalirGuia = findViewById(R.id.btnSalirGuia);
+        btn_SalirGuia.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent i = new Intent(AddManifActivity.this, MainActivity.class);
+                Intent i = new Intent(NewManifiestoActivity.this, MainActivity.class);
                 startActivity(i);
                 finish();
             }
@@ -228,7 +227,7 @@ public class AddManifActivity extends AppCompatActivity {
     private void gotoAddPasajero(String idGuiaMani) {
         progressDialog.dismiss();
         // Go to AddPasajero
-        Intent intent = new Intent(AddManifActivity.this, AddPasajeroActivity.class);
+        Intent intent = new Intent(NewManifiestoActivity.this, NewPasajeroActivity.class);
         intent.putExtra("idguiaManifiesto", idGuiaMani);
         startActivity(intent);
         finish();
@@ -382,7 +381,7 @@ public class AddManifActivity extends AppCompatActivity {
     }
 
     public void btn_Salir_Manifiesto(View view) {
-        Intent intentSalir = new Intent(AddManifActivity.this, MainActivity.class);
+        Intent intentSalir = new Intent(NewManifiestoActivity.this, MainActivity.class);
         startActivity(intentSalir);
         finish();
     }
@@ -391,7 +390,7 @@ public class AddManifActivity extends AppCompatActivity {
     // Borrar ??
     private void insertManifiestoLocalAntiguo(Manifiesto manifiesto) {
         //1.Conexion
-        MySqliteDB conn = new MySqliteDB(AddManifActivity.this);
+        MySqliteDB conn = new MySqliteDB(NewManifiestoActivity.this);
         //2.Escribir en la database
         SQLiteDatabase db = conn.getWritableDatabase();
         //3.Cogigo para insert into tb
@@ -415,7 +414,7 @@ public class AddManifActivity extends AppCompatActivity {
         db.execSQL(insert);
         //5.Cerrar conexion
         db.close();
-        Intent intent = new Intent(AddManifActivity.this, AddPasajeroActivity.class);
+        Intent intent = new Intent(NewManifiestoActivity.this, NewPasajeroActivity.class);
         intent.putExtra("idguiaManifiesto", manifiesto.getIdGuiaMani());
         intent.putExtra("FechaMani", manifiesto.getFechaMani());
         intent.putExtra("DestinoMani", manifiesto.getDestinoMani());

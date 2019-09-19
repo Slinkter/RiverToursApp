@@ -10,30 +10,30 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity
-            android:parentActivityName=".Business.ConsultManiActivity"
+            android:parentActivityName=".Business.QueryManifiestoActivity"
             android:screenOrientation="portrait"
-            android:name=".Business.ListPasajeroActivity"/>
+            android:name=".Business.Support.ListPasajeroActivity"/>
         <activity
-            android:name=".Business.AddPasajeroActivity"
+            android:name=".Business.NewPasajeroActivity"
             android:screenOrientation="portrait" />
         <activity
             android:parentActivityName=".MainActivity"
-            android:name=".Business.ConsultManiActivity"
+            android:name=".Business.QueryManifiestoActivity"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".Business.ConsulVehiculoActivity"
+            android:name=".Business.QueryVehiculoActivity"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".Business.ConsulChoferActivity"
+            android:name=".Business.QueryChoferActivity"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".Business.NewVehiculoActivity"
+            android:name=".Other.NewVehiculoActivity"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".Business.NewChoferActivity"
+            android:name=".Other.NewChoferActivity"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".Business.AddManifActivity"
+            android:name=".Business.NewManifiestoActivity"
             android:screenOrientation="portrait" />
         <activity
             android:name=".RegisterActivity"

@@ -9,12 +9,12 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 
-import com.cudpast.rivertourapp.Business.ConsulChoferActivity;
-import com.cudpast.rivertourapp.Business.ConsulVehiculoActivity;
-import com.cudpast.rivertourapp.Business.ConsultManiActivity;
-import com.cudpast.rivertourapp.Business.NewChoferActivity;
-import com.cudpast.rivertourapp.Business.AddManifActivity;
-import com.cudpast.rivertourapp.Business.NewVehiculoActivity;
+import com.cudpast.rivertourapp.Business.QueryChoferActivity;
+import com.cudpast.rivertourapp.Business.QueryVehiculoActivity;
+import com.cudpast.rivertourapp.Business.QueryManifiestoActivity;
+import com.cudpast.rivertourapp.Other.NewChoferActivity;
+import com.cudpast.rivertourapp.Business.NewManifiestoActivity;
+import com.cudpast.rivertourapp.Other.NewVehiculoActivity;
 import com.cudpast.rivertourapp.SQLite.Utils;
 
 public class MainActivity extends AppCompatActivity {
@@ -55,7 +55,7 @@ public class MainActivity extends AppCompatActivity {
 
     public void newManifiesto(View view) {
         progressDialog.show();
-        Intent intent = new Intent(MainActivity.this, AddManifActivity.class);
+        Intent intent = new Intent(MainActivity.this, NewManifiestoActivity.class);
         startActivity(intent);
         finish();
         progressDialog.dismiss();
@@ -64,7 +64,7 @@ public class MainActivity extends AppCompatActivity {
 
     public void reviewManifiesto(View view) {
         progressDialog.show();
-        Intent intent = new Intent(MainActivity.this, ConsultManiActivity.class);
+        Intent intent = new Intent(MainActivity.this, QueryManifiestoActivity.class);
         startActivity(intent);
         finish();
         progressDialog.dismiss();
@@ -72,7 +72,7 @@ public class MainActivity extends AppCompatActivity {
 
     public void reviewChofer(View view) {
         progressDialog.show();
-        Intent intent = new Intent(MainActivity.this, ConsulChoferActivity.class);
+        Intent intent = new Intent(MainActivity.this, QueryChoferActivity.class);
         startActivity(intent);
         finish();
         progressDialog.dismiss();
@@ -80,7 +80,7 @@ public class MainActivity extends AppCompatActivity {
 
     public void reviewVehiculo(View view) {
         progressDialog.show();
-        Intent intent = new Intent(MainActivity.this, ConsulVehiculoActivity.class);
+        Intent intent = new Intent(MainActivity.this, QueryVehiculoActivity.class);
         startActivity(intent);
         finish();
         progressDialog.dismiss();

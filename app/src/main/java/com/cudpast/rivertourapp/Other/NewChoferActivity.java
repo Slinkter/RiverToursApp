@@ -1,4 +1,4 @@
-package com.cudpast.rivertourapp.Business;
+package com.cudpast.rivertourapp.Other;
 
 import android.app.ProgressDialog;
 import android.content.Intent;

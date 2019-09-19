@@ -3,7 +3,6 @@ package com.cudpast.rivertourapp.Adapter;
 import android.content.Intent;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -11,7 +10,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.cudpast.rivertourapp.Business.ListPasajeroActivity;
+import com.cudpast.rivertourapp.Business.Support.ListPasajeroActivity;
 import com.cudpast.rivertourapp.Model.Manifiesto;
 import com.cudpast.rivertourapp.R;
 import com.cudpast.rivertourapp.SQLite.Utils;

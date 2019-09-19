@@ -11,37 +11,21 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.View;
-import android.widget.Adapter;
-import android.widget.ProgressBar;
 import android.widget.Toast;
 
 import com.cudpast.rivertourapp.Adapter.ManifiestoAdapter;
-import com.cudpast.rivertourapp.Adapter.PasajeroAdapter;
-import com.cudpast.rivertourapp.Adapter.VehiculoAdapter;
 import com.cudpast.rivertourapp.Helper.ApiInterface;
-import com.cudpast.rivertourapp.Helper.ApiService;
 import com.cudpast.rivertourapp.MainActivity;
 import com.cudpast.rivertourapp.Model.Manifiesto;
-import com.cudpast.rivertourapp.Model.Vehiculo;
 import com.cudpast.rivertourapp.R;
 import com.cudpast.rivertourapp.SQLite.MySqliteDB;
 import com.cudpast.rivertourapp.SQLite.Utils;
 
 import java.util.ArrayList;
-import java.util.List;
 
-import retrofit2.Call;
-import retrofit2.Callback;
-import retrofit2.Response;
+public class QueryManifiestoActivity extends AppCompatActivity {
 
-import static com.cudpast.rivertourapp.SQLite.Utils.CAMPO_MARCA_VEHICULO;
-import static com.cudpast.rivertourapp.SQLite.Utils.CAMPO_MATRICULA_VEHICULO;
-import static com.cudpast.rivertourapp.SQLite.Utils.CAMPO_NOMBRE_VEHICULO;
-import static com.cudpast.rivertourapp.SQLite.Utils.CAMPO_PLACA_VEHICULO;
-
-public class ConsultManiActivity extends AppCompatActivity {
-
-    public static final String TAG = ConsultManiActivity.class.getSimpleName();
+    public static final String TAG = QueryManifiestoActivity.class.getSimpleName();
     //
     private ProgressDialog pDialog;
     private RecyclerView recyclerView;
@@ -54,26 +38,27 @@ public class ConsultManiActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         getSupportActionBar().hide();
         setContentView(R.layout.activity_consult_mani);
-        pDialog = new ProgressDialog(ConsultManiActivity.this);
-        pDialog.setMessage("Loading Data.. Please wait...");
+        init();
+    }
+
+    private void init() {
+        pDialog = new ProgressDialog(QueryManifiestoActivity.this);
+        pDialog.setMessage("Actualizando....");
         pDialog.setIndeterminate(false);
         pDialog.setCancelable(false);
         pDialog.show();
-        mListOff = new ArrayList<>();
-        loadListManifiestoOffline();
+        loadOfflineListManifiesto();
     }
 
-    private void loadListManifiestoOffline() {
+    private void loadOfflineListManifiesto() {
+        Log.e(TAG, "======= loadOfflineListManifiesto() =======");
+        mListOff = new ArrayList<>();
         mListOff.clear();
-        Log.e(TAG, " loadListManifiestoOffline() ");
-        //
         MySqliteDB mySqliteDB = new MySqliteDB(this);
         SQLiteDatabase db = mySqliteDB.getReadableDatabase();
         Cursor cursor = mySqliteDB.getListManifiesto(db);
-        //
-        while (cursor.moveToNext()) {
 
-            Manifiesto manifiesto = new Manifiesto();
+        while (cursor.moveToNext()) {
             //
             String idguia = cursor.getString(cursor.getColumnIndex(Utils.CAMPO_ID_GUIA));
             String fechaMani = cursor.getString(cursor.getColumnIndex(Utils.CAMPO_FECHA_MANIFIESTO));
@@ -82,19 +67,22 @@ public class ConsultManiActivity extends AppCompatActivity {
             String choferMani = cursor.getString(cursor.getColumnIndex(Utils.CAMPO_CHOFER_MANIFIESTO));
             int syncMani = cursor.getInt(cursor.getColumnIndex(Utils.CAMPO_SYNC_STATUS_MANIFIESTO));
             //
+            Manifiesto manifiesto = new Manifiesto();
             manifiesto.setIdGuiaMani(idguia);
             manifiesto.setFechaMani(fechaMani);
             manifiesto.setDestinoMani(destinoMani);
             manifiesto.setVehiculoMani(vehiculoMani);
             manifiesto.setChoferMani(choferMani);
             manifiesto.setSync_status(syncMani);
-            Log.e(TAG, "================================");
-            Log.e(TAG, "idguia : " + idguia);
-            Log.e(TAG, "fechaMani : " + fechaMani);
-            Log.e(TAG, "destinoMani : " + destinoMani);
-            Log.e(TAG, "vehiculoMani : " + vehiculoMani);
-            Log.e(TAG, "choferMani : " + choferMani);
-            Log.e(TAG, "syncMani : " + syncMani);
+            //
+            String cadena ="================================" + "\n"+
+                            "idguia : " + idguia +"\n"+
+                            "fechaMani : " + fechaMani +"\n"+
+                            "destinoMani : " + destinoMani +"\n"+
+                            "vehiculoMani : " + vehiculoMani +"\n"+
+                            "choferMani : " + choferMani +"\n"+
+                            "syncMani : " + syncMani;
+            Log.e(TAG, cadena);
             //
             mListOff.add(manifiesto);
         }
@@ -121,9 +109,7 @@ public class ConsultManiActivity extends AppCompatActivity {
             }
         });
 
-        Toast.makeText(this, "Esta offline", Toast.LENGTH_SHORT).show();
         pDialog.dismiss();
-
         cursor.close();
         mySqliteDB.close();
     }
@@ -170,7 +156,7 @@ public class ConsultManiActivity extends AppCompatActivity {
 
 
     public void backToMain(View view) {
-        Intent i = new Intent(ConsultManiActivity.this, MainActivity.class);
+        Intent i = new Intent(QueryManifiestoActivity.this, MainActivity.class);
         startActivity(i);
         finish();
     }
