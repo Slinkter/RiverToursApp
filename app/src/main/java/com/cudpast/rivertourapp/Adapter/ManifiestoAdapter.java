@@ -75,6 +75,17 @@ public class ManifiestoAdapter extends RecyclerView.Adapter<ManifiestoAdapter.cu
                 holder.itemView.getContext().startActivity(i);
             }
         });
+
+        holder.btn_listPasajero.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent i = new Intent(holder.itemView.getContext(), ListPasajeroActivity.class);
+                i.putExtra("idguiaManifiesto",manifiesto.getIdGuiaMani());
+                holder.itemView.getContext().startActivity(i);
+            }
+        });
+
+
     }
 
     @Override
@@ -87,6 +98,8 @@ public class ManifiestoAdapter extends RecyclerView.Adapter<ManifiestoAdapter.cu
         void onShowSync(int position);
 
         void onShowListManfiesto(int position);
+
+        void onShowPdfManfiesto(int position);
     }
 
     public void setOnItemClickListener(OnItemClickListener listener) {
@@ -98,7 +111,7 @@ public class ManifiestoAdapter extends RecyclerView.Adapter<ManifiestoAdapter.cu
     public class customRVManifiesto extends RecyclerView.ViewHolder {
 
         TextView idGuiaMani, fechaMani, destinoMani, vehiculoMani, choferMani;
-        ImageView btn_listPasajero, btn_showSyncStatus;
+        ImageView btn_listPasajero, btn_showSyncStatus , btn_showPdfManifiesto;
         View mView;
 
         public customRVManifiesto(@NonNull final View itemView, final OnItemClickListener listener) {
@@ -126,6 +139,18 @@ public class ManifiestoAdapter extends RecyclerView.Adapter<ManifiestoAdapter.cu
             });
 
             btn_listPasajero.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    if (listener != null) {
+                        int position = getAdapterPosition();
+                        if (position != RecyclerView.NO_POSITION) {
+                            listener.onShowListManfiesto(position);
+                        }
+                    }
+                }
+            });
+
+            btn_showPdfManifiesto.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
                     if (listener != null) {
