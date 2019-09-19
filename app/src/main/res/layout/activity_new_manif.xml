@@ -19,9 +19,9 @@
             android:orientation="vertical">
 
             <LinearLayout
-                android:layout_marginTop="30dp"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
+                android:layout_marginTop="30dp"
                 android:gravity="center">
 
                 <de.hdodenhof.circleimageview.CircleImageView
@@ -120,8 +120,8 @@
                                 android:textSize="18dp" />
 
 
-
                         </LinearLayout>
+
                         <LinearLayout
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
@@ -130,11 +130,11 @@
                             android:weightSum="2">
 
                             <EditText
-                                android:layout_marginEnd="8dp"
                                 android:id="@+id/et_guiaOrigen"
                                 android:layout_width="0dp"
                                 android:layout_height="wrap_content"
                                 android:layout_marginTop="@dimen/distform"
+                                android:layout_marginEnd="8dp"
                                 android:layout_weight="1"
                                 android:background="@drawable/et_bg"
                                 android:hint="Origin"
@@ -442,6 +442,7 @@
                 android:textStyle="bold" />
 
             <Button
+                android:id="@+id/btnSalirGuia"
                 android:layout_width="240dp"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"

@@ -39,7 +39,7 @@ public class AddManifActivity extends AppCompatActivity {
     public static final String TAG = AddManifActivity.class.getSimpleName();
     private TextView tv_nombreVehiculo, tv_matriculaVehiculo, tv_marcaVehiculo, tv_breveteChofer;
     private EditText et_guiaGuia, et_guiaFecha, et_guiaDestino;
-    private Button btnSaveGuia;
+    private Button btnSaveGuia,btnSalirGuia;
     private Spinner spinner_PlacaVehiculo, spinnerChofer1;
 
     ArrayList<Vehiculo> listVehiculoFromSqlite;
@@ -181,6 +181,16 @@ public class AddManifActivity extends AppCompatActivity {
                 if (submitForm()) {
                     saveManifiestoLocal();
                 }
+            }
+        });
+        //Salir  Manifiesto
+        btnSalirGuia = findViewById(R.id.btnSalirGuia);
+        btnSalirGuia.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent i = new Intent(AddManifActivity.this, MainActivity.class);
+                startActivity(i);
+                finish();
             }
         });
         //******************************************************

@@ -1,6 +1,7 @@
 package com.cudpast.rivertourapp.Business;
 
 import android.app.ProgressDialog;
+import android.content.Intent;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.support.v7.app.AppCompatActivity;
@@ -9,6 +10,7 @@ import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
+import android.view.View;
 import android.widget.Adapter;
 import android.widget.ProgressBar;
 import android.widget.Toast;
@@ -18,6 +20,7 @@ import com.cudpast.rivertourapp.Adapter.PasajeroAdapter;
 import com.cudpast.rivertourapp.Adapter.VehiculoAdapter;
 import com.cudpast.rivertourapp.Helper.ApiInterface;
 import com.cudpast.rivertourapp.Helper.ApiService;
+import com.cudpast.rivertourapp.MainActivity;
 import com.cudpast.rivertourapp.Model.Manifiesto;
 import com.cudpast.rivertourapp.Model.Vehiculo;
 import com.cudpast.rivertourapp.R;
@@ -166,4 +169,9 @@ public class ConsultManiActivity extends AppCompatActivity {
     }
 
 
+    public void backToMain(View view) {
+        Intent i = new Intent(ConsultManiActivity.this, MainActivity.class);
+        startActivity(i);
+        finish();
+    }
 }

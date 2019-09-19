@@ -57,6 +57,7 @@ public class MainActivity extends AppCompatActivity {
         progressDialog.show();
         Intent intent = new Intent(MainActivity.this, AddManifActivity.class);
         startActivity(intent);
+        finish();
         progressDialog.dismiss();
     }
 
@@ -65,6 +66,7 @@ public class MainActivity extends AppCompatActivity {
         progressDialog.show();
         Intent intent = new Intent(MainActivity.this, ConsultManiActivity.class);
         startActivity(intent);
+        finish();
         progressDialog.dismiss();
     }
 
@@ -72,6 +74,7 @@ public class MainActivity extends AppCompatActivity {
         progressDialog.show();
         Intent intent = new Intent(MainActivity.this, ConsulChoferActivity.class);
         startActivity(intent);
+        finish();
         progressDialog.dismiss();
     }
 
@@ -79,6 +82,7 @@ public class MainActivity extends AppCompatActivity {
         progressDialog.show();
         Intent intent = new Intent(MainActivity.this, ConsulVehiculoActivity.class);
         startActivity(intent);
+        finish();
         progressDialog.dismiss();
     }
 
