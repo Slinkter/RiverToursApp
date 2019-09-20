@@ -107,6 +107,11 @@ public class QueryManifiestoActivity extends AppCompatActivity {
             public void onShowListManfiesto(int position) {
                 showlist(position);
             }
+
+            @Override
+            public void onShowPdfManfiesto(int position) {
+                showpdft(position);
+            }
         });
 
         pDialog.dismiss();
@@ -120,6 +125,10 @@ public class QueryManifiestoActivity extends AppCompatActivity {
 
     private void showlist(int position) {
         Toast.makeText(this, " lista de pasajero " + position, Toast.LENGTH_SHORT).show();
+    }
+
+    private void showpdft(int position) {
+        Toast.makeText(this, " generar pdf " + position, Toast.LENGTH_SHORT).show();
     }
 
     private void updateListManifiesto(String idguia, String fechaMani, String destinoMani, String vehiculoMani, String choferMani) {

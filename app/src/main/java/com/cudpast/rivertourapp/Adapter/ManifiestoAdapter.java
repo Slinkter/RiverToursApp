@@ -11,6 +11,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.cudpast.rivertourapp.Business.Support.ListPasajeroActivity;
+import com.cudpast.rivertourapp.Business.Support.ShowPDFActivity;
 import com.cudpast.rivertourapp.Model.Manifiesto;
 import com.cudpast.rivertourapp.R;
 import com.cudpast.rivertourapp.SQLite.Utils;
@@ -71,16 +72,15 @@ public class ManifiestoAdapter extends RecyclerView.Adapter<ManifiestoAdapter.cu
             @Override
             public void onClick(View v) {
                 Intent i = new Intent(holder.itemView.getContext(), ListPasajeroActivity.class);
-                i.putExtra("idguiaManifiesto",manifiesto.getIdGuiaMani());
+                i.putExtra("idguiaManifiesto", manifiesto.getIdGuiaMani());
                 holder.itemView.getContext().startActivity(i);
             }
         });
 
-        holder.btn_listPasajero.setOnClickListener(new View.OnClickListener() {
+        holder.btn_showPdfManifiesto.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent i = new Intent(holder.itemView.getContext(), ListPasajeroActivity.class);
-                i.putExtra("idguiaManifiesto",manifiesto.getIdGuiaMani());
+                Intent i = new Intent(holder.itemView.getContext(), ShowPDFActivity.class);
                 holder.itemView.getContext().startActivity(i);
             }
         });
@@ -111,7 +111,7 @@ public class ManifiestoAdapter extends RecyclerView.Adapter<ManifiestoAdapter.cu
     public class customRVManifiesto extends RecyclerView.ViewHolder {
 
         TextView idGuiaMani, fechaMani, destinoMani, vehiculoMani, choferMani;
-        ImageView btn_listPasajero, btn_showSyncStatus , btn_showPdfManifiesto;
+        ImageView btn_listPasajero, btn_showSyncStatus, btn_showPdfManifiesto;
         View mView;
 
         public customRVManifiesto(@NonNull final View itemView, final OnItemClickListener listener) {
@@ -125,6 +125,7 @@ public class ManifiestoAdapter extends RecyclerView.Adapter<ManifiestoAdapter.cu
             choferMani = mView.findViewById(R.id.it_choferMAni);
             btn_showSyncStatus = mView.findViewById(R.id.it_btn_showSyncStatus);
             btn_listPasajero = mView.findViewById(R.id.it_btn_showListPasajero);
+            btn_showPdfManifiesto = mView.findViewById(R.id.it_btn_showPDF);
 
             btn_showSyncStatus.setOnClickListener(new View.OnClickListener() {
                 @Override
