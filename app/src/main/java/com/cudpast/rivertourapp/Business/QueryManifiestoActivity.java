@@ -90,13 +90,6 @@ public class QueryManifiestoActivity extends AppCompatActivity {
         //
         mAdapter = new ManifiestoAdapter(mListOff);
         mAdapter.notifyDataSetChanged();
-        //
-        RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(getApplicationContext());
-        recyclerView = findViewById(R.id.recycler_view_manifiesto);
-        recyclerView.setLayoutManager(layoutManager);
-        recyclerView.setItemAnimator(new DefaultItemAnimator());
-        recyclerView.setAdapter(mAdapter);
-
         mAdapter.setOnItemClickListener(new ManifiestoAdapter.OnItemClickListener() {
             @Override
             public void onShowSync(int position) {
@@ -113,6 +106,14 @@ public class QueryManifiestoActivity extends AppCompatActivity {
                 showpdft(position);
             }
         });
+        //
+        RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(getApplicationContext());
+        recyclerView = findViewById(R.id.recycler_view_manifiesto);
+        recyclerView.setLayoutManager(layoutManager);
+        recyclerView.setItemAnimator(new DefaultItemAnimator());
+        recyclerView.setAdapter(mAdapter);
+
+
 
         pDialog.dismiss();
         cursor.close();
@@ -129,6 +130,12 @@ public class QueryManifiestoActivity extends AppCompatActivity {
 
     private void showpdft(int position) {
         Toast.makeText(this, " generar pdf " + position, Toast.LENGTH_SHORT).show();
+    }
+
+    public void backToMain(View view) {
+        Intent i = new Intent(QueryManifiestoActivity.this, MainActivity.class);
+        startActivity(i);
+        finish();
     }
 
     private void updateListManifiesto(String idguia, String fechaMani, String destinoMani, String vehiculoMani, String choferMani) {
@@ -161,12 +168,5 @@ public class QueryManifiestoActivity extends AppCompatActivity {
         Log.e(TAG, " destroyDBManifiesto :  eliminar  drop table manifiesto ");
         MySqliteDB mySqliteDB = new MySqliteDB(this);
         mySqliteDB.deleteTableManifiesto();
-    }
-
-
-    public void backToMain(View view) {
-        Intent i = new Intent(QueryManifiestoActivity.this, MainActivity.class);
-        startActivity(i);
-        finish();
     }
 }

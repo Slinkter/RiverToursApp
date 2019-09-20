@@ -57,9 +57,6 @@ public class ListPasajeroActivity extends AppCompatActivity {
 
     }
 
-
-
-
     private void loadListPasajero(String idguia) {
         mListPasajero.clear();
         //

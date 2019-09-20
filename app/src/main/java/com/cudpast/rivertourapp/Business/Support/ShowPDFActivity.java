@@ -4,6 +4,8 @@ import android.Manifest;
 import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.database.Cursor;
+import android.database.sqlite.SQLiteDatabase;
 import android.os.Build;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
@@ -14,7 +16,10 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.Toast;
 
+import com.cudpast.rivertourapp.Model.Pasajero;
 import com.cudpast.rivertourapp.R;
+import com.cudpast.rivertourapp.SQLite.MySqliteDB;
+import com.cudpast.rivertourapp.SQLite.Utils;
 
 import java.io.File;
 import java.util.ArrayList;
@@ -33,11 +38,20 @@ public class ShowPDFActivity extends AppCompatActivity {
     String longText = "Lorem to dkiifafas ";
     TemplatePDF templatePDF;
 
+    //
+    ArrayList<Pasajero> mListPasajero;
+    String idguiaManifiesto;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_show_pdf);
+
+        if (getIntent() != null) {
+            idguiaManifiesto = getIntent().getStringExtra("idguiaManifiesto");
+        }
+
 
         //==============================================================================================
         try {
@@ -74,6 +88,37 @@ public class ShowPDFActivity extends AppCompatActivity {
         //==============================================================================================
     }
 
+    private ArrayList<String[]> loadListPasajero(String idguia) {
+        ArrayList<String[]> rows = new ArrayList<>();
+        //
+        MySqliteDB mySqliteDB = new MySqliteDB(this);
+        SQLiteDatabase database = mySqliteDB.getReadableDatabase();
+        Cursor cursor = mySqliteDB.getListPasajero(database);
+        //
+        while (cursor.moveToNext()) {
+            try {
+                String id = cursor.getString(cursor.getColumnIndex(Utils.CAMPO_GUIAID_PASAJERO));
+                if (id.equalsIgnoreCase(idguia)) {
+                    String nombre = cursor.getString(cursor.getColumnIndex(Utils.CAMPO_NOMBRE_PASAJERO));
+                    String edad = cursor.getString(cursor.getColumnIndex(Utils.CAMPO_EDAD_PASAJERO));
+                    String ocupacion = cursor.getString(cursor.getColumnIndex(Utils.CAMPO_OCUPACION_PASAJERO));
+                    String nacionalidad = cursor.getString(cursor.getColumnIndex(Utils.CAMPO_NACIONALIDAD_PASAJERO));
+                    String numBoleta = cursor.getString(cursor.getColumnIndex(Utils.CAMPO_NUMBOLETA_PASAJERO));
+                    String dni = cursor.getString(cursor.getColumnIndex(Utils.CAMPO_DNI_PASAJERO));
+                    String destino = cursor.getString(cursor.getColumnIndex(Utils.CAMPO_DESTINO_PASAJERO));
+                    rows.add(new String []{nombre,edad,ocupacion,nacionalidad,numBoleta,dni,destino});
+                }
+                Log.e(TAG, "id : " + id + " / " + "idguiaManifiesto : " + idguia);
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+
+        }
+        cursor.close();
+        mySqliteDB.close();
+        return rows;
+    }
+
     private void init() {
         templatePDF = new TemplatePDF(ShowPDFActivity.this);
         templatePDF.openDocument();
@@ -81,7 +126,7 @@ public class ShowPDFActivity extends AppCompatActivity {
         templatePDF.addTitles("Lista de pasajero", "RiverTour", "2019");
         templatePDF.addParagraph(shortText);
         templatePDF.addParagraph(longText);
-        templatePDF.addCreateTable(header, getClients());
+        templatePDF.addCreateTable(header, loadListPasajero(idguiaManifiesto));
         templatePDF.closeDocument();
     }
 
@@ -93,7 +138,6 @@ public class ShowPDFActivity extends AppCompatActivity {
         rows.add(new String[]{"4", "Nombre", "Edad", "Ocupacion", "Nacionalidad", "Numero", "DNI"});
         return rows;
     }
-
 
     public void btn_pdfView(View view) {
         try {

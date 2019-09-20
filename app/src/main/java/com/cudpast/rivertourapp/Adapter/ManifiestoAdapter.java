@@ -68,6 +68,7 @@ public class ManifiestoAdapter extends RecyclerView.Adapter<ManifiestoAdapter.cu
                 }
             });
         }
+
         holder.btn_listPasajero.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -81,6 +82,7 @@ public class ManifiestoAdapter extends RecyclerView.Adapter<ManifiestoAdapter.cu
             @Override
             public void onClick(View v) {
                 Intent i = new Intent(holder.itemView.getContext(), ShowPDFActivity.class);
+                i.putExtra("idguiaManifiesto", manifiesto.getIdGuiaMani());
                 holder.itemView.getContext().startActivity(i);
             }
         });
@@ -118,6 +120,7 @@ public class ManifiestoAdapter extends RecyclerView.Adapter<ManifiestoAdapter.cu
             super(itemView);
             //
             mView = itemView;
+            //
             idGuiaMani = mView.findViewById(R.id.it_idGuia);
             fechaMani = mView.findViewById(R.id.it_fechaGuia);
             destinoMani = mView.findViewById(R.id.it_destinoMani);
@@ -157,7 +160,7 @@ public class ManifiestoAdapter extends RecyclerView.Adapter<ManifiestoAdapter.cu
                     if (listener != null) {
                         int position = getAdapterPosition();
                         if (position != RecyclerView.NO_POSITION) {
-                            listener.onShowListManfiesto(position);
+                            listener.onShowPdfManfiesto(position);
                         }
                     }
                 }
