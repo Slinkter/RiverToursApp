@@ -129,7 +129,7 @@ public class TemplatePDF {
                 pdfPCell.setVerticalAlignment(Element.ALIGN_CENTER);
                 pdfPCell.setPaddingTop(20);
                 pdfPCell.setPaddingBottom(20);
-                pdfPCell.setBackgroundColor(BaseColor.GREEN);
+                pdfPCell.setBackgroundColor(BaseColor.GRAY);
                 //
                 pdfPTable.addCell(pdfPCell);
             }

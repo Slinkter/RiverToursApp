@@ -55,7 +55,7 @@ public class ShowPDFActivity extends AppCompatActivity {
 
         //==============================================================================================
         try {
-            if (Build.VERSION.SDK_INT >= 23) {
+            if (Build.VERSION.SDK_INT >= 18) {
                 Log.e(TAG, " La version API es >= de 23 ");
                 if (checkPermissionWrite()) {
                     Log.e(TAG, " Checkear permisos ");
@@ -130,15 +130,6 @@ public class ShowPDFActivity extends AppCompatActivity {
         templatePDF.closeDocument();
     }
 
-    private ArrayList<String[]> getClients() {
-        ArrayList<String[]> rows = new ArrayList<>();
-        rows.add(new String[]{"1", "Nombre", "Edad", "Ocupacion", "Nacionalidad", "Numero", "DNI"});
-        rows.add(new String[]{"2", "Nombre", "Edad", "Ocupacion", "Nacionalidad", "Numero", "DNI"});
-        rows.add(new String[]{"3", "Nombre", "Edad", "Ocupacion", "Nacionalidad", "Numero", "DNI"});
-        rows.add(new String[]{"4", "Nombre", "Edad", "Ocupacion", "Nacionalidad", "Numero", "DNI"});
-        return rows;
-    }
-
     public void btn_pdfView(View view) {
         try {
             templatePDF.viewPDF();
@@ -152,7 +143,7 @@ public class ShowPDFActivity extends AppCompatActivity {
     }
 
     public void btn_pdfApp(View view) {
-
+        Toast.makeText(this, "Hola", Toast.LENGTH_SHORT).show();
     }
 
 
