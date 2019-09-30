@@ -28,21 +28,14 @@ public class ShowPDFActivity extends AppCompatActivity {
 
     public static final String TAG = ShowPDFActivity.class.getSimpleName();
     private static final int PERMISSION_REQUEST_CODE = 1234;
-    private File pdfFile;
-
     private Button btn_aux_pdf;
-
     //==============================================================================================
     private String[] header = {"Nombre", "Edad", "Ocupacion", "Nacionalidad", "Numero", "DNI", "Destino"};
     String shortText = "Lista de pasajero";
     String longText = "Lorem to dkiifafas ";
     TemplatePDF templatePDF;
-
-    //
-    ArrayList<Pasajero> mListPasajero;
     String idguiaManifiesto;
-
-
+    //=========================================================================== ===================
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -51,8 +44,6 @@ public class ShowPDFActivity extends AppCompatActivity {
         if (getIntent() != null) {
             idguiaManifiesto = getIntent().getStringExtra("idguiaManifiesto");
         }
-
-
         //==============================================================================================
         try {
             if (Build.VERSION.SDK_INT >= 18) {
@@ -84,7 +75,6 @@ public class ShowPDFActivity extends AppCompatActivity {
         } catch (Exception e) {
             Toast.makeText(this, "Versión de API no compatible", Toast.LENGTH_SHORT).show();
         }
-
         //==============================================================================================
     }
 
@@ -106,13 +96,12 @@ public class ShowPDFActivity extends AppCompatActivity {
                     String numBoleta = cursor.getString(cursor.getColumnIndex(Utils.CAMPO_NUMBOLETA_PASAJERO));
                     String dni = cursor.getString(cursor.getColumnIndex(Utils.CAMPO_DNI_PASAJERO));
                     String destino = cursor.getString(cursor.getColumnIndex(Utils.CAMPO_DESTINO_PASAJERO));
-                    rows.add(new String []{nombre,edad,ocupacion,nacionalidad,numBoleta,dni,destino});
+                    rows.add(new String[]{nombre, edad, ocupacion, nacionalidad, numBoleta, dni, destino});
                 }
                 Log.e(TAG, "id : " + id + " / " + "idguiaManifiesto : " + idguia);
             } catch (Exception e) {
                 e.printStackTrace();
             }
-
         }
         cursor.close();
         mySqliteDB.close();
@@ -145,8 +134,6 @@ public class ShowPDFActivity extends AppCompatActivity {
     public void btn_pdfApp(View view) {
         Toast.makeText(this, "Hola", Toast.LENGTH_SHORT).show();
     }
-
-
     //==============================================================================================
 
     private boolean checkPermissionWrite() {

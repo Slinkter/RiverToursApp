@@ -17,21 +17,22 @@ import retrofit2.http.Query;
 public interface ApiInterface {
 
     @Headers("Content-Type: application/json")
-    //0.
-    @GET("saveUserRiver.php")
-    Call<User> insertUser(
-            @Query("firstname") String firstname,
-            @Query("lastname") String lastname,
-            @Query("dni") String dni,
-            @Query("correo") String correo,
-            @Query("numphone") String numphone,
-            @Query("uid") String uid);
 
+    // LOAD
+    @GET("loadChoferRiver.php")
+    Call<List<Chofer>> getListChofer();
+
+    @GET("loadManifiestoRiver.php")
+    Call<List<Manifiesto>> getListManifiesto();
 
     @GET("loadUserRiver.php")
     Call<User> getUser(@Query("uid") String uid);
 
-    //1.
+    @GET("loadVehiculoRiver.php")
+    Call<List<Vehiculo>> getListVehiculo();
+
+    // SAVE
+
     @GET("saveChoferRiver.php")
     Call<Chofer> insertChofer(
             @Query("nameChofer") String nameChofer,
@@ -40,21 +41,6 @@ public interface ApiInterface {
             @Query("brevete") String brevete,
             @Query("numphone") String numphone);
 
-    @GET("loadChoferRiver.php")
-    Call<List<Chofer>> getListChofer();
-
-    //2.
-    @GET("saveVehiculoRiver.php")
-    Call<Vehiculo> insertVehiculo(
-            @Query("nombreVehiculo") String nombreVehiculo,
-            @Query("marcaVehiculo") String marcaVehiculo,
-            @Query("matriculaVehiculo") String matriculaVehiculo,
-            @Query("placaVehiculo") String placaVehiculo);
-
-    @GET("loadVehiculoRiver.php")
-    Call<List<Vehiculo>> getListVehiculo();
-
-    //3.
     @GET("saveManifiestoRiver.php")
     Call<Manifiesto> insertManifiesto(
             @Query("idGuiaMani") String idGuiaMani,
@@ -63,10 +49,6 @@ public interface ApiInterface {
             @Query("vehiculoMani") String vehiculoMani,
             @Query("choferMani") String choferMani);
 
-    @GET("loadManifiestoRiver.php")
-    Call<List<Manifiesto>> getListManifiesto();
-
-    //4.
     @GET("savePasajeroRiver.php")
     Call<Pasajero> insertPasajero(
             @Query("nombrePasajero") String nombrePasajero,
@@ -79,6 +61,21 @@ public interface ApiInterface {
             @Query("destinoPasajero") String destinoPasajero,
             @Query("idGuia") String idGuia);
 
+    @GET("saveUserRiver.php")
+    Call<User> insertUser(
+            @Query("firstname") String firstname,
+            @Query("lastname") String lastname,
+            @Query("dni") String dni,
+            @Query("correo") String correo,
+            @Query("numphone") String numphone,
+            @Query("uid") String uid);
+
+    @GET("saveVehiculoRiver.php")
+    Call<Vehiculo> insertVehiculo(
+            @Query("nombreVehiculo") String nombreVehiculo,
+            @Query("marcaVehiculo") String marcaVehiculo,
+            @Query("matriculaVehiculo") String matriculaVehiculo,
+            @Query("placaVehiculo") String placaVehiculo);
 
 
 
