@@ -1,15 +1,19 @@
 package com.cudpast.rivertourapp.Business;
 
 import android.app.ProgressDialog;
+import android.content.Context;
 import android.content.Intent;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
+import android.os.Vibrator;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.View;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
 import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -24,7 +28,7 @@ import com.cudpast.rivertourapp.SQLite.Utils;
 import java.util.ArrayList;
 
 public class NewPasajeroActivity extends AppCompatActivity {
-    //
+
     public static final String TAG = NewPasajeroActivity.class.getSimpleName();
     // El manifiesto y la lista de pasajeros debe estar insetada en local(sqlite)
     // y cuando se valla mainActivity debe actualizar
@@ -42,12 +46,18 @@ public class NewPasajeroActivity extends AppCompatActivity {
     //
     ProgressDialog progressDialog;
     //
+    Animation animation;
+    Vibrator vibrator;
+    //
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         //
         setContentView(R.layout.activity_add_pasajero);
         getSupportActionBar().hide();
+        //submitForm
+        animation = AnimationUtils.loadAnimation(getApplicationContext(), R.anim.shake);
+        vibrator = (Vibrator) getSystemService(Context.VIBRATOR_SERVICE);
         //
         buildCreateRecyclerPasajero();
         // Info de Manifiesto de la guia id
@@ -61,12 +71,12 @@ public class NewPasajeroActivity extends AppCompatActivity {
             Log.e("TAG ", "valor de intent : " + idguiaManifiesto);
         }
         //Bloque 2
+        pasajeroDNI = findViewById(R.id.pasajeroDNI);
         pasajeroNombre = findViewById(R.id.pasajeroNombre);
         pasajeroEdad = findViewById(R.id.pasajeroEdad);
         pasajeroOcupacion = findViewById(R.id.pasajeroOcupacion);
         pasajeroNacionalidad = findViewById(R.id.pasajeroNacionalidad);
         pasajeroNBoleta = findViewById(R.id.pasajeroN);
-        pasajeroDNI = findViewById(R.id.pasajeroDNI);
         pasajeroDestino = findViewById(R.id.pasajeroDestino);
         //
         btn_AddPasajero = findViewById(R.id.btnAddPasajero);
@@ -76,19 +86,26 @@ public class NewPasajeroActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 //
+                String dni = pasajeroDNI.getText().toString();
                 String nombre = pasajeroNombre.getText().toString();
                 String edad = pasajeroEdad.getText().toString();
                 String ocupacion = pasajeroOcupacion.getText().toString();
                 String nacionalidad = pasajeroNacionalidad.getText().toString();
                 String numBoleta = pasajeroNBoleta.getText().toString();
-                String dni = pasajeroDNI.getText().toString();
                 String destino = pasajeroDestino.getText().toString();
-                //
-                insertPasajero(new Pasajero(nombre, edad, ocupacion, nacionalidad, numBoleta, dni, destino));
-                //
-                clearTextPasajero();
-                //clearHintPasajero();
-                btn_SaveGuia.setVisibility(View.VISIBLE);
+
+                if (submitForm()) {
+                    //
+                    insertPasajero(new Pasajero(nombre, edad, ocupacion, nacionalidad, numBoleta, dni, destino));
+                    //
+                    clearTextPasajero();
+                    //clearHintPasajero();
+                    btn_SaveGuia.setVisibility(View.VISIBLE);
+                } else  {
+                    Toast.makeText(NewPasajeroActivity.this, "ingresar dato del pasajero", Toast.LENGTH_SHORT).show();
+                }
+
+
             }
         });
 
@@ -261,4 +278,124 @@ public class NewPasajeroActivity extends AppCompatActivity {
         startActivity(intent);
         finish();
     }
+
+
+    ///VAlidacion de datos del pasajero
+
+    private boolean submitForm() {
+
+        if (!a()) {
+            pasajeroDNI.setAnimation(animation);
+            pasajeroDNI.startAnimation(animation);
+            vibrator.vibrate(120);
+            return false;
+        }
+
+
+        if (!b()) {
+            pasajeroNombre.setAnimation(animation);
+            pasajeroNombre.startAnimation(animation);
+            vibrator.vibrate(120);
+            return false;
+        }
+
+
+        if (!c()) {
+            pasajeroEdad.setAnimation(animation);
+            pasajeroEdad.startAnimation(animation);
+            vibrator.vibrate(120);
+            return false;
+        }
+
+
+        if (!d()) {
+            pasajeroOcupacion.setAnimation(animation);
+            pasajeroOcupacion.startAnimation(animation);
+            vibrator.vibrate(120);
+            return false;
+        }
+
+        if (!e()) {
+            pasajeroNacionalidad.setAnimation(animation);
+            pasajeroNacionalidad.startAnimation(animation);
+            vibrator.vibrate(120);
+            return false;
+        }
+        if (!f()) {
+            pasajeroDestino.setAnimation(animation);
+            pasajeroDestino.startAnimation(animation);
+            vibrator.vibrate(120);
+            return false;
+        }
+        if (!g()) {
+            pasajeroNBoleta.setAnimation(animation);
+            pasajeroNBoleta.startAnimation(animation);
+            vibrator.vibrate(120);
+            return false;
+        }
+        return true;
+    }
+
+
+    private boolean a() {
+        if (pasajeroDNI.getText().toString().trim().isEmpty()) {
+            pasajeroDNI.setError("Ingresar DNI");
+            return false;
+        }
+        return true;
+    }
+
+    private boolean b() {
+        if (pasajeroNombre.getText().toString().trim().isEmpty()) {
+            pasajeroNombre.setError("Ingresar Nombre");
+            return false;
+        }
+        return true;
+    }
+
+    private boolean c() {
+        if (pasajeroEdad.getText().toString().trim().isEmpty()) {
+            pasajeroEdad.setError("Ingresar Edad");
+            return false;
+        }
+        return true;
+    }
+
+    private boolean d() {
+        if (pasajeroOcupacion.getText().toString().trim().isEmpty()) {
+            pasajeroOcupacion.setError("Ingreese Ocupacion");
+
+            return false;
+        }
+        return true;
+
+    }
+
+    private boolean e() {
+        if (pasajeroNacionalidad.getText().toString().trim().isEmpty()) {
+            pasajeroNacionalidad.setError("Ingreese Nacionalidad");
+            return false;
+        }
+        return true;
+    }
+
+
+    private boolean f() {
+        if (pasajeroDestino.getText().toString().trim().isEmpty()) {
+            pasajeroDestino.setError("Ingrese Destino");
+            return false;
+        }
+        return true;
+    }
+
+
+    private boolean g() {
+        if (pasajeroNBoleta.getText().toString().trim().isEmpty()) {
+            pasajeroNBoleta.setError("Ingrese  numero de Boleta");
+            return false;
+        }
+        return true;
+    }
+
+
 }

@@ -31,11 +31,9 @@ public class TemplatePDF {
 
     //
     private Font fTitle = new Font(Font.FontFamily.TIMES_ROMAN, 20, Font.BOLD);
-    private Font fSubTitle = new Font(Font.FontFamily.TIMES_ROMAN, 18, Font.BOLD);
-    private Font fText = new Font(Font.FontFamily.TIMES_ROMAN, 12, Font.BOLD);
+    private Font fSubTitle = new Font(Font.FontFamily.TIMES_ROMAN, 12, Font.BOLD);
+    private Font fText = new Font(Font.FontFamily.TIMES_ROMAN, 12, Font.NORMAL);
     private Font fHighText = new Font(Font.FontFamily.TIMES_ROMAN, 15, Font.BOLD, BaseColor.BLUE);
-
-
     //.Constructor
     public TemplatePDF(Context context) {
         this.context = context;
