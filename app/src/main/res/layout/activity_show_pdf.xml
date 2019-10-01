@@ -9,19 +9,13 @@
     tools:context=".Business.Support.ShowPDFActivity">
 
     <Button
-        android:padding="50dp"
-        android:textSize="40dp"
         android:id="@+id/btn_aux_pdf"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:onClick="btn_pdfView"
-        android:text="Generar " />
+        android:padding="50dp"
+        android:text="Generar "
+        android:textSize="40dp" />
 
-    <Button
-        android:visibility="gone"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:onClick="btn_pdfApp"
-        android:text="externo " />
 
 </LinearLayout>

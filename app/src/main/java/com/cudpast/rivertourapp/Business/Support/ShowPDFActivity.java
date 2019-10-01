@@ -16,19 +16,24 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.Toast;
 
+import com.cudpast.rivertourapp.MainActivity;
 import com.cudpast.rivertourapp.Model.Pasajero;
 import com.cudpast.rivertourapp.R;
 import com.cudpast.rivertourapp.SQLite.MySqliteDB;
 import com.cudpast.rivertourapp.SQLite.Utils;
+import com.cudpast.rivertourapp.SplashActivity;
 
 import java.io.File;
 import java.util.ArrayList;
+import java.util.Timer;
+import java.util.TimerTask;
 
 public class ShowPDFActivity extends AppCompatActivity {
 
     public static final String TAG = ShowPDFActivity.class.getSimpleName();
     private static final int PERMISSION_REQUEST_CODE = 1234;
     private Button btn_aux_pdf;
+
     //==============================================================================================
     private String[] header = {"Nombre", "Edad", "Ocupacion", "Nacionalidad", "Numero", "DNI", "Destino"};
     String shortText = "Lista de pasajero";
@@ -40,6 +45,7 @@ public class ShowPDFActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_show_pdf);
+
 
         if (getIntent() != null) {
             idguiaManifiesto = getIntent().getStringExtra("idguiaManifiesto");
@@ -56,6 +62,7 @@ public class ShowPDFActivity extends AppCompatActivity {
                     requestPErmissionWrite();
                 }
             } else {
+
                 btn_aux_pdf = findViewById(R.id.btn_aux_pdf);
                 btn_aux_pdf.setOnClickListener(new View.OnClickListener() {
                     @Override
@@ -71,6 +78,8 @@ public class ShowPDFActivity extends AppCompatActivity {
                     }
                 });
                 Log.e(TAG, " La version API es < de 23 ");
+
+
             }
         } catch (Exception e) {
             Toast.makeText(this, "Versión de API no compatible", Toast.LENGTH_SHORT).show();
@@ -128,12 +137,9 @@ public class ShowPDFActivity extends AppCompatActivity {
             Log.e(TAG, "error : " + e.getCause());
             Toast.makeText(this, "Generar al carga el pdf", Toast.LENGTH_SHORT).show();
         }
-
     }
 
-    public void btn_pdfApp(View view) {
-        Toast.makeText(this, "Hola", Toast.LENGTH_SHORT).show();
-    }
+
     //==============================================================================================
 
     private boolean checkPermissionWrite() {

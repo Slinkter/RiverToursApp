@@ -1,8 +1,11 @@
 package com.cudpast.rivertourapp.Adapter;
 
 import android.content.Intent;
+import android.database.Cursor;
+import android.database.sqlite.SQLiteDatabase;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -12,8 +15,10 @@ import android.widget.Toast;
 
 import com.cudpast.rivertourapp.Business.Support.ListPasajeroActivity;
 import com.cudpast.rivertourapp.Business.Support.ShowPDFActivity;
+import com.cudpast.rivertourapp.Business.Support.TemplatePDF;
 import com.cudpast.rivertourapp.Model.Manifiesto;
 import com.cudpast.rivertourapp.R;
+import com.cudpast.rivertourapp.SQLite.MySqliteDB;
 import com.cudpast.rivertourapp.SQLite.Utils;
 
 import java.util.ArrayList;
@@ -24,6 +29,12 @@ public class ManifiestoAdapter extends RecyclerView.Adapter<ManifiestoAdapter.cu
     //.1 Variable
     private ArrayList<Manifiesto> mListManifiesto;
     private OnItemClickListener mItemListener;
+
+    private String[] header = {"Nombre", "Edad", "Ocupacion", "Nacionalidad", "Numero", "DNI", "Destino"};
+    String shortText = "Lista de pasajero";
+    String longText = "Lorem to dkiifafas ";
+    TemplatePDF templatePDF;
+    String idguiaManifiesto;
 
     //.2 Constructor
     public ManifiestoAdapter(ArrayList<Manifiesto> mListManifiesto) {
@@ -81,11 +92,54 @@ public class ManifiestoAdapter extends RecyclerView.Adapter<ManifiestoAdapter.cu
         holder.btn_showPdfManifiesto.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent i = new Intent(holder.itemView.getContext(), ShowPDFActivity.class);
-                i.putExtra("idguiaManifiesto", manifiesto.getIdGuiaMani());
-                holder.itemView.getContext().startActivity(i);
+
+
+                ArrayList<String[]> rows = new ArrayList<>();
+                MySqliteDB mySqliteDB = new MySqliteDB(holder.itemView.getContext());
+                SQLiteDatabase database = mySqliteDB.getReadableDatabase();
+                Cursor cursor = mySqliteDB.getListPasajero(database);
+                while (cursor.moveToNext()) {
+                    String id = cursor.getString(cursor.getColumnIndex(Utils.CAMPO_GUIAID_PASAJERO));
+                    try {
+                        if (id.equalsIgnoreCase(manifiesto.getIdGuiaMani())) {
+                            String nombre = cursor.getString(cursor.getColumnIndex(Utils.CAMPO_NOMBRE_PASAJERO));
+                            String edad = cursor.getString(cursor.getColumnIndex(Utils.CAMPO_EDAD_PASAJERO));
+                            String ocupacion = cursor.getString(cursor.getColumnIndex(Utils.CAMPO_OCUPACION_PASAJERO));
+                            String nacionalidad = cursor.getString(cursor.getColumnIndex(Utils.CAMPO_NACIONALIDAD_PASAJERO));
+                            String numBoleta = cursor.getString(cursor.getColumnIndex(Utils.CAMPO_NUMBOLETA_PASAJERO));
+                            String dni = cursor.getString(cursor.getColumnIndex(Utils.CAMPO_DNI_PASAJERO));
+                            String destino = cursor.getString(cursor.getColumnIndex(Utils.CAMPO_DESTINO_PASAJERO));
+                            rows.add(new String[]{nombre, edad, ocupacion, nacionalidad, numBoleta, dni, destino});
+                        }
+                        Log.e(TAG, "id : " + id + " /n " + "idguiaManifiesto : " + manifiesto.getIdGuiaMani());
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
+                }
+
+                templatePDF = new TemplatePDF(holder.itemView.getContext());
+                templatePDF.openDocument();
+                templatePDF.addMetada("Clientes", "Ventas", "Liam");
+                templatePDF.addTitles("Lista de pasajero", "RiverTour", "2019");
+                templatePDF.addParagraph(shortText);
+                templatePDF.addParagraph(longText);
+                templatePDF.addCreateTable(header, rows);
+                templatePDF.closeDocument();
+                cursor.close();
+                mySqliteDB.close();
+
+                try {
+                    templatePDF.viewPDF();
+                } catch (Exception e) {
+                    e.printStackTrace();
+                    Log.e(TAG, "error : " + e.getMessage());
+                    Log.e(TAG, "error : " + e.getCause());
+
+                }
             }
         });
+
+
 
 
     }
@@ -168,6 +222,7 @@ public class ManifiestoAdapter extends RecyclerView.Adapter<ManifiestoAdapter.cu
 
         }
     }
+
 
 
 }
