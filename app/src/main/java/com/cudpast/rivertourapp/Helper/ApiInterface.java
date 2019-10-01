@@ -32,14 +32,13 @@ public interface ApiInterface {
     Call<List<Vehiculo>> getListVehiculo();
 
     // SAVE
-
     @GET("saveChoferRiver.php")
     Call<Chofer> insertChofer(
             @Query("nameChofer") String nameChofer,
             @Query("lastChofer") String lastChofer,
             @Query("dniChofer") String dniChofer,
-            @Query("brevete") String brevete,
-            @Query("numphone") String numphone);
+            @Query("breveteChofer") String breveteChofer,
+            @Query("numphoneChofer") String numphoneChofer);
 
     @GET("saveManifiestoRiver.php")
     Call<Manifiesto> insertManifiesto(
@@ -75,8 +74,7 @@ public interface ApiInterface {
             @Query("nombreVehiculo") String nombreVehiculo,
             @Query("marcaVehiculo") String marcaVehiculo,
             @Query("matriculaVehiculo") String matriculaVehiculo,
-            @Query("placaVehiculo") String placaVehiculo);
-
-
+            @Query("placaVehiculo") String placaVehiculo,
+            @Query("yearVehiculo") String yearVehiculo);
 
 }

@@ -70,10 +70,10 @@
                 android:text="Placa Vehiculo" />
 
             <TextView
-                android:id="@+id/brevete"
+                android:id="@+id/yearVehiculo"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="" />
+                android:text="Año Vehiculo" />
         </LinearLayout>
 
     </LinearLayout>

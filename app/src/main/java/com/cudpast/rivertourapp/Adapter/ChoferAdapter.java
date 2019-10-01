@@ -33,8 +33,8 @@ public class ChoferAdapter extends RecyclerView.Adapter<ChoferAdapter.CustomView
         holder.nameChofer.setText("Nombre : " + chofer.getNameChofer());
         holder.lastChofer.setText("Apellido : " + chofer.getLastChofer());
         holder.dniChofer.setText("DNI : " + chofer.getDniChofer());
-        holder.brevete.setText("Brevete : " + chofer.getBrevete());
-        holder.numphone.setText("Celular  : " + chofer.getNumphone());
+        holder.brevete.setText("Brevete : " + chofer.getBreveteChofer());
+        holder.numphone.setText("Celular  : " + chofer.getNumphoneChofer());
     }
 
     @Override

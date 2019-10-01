@@ -20,6 +20,10 @@ public class Vehiculo {
     @Expose
     @SerializedName("placaVehiculo")
     private String placaVehiculo;
+
+    @Expose
+    @SerializedName("yearVehiculo")
+    private String yearVehiculo;
     //Response from Server : fail Retrofit
     @Expose
     @SerializedName("success")
@@ -30,6 +34,14 @@ public class Vehiculo {
 
     public Vehiculo() {
 
+    }
+
+    public String getAñoVehiculo() {
+        return yearVehiculo;
+    }
+
+    public void setAñoVehiculo(String añoVehiculo) {
+        this.yearVehiculo = añoVehiculo;
     }
 
     public String getId() {

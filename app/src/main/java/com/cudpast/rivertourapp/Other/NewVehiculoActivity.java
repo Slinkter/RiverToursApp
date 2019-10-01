@@ -114,8 +114,10 @@ public class NewVehiculoActivity extends AppCompatActivity {
         String brevete = newPlacaVehiculo.getText().toString();
 
 
+
         apiInterface = ApiService.getApiRetrofitConexion().create(ApiInterface.class);
-        Call<Vehiculo> userInsert = apiInterface.insertVehiculo(firstname, lastname, dni, brevete);
+       // Call<Vehiculo> userInsert = apiInterface.insertVehiculo(firstname, lastname, dni, brevete);
+        Call<Vehiculo> userInsert = null;
         userInsert.enqueue(new Callback<Vehiculo>() {
             @Override
             public void onResponse(Call<Vehiculo> call, Response<Vehiculo> response) {

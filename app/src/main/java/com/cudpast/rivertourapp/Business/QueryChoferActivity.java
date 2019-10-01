@@ -79,14 +79,14 @@ public class QueryChoferActivity extends AppCompatActivity {
                         String nombreChofer = mListChofer.get(i).getNameChofer();
                         String lastChofer = mListChofer.get(i).getLastChofer();
                         String dniChofer = mListChofer.get(i).getDniChofer();
-                        String breveteChofer = mListChofer.get(i).getBrevete();
-                        String telefonochofer = mListChofer.get(i).getNumphone();
+                        String breveteChofer = mListChofer.get(i).getBreveteChofer();
+                        String telefonochofer = mListChofer.get(i).getNumphoneChofer();
                         //
                         updateListChofer(nombreChofer, lastChofer, dniChofer, breveteChofer, telefonochofer);
                         String cadena = "==== Chofer Nº " + i + " ====== " + "\n"
                                 + " nombrevehiculo : " + nombreChofer + "\n"
                                 + " marcaVehiculo : " + lastChofer + "\n"
-                                + " matriculaVehiculo : " + dniChofer + "\n"
+                                + " dniChofer : " + dniChofer + "\n"
                                 + " matriculaVehiculo : " + breveteChofer + "\n"
                                 + " placaVehiculo : " + telefonochofer + "\n"
                                 + "  " + "" + "\n";
@@ -139,8 +139,8 @@ public class QueryChoferActivity extends AppCompatActivity {
             chofer.setNameChofer(nombreChofer);
             chofer.setLastChofer(apellidoChofer);
             chofer.setDniChofer(dniChofer);
-            chofer.setBrevete(breveteChofer);
-            chofer.setNumphone(telefonoChofer);
+            chofer.setBreveteChofer(breveteChofer);
+            chofer.setNumphoneChofer(telefonoChofer);
             //
             mListOff.add(chofer);
 

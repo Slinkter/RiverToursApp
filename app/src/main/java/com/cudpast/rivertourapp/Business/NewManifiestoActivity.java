@@ -157,8 +157,8 @@ public class NewManifiestoActivity extends AppCompatActivity {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
                 if (position != 0) {
-                    tv_breveteChofer.setText(listChoferFromSqlite.get(position - 1).getBrevete());
-                    guiaChoferBrevete = listChoferFromSqlite.get(position - 1).getBrevete().toString();
+                    tv_breveteChofer.setText(listChoferFromSqlite.get(position - 1).getBreveteChofer());
+                    guiaChoferBrevete = listChoferFromSqlite.get(position - 1).getBreveteChofer().toString();
                     Log.e(TAG, "guia brevete : " + guiaChoferBrevete);
                 } else {
                     tv_breveteChofer.setText(" ");
@@ -355,8 +355,8 @@ public class NewManifiestoActivity extends AppCompatActivity {
             chofer.setNameChofer(cursor.getString(1));
             chofer.setLastChofer(cursor.getString(2));
             chofer.setDniChofer(cursor.getString(3));
-            chofer.setBrevete(cursor.getString(4));
-            chofer.setNumphone(cursor.getString(5));
+            chofer.setBreveteChofer(cursor.getString(4));
+            chofer.setNumphoneChofer(cursor.getString(5));
             listChoferFromSqlite.add(chofer);
         }
         printListChoferSpinner();

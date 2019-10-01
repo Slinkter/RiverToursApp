@@ -34,6 +34,7 @@ public class VehiculoAdapter extends RecyclerView.Adapter<VehiculoAdapter.Custom
         holder.marcaVehiculo.setText("Marca : " + vehiculo.getMarcaVehiculo());
         holder.matriculaVehiculo.setText("Matricula : " + vehiculo.getMatriculaVehiculo());
         holder.placaVehiculo.setText("Placa : " + vehiculo.getPlacaVehiculo());
+        holder.yearVehiculo.setText("Año : " + vehiculo.getAñoVehiculo());
     }
 
     @Override
@@ -43,7 +44,7 @@ public class VehiculoAdapter extends RecyclerView.Adapter<VehiculoAdapter.Custom
 
     //mini clase de tipo RecyclerView
     public class CustomViewHolderVehiculo extends RecyclerView.ViewHolder {
-        TextView nombreVehiculo, marcaVehiculo, matriculaVehiculo, placaVehiculo;
+        TextView nombreVehiculo, marcaVehiculo, matriculaVehiculo, placaVehiculo,yearVehiculo;
 
         public CustomViewHolderVehiculo(@NonNull View itemView) {
             super(itemView);
@@ -51,6 +52,7 @@ public class VehiculoAdapter extends RecyclerView.Adapter<VehiculoAdapter.Custom
             marcaVehiculo = itemView.findViewById(R.id.marcaVehiculo);
             matriculaVehiculo = itemView.findViewById(R.id.matriculaVehiculo);
             placaVehiculo = itemView.findViewById(R.id.placaVehiculo);
+            yearVehiculo =  itemView.findViewById(R.id.yearVehiculo);
 
         }
     }
