@@ -8,19 +8,17 @@
     android:orientation="vertical"
     tools:context=".MainActivity">
 
-
     <android.support.v7.widget.CardView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_margin="15dp"
         android:clickable="true"
         app:cardBackgroundColor="@color/color_celeste"
-        app:cardCornerRadius="15dp"
+        app:cardCornerRadius="25dp"
         app:cardElevation="3dp"
         app:cardUseCompatPadding="true">
 
         <LinearLayout
-
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:gravity="center"
@@ -43,15 +41,13 @@
 
             </LinearLayout>
 
-
             <LinearLayout
-
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_margin="0dp"
                 android:clipToPadding="false"
                 android:gravity="center"
-                android:onClick="newManifiesto"
+                android:onClick="btnNewManifiesto"
                 android:orientation="horizontal">
 
                 <android.support.v7.widget.CardView
@@ -74,7 +70,7 @@
                             android:layout_height="94dp"
                             android:background="@drawable/ic_manifiesto"
                             android:baselineAligned="false"
-                            android:onClick="newManifiesto" />
+                            android:onClick="btnNewManifiesto" />
 
                         <TextView
                             android:layout_width="match_parent"
@@ -98,7 +94,7 @@
                     android:layout_margin="15dp"
                     android:background="@color/green"
                     android:foreground="?android:attr/selectableItemBackground"
-                    android:onClick="reviewManifiesto"
+                    android:onClick="btnReviewManifiesto"
                     app:cardCornerRadius="25dp"
                     app:cardElevation="5dp"
                     app:cardUseCompatPadding="true">
@@ -114,7 +110,7 @@
                             android:layout_height="94dp"
                             android:background="@drawable/ic_view_manifiesto"
                             android:baselineAligned="false"
-                            android:onClick="reviewManifiesto" />
+                            android:onClick="btnReviewManifiesto" />
 
                         <TextView
                             android:layout_width="match_parent"
@@ -145,9 +141,8 @@
                     android:layout_margin="15dp"
                     android:background="@color/green"
                     android:foreground="?android:attr/selectableItemBackground"
-                    android:onClick="reviewChofer"
+                    android:onClick="btnGetChofer"
                     app:cardCornerRadius="25dp"
-
                     app:cardElevation="5dp"
                     app:cardUseCompatPadding="true">
 
@@ -162,7 +157,7 @@
                             android:layout_height="94dp"
                             android:background="@drawable/ic_driver"
                             android:baselineAligned="false"
-                            android:onClick="reviewChofer" />
+                            android:onClick="btnGetChofer" />
 
                         <TextView
                             android:layout_width="match_parent"
@@ -179,19 +174,17 @@
                 </android.support.v7.widget.CardView>
 
                 <android.support.v7.widget.CardView
-
                     android:layout_width="210dp"
                     android:layout_height="260dp"
                     android:layout_margin="15dp"
                     android:background="@color/green"
                     android:foreground="?android:attr/selectableItemBackground"
-                    android:onClick="reviewVehiculo"
+                    android:onClick="btnGetVehiculo"
                     app:cardCornerRadius="25dp"
                     app:cardElevation="5dp"
                     app:cardUseCompatPadding="true">
 
                     <LinearLayout
-
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:gravity="center"
@@ -202,7 +195,7 @@
                             android:layout_height="94dp"
                             android:background="@drawable/ic_bus"
                             android:baselineAligned="false"
-                            android:onClick="reviewVehiculo" />
+                            android:onClick="btnGetVehiculo" />
 
                         <TextView
                             android:layout_width="match_parent"
@@ -219,9 +212,5 @@
                 </android.support.v7.widget.CardView>
             </LinearLayout>
         </LinearLayout>
-
-
     </android.support.v7.widget.CardView>
-
-
 </LinearLayout>

@@ -40,53 +40,38 @@ public class MainActivity extends AppCompatActivity {
         progressDialog.setMessage("Cargando datos...");
     }
 
-    @Override
-    protected void onStart() {
-        super.onStart();
-        registerReceiver(broadcastReceiver, new IntentFilter(Utils.UI_UPDATE_BROADCAST));
-    }
+    // Botones
 
-    @Override
-    protected void onPause() {
-        super.onPause();
-        unregisterReceiver(broadcastReceiver);
-    }
-
-
-    public void newManifiesto(View view) {
+    public void btnNewManifiesto(View view) {
         progressDialog.show();
         Intent intent = new Intent(MainActivity.this, NewManifiestoActivity.class);
         startActivity(intent);
-        finish();
         progressDialog.dismiss();
     }
 
 
-    public void reviewManifiesto(View view) {
+    public void btnReviewManifiesto(View view) {
         progressDialog.show();
         Intent intent = new Intent(MainActivity.this, QueryManifiestoActivity.class);
         startActivity(intent);
-        finish();
         progressDialog.dismiss();
     }
 
-    public void reviewChofer(View view) {
+    public void btnGetChofer(View view) {
         progressDialog.show();
         Intent intent = new Intent(MainActivity.this, QueryChoferActivity.class);
         startActivity(intent);
-        finish();
         progressDialog.dismiss();
     }
 
-    public void reviewVehiculo(View view) {
+    public void btnGetVehiculo(View view) {
         progressDialog.show();
         Intent intent = new Intent(MainActivity.this, QueryVehiculoActivity.class);
         startActivity(intent);
-        finish();
         progressDialog.dismiss();
     }
 
-
+    // Otros
     public void newChofer(View view) {
         Intent intent = new Intent(MainActivity.this, NewChoferActivity.class);
         startActivity(intent);
@@ -107,6 +92,18 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void loadInfoUser() {
+    }
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+        registerReceiver(broadcastReceiver, new IntentFilter(Utils.UI_UPDATE_BROADCAST));
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        unregisterReceiver(broadcastReceiver);
     }
 
 

@@ -32,12 +32,13 @@ import retrofit2.Response;
 public class QueryChoferActivity extends AppCompatActivity {
 
     public static final String TAG = QueryChoferActivity.class.getSimpleName();
+    //
     private ProgressDialog pDialog;
     private RecyclerView recyclerView;
     private ChoferAdapter cAdapter;
     private ApiInterface apiInterface;
     private List<Chofer> mListOff;
-    Call<List<Chofer>> getListChofer;
+    private Call<List<Chofer>> getListChofer;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -46,7 +47,6 @@ public class QueryChoferActivity extends AppCompatActivity {
         setContentView(R.layout.activity_consul_chofer);
         init();
     }
-
 
     private void init() {
         //.
